@@ -1,0 +1,1470 @@
+<channel>
+  <id>12e817c2-7cf4-418c-80ba-f53c613d321c</id>
+  <name>HL7XMLGenericFileSource</name>
+  <description></description>
+  <enabled>false</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1323983400000</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>8</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">File Reader</property>
+      <property name="FTPAnonymous">1</property>
+      <property name="autoDelete">0</property>
+      <property name="binary">0</property>
+      <property name="charsetEncoding">DEFAULT_ENCODING</property>
+      <property name="checkFileAge">1</property>
+      <property name="fileAge">1000</property>
+      <property name="fileFilter">*</property>
+      <property name="host">${hl7xml_generic_file_src_dir}</property>
+      <property name="moveToDirectory">${hl7xml_generic_file_src_processed_dir}</property>
+      <property name="moveToErrorDirectory">${hl7xml_generic_file_src_error_dir}</property>
+      <property name="moveToPattern"></property>
+      <property name="passive">1</property>
+      <property name="password">anonymous</property>
+      <property name="pollingFrequency">1000</property>
+      <property name="pollingType">interval</property>
+      <property name="processBatchFiles">0</property>
+      <property name="regex">0</property>
+      <property name="scheme">file</property>
+      <property name="secure">1</property>
+      <property name="sortAttribute">date</property>
+      <property name="timeout">10000</property>
+      <property name="username">anonymous</property>
+      <property name="validateConnections">1</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>1_facility_identifier</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][0][&apos;OBX.15&apos;][&apos;CE.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;1_facility_identifier&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>1_facility_identifier</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][0][&apos;OBX.15&apos;][&apos;CE.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>1</sequenceNumber>
+          <name>2_facility_name</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][1][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;2_facility_name&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>2_facility_name</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][1][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>2</sequenceNumber>
+          <name>3_facility_number_and_street</name>
+          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 2);
+
+channelMap.put(&apos;3_facility_number_and_street&apos;, data);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 2);
+
+channelMap.put(&apos;3_facility_number_and_street&apos;, data);</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>3</sequenceNumber>
+          <name>4_facility_city</name>
+          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 6);
+
+channelMap.put(&apos;4_facility_city&apos;, data);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 6);
+
+channelMap.put(&apos;4_facility_city&apos;, data);</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>4</sequenceNumber>
+          <name>5_facility_state</name>
+          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 7);
+
+channelMap.put(&apos;6_facility_state&apos;, data);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 7);
+
+channelMap.put(&apos;6_facility_state&apos;, data);</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>5</sequenceNumber>
+          <name>5_facility_county</name>
+          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 12);
+
+channelMap.put(&apos;5_facility_county&apos;, data);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 12);
+
+channelMap.put(&apos;5_facility_county&apos;, data);</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>6</sequenceNumber>
+          <name>7_facility_visit_type</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][3][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;7_facility_visit_type&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>7_facility_visit_type</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][3][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>7</sequenceNumber>
+          <name>8_report_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;TS.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;8_report_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>8_report_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;TS.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>8</sequenceNumber>
+          <name>9_unique_paitent_id</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;CX.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;9_unique_paitent_id&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>9_unique_paitent_id</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;CX.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>9</sequenceNumber>
+          <name>10_medical_record_number</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.3&apos;][&apos;CX.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;10_medical_record_number&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>10_medical_record_number</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.3&apos;][&apos;CX.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>10</sequenceNumber>
+          <name>11_age</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][4][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;11_age&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>11_age</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][4][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>11</sequenceNumber>
+          <name>12_age_units</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][4][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;12_age_units&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>12_age_units</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][4][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>12</sequenceNumber>
+          <name>13_gender</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.8&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;13_gender&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>13_gender</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.8&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>13</sequenceNumber>
+          <name>14_paitent_city</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.3&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;14_paitent_city&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>14_paitent_city</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.3&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>14</sequenceNumber>
+          <name>15_paitent_zip_code</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;15_paitent_zip_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>15_paitent_zip_code</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>15</sequenceNumber>
+          <name>16_paitent_state</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.4&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;16_paitent_state&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>16_paitent_state</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.4&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>16</sequenceNumber>
+          <name>17_paitent_country</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.6&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;17_paitent_country&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>17_paitent_country</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.6&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>17</sequenceNumber>
+          <name>18_paitent_race</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;CE.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;18_paitent_race&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>18_paitent_race</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;CE.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>18</sequenceNumber>
+          <name>19_paitent_ethnicity</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;CE.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;19_paitent_ethnicity&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>19_paitent_ethnicity</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;CE.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>19</sequenceNumber>
+          <name>20_paitent_county</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.9&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;20_paitent_county&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>20_paitent_county</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;XAD.9&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>20</sequenceNumber>
+          <name>21_visit_id</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;CX.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;21_visit_id&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>21_visit_id</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;CX.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>21</sequenceNumber>
+          <name>22_visit_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;TS.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;22_visit_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>22_visit_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;TS.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>22</sequenceNumber>
+          <name>23_date_of_onset</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][5][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;23_date_of_onset&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>23_date_of_onset</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][5][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>23</sequenceNumber>
+          <name>24_paitent_class</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;24_paitent_class&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>24_paitent_class</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>24</sequenceNumber>
+          <name>25_chief_complaint</name>
+          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][6][&apos;OBX.5&apos;].toString(), 9);
+
+channelMap.put(&apos;25_chief_complaint&apos;, data);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+
+var data = fieldParser.parse(msg[&apos;OBX&apos;][6][&apos;OBX.5&apos;].toString(), 9);
+
+channelMap.put(&apos;25_chief_complaint&apos;, data);</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>25</sequenceNumber>
+          <name>26_triage_notes</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][7][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;26_triage_notes&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>26_triage_notes</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][7][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>26</sequenceNumber>
+          <name>27_diagnosis_injury_code</name>
+          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;CE.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;27_diagnosis_injury_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>27_diagnosis_injury_code</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;CE.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>27</sequenceNumber>
+          <name>28_clinical_impression</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][8][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;28_clinical_impression&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>28_clinical_impression</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][8][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>28</sequenceNumber>
+          <name>29_diagnosis_type</name>
+          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.6&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;29_diagnosis_type&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>29_diagnosis_type</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.6&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>29</sequenceNumber>
+          <name>30_discharge_disposition</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.36&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;30_discharge_disposition&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>30_discharge_disposition</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>30</sequenceNumber>
+          <name>31_disposition_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;TS.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;31_disposition_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>31_disposition_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;TS.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>31</sequenceNumber>
+          <name>23_initial_temperature</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][9][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;23_initial_temperature&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>23_initial_temperature</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][9][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>32</sequenceNumber>
+          <name>33_pulse_oximetry</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][10][&apos;OBX.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;33_pulse_oximetry&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>33_pulse_oximetry</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][10][&apos;OBX.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>33</sequenceNumber>
+          <name>xx_temperature_units</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][9][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;xx_temperature_units&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>xx_temperature_units</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][9][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>34</sequenceNumber>
+          <name>xx_pulse_oximetry_units</name>
+          <script>var mapping;try { mapping = msg[&apos;OBX&apos;][10][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;xx_pulse_oximetry_units&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>xx_pulse_oximetry_units</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;OBX&apos;][10][&apos;OBX.6&apos;][&apos;CE.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPEFEVF9BMDE+CiAgPE1TSD4K
+ICAgIDxNU0guMT58PC9NU0guMT4KICAgIDxNU0guMj5eflwmYW1wOzwvTVNILjI+CiAgICA8TVNI
+Ljc+CiAgICAgIDxUUy4xPjIwMTExMjEzMTMxMjI1PC9UUy4xPgogICAgPC9NU0guNz4KICAgIDxN
+U0guOT4KICAgICAgPE1TRy4xPkFEVDwvTVNHLjE+CiAgICAgIDxNU0cuMj5BMDE8L01TRy4yPgog
+ICAgPC9NU0guOT4KICAgIDxNU0guMTA+TVNHMDAwMDE8L01TSC4xMD4KICAgIDxNU0guMTE+CiAg
+ICAgIDxQVC4xPlA8L1BULjE+CiAgICA8L01TSC4xMT4KICAgIDxNU0guMTI+CiAgICAgIDxWSUQu
+MT4yLjMuMTwvVklELjE+CiAgICA8L01TSC4xMj4KICAgIDxNU0guMTg+VVRGLTg8L01TSC4xOD4K
+ICA8L01TSD4KICA8RVZOPgogICAgPEVWTi4yPgogICAgICA8VFMuMT44X3JlcG9ydF9kYXRlX3Rp
+bWU8L1RTLjE+CiAgICA8L0VWTi4yPgogIDwvRVZOPgogIDxQSUQ+CiAgICA8UElELjE+MTwvUElE
+LjE+CiAgICA8UElELjI+CiAgICAgIDxDWC4xPjlfdW5pcXVlX3BhdGllbnRfaWQ8L0NYLjE+CiAg
+ICAgIDxDWC41PlBJPC9DWC41PgogICAgPC9QSUQuMj4KICAgIDxQSUQuMz4KICAgICAgPENYLjE+
+MTBfbWVkaWNhbF9yZWNvcmRfbnVtYmVyPC9DWC4xPgogICAgPC9QSUQuMz4KICAgIDxQSUQuNT4K
+ICAgICAgPFhQTi4xPgogICAgICAgIDxGTi4xPnBhaXRlbnRfbmFtZTwvRk4uMT4KICAgICAgPC9Y
+UE4uMT4KICAgIDwvUElELjU+CiAgICA8UElELjg+MTNfZ2VuZGVyPC9QSUQuOD4KICAgIDxQSUQu
+MTA+CiAgICAgIDxDRS4xPjE4X3BhaXRlbnRfcmFjZTwvQ0UuMT4KICAgIDwvUElELjEwPgogICAg
+PFBJRC4xMT4KICAgICAgPFhBRC4zPjE0X3BhaXRlbnRfY2l0eTwvWEFELjM+CiAgICAgIDxYQUQu
+ND4xNl9wYXRpZW50X3N0YXRlPC9YQUQuND4KICAgICAgPFhBRC41PjE1X3BhaXRlbnRfemlwX2Nv
+ZGU8L1hBRC41PgogICAgICA8WEFELjY+MTdfcGFpdGVudF9jb3VudHJ5PC9YQUQuNj4KICAgICAg
+PFhBRC45PjIwX3BhaXRlbnRfY291bnR5PC9YQUQuOT4KICAgIDwvUElELjExPgogICAgPFBJRC4y
+Mj4KICAgICAgPENFLjE+MTlfcGFpdGVudF9ldGhuaWNpdHk8L0NFLjE+CiAgICA8L1BJRC4yMj4K
+ICA8L1BJRD4KICA8UFYxPgogICAgPFBWMS4yPjI0X3BhaXRlbnRfY2xhc3M8L1BWMS4yPgogICAg
+PFBWMS4xOT4KICAgICAgPENYLjE+MjFfdmlzaXRfaWQ8L0NYLjE+CiAgICA8L1BWMS4xOT4KICAg
+IDxQVjEuMzY+MzBfZGlzY2hhcmdlX2Rpc3Bvc2l0aW9uPC9QVjEuMzY+CiAgICA8UFYxLjQ0Pgog
+ICAgICA8VFMuMT4yMl92aXNpdF9kYXRlX3RpbWU8L1RTLjE+CiAgICA8L1BWMS40ND4KICAgIDxQ
+VjEuNDU+CiAgICAgIDxUUy4xPjMxX2Rpc3Bvc2l0aW9uX2RhdGVfdGltZTwvVFMuMT4KICAgIDwv
+UFYxLjQ1PgogIDwvUFYxPgogIDxPQlg+CiAgICA8T0JYLjE+MTwvT0JYLjE+CiAgICA8T0JYLjI+
+QUQ8L09CWC4yPgogICAgPE9CWC4zPgogICAgICA8Q0UuMT5TUzAwMTwvQ0UuMT4KICAgICAgPENF
+LjI+VHJlYXRpbmcgRmFjaWxpdHkgSWRlbnRpZmllcjwvQ0UuMj4KICAgICAgPENFLjM+UEhJTlFV
+RVNUSU9OPC9DRS4zPgogICAgPC9PQlguMz4KICAgIDxPQlguMTE+QzwvT0JYLjExPgogICAgPE9C
+WC4xNT4KICAgICAgPENFLjE+MV9mYWNpbGl0eV9pZGVudGlmaWVyPC9DRS4xPgogICAgPC9PQlgu
+MTU+CiAgPC9PQlg+CiAgPE9CWD4KICAgIDxPQlguMT4yPC9PQlguMT4KICAgIDxPQlguMj5IRDwv
+T0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPlNTMDAxPC9DRS4xPgogICAgICA8Q0UuMj5U
+cmVhdGluZyBGYWNpbGl0eSBJZGVudGlmaWVyPC9DRS4yPgogICAgICA8Q0UuMz5QSElOUVVFU1RJ
+T048L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjJfZmFjaWxpdHlfbmFtZTwvT0JYLjU+
+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjM8L09C
+WC4xPgogICAgPE9CWC4yPlhBRDwvT0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPlNTMDAy
+PC9DRS4xPgogICAgICA8Q0UuMj5UcmVhdGluZyBGYWNpbGl0eSBMb2NhdGlvbjwvQ0UuMj4KICAg
+IDwvT0JYLjM+CiAgICA8T0JYLjU+XjNfZmFjaWxpdHlfbnVtYmVyX2FuZF9zdHJlZXReXl5eNF9m
+YWNpbGl0eV9jaXR5XjZfZmFjaWxpdHlfc3RhdGVeMzAzNDFeVVNBXkNeXjVfZmFjaWxpdHlfY291
+bnR5PC9PQlguNT4KICAgIDxPQlguMTE+WDwvT0JYLjExPgogIDwvT0JYPgogIDxPQlg+CiAgICA8
+T0JYLjE+NDwvT0JYLjE+CiAgICA8T0JYLjI+Q1dFPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAg
+PENFLjE+U1MwMDM8L0NFLjE+CiAgICAgIDxDRS4yPkZhY2lsaXR5L1Zpc2l0IFR5cGU8L0NFLjI+
+CiAgICAgIDxDRS4zPlBISU5RVUVTVElPTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JYLjU+
+N19mYWNpbGl0eV92aXNpdF90eXBlPC9PQlguNT4KICAgIDxPQlguMTI+CiAgICAgIDxUUy4xPlg8
+L1RTLjE+CiAgICA8L09CWC4xMj4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjU8L09CWC4x
+PgogICAgPE9CWC4yPk5NPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENFLjE+MjE2MTItNzwv
+Q0UuMT4KICAgICAgPENFLjI+QUdFIFRJTUUgUEFJVEVOVCBSRVBPUlRFRDwvQ0UuMj4KICAgICAg
+PENFLjM+TE48L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjExX2FnZTwvT0JYLjU+CiAg
+ICA8T0JYLjY+CiAgICAgIDxDRS4xPmE8L0NFLjE+CiAgICAgIDxDRS4yPjEyX2FnZV91bml0czwv
+Q0UuMj4KICAgICAgPENFLjM+VUNVTTwvQ0UuMz4KICAgIDwvT0JYLjY+CiAgICA8T0JYLjExPlg8
+L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjY8L09CWC4xPgogICAgPE9CWC4y
+PlRTPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENFLjE+MTEzNjgtODwvQ0UuMT4KICAgICAg
+PENFLjI+SUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQUlU
+RU5UOlFOPC9DRS4yPgogICAgICA8Q0UuMz5MTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JY
+LjU+MjNfZGF0ZV9vZl9vbnNldDwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09C
+WD4KICA8T0JYPgogICAgPE9CWC4xPjc8L09CWC4xPgogICAgPE9CWC4yPkNXRTwvT0JYLjI+CiAg
+ICA8T0JYLjM+CiAgICAgIDxDRS4xPjg2NjEtMTwvQ0UuMT4KICAgICAgPENFLjI+Q0hJRUYgQ09N
+UExBSU5UOkZJTkQ6UFQ6UEFJVEVOVDpOT006UkVQT1JURUQ8L0NFLjI+CiAgICAgIDxDRS4zPkxO
+PC9DRS4zPgogICAgPC9PQlguMz4KICAgIDxPQlguNT5eXl5eXl5eXjI1X2NoaWVmX2NvbXBsYWlu
+dDwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9C
+WC4xPjg8L09CWC4xPgogICAgPE9CWC4yPlRYPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENF
+LjE+NTQwOTQtODwvQ0UuMT4KICAgICAgPENFLjI+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VO
+Q1kgREVQQVJUTUVOVDpET0M8L0NFLjI+CiAgICAgIDxDRS4zPkxOPC9DRS4zPgogICAgPC9PQlgu
+Mz4KICAgIDxPQlguNT4yNl90cmlhZ2Vfbm90ZXM8L09CWC41PgogICAgPE9CWC4xMT5YPC9PQlgu
+MTE+CiAgPC9PQlg+CiAgPE9CWD4KICAgIDxPQlguMT45PC9PQlguMT4KICAgIDxPQlguMj5UWDwv
+T0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPjQ0ODMzLTI8L0NFLjE+CiAgICAgIDxDRS4y
+PkRJQUdOT1NJUzpQUkVMSU1JTkFSWTpJTVA6UFQ6UEFJVEVOVDpOT006PC9DRS4yPgogICAgICA8
+Q0UuMz5MTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JYLjU+MjhfY2xpbmljYWxfaW1wcmVz
+c2lvbjwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAg
+PE9CWC4xPjEwPC9PQlguMT4KICAgIDxPQlguMj5OTTwvT0JYLjI+CiAgICA8T0JYLjM+CiAgICAg
+IDxDRS4xPjExMjg5LTY8L0NFLjE+CiAgICAgIDxDRS4yPkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpF
+TkNUUkZJUlNUOlBBSVRFTlQ6UU48L0NFLjI+CiAgICAgIDxDRS4zPkxOPC9DRS4zPgogICAgPC9P
+QlguMz4KICAgIDxPQlguNT4zMl9pbml0aWFsX3RlbXBlcmF0dXJlPC9PQlguNT4KICAgIDxPQlgu
+Nj4KICAgICAgPENFLjI+eHhfdGVtcGVyYXR1cmVfdW5pdHM8L0NFLjI+CiAgICAgIDxDRS4zPlVD
+VU08L0NFLjM+CiAgICA8L09CWC42PgogICAgPE9CWC4xMT5YPC9PQlguMTE+CiAgPC9PQlg+CiAg
+PE9CWD4KICAgIDxPQlguMT4xMTwvT0JYLjE+CiAgICA8T0JYLjI+Tk08L09CWC4yPgogICAgPE9C
+WC4zPgogICAgICA8Q0UuMT41OTQwOC01PC9DRS4xPgogICAgICA8Q0UuMj5PWFlHRU4gU0FUVVJB
+VElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRSBPWElNRVRSWTwvQ0UuMj4KICAgICAgPENFLjM+TE48
+L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjMzX3B1bHNlX294aW1ldHJ5PC9PQlguNT4K
+ICAgIDxPQlguNj4KICAgICAgPENFLjI+eHhfcHVsc2Vfb3hpbWV0cnlfdW5pdHM8L0NFLjI+CiAg
+ICA8L09CWC42PgogICAgPE9CWC4xMT5YPC9PQlguMTE+CiAgPC9PQlg+CiAgPERHMT4KICAgIDxE
+RzEuMT4xPC9ERzEuMT4KICAgIDxERzEuMz4KICAgICAgPENFLjI+MjdfZGlhZ25vaXNpc19pbmp1
+cnlfY29kZTwvQ0UuMj4KICAgIDwvREcxLjM+CiAgICA8REcxLjY+MjlfZGlhZ25vc2lzX3R5cGU8
+L0RHMS42PgogIDwvREcxPgo8L0FEVF9BMDE+Cg==</inboundTemplate>
+      <outboundTemplate encoding="base64">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPEFEVF9BMDE+CiAgPE1TSD4K
+ICAgIDxNU0guMT58PC9NU0guMT4KICAgIDxNU0guMj5eflwmYW1wOzwvTVNILjI+CiAgICA8TVNI
+Ljc+CiAgICAgIDxUUy4xPjIwMTExMjEzMTMxMjI1PC9UUy4xPgogICAgPC9NU0guNz4KICAgIDxN
+U0guOT4KICAgICAgPE1TRy4xPkFEVDwvTVNHLjE+CiAgICAgIDxNU0cuMj5BMDE8L01TRy4yPgog
+ICAgPC9NU0guOT4KICAgIDxNU0guMTA+TVNHMDAwMDE8L01TSC4xMD4KICAgIDxNU0guMTE+CiAg
+ICAgIDxQVC4xPlA8L1BULjE+CiAgICA8L01TSC4xMT4KICAgIDxNU0guMTI+CiAgICAgIDxWSUQu
+MT4yLjMuMTwvVklELjE+CiAgICA8L01TSC4xMj4KICAgIDxNU0guMTg+VVRGLTg8L01TSC4xOD4K
+ICA8L01TSD4KICA8RVZOPgogICAgPEVWTi4yPgogICAgICA8VFMuMT44X3JlcG9ydF9kYXRlX3Rp
+bWU8L1RTLjE+CiAgICA8L0VWTi4yPgogIDwvRVZOPgogIDxQSUQ+CiAgICA8UElELjE+MTwvUElE
+LjE+CiAgICA8UElELjI+CiAgICAgIDxDWC4xPjlfdW5pcXVlX3BhdGllbnRfaWQ8L0NYLjE+CiAg
+ICAgIDxDWC41PlBJPC9DWC41PgogICAgPC9QSUQuMj4KICAgIDxQSUQuMz4KICAgICAgPENYLjE+
+MTBfbWVkaWNhbF9yZWNvcmRfbnVtYmVyPC9DWC4xPgogICAgPC9QSUQuMz4KICAgIDxQSUQuNT4K
+ICAgICAgPFhQTi4xPgogICAgICAgIDxGTi4xPnBhaXRlbnRfbmFtZTwvRk4uMT4KICAgICAgPC9Y
+UE4uMT4KICAgIDwvUElELjU+CiAgICA8UElELjg+MTNfZ2VuZGVyPC9QSUQuOD4KICAgIDxQSUQu
+MTA+CiAgICAgIDxDRS4xPjE4X3BhaXRlbnRfcmFjZTwvQ0UuMT4KICAgIDwvUElELjEwPgogICAg
+PFBJRC4xMT4KICAgICAgPFhBRC4zPjE0X3BhaXRlbnRfY2l0eTwvWEFELjM+CiAgICAgIDxYQUQu
+ND4xNl9wYXRpZW50X3N0YXRlPC9YQUQuND4KICAgICAgPFhBRC41PjE1X3BhaXRlbnRfemlwX2Nv
+ZGU8L1hBRC41PgogICAgICA8WEFELjY+MTdfcGFpdGVudF9jb3VudHJ5PC9YQUQuNj4KICAgICAg
+PFhBRC45PjIwX3BhaXRlbnRfY291bnR5PC9YQUQuOT4KICAgIDwvUElELjExPgogICAgPFBJRC4y
+Mj4KICAgICAgPENFLjE+MTlfcGFpdGVudF9ldGhuaWNpdHk8L0NFLjE+CiAgICA8L1BJRC4yMj4K
+ICA8L1BJRD4KICA8UFYxPgogICAgPFBWMS4yPjI0X3BhaXRlbnRfY2xhc3M8L1BWMS4yPgogICAg
+PFBWMS4xOT4KICAgICAgPENYLjE+MjFfdmlzaXRfaWQ8L0NYLjE+CiAgICA8L1BWMS4xOT4KICAg
+IDxQVjEuMzY+MzBfZGlzY2hhcmdlX2Rpc3Bvc2l0aW9uPC9QVjEuMzY+CiAgICA8UFYxLjQ0Pgog
+ICAgICA8VFMuMT4yMl92aXNpdF9kYXRlX3RpbWU8L1RTLjE+CiAgICA8L1BWMS40ND4KICAgIDxQ
+VjEuNDU+CiAgICAgIDxUUy4xPjMxX2Rpc3Bvc2l0aW9uX2RhdGVfdGltZTwvVFMuMT4KICAgIDwv
+UFYxLjQ1PgogIDwvUFYxPgogIDxPQlg+CiAgICA8T0JYLjE+MTwvT0JYLjE+CiAgICA8T0JYLjI+
+QUQ8L09CWC4yPgogICAgPE9CWC4zPgogICAgICA8Q0UuMT5TUzAwMTwvQ0UuMT4KICAgICAgPENF
+LjI+VHJlYXRpbmcgRmFjaWxpdHkgSWRlbnRpZmllcjwvQ0UuMj4KICAgICAgPENFLjM+UEhJTlFV
+RVNUSU9OPC9DRS4zPgogICAgPC9PQlguMz4KICAgIDxPQlguMTE+QzwvT0JYLjExPgogICAgPE9C
+WC4xNT4KICAgICAgPENFLjE+MV9mYWNpbGl0eV9pZGVudGlmaWVyPC9DRS4xPgogICAgPC9PQlgu
+MTU+CiAgPC9PQlg+CiAgPE9CWD4KICAgIDxPQlguMT4yPC9PQlguMT4KICAgIDxPQlguMj5IRDwv
+T0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPlNTMDAxPC9DRS4xPgogICAgICA8Q0UuMj5U
+cmVhdGluZyBGYWNpbGl0eSBJZGVudGlmaWVyPC9DRS4yPgogICAgICA8Q0UuMz5QSElOUVVFU1RJ
+T048L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjJfZmFjaWxpdHlfbmFtZTwvT0JYLjU+
+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjM8L09C
+WC4xPgogICAgPE9CWC4yPlhBRDwvT0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPlNTMDAy
+PC9DRS4xPgogICAgICA8Q0UuMj5UcmVhdGluZyBGYWNpbGl0eSBMb2NhdGlvbjwvQ0UuMj4KICAg
+IDwvT0JYLjM+CiAgICA8T0JYLjU+XjNfZmFjaWxpdHlfbnVtYmVyX2FuZF9zdHJlZXReXl5eNF9m
+YWNpbGl0eV9jaXR5XjZfZmFjaWxpdHlfc3RhdGVeMzAzNDFeVVNBXkNeXjVfZmFjaWxpdHlfY291
+bnR5PC9PQlguNT4KICAgIDxPQlguMTE+WDwvT0JYLjExPgogIDwvT0JYPgogIDxPQlg+CiAgICA8
+T0JYLjE+NDwvT0JYLjE+CiAgICA8T0JYLjI+Q1dFPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAg
+PENFLjE+U1MwMDM8L0NFLjE+CiAgICAgIDxDRS4yPkZhY2lsaXR5L1Zpc2l0IFR5cGU8L0NFLjI+
+CiAgICAgIDxDRS4zPlBISU5RVUVTVElPTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JYLjU+
+N19mYWNpbGl0eV92aXNpdF90eXBlPC9PQlguNT4KICAgIDxPQlguMTI+CiAgICAgIDxUUy4xPlg8
+L1RTLjE+CiAgICA8L09CWC4xMj4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjU8L09CWC4x
+PgogICAgPE9CWC4yPk5NPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENFLjE+MjE2MTItNzwv
+Q0UuMT4KICAgICAgPENFLjI+QUdFIFRJTUUgUEFJVEVOVCBSRVBPUlRFRDwvQ0UuMj4KICAgICAg
+PENFLjM+TE48L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjExX2FnZTwvT0JYLjU+CiAg
+ICA8T0JYLjY+CiAgICAgIDxDRS4xPmE8L0NFLjE+CiAgICAgIDxDRS4yPjEyX2FnZV91bml0czwv
+Q0UuMj4KICAgICAgPENFLjM+VUNVTTwvQ0UuMz4KICAgIDwvT0JYLjY+CiAgICA8T0JYLjExPlg8
+L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9CWC4xPjY8L09CWC4xPgogICAgPE9CWC4y
+PlRTPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENFLjE+MTEzNjgtODwvQ0UuMT4KICAgICAg
+PENFLjI+SUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQUlU
+RU5UOlFOPC9DRS4yPgogICAgICA8Q0UuMz5MTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JY
+LjU+MjNfZGF0ZV9vZl9vbnNldDwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09C
+WD4KICA8T0JYPgogICAgPE9CWC4xPjc8L09CWC4xPgogICAgPE9CWC4yPkNXRTwvT0JYLjI+CiAg
+ICA8T0JYLjM+CiAgICAgIDxDRS4xPjg2NjEtMTwvQ0UuMT4KICAgICAgPENFLjI+Q0hJRUYgQ09N
+UExBSU5UOkZJTkQ6UFQ6UEFJVEVOVDpOT006UkVQT1JURUQ8L0NFLjI+CiAgICAgIDxDRS4zPkxO
+PC9DRS4zPgogICAgPC9PQlguMz4KICAgIDxPQlguNT5eXl5eXl5eXjI1X2NoaWVmX2NvbXBsYWlu
+dDwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAgPE9C
+WC4xPjg8L09CWC4xPgogICAgPE9CWC4yPlRYPC9PQlguMj4KICAgIDxPQlguMz4KICAgICAgPENF
+LjE+NTQwOTQtODwvQ0UuMT4KICAgICAgPENFLjI+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VO
+Q1kgREVQQVJUTUVOVDpET0M8L0NFLjI+CiAgICAgIDxDRS4zPkxOPC9DRS4zPgogICAgPC9PQlgu
+Mz4KICAgIDxPQlguNT4yNl90cmlhZ2Vfbm90ZXM8L09CWC41PgogICAgPE9CWC4xMT5YPC9PQlgu
+MTE+CiAgPC9PQlg+CiAgPE9CWD4KICAgIDxPQlguMT45PC9PQlguMT4KICAgIDxPQlguMj5UWDwv
+T0JYLjI+CiAgICA8T0JYLjM+CiAgICAgIDxDRS4xPjQ0ODMzLTI8L0NFLjE+CiAgICAgIDxDRS4y
+PkRJQUdOT1NJUzpQUkVMSU1JTkFSWTpJTVA6UFQ6UEFJVEVOVDpOT006PC9DRS4yPgogICAgICA8
+Q0UuMz5MTjwvQ0UuMz4KICAgIDwvT0JYLjM+CiAgICA8T0JYLjU+MjhfY2xpbmljYWxfaW1wcmVz
+c2lvbjwvT0JYLjU+CiAgICA8T0JYLjExPlg8L09CWC4xMT4KICA8L09CWD4KICA8T0JYPgogICAg
+PE9CWC4xPjEwPC9PQlguMT4KICAgIDxPQlguMj5OTTwvT0JYLjI+CiAgICA8T0JYLjM+CiAgICAg
+IDxDRS4xPjExMjg5LTY8L0NFLjE+CiAgICAgIDxDRS4yPkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpF
+TkNUUkZJUlNUOlBBSVRFTlQ6UU48L0NFLjI+CiAgICAgIDxDRS4zPkxOPC9DRS4zPgogICAgPC9P
+QlguMz4KICAgIDxPQlguNT4zMl9pbml0aWFsX3RlbXBlcmF0dXJlPC9PQlguNT4KICAgIDxPQlgu
+Nj4KICAgICAgPENFLjI+eHhfdGVtcGVyYXR1cmVfdW5pdHM8L0NFLjI+CiAgICAgIDxDRS4zPlVD
+VU08L0NFLjM+CiAgICA8L09CWC42PgogICAgPE9CWC4xMT5YPC9PQlguMTE+CiAgPC9PQlg+CiAg
+PE9CWD4KICAgIDxPQlguMT4xMTwvT0JYLjE+CiAgICA8T0JYLjI+Tk08L09CWC4yPgogICAgPE9C
+WC4zPgogICAgICA8Q0UuMT41OTQwOC01PC9DRS4xPgogICAgICA8Q0UuMj5PWFlHRU4gU0FUVVJB
+VElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRSBPWElNRVRSWTwvQ0UuMj4KICAgICAgPENFLjM+TE48
+L0NFLjM+CiAgICA8L09CWC4zPgogICAgPE9CWC41PjMzX3B1bHNlX294aW1ldHJ5PC9PQlguNT4K
+ICAgIDxPQlguNj4KICAgICAgPENFLjI+eHhfcHVsc2Vfb3hpbWV0cnlfdW5pdHM8L0NFLjI+CiAg
+ICA8L09CWC42PgogICAgPE9CWC4xMT5YPC9PQlguMTE+CiAgPC9PQlg+CiAgPERHMT4KICAgIDxE
+RzEuMT4xPC9ERzEuMT4KICAgIDxERzEuMz4KICAgICAgPENFLjI+MjdfZGlhZ25vaXNpc19pbmp1
+cnlfY29kZTwvQ0UuMj4KICAgIDwvREcxLjM+CiAgICA8REcxLjY+MjlfZGlhZ25vc2lzX3R5cGU8
+L0RHMS42PgogIDwvREcxPgo8L0FEVF9BMDE+Cg==</outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="convertLFtoCR">true</property>
+        <property name="handleRepetitions">false</property>
+        <property name="handleSubcomponents">false</property>
+        <property name="stripNamespaces">true</property>
+        <property name="useStrictParser">false</property>
+        <property name="useStrictValidation">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>File Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">sink</property>
+        <property name="synchronised">0</property>
+        <property name="template">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;ADT_A01&gt;
+  &lt;MSH&gt;
+    &lt;MSH.1&gt;|&lt;/MSH.1&gt;
+    &lt;MSH.2&gt;^~\&amp;amp;&lt;/MSH.2&gt;
+    &lt;MSH.7&gt;
+      &lt;TS.1&gt;${SYSTIME}&lt;/TS.1&gt;
+    &lt;/MSH.7&gt;
+    &lt;MSH.9&gt;
+      &lt;MSG.1&gt;ADT&lt;/MSG.1&gt;
+      &lt;MSG.2&gt;A01&lt;/MSG.2&gt;
+    &lt;/MSH.9&gt;
+    &lt;MSH.10&gt;${sender_id}&lt;/MSH.10&gt;
+    &lt;MSH.11&gt;
+      &lt;PT.1&gt;P&lt;/PT.1&gt;
+    &lt;/MSH.11&gt;
+    &lt;MSH.12&gt;
+      &lt;VID.1&gt;2.3.1&lt;/VID.1&gt;
+    &lt;/MSH.12&gt;
+    &lt;MSH.18&gt;UTF-8&lt;/MSH.18&gt;
+  &lt;/MSH&gt;
+  &lt;EVN&gt;
+    &lt;EVN.2&gt;
+      &lt;TS.1&gt;${8_report_date_time}&lt;/TS.1&gt;
+    &lt;/EVN.2&gt;
+  &lt;/EVN&gt;
+  &lt;PID&gt;
+    &lt;PID.1&gt;1&lt;/PID.1&gt;
+    &lt;PID.2&gt;
+      &lt;CX.1&gt;${9_unique_patient_id}&lt;/CX.1&gt;
+      &lt;CX.5&gt;PI&lt;/CX.5&gt;
+    &lt;/PID.2&gt;
+    &lt;PID.3&gt;
+      &lt;CX.1&gt;${10_medical_record_number}&lt;/CX.1&gt;
+    &lt;/PID.3&gt;
+    &lt;PID.5&gt;
+      &lt;XPN.1&gt;
+        &lt;FN.1&gt;&lt;/FN.1&gt;
+      &lt;/XPN.1&gt;
+    &lt;/PID.5&gt;
+    &lt;PID.8&gt;${13_gender}&lt;/PID.8&gt;
+    &lt;PID.10&gt;
+      &lt;CE.1&gt;${18_paitent_race}&lt;/CE.1&gt;
+    &lt;/PID.10&gt;
+    &lt;PID.11&gt;
+      &lt;XAD.3&gt;${14_paitent_city}&lt;/XAD.3&gt;
+      &lt;XAD.4&gt;${16_patient_state}&lt;/XAD.4&gt;
+      &lt;XAD.5&gt;${15_paitent_zip_code}&lt;/XAD.5&gt;
+      &lt;XAD.6&gt;${17_paitent_country}&lt;/XAD.6&gt;
+      &lt;XAD.9&gt;${20_paitent_county}&lt;/XAD.9&gt;
+    &lt;/PID.11&gt;
+    &lt;PID.22&gt;
+      &lt;CE.1&gt;${19_paitent_ethnicity}&lt;/CE.1&gt;
+    &lt;/PID.22&gt;
+  &lt;/PID&gt;
+  &lt;PV1&gt;
+    &lt;PV1.2&gt;${24_paitent_class}&lt;/PV1.2&gt;
+    &lt;PV1.19&gt;
+      &lt;CX.1&gt;${21_visit_id}&lt;/CX.1&gt;
+    &lt;/PV1.19&gt;
+    &lt;PV1.36&gt;${30_discharge_disposition}&lt;/PV1.36&gt;
+    &lt;PV1.44&gt;
+      &lt;TS.1&gt;${22_visit_date_time}&lt;/TS.1&gt;
+    &lt;/PV1.44&gt;
+    &lt;PV1.45&gt;
+      &lt;TS.1&gt;${31_disposition_date_time}&lt;/TS.1&gt;
+    &lt;/PV1.45&gt;
+  &lt;/PV1&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;1&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;AD&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;SS001&lt;/CE.1&gt;
+      &lt;CE.2&gt;Treating Facility Identifier&lt;/CE.2&gt;
+      &lt;CE.3&gt;PHINQUESTION&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.11&gt;C&lt;/OBX.11&gt;
+    &lt;OBX.15&gt;
+      &lt;CE.1&gt;${1_facility_identifier}&lt;/CE.1&gt;
+    &lt;/OBX.15&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;2&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;HD&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;SS001&lt;/CE.1&gt;
+      &lt;CE.2&gt;Treating Facility Identifier&lt;/CE.2&gt;
+      &lt;CE.3&gt;PHINQUESTION&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${2_facility_name}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;3&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;XAD&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;SS002&lt;/CE.1&gt;
+      &lt;CE.2&gt;Treating Facility Location&lt;/CE.2&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;^${3_facility_number_and_street}^^^^${4_facility_city}^${6_facility_state}^30341^USA^C^^${5_facility_county}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;4&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;CWE&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;SS003&lt;/CE.1&gt;
+      &lt;CE.2&gt;Facility/Visit Type&lt;/CE.2&gt;
+      &lt;CE.3&gt;PHINQUESTION&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${7_facility_visit_type}&lt;/OBX.5&gt;
+    &lt;OBX.12&gt;
+      &lt;TS.1&gt;X&lt;/TS.1&gt;
+    &lt;/OBX.12&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;5&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;NM&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;21612-7&lt;/CE.1&gt;
+      &lt;CE.2&gt;AGE TIME PAITENT REPORTED&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${11_age}&lt;/OBX.5&gt;
+    &lt;OBX.6&gt;
+      &lt;CE.1&gt;a&lt;/CE.1&gt;
+      &lt;CE.2&gt;${12_age_units}&lt;/CE.2&gt;
+      &lt;CE.3&gt;UCUM&lt;/CE.3&gt;
+    &lt;/OBX.6&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;6&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;TS&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;11368-8&lt;/CE.1&gt;
+      &lt;CE.2&gt;ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${23_date_of_onset}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;7&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;CWE&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;8661-1&lt;/CE.1&gt;
+      &lt;CE.2&gt;CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;^^^^^^^^${25_chief_complaint}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;8&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;TX&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;54094-8&lt;/CE.1&gt;
+      &lt;CE.2&gt;TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${26_triage_notes}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;9&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;TX&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;44833-2&lt;/CE.1&gt;
+      &lt;CE.2&gt;DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${28_clinical_impression}&lt;/OBX.5&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;10&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;NM&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;11289-6&lt;/CE.1&gt;
+      &lt;CE.2&gt;BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${32_initial_temperature}&lt;/OBX.5&gt;
+    &lt;OBX.6&gt;
+      &lt;CE.2&gt;${xx_temperature_units}&lt;/CE.2&gt;
+      &lt;CE.3&gt;UCUM&lt;/CE.3&gt;
+    &lt;/OBX.6&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;OBX&gt;
+    &lt;OBX.1&gt;11&lt;/OBX.1&gt;
+    &lt;OBX.2&gt;NM&lt;/OBX.2&gt;
+    &lt;OBX.3&gt;
+      &lt;CE.1&gt;59408-5&lt;/CE.1&gt;
+      &lt;CE.2&gt;OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY&lt;/CE.2&gt;
+      &lt;CE.3&gt;LN&lt;/CE.3&gt;
+    &lt;/OBX.3&gt;
+    &lt;OBX.5&gt;${33_pulse_oximetry}&lt;/OBX.5&gt;
+    &lt;OBX.6&gt;
+      &lt;CE.2&gt;${xx_pulse_oximetry_units}&lt;/CE.2&gt;
+    &lt;/OBX.6&gt;
+    &lt;OBX.11&gt;X&lt;/OBX.11&gt;
+  &lt;/OBX&gt;
+  &lt;DG1&gt;
+    &lt;DG1.1&gt;1&lt;/DG1.1&gt;
+    &lt;DG1.3&gt;
+      &lt;CE.2&gt;${27_diagnoisis_injury_code}&lt;/CE.2&gt;
+    &lt;/DG1.3&gt;
+    &lt;DG1.6&gt;${29_diagnosis_type}&lt;/DG1.6&gt;
+  &lt;/DG1&gt;
+&lt;/ADT_A01&gt;
+</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/HL7XMLGenericFileSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/HL7XMLGenericFileSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

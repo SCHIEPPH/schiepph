@@ -1,0 +1,133 @@
+<channel>
+  <id>d3fcedcc-94dc-4e46-8bcc-a4700d17a7dc</id>
+  <name>HL7XMLGenericFileDestination</name>
+  <description></description>
+  <enabled>false</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1324304027000</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>8</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">None</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">true</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">File Writer</property>
+        <property name="FTPAnonymous">1</property>
+        <property name="binary">0</property>
+        <property name="charsetEncoding">DEFAULT_ENCODING</property>
+        <property name="host">${hl7xml_generic_file_dest_dir}</property>
+        <property name="outputAppend">0</property>
+        <property name="outputPattern">${hl7xml_generic_file_dest_name}</property>
+        <property name="passive">1</property>
+        <property name="password">anonymous</property>
+        <property name="scheme">file</property>
+        <property name="secure">1</property>
+        <property name="template">${message.rawData}</property>
+        <property name="timeout">10000</property>
+        <property name="username">anonymous</property>
+        <property name="validateConnections">1</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>File Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/HL7GenericFileDestination.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/HL7GenericFileDestination.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

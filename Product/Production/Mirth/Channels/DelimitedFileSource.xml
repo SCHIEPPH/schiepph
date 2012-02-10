@@ -1,0 +1,571 @@
+<channel>
+  <id>fbb444ad-4421-4d5a-bb2b-dc14793d56a4</id>
+  <name>DelimitedFileSource</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1328824163384</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>45</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">File Reader</property>
+      <property name="FTPAnonymous">1</property>
+      <property name="autoDelete">0</property>
+      <property name="binary">0</property>
+      <property name="charsetEncoding">DEFAULT_ENCODING</property>
+      <property name="checkFileAge">1</property>
+      <property name="fileAge">1000</property>
+      <property name="fileFilter">${DELIMITED_SENDER_FILENAME_PATTERN}</property>
+      <property name="host">${DELIMITED_SENDER_SOURCE_DIR}</property>
+      <property name="moveToDirectory">${DELIMITED_SENDER_PROCESSED_DIR}</property>
+      <property name="moveToErrorDirectory">${DELIMITED_SENDER_ERROR_DIR}</property>
+      <property name="moveToPattern">${ORIGINALNAME}</property>
+      <property name="passive">1</property>
+      <property name="password">anonymous</property>
+      <property name="pollingFrequency">1000</property>
+      <property name="pollingType">interval</property>
+      <property name="processBatchFiles">0</property>
+      <property name="regex">0</property>
+      <property name="scheme">file</property>
+      <property name="secure">1</property>
+      <property name="sortAttribute">date</property>
+      <property name="timeout">10000</property>
+      <property name="username">anonymous</property>
+      <property name="validateConnections">1</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>New Step</name>
+          <script>var raw = messageObject.getRawData();
+
+var delimiter =globalMap.get(&apos;DELIMITED_SENDER_DELIMITER&apos;);
+
+var lines = raw.split(/\r\n|\r|\n/); 
+
+var value = lines[0].split(&apos;=&apos;);
+
+if(value[1] != null)
+{
+	delimiter = value[1].trim();
+	raw = messageObject.getRawData().replace(lines[0], &apos;&apos;);
+}
+
+
+logger.info(&apos;global delimiter = &apos; + globalMap.get(&apos;DELIMITED_SENDER_DELIMITER&apos;));
+
+
+logger.info(&apos;delimiter - &apos; + delimiter);
+
+var updatedLines = raw.split(/\r\n|\r|\n/); 
+
+for (x in updatedLines)
+{
+
+	updatedLine = new java.lang.String(updatedLines[x]).trim();
+	if ( updatedLine != &apos;&apos;)
+	{
+		line = updatedLines[x].split(delimiter);
+
+		tmp[&apos;MSH&apos;][&apos;MSH.10&apos;]  = globalMap.get(&apos;DELIMITED_SENDER_SENDERID&apos;);
+
+		tmp[&apos;MSH&apos;][&apos;MSH.7&apos;][&apos;MSH.7.1&apos;] = &apos;&apos;;
+		tmp[&apos;OBX&apos;][0][&apos;OBX.15&apos;][&apos;OBX.15.1&apos;] = new java.lang.String(line[0]).trim();
+		tmp[&apos;OBX&apos;][1][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[1];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.2&apos;] = line[2];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.3&apos;] = line[3];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.4&apos;] = line[4];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] = line[5];
+
+		//Visit Type
+		tmp[&apos;OBX&apos;][3][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[6];
+
+		tmp[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;] = line[7];
+
+		//Patient Id
+		tmp[&apos;PID&apos;][&apos;PID.3&apos;][0][&apos;PID.3.1&apos;] = line[8];
+		//Medical Record Number
+		tmp[&apos;PID&apos;][&apos;PID.3&apos;][1][&apos;PID.3.1&apos;] = line[9];
+		//Age and Age Units	
+		tmp[&apos;OBX&apos;][4][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[10];
+		tmp[&apos;OBX&apos;][4][&apos;OBX.6&apos;][&apos;OBX.6.2&apos;] = line[11];
+
+		//GENDER
+		tmp[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;] = line[12];
+		
+		//Patient Address
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;] = line[13];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;] = line[14];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;] = line[15];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;] = line[16];
+
+		//Race
+		tmp[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;] = line[17];
+
+		//Ethnicity
+		tmp[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;] = line[18];
+
+		//County
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;] = line[19];
+		//Visit ID
+		tmp[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;] = line[20];
+		
+		tmp[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;] = line[21];
+		tmp[&apos;OBX&apos;][5][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[22];
+		//Patient Class
+		tmp[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;] = line [23];
+
+		tmp[&apos;OBX&apos;][6][&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] =  line[24];
+		tmp[&apos;OBX&apos;][7][&apos;OBX.5&apos;] = line[25];
+		
+		tmp[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;] = line[26];
+
+		tmp[&apos;OBX&apos;][8][&apos;OBX.5&apos;] = line[27];
+		tmp[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;] = line [28];
+		tmp[&apos;PV1&apos;][&apos;PV1.36&apos;] = line[29];
+		tmp[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;] = line[30];		
+		tmp[&apos;OBX&apos;][9][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[31];
+		tmp[&apos;OBX&apos;][9][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;] = line[32];
+
+		tmp[&apos;OBX&apos;][10][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[33];
+		tmp[&apos;OBX&apos;][10][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;] = line[34];
+    }
+
+}
+
+
+channelMap.put(&apos;data&apos;,tmp);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var raw = messageObject.getRawData();
+
+var delimiter =globalMap.get(&apos;DELIMITED_SENDER_DELIMITER&apos;);
+
+var lines = raw.split(/\r\n|\r|\n/); 
+
+var value = lines[0].split(&apos;=&apos;);
+
+if(value[1] != null)
+{
+	delimiter = value[1].trim();
+	raw = messageObject.getRawData().replace(lines[0], &apos;&apos;);
+}
+
+
+logger.info(&apos;global delimiter = &apos; + globalMap.get(&apos;DELIMITED_SENDER_DELIMITER&apos;));
+
+
+logger.info(&apos;delimiter - &apos; + delimiter);
+
+var updatedLines = raw.split(/\r\n|\r|\n/); 
+
+for (x in updatedLines)
+{
+
+	updatedLine = new java.lang.String(updatedLines[x]).trim();
+	if ( updatedLine != &apos;&apos;)
+	{
+		line = updatedLines[x].split(delimiter);
+
+		tmp[&apos;MSH&apos;][&apos;MSH.10&apos;]  = globalMap.get(&apos;DELIMITED_SENDER_SENDERID&apos;);
+
+		tmp[&apos;MSH&apos;][&apos;MSH.7&apos;][&apos;MSH.7.1&apos;] = &apos;&apos;;
+		tmp[&apos;OBX&apos;][0][&apos;OBX.15&apos;][&apos;OBX.15.1&apos;] = new java.lang.String(line[0]).trim();
+		tmp[&apos;OBX&apos;][1][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[1];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.2&apos;] = line[2];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.3&apos;] = line[3];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.4&apos;] = line[4];
+		tmp[&apos;OBX&apos;][2][&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] = line[5];
+
+		//Visit Type
+		tmp[&apos;OBX&apos;][3][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[6];
+
+		tmp[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;] = line[7];
+
+		//Patient Id
+		tmp[&apos;PID&apos;][&apos;PID.3&apos;][0][&apos;PID.3.1&apos;] = line[8];
+		//Medical Record Number
+		tmp[&apos;PID&apos;][&apos;PID.3&apos;][1][&apos;PID.3.1&apos;] = line[9];
+		//Age and Age Units	
+		tmp[&apos;OBX&apos;][4][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[10];
+		tmp[&apos;OBX&apos;][4][&apos;OBX.6&apos;][&apos;OBX.6.2&apos;] = line[11];
+
+		//GENDER
+		tmp[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;] = line[12];
+		
+		//Patient Address
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;] = line[13];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;] = line[14];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;] = line[15];
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;] = line[16];
+
+		//Race
+		tmp[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;] = line[17];
+
+		//Ethnicity
+		tmp[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;] = line[18];
+
+		//County
+		tmp[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;] = line[19];
+		//Visit ID
+		tmp[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;] = line[20];
+		
+		tmp[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;] = line[21];
+		tmp[&apos;OBX&apos;][5][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[22];
+		//Patient Class
+		tmp[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;] = line [23];
+
+		tmp[&apos;OBX&apos;][6][&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] =  line[24];
+		tmp[&apos;OBX&apos;][7][&apos;OBX.5&apos;] = line[25];
+		
+		tmp[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;] = line[26];
+
+		tmp[&apos;OBX&apos;][8][&apos;OBX.5&apos;] = line[27];
+		tmp[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;] = line [28];
+		tmp[&apos;PV1&apos;][&apos;PV1.36&apos;] = line[29];
+		tmp[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;] = line[30];		
+		tmp[&apos;OBX&apos;][9][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[31];
+		tmp[&apos;OBX&apos;][9][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;] = line[32];
+
+		tmp[&apos;OBX&apos;][10][&apos;OBX.5&apos;][&apos;OBX.5.1&apos;] = line[33];
+		tmp[&apos;OBX&apos;][10][&apos;OBX.6&apos;][&apos;OBX.6.1&apos;] = line[34];
+    }
+
+}
+
+
+channelMap.put(&apos;data&apos;,tmp);</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">SUQxMjM0O0ZhaXJmYXggSU5PVkEgSG9zcGl0YWw7MTIzNCBHYWxsb3dzIFJkLjtGYWlyZmF4O1ZB
+O0ZvbGxvdyBVcCBWaXNpdDsgMTUgTm92ZW1iZXIgMjAxMSAxMjo0NSBQTTsxMjIzMzM0NDQ0NTU1
+NTU7MTExMTEyMjIyMzMzNDQ1OzQyO1llYXJzO007U3ByaW5nZmllbGQ7MjIxNTA7VkE7VVNBO0Nh
+dWNhc2lhbjs7RmFpcmZheDtBQkMxMjM7MTAgTm92ZW1iZXIgMjAxMSA5OjMyIEFNOzggTm92ZW1i
+ZXIgMjAxMTs7VXBzZXQgU3RvbWFjaDtQYXRpZW50IG1pZHNlY3Rpb24gaXMgdGVuZGVyIHRvIHRo
+ZSB0b3VjaC4gIE5vIGZldmVyLjsxNDc1MjI7O1ByZWxpbWluYXJ5IERpYWdub3NpcztEaXNjaGFy
+Z2VkOzExIE5vdmVtYmVyIDIwMTEgNjozMCBQTTs5OC43O1tkZWdGXTs2NTslDQo=</inboundTemplate>
+      <outboundTemplate encoding="base64">PEhMN01lc3NhZ2U+CiAgICA8TVNIPgogICAgICAgIDxNU0guMT58PC9NU0guMT4KICAgICAgICA8
+TVNILjI+Xn5cJmFtcDs8L01TSC4yPgogICAgICAgIDxNU0guMy8+CiAgICAgICAgPE1TSC40Lz4K
+ICAgICAgICA8TVNILjUvPgogICAgICAgIDxNU0guNi8+CiAgICAgICAgPE1TSC43PgogICAgICAg
+ICAgICA8TVNILjcuMT4yMDExMTIxMzEzMTIyNTwvTVNILjcuMT4KICAgICAgICA8L01TSC43Pgog
+ICAgICAgIDxNU0guOC8+CiAgICAgICAgPE1TSC45PgogICAgICAgICAgICA8TVNILjkuMT5BRFQ8
+L01TSC45LjE+CiAgICAgICAgICAgIDxNU0guOS4yPkEwMTwvTVNILjkuMj4KCQkJPE1TSC45LjM+
+QURUX0EwMTwvTVNILjkuMz4KICAgICAgICA8L01TSC45PgogICAgICAgIDxNU0guMTA+CiAgICAg
+ICAgICAgIDxNU0guMTAuMT5NU0cwMDAwMTwvTVNILjEwLjE+CiAgICAgICAgPC9NU0guMTA+CiAg
+ICAgICAgPE1TSC4xMT4KICAgICAgICAgICAgPE1TSC4xMS4xPlA8L01TSC4xMS4xPgogICAgICAg
+IDwvTVNILjExPgogICAgICAgIDxNU0guMTI+CiAgICAgICAgICAgIDxNU0guMTIuMT4yLjMuMTwv
+TVNILjEyLjE+CiAgICAgICAgPC9NU0guMTI+CiAgICAgICAgPE1TSC4xMy8+CiAgICAgICAgPE1T
+SC4xNC8+CiAgICAgICAgPE1TSC4xNS8+CiAgICAgICAgPE1TSC4xNi8+CiAgICAgICAgPE1TSC4x
+Ny8+CiAgICAgICAgPE1TSC4xOD4KICAgICAgICAgICAgPE1TSC4xOC4xPlVURi04PC9NU0guMTgu
+MT4KICAgICAgICA8L01TSC4xOD4KICAgIDwvTVNIPgogICAgPEVWTj4KICAgICAgICA8RVZOLjEv
+PgogICAgICAgIDxFVk4uMj4KICAgICAgICAgICAgPEVWTi4yLjE+PC9FVk4uMi4xPgogICAgICAg
+IDwvRVZOLjI+CiAgICA8L0VWTj4KICAgIDxQSUQ+CiAgICAgICAgPFBJRC4xPgogICAgICAgICAg
+ICA8UElELjEuMT4xPC9QSUQuMS4xPgogICAgICAgIDwvUElELjE+CgkJPFBJRC4yLz4KICAgICAg
+ICA8UElELjM+DQogICAgICAgICAgICA8UElELjMuMT45NTEwMTEwMDAwMTwvUElELjMuMT4NCiAg
+ICAgICAgICAgIDxQSUQuMy4yLz4NCiAgICAgICAgICAgIDxQSUQuMy4zLz4NCiAgICAgICAgICAg
+IDxQSUQuMy40Lz4NCiAgICAgICAgICAgIDxQSUQuMy41PlBJPC9QSUQuMy41Pg0KICAgICAgICA8
+L1BJRC4zPg0KICAgICAgICA8UElELjM+DQogICAgICAgICAgICA8UElELjMuMT5NUjEwMTEwMDAw
+MTwvUElELjMuMT4NCiAgICAgICAgICAgIDxQSUQuMy4yLz4NCiAgICAgICAgICAgIDxQSUQuMy4z
+Lz4NCiAgICAgICAgICAgIDxQSUQuMy40Lz4NCiAgICAgICAgICAgIDxQSUQuMy41Pk1SPC9QSUQu
+My41Pg0KICAgICAgICA8L1BJRC4zPgogICAgICAgIDxQSUQuNC8+CiAgICAgICAgPFBJRC41Lz4K
+ICAgICAgICA8UElELjYvPgogICAgICAgIDxQSUQuNy8+CiAgICAgICAgPFBJRC44PgogICAgICAg
+ICAgICA8UElELjguMT5GPC9QSUQuOC4xPgogICAgICAgIDwvUElELjg+CiAgICAgICAgPFBJRC45
+Lz4KICAgICAgICA8UElELjEwPgogICAgICAgICAgICA8UElELjEwLjE+PC9QSUQuMTAuMT4NICAg
+ICAgICAgICAgPFBJRC4xMC4yPjwvUElELjEwLjI+DSAgICAgICAgICAgIDxQSUQuMTAuMz5DRENS
+RUM8L1BJRC4xMC4zPgogICAgICAgIDwvUElELjEwPgogICAgICAgIDxQSUQuMTE+CiAgICAgICAg
+ICAgIDxQSUQuMTEuMS8+CiAgICAgICAgICAgIDxQSUQuMTEuMi8+CiAgICAgICAgICAgIDxQSUQu
+MTEuMz48L1BJRC4xMS4zPgogICAgICAgICAgICA8UElELjExLjQ+VkE8L1BJRC4xMS40PgogICAg
+ICAgICAgICA8UElELjExLjU+MjAxMjA8L1BJRC4xMS41PgogICAgICAgICAgICA8UElELjExLjY+
+VVNBPC9QSUQuMTEuNj4KICAgICAgICAgICAgPFBJRC4xMS43Lz4KICAgICAgICAgICAgPFBJRC4x
+MS44Lz4KICAgICAgICAgICAgPFBJRC4xMS45PjwvUElELjExLjk+CiAgICAgICAgPC9QSUQuMTE+
+CiAgICAgICAgPFBJRC4xMi8+CiAgICAgICAgPFBJRC4xMy8+CiAgICAgICAgPFBJRC4xNC8+CiAg
+ICAgICAgPFBJRC4xNS8+CiAgICAgICAgPFBJRC4xNi8+CiAgICAgICAgPFBJRC4xNy8+CiAgICAg
+ICAgPFBJRC4xOC8+CiAgICAgICAgPFBJRC4xOS8+CiAgICAgICAgPFBJRC4yMC8+CiAgICAgICAg
+PFBJRC4yMS8+CiAgICAgICAgPFBJRC4yMj4KICAgICAgICAgICAgPFBJRC4yMi4xPjwvUElELjIy
+LjE+CiAgICAgICAgICAgIDxQSUQuMjIuMj48L1BJRC4yMi4yPg0gICAgICAgICAgICA8UElELjIy
+LjM+Q0RDUkVDPC9QSUQuMjIuMz4KICAgICAgICA8L1BJRC4yMj4KICAgIDwvUElEPgogICAgPFBW
+MT4KICAgICAgICA8UFYxLjEvPgogICAgICAgIDxQVjEuMj4KICAgICAgICAgICAgPFBWMS4yLjE+
+PC9QVjEuMi4xPgogICAgICAgIDwvUFYxLjI+CiAgICAgICAgPFBWMS4zLz4KICAgICAgICA8UFYx
+LjQvPgogICAgICAgIDxQVjEuNS8+CiAgICAgICAgPFBWMS42Lz4KICAgICAgICA8UFYxLjcvPgog
+ICAgICAgIDxQVjEuOC8+CiAgICAgICAgPFBWMS45Lz4KICAgICAgICA8UFYxLjEwLz4KICAgICAg
+ICA8UFYxLjExLz4KICAgICAgICA8UFYxLjEyLz4KICAgICAgICA8UFYxLjEzLz4KICAgICAgICA8
+UFYxLjE0Lz4KICAgICAgICA8UFYxLjE1Lz4KICAgICAgICA8UFYxLjE2Lz4KICAgICAgICA8UFYx
+LjE3Lz4KICAgICAgICA8UFYxLjE4Lz4KICAgICAgICA8UFYxLjE5PgogICAgICAgICAgICA8UFYx
+LjE5LjE+PC9QVjEuMTkuMT4KCQkJPFBWMS4xOS4yLz4gCgkJCTxQVjEuMTkuMy8+IAoJCQk8UFYx
+LjE5LjQvPiAKCQkJPFBWMS4xOS41PlZOPC9QVjEuMTkuNT4KICAgICAgICA8L1BWMS4xOT4KICAg
+ICAgICA8UFYxLjIwLz4KICAgICAgICA8UFYxLjIxLz4KICAgICAgICA8UFYxLjIyLz4KICAgICAg
+ICA8UFYxLjIzLz4KICAgICAgICA8UFYxLjI0Lz4KICAgICAgICA8UFYxLjI1Lz4KICAgICAgICA8
+UFYxLjI2Lz4KICAgICAgICA8UFYxLjI3Lz4KICAgICAgICA8UFYxLjI4Lz4KICAgICAgICA8UFYx
+LjI5Lz4KICAgICAgICA8UFYxLjMwLz4KICAgICAgICA8UFYxLjMxLz4KICAgICAgICA8UFYxLjMy
+Lz4KICAgICAgICA8UFYxLjMzLz4KICAgICAgICA8UFYxLjM0Lz4KICAgICAgICA8UFYxLjM1Lz4K
+ICAgICAgICA8UFYxLjM2PgogICAgICAgICAgICA8UFYxLjM2LjE+PC9QVjEuMzYuMT4KICAgICAg
+ICA8L1BWMS4zNj4KICAgICAgICA8UFYxLjM3Lz4KICAgICAgICA8UFYxLjM4Lz4KICAgICAgICA8
+UFYxLjM5Lz4KICAgICAgICA8UFYxLjQwLz4KICAgICAgICA8UFYxLjQxLz4KICAgICAgICA8UFYx
+LjQyLz4KICAgICAgICA8UFYxLjQzLz4KICAgICAgICA8UFYxLjQ0PgogICAgICAgICAgICA8UFYx
+LjQ0LjE+PC9QVjEuNDQuMT4KICAgICAgICA8L1BWMS40ND4KICAgICAgICA8UFYxLjQ1PgogICAg
+ICAgICAgICA8UFYxLjQ1LjE+PC9QVjEuNDUuMT4KICAgICAgICA8L1BWMS40NT4KICAgIDwvUFYx
+PgogICAgPE9CWD4KICAgICAgICA8T0JYLjE+CiAgICAgICAgICAgIDxPQlguMS4xPjE8L09CWC4x
+LjE+CiAgICAgICAgPC9PQlguMT4KICAgICAgICA8T0JYLjI+CiAgICAgICAgICAgIDxPQlguMi4x
+PkFEPC9PQlguMi4xPgogICAgICAgIDwvT0JYLjI+CiAgICAgICAgPE9CWC4zPgogICAgICAgICAg
+ICA8T0JYLjMuMT5TUzAwMTwvT0JYLjMuMT4KICAgICAgICAgICAgPE9CWC4zLjI+VFJFQVRJTkcg
+RkFDSUxJVFkgSURFTlRJRklFUjwvT0JYLjMuMj4KICAgICAgICAgICAgPE9CWC4zLjM+UEhJTlFV
+RVNUSU9OPC9PQlguMy4zPgogICAgICAgIDwvT0JYLjM+CiAgICAgICAgPE9CWC40Lz4KICAgICAg
+ICA8T0JYLjUvPgogICAgICAgIDxPQlguNi8+CiAgICAgICAgPE9CWC43Lz4KICAgICAgICA8T0JY
+LjgvPgogICAgICAgIDxPQlguOS8+CiAgICAgICAgPE9CWC4xMC8+CiAgICAgICAgPE9CWC4xMT4K
+ICAgICAgICAgICAgPE9CWC4xMS4xPkM8L09CWC4xMS4xPgogICAgICAgIDwvT0JYLjExPgogICAg
+ICAgIDxPQlguMTIvPgogICAgICAgIDxPQlguMTMvPgogICAgICAgIDxPQlguMTQvPgogICAgICAg
+IDxPQlguMTU+CiAgICAgICAgICAgIDxPQlguMTUuMT48L09CWC4xNS4xPgogICAgICAgIDwvT0JY
+LjE1PgogICAgICAgIDxPQlguMTYvPgogICAgICAgIDxPQlguMTcvPgogICAgPC9PQlg+CiAgICA8
+T0JYPgogICAgICAgIDxPQlguMT4KICAgICAgICAgICAgPE9CWC4xLjE+MjwvT0JYLjEuMT4KICAg
+ICAgICA8L09CWC4xPgogICAgICAgIDxPQlguMj4KICAgICAgICAgICAgPE9CWC4yLjE+SEQ8L09C
+WC4yLjE+CiAgICAgICAgPC9PQlguMj4KICAgICAgICA8T0JYLjM+CiAgICAgICAgICAgIDxPQlgu
+My4xPlNTMDAxPC9PQlguMy4xPgogICAgICAgICAgICA8T0JYLjMuMj5UUkVBVElORyBGQUNJTElU
+WSBJREVOVElGSUVSPC9PQlguMy4yPgogICAgICAgICAgICA8T0JYLjMuMz5QSElOUVVFU1RJT048
+L09CWC4zLjM+CiAgICAgICAgPC9PQlguMz4KICAgICAgICA8T0JYLjQvPgogICAgICAgIDxPQlgu
+NT4KICAgICAgICAgICAgPE9CWC41LjE+PC9PQlguNS4xPgogICAgICAgIDwvT0JYLjU+CiAgICAg
+ICAgPE9CWC42Lz4KICAgICAgICA8T0JYLjcvPgogICAgICAgIDxPQlguOC8+CiAgICAgICAgPE9C
+WC45Lz4KICAgICAgICA8T0JYLjEwLz4KICAgICAgICA8T0JYLjExPgogICAgICAgICAgICA8T0JY
+LjExLjE+WDwvT0JYLjExLjE+CiAgICAgICAgPC9PQlguMTE+CiAgICA8L09CWD4KICAgIDxPQlg+
+CiAgICAgICAgPE9CWC4xPgogICAgICAgICAgICA8T0JYLjEuMT4zPC9PQlguMS4xPgogICAgICAg
+IDwvT0JYLjE+CiAgICAgICAgPE9CWC4yPgogICAgICAgICAgICA8T0JYLjIuMT5YQUQ8L09CWC4y
+LjE+CiAgICAgICAgPC9PQlguMj4KICAgICAgICA8T0JYLjM+CiAgICAgICAgICAgIDxPQlguMy4x
+PlNTMDAyPC9PQlguMy4xPgogICAgICAgICAgICA8T0JYLjMuMj5UUkVBVElORyBGQUNJTElUWSBJ
+REVOVElGSUVSPC9PQlguMy4yPgogICAgICAgIDwvT0JYLjM+CiAgICAgICAgPE9CWC40Lz4KICAg
+ICAgICA8T0JYLjU+CiAgICAgICAgICAgIDxPQlguNS4xLz4NICAgICAgICAgICAgPE9CWC41LjIv
+Pg0gICAgICAgICAgICA8T0JYLjUuMy8+DSAgICAgICAgICAgIDxPQlguNS40PjwvT0JYLjUuND4N
+ICAgICAgICAgICAgPE9CWC41LjU+PC9PQlguNS41Pg0gICAgICAgICAgICA8T0JYLjUuNj48L09C
+WC41LjY+DSAgICAgICAgICAgIDxPQlguNS43PjwvT0JYLjUuNz4NICAgICAgICAgICAgPE9CWC41
+LjgvPg0gICAgICAgICAgICA8T0JYLjUuOT48L09CWC41Ljk+CiAgICAgICAgPC9PQlguNT4KICAg
+ICAgICA8T0JYLjYvPgogICAgICAgIDxPQlguNy8+CiAgICAgICAgPE9CWC44Lz4KICAgICAgICA8
+T0JYLjkvPgogICAgICAgIDxPQlguMTAvPgogICAgICAgIDxPQlguMTE+CiAgICAgICAgICAgIDxP
+QlguMTEuMT5YPC9PQlguMTEuMT4KICAgICAgICA8L09CWC4xMT4KICAgIDwvT0JYPgogICAgPE9C
+WD4KICAgICAgICA8T0JYLjE+CiAgICAgICAgICAgIDxPQlguMS4xPjQ8L09CWC4xLjE+CiAgICAg
+ICAgPC9PQlguMT4KICAgICAgICA8T0JYLjI+CiAgICAgICAgICAgIDxPQlguMi4xPkNXRTwvT0JY
+LjIuMT4KICAgICAgICA8L09CWC4yPgogICAgICAgIDxPQlguMz4KICAgICAgICAgICAgPE9CWC4z
+LjE+U1MwMDM8L09CWC4zLjE+CiAgICAgICAgICAgIDxPQlguMy4yPkZBQ0lMSVRZIC8gVklTSVQg
+VFlQRTwvT0JYLjMuMj4KICAgICAgICAgICAgPE9CWC4zLjM+UEhJTlFVRVNUSU9OPC9PQlguMy4z
+PgogICAgICAgIDwvT0JYLjM+CiAgICAgICAgPE9CWC40Lz4KICAgICAgICA8T0JYLjU+CiAgICAg
+ICAgICAgIDxPQlguNS4xPjwvT0JYLjUuMT4KICAgICAgICA8L09CWC41PgogICAgICAgIDxPQlgu
+Ni8+CiAgICAgICAgPE9CWC43Lz4KICAgICAgICA8T0JYLjgvPgogICAgICAgIDxPQlguOS8+CiAg
+ICAgICAgPE9CWC4xMC8+CiAgICAgICAgPE9CWC4xMS8+CiAgICAgICAgPE9CWC4xMj4KICAgICAg
+ICAgICAgPE9CWC4xMi4xPlg8L09CWC4xMi4xPgogICAgICAgIDwvT0JYLjEyPgogICAgPC9PQlg+
+CiAgICA8T0JYPgogICAgICAgIDxPQlguMT4KICAgICAgICAgICAgPE9CWC4xLjE+NTwvT0JYLjEu
+MT4KICAgICAgICA8L09CWC4xPgogICAgICAgIDxPQlguMj4KICAgICAgICAgICAgPE9CWC4yLjE+
+Tk08L09CWC4yLjE+CiAgICAgICAgPC9PQlguMj4KICAgICAgICA8T0JYLjM+CiAgICAgICAgICAg
+IDxPQlguMy4xPjIxNjEyLTc8L09CWC4zLjE+CiAgICAgICAgICAgIDxPQlguMy4yPkFHRSBUSU1F
+IFBBVElFTlQgUkVQT1JURUQ8L09CWC4zLjI+CiAgICAgICAgICAgIDxPQlguMy4zPkxOPC9PQlgu
+My4zPgogICAgICAgIDwvT0JYLjM+CiAgICAgICAgPE9CWC40Lz4KICAgICAgICA8T0JYLjU+CiAg
+ICAgICAgICAgIDxPQlguNS4xPjMyPC9PQlguNS4xPgogICAgICAgIDwvT0JYLjU+CiAgICAgICAg
+PE9CWC42PgogICAgICAgICAgICA8T0JYLjYuMT48L09CWC42LjE+CiAgICAgICAgICAgIDxPQlgu
+Ni4yPjwvT0JYLjYuMj4KICAgICAgICAgICAgPE9CWC42LjM+VUNVTTwvT0JYLjYuMz4KICAgICAg
+ICA8L09CWC42PgogICAgICAgIDxPQlguNy8+CiAgICAgICAgPE9CWC44Lz4KICAgICAgICA8T0JY
+LjkvPgogICAgICAgIDxPQlguMTAvPgogICAgICAgIDxPQlguMTE+CiAgICAgICAgICAgIDxPQlgu
+MTEuMT5YPC9PQlguMTEuMT4KICAgICAgICA8L09CWC4xMT4KICAgIDwvT0JYPgogICAgPE9CWD4K
+ICAgICAgICA8T0JYLjE+CiAgICAgICAgICAgIDxPQlguMS4xPjY8L09CWC4xLjE+CiAgICAgICAg
+PC9PQlguMT4KICAgICAgICA8T0JYLjI+CiAgICAgICAgICAgIDxPQlguMi4xPlRTPC9PQlguMi4x
+PgogICAgICAgIDwvT0JYLjI+CiAgICAgICAgPE9CWC4zPgogICAgICAgICAgICA8T0JYLjMuMT4x
+MTM2OC04PC9PQlguMy4xPgogICAgICAgICAgICA8T0JYLjMuMj5JTExORVNTIE9SIElOSlVSWSBP
+TlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU48L09CWC4zLjI+CiAgICAgICAg
+ICAgIDxPQlguMy4zPkxOPC9PQlguMy4zPgogICAgICAgIDwvT0JYLjM+CiAgICAgICAgPE9CWC40
+Lz4KICAgICAgICA8T0JYLjU+CiAgICAgICAgICAgIDxPQlguNS4xPjwvT0JYLjUuMT4KICAgICAg
+ICA8L09CWC41PgogICAgICAgIDxPQlguNi8+CiAgICAgICAgPE9CWC43Lz4KICAgICAgICA8T0JY
+LjgvPgogICAgICAgIDxPQlguOS8+CiAgICAgICAgPE9CWC4xMC8+CiAgICAgICAgPE9CWC4xMT4K
+ICAgICAgICAgICAgPE9CWC4xMS4xPlg8L09CWC4xMS4xPgogICAgICAgIDwvT0JYLjExPgogICAg
+PC9PQlg+CiAgICA8T0JYPgogICAgICAgIDxPQlguMT4KICAgICAgICAgICAgPE9CWC4xLjE+Nzwv
+T0JYLjEuMT4KICAgICAgICA8L09CWC4xPgogICAgICAgIDxPQlguMj4KICAgICAgICAgICAgPE9C
+WC4yLjE+Q1dFPC9PQlguMi4xPgogICAgICAgIDwvT0JYLjI+CiAgICAgICAgPE9CWC4zPgogICAg
+ICAgICAgICA8T0JYLjMuMT44NjYxLTE8L09CWC4zLjE+CiAgICAgICAgICAgIDxPQlguMy4yPkNI
+SUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEPC9PQlguMy4yPgogICAg
+ICAgICAgICA8T0JYLjMuMz5MTjwvT0JYLjMuMz4KICAgICAgICA8L09CWC4zPgogICAgICAgIDxP
+QlguNC8+CiAgICAgICAgPE9CWC41PgogICAgICAgICAgICA8T0JYLjUuMS8+CiAgICAgICAgICAg
+IDxPQlguNS4yLz4KICAgICAgICAgICAgPE9CWC41LjMvPgogICAgICAgICAgICA8T0JYLjUuNC8+
+CiAgICAgICAgICAgIDxPQlguNS41Lz4KICAgICAgICAgICAgPE9CWC41LjYvPgogICAgICAgICAg
+ICA8T0JYLjUuNy8+CiAgICAgICAgICAgIDxPQlguNS44Lz4KICAgICAgICAgICAgPE9CWC41Ljk+
+PC9PQlguNS45PgogICAgICAgIDwvT0JYLjU+CiAgICAgICAgPE9CWC42Lz4KICAgICAgICA8T0JY
+LjcvPgogICAgICAgIDxPQlguOC8+CiAgICAgICAgPE9CWC45Lz4KICAgICAgICA8T0JYLjEwLz4K
+ICAgICAgICA8T0JYLjExPgogICAgICAgICAgICA8T0JYLjExLjE+WDwvT0JYLjExLjE+CiAgICAg
+ICAgPC9PQlguMTE+CiAgICA8L09CWD4KICAgIDxPQlg+CiAgICAgICAgPE9CWC4xPgogICAgICAg
+ICAgICA8T0JYLjEuMT44PC9PQlguMS4xPgogICAgICAgIDwvT0JYLjE+CiAgICAgICAgPE9CWC4y
+PgogICAgICAgICAgICA8T0JYLjIuMT5UWDwvT0JYLjIuMT4KICAgICAgICA8L09CWC4yPgogICAg
+ICAgIDxPQlguMz4KICAgICAgICAgICAgPE9CWC4zLjE+NTQwOTQtODwvT0JYLjMuMT4KICAgICAg
+ICAgICAgPE9CWC4zLjI+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VOQ1kgREVQQVJUTUVOVDpE
+T0M8L09CWC4zLjI+CiAgICAgICAgICAgIDxPQlguMy4zPkxOPC9PQlguMy4zPgogICAgICAgIDwv
+T0JYLjM+CiAgICAgICAgPE9CWC40Lz4KICAgICAgICA8T0JYLjU+CiAgICAgICAgICAgIDxPQlgu
+NS4xPjwvT0JYLjUuMT4KICAgICAgICA8L09CWC41PgogICAgICAgIDxPQlguNi8+CiAgICAgICAg
+PE9CWC43Lz4KICAgICAgICA8T0JYLjgvPgogICAgICAgIDxPQlguOS8+CiAgICAgICAgPE9CWC4x
+MC8+CiAgICAgICAgPE9CWC4xMT4KICAgICAgICAgICAgPE9CWC4xMS4xPlg8L09CWC4xMS4xPgog
+ICAgICAgIDwvT0JYLjExPgogICAgPC9PQlg+CiAgICA8T0JYPgogICAgICAgIDxPQlguMT4KICAg
+ICAgICAgICAgPE9CWC4xLjE+OTwvT0JYLjEuMT4KICAgICAgICA8L09CWC4xPgogICAgICAgIDxP
+QlguMj4KICAgICAgICAgICAgPE9CWC4yLjE+VFg8L09CWC4yLjE+CiAgICAgICAgPC9PQlguMj4K
+ICAgICAgICA8T0JYLjM+CiAgICAgICAgICAgIDxPQlguMy4xPjQ0ODMzLTI8L09CWC4zLjE+CiAg
+ICAgICAgICAgIDxPQlguMy4yPkRJQUdOT1NJUy5QUkVMSU1JTkFSWTpJTVA6UFQ6UEFUSUVOVDpO
+T006PC9PQlguMy4yPgogICAgICAgICAgICA8T0JYLjMuMz5MTjwvT0JYLjMuMz4KICAgICAgICA8
+L09CWC4zPgogICAgICAgIDxPQlguNC8+CiAgICAgICAgPE9CWC41PgogICAgICAgICAgICA8T0JY
+LjUuMT48L09CWC41LjE+CiAgICAgICAgPC9PQlguNT4KICAgICAgICA8T0JYLjYvPgogICAgICAg
+IDxPQlguNy8+CiAgICAgICAgPE9CWC44Lz4KICAgICAgICA8T0JYLjkvPgogICAgICAgIDxPQlgu
+MTAvPgogICAgICAgIDxPQlguMTE+CiAgICAgICAgICAgIDxPQlguMTEuMT5YPC9PQlguMTEuMT4K
+ICAgICAgICA8L09CWC4xMT4KICAgIDwvT0JYPgogICAgPE9CWD4KICAgICAgICA8T0JYLjE+CiAg
+ICAgICAgICAgIDxPQlguMS4xPjEwPC9PQlguMS4xPgogICAgICAgIDwvT0JYLjE+CiAgICAgICAg
+PE9CWC4yPgogICAgICAgICAgICA8T0JYLjIuMT5OTTwvT0JYLjIuMT4KICAgICAgICA8L09CWC4y
+PgogICAgICAgIDxPQlguMz4KICAgICAgICAgICAgPE9CWC4zLjE+MTEyODktNjwvT0JYLjMuMT4K
+ICAgICAgICAgICAgPE9CWC4zLjI+Qk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFU
+SUVOVDpRTjwvT0JYLjMuMj4KICAgICAgICAgICAgPE9CWC4zLjM+TE48L09CWC4zLjM+CiAgICAg
+ICAgPC9PQlguMz4KICAgICAgICA8T0JYLjQvPgogICAgICAgIDxPQlguNT4KICAgICAgICAgICAg
+PE9CWC41LjE+MTAwLjE8L09CWC41LjE+CiAgICAgICAgPC9PQlguNT4KICAgICAgICA8T0JYLjY+
+CiAgICAgICAgICAgIDxPQlguNi4xLz4KICAgICAgICAgICAgPE9CWC42LjI+PC9PQlguNi4yPgog
+ICAgICAgICAgICA8T0JYLjYuMz48L09CWC42LjM+CiAgICAgICAgPC9PQlguNj4KICAgICAgICA8
+T0JYLjcvPgogICAgICAgIDxPQlguOC8+CiAgICAgICAgPE9CWC45Lz4KICAgICAgICA8T0JYLjEw
+Lz4KICAgICAgICA8T0JYLjExPgogICAgICAgICAgICA8T0JYLjExLjE+WDwvT0JYLjExLjE+CiAg
+ICAgICAgPC9PQlguMTE+CiAgICA8L09CWD4KICAgIDxPQlg+CiAgICAgICAgPE9CWC4xPgogICAg
+ICAgICAgICA8T0JYLjEuMT4xMTwvT0JYLjEuMT4KICAgICAgICA8L09CWC4xPgogICAgICAgIDxP
+QlguMj4KICAgICAgICAgICAgPE9CWC4yLjE+Tk08L09CWC4yLjE+CiAgICAgICAgPC9PQlguMj4K
+ICAgICAgICA8T0JYLjM+CiAgICAgICAgICAgIDxPQlguMy4xPjU5NDA4LTU8L09CWC4zLjE+CiAg
+ICAgICAgICAgIDxPQlguMy4yPk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNF
+IE9YSU1FVFJZPC9PQlguMy4yPgogICAgICAgICAgICA8T0JYLjMuMz5MTjwvT0JYLjMuMz4KICAg
+ICAgICA8L09CWC4zPgogICAgICAgIDxPQlguNC8+CiAgICAgICAgPE9CWC41PgogICAgICAgICAg
+ICA8T0JYLjUuMT45MTwvT0JYLjUuMT4KICAgICAgICA8L09CWC41PgogICAgICAgIDxPQlguNj4K
+ICAgICAgICAgICAgPE9CWC42LjEvPgogICAgICAgICAgICA8T0JYLjYuMj48L09CWC42LjI+CgkJ
+CTxPQlguNi4zPjwvT0JYLjYuMz4KICAgICAgICA8L09CWC42PgogICAgICAgIDxPQlguNy8+CiAg
+ICAgICAgPE9CWC44Lz4KICAgICAgICA8T0JYLjkvPgogICAgICAgIDxPQlguMTAvPgogICAgICAg
+IDxPQlguMTE+CiAgICAgICAgICAgIDxPQlguMTEuMT5YPC9PQlguMTEuMT4KICAgICAgICA8L09C
+WC4xMT4KICAgIDwvT0JYPgogICAgPERHMT4KICAgICAgICA8REcxLjE+CiAgICAgICAgICAgIDxE
+RzEuMS4xPjE8L0RHMS4xLjE+CiAgICAgICAgPC9ERzEuMT4KICAgICAgICA8REcxLjIvPgogICAg
+ICAgIDxERzEuMz4KICAgICAgICAgICAgPERHMS4zLjEvPgogICAgICAgICAgICA8REcxLjMuMj48
+L0RHMS4zLjI+CiAgICAgICAgPC9ERzEuMz4KICAgICAgICA8REcxLjQvPgogICAgICAgIDxERzEu
+NS8+CiAgICAgICAgPERHMS42PgogICAgICAgICAgICA8REcxLjYuMT48L0RHMS42LjE+CiAgICAg
+ICAgPC9ERzEuNj4KICAgIDwvREcxPgo8L0hMN01lc3NhZ2U+</outboundTemplate>
+      <inboundProtocol>DELIMITED</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">false</property>
+        <property name="columnDelimiter">;</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar"></property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter"></property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>File Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">5fab7b95-867b-4759-856d-bd35a234bba8</property>
+        <property name="synchronised">0</property>
+        <property name="template">${message.transformedData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>HL7V2</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="convertLFtoCR">true</property>
+          <property name="handleRepetitions">false</property>
+          <property name="handleSubcomponents">false</property>
+          <property name="stripNamespaces">true</property>
+          <property name="useStrictParser">false</property>
+          <property name="useStrictValidation">false</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/DelimitedFileSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/DelimitedFileSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; + entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

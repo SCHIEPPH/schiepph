@@ -1,0 +1,202 @@
+<channel>
+  <id>95dc571b-6d81-4212-9b95-2aed02336203</id>
+  <name>AdminDistributionSource</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1328824789325</time>
+    <timezone>US/Eastern</timezone>
+  </lastModified>
+  <revision>92</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Web Service Listener</property>
+      <property name="host">0.0.0.0</property>
+      <property name="port">${admin_distribution_source_port}</property>
+      <property name="receiverClassName">gov.hhs.fha.nhinc.admindist.mirth.MirthAdminDist</property>
+      <property name="receiverPasswords">&lt;list/&gt;</property>
+      <property name="receiverResponseValue">None</property>
+      <property name="receiverServiceName">Mirth</property>
+      <property name="receiverUsernames">&lt;list/&gt;</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>adt_a01_message</name>
+          <script>tFactory = Packages.javax.xml.transform.TransformerFactory.newInstance();xsltTemplate = new Packages.java.io.StringReader(&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot;  
+                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
+                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
+                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; 
+                xmlns:ns3=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonadapter&quot;
+                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;  
+                xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+
+                &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; /&gt;
+                
+                &lt;xsl:template  match=&quot;/&quot;&gt;
+
+                                &lt;xsl:apply-templates select=&quot;ns3:RespondingGateway_SendAlertMessage&quot;/&gt;
+                &lt;/xsl:template&gt;
+                &lt;xsl:template match=&quot;ns3:RespondingGateway_SendAlertMessage&quot;&gt;
+                                &lt;xsl:apply-templates select=&quot;ns4:EDXLDistribution&quot;/&gt;
+                &lt;/xsl:template&gt;
+
+                &lt;xsl:template match=&quot;ns4:EDXLDistribution&quot;&gt;
+                                &lt;xsl:copy-of select=&quot;ns4:contentObject/ns4:xmlContent/ns4:embeddedXMLContent/HL7Message&quot;/&gt;
+                &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+);transformer = tFactory.newTransformer(new Packages.javax.xml.transform.stream.StreamSource(xsltTemplate));sourceVar = new Packages.java.io.StringReader(msg);resultVar = new Packages.java.io.StringWriter();transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(sourceVar), new Packages.javax.xml.transform.stream.StreamResult(resultVar));channelMap.put(&apos;adt_a01_message&apos;, resultVar)</script>
+          <type>XSLT Step</type>
+          <data class="map">
+            <entry>
+              <string>Source</string>
+              <string>msg</string>
+            </entry>
+            <entry>
+              <string>Result</string>
+              <string>adt_a01_message</string>
+            </entry>
+            <entry>
+              <string>XsltTemplate</string>
+              <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot;  
+                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
+                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
+                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; 
+                xmlns:ns3=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonadapter&quot;
+                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;  
+                xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+
+                &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; /&gt;
+                
+                &lt;xsl:template  match=&quot;/&quot;&gt;
+
+                                &lt;xsl:apply-templates select=&quot;ns3:RespondingGateway_SendAlertMessage&quot;/&gt;
+                &lt;/xsl:template&gt;
+                &lt;xsl:template match=&quot;ns3:RespondingGateway_SendAlertMessage&quot;&gt;
+                                &lt;xsl:apply-templates select=&quot;ns4:EDXLDistribution&quot;/&gt;
+                &lt;/xsl:template&gt;
+
+                &lt;xsl:template match=&quot;ns4:EDXLDistribution&quot;&gt;
+                                &lt;xsl:copy-of select=&quot;ns4:contentObject/ns4:xmlContent/ns4:embeddedXMLContent/HL7Message&quot;/&gt;
+                &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64"></inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Web Service Listener</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>PQRI</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">dc89620c-0db2-40a3-a26f-314e0c5af4b9</property>
+        <property name="synchronised">0</property>
+        <property name="template">${adt_a01_message}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+ 
+
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/AdminDistributionSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/AdminDistributionSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; +  entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

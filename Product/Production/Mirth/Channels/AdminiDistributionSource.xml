@@ -1,0 +1,558 @@
+<channel>
+  <id>95dc571b-6d81-4212-9b95-2aed02336203</id>
+  <name>AdminiDistributionSource</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1326989748747</time>
+    <timezone>US/Eastern</timezone>
+  </lastModified>
+  <revision>6</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Web Service Listener</property>
+      <property name="host">0.0.0.0</property>
+      <property name="port">${admin_distribution_source_port}</property>
+      <property name="receiverClassName">gov.hhs.fha.nhinc.admindist.mirth.MirthAdminDist</property>
+      <property name="receiverPasswords">&lt;list/&gt;</property>
+      <property name="receiverResponseValue">None</property>
+      <property name="receiverServiceName">Mirth</property>
+      <property name="receiverUsernames">&lt;list/&gt;</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>measures</name>
+          <script>tFactory = Packages.javax.xml.transform.TransformerFactory.newInstance();xsltTemplate = new Packages.java.io.StringReader(&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:n1=&quot;urn:hl7-org:v3&quot; xmlns:n2=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+	&lt;xsl:output method=&quot;text&quot; indent=&quot;yes&quot; version=&quot;4.01&quot; encoding=&quot;ISO-8859-1&quot; doctype-system=&quot;http://www.w3.org/TR/html4/strict.dtd&quot; doctype-public=&quot;-//W3C//DTD HTML 4.01//EN&quot;/&gt;
+&lt;xsl:template  match=&quot;/&quot;&gt;
+
+&lt;xsl:apply-templates  /&gt;
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;n2:EDXLDistribution&quot;&gt;
+
+&lt;xsl:apply-templates  select=&quot;n2:contentObject/n2:xmlContent/n2:embeddedXMLContent&quot;/&gt;
+
+&lt;/xsl:template&gt;
+&lt;xsl:template  match=&quot;embeddedXMLContent&quot;&gt;
+
+&lt;xsl:apply-templates  select=&quot;submission&quot;/&gt;
+
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;submission&quot; &gt;
+
+&lt;xsl:apply-templates select=&quot;measure-group/provider&quot;/&gt;
+
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;pqri-measure&quot; &gt;
+ 
+	&lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;collection-method&quot;      /&gt;, &lt;xsl:value-of select=&quot;eligible-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;meets-performance-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-not-met-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;reporting-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt; &lt;xsl:text&gt;&amp;#xa;&lt;/xsl:text&gt;
+
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+);transformer = tFactory.newTransformer(new Packages.javax.xml.transform.stream.StreamSource(xsltTemplate));sourceVar = new Packages.java.io.StringReader(msg);resultVar = new Packages.java.io.StringWriter();transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(sourceVar), new Packages.javax.xml.transform.stream.StreamResult(resultVar));channelMap.put(&apos;measures&apos;, resultVar)</script>
+          <type>XSLT Step</type>
+          <data class="map">
+            <entry>
+              <string>Source</string>
+              <string>msg</string>
+            </entry>
+            <entry>
+              <string>Result</string>
+              <string>measures</string>
+            </entry>
+            <entry>
+              <string>XsltTemplate</string>
+              <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:n1=&quot;urn:hl7-org:v3&quot; xmlns:n2=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+	&lt;xsl:output method=&quot;text&quot; indent=&quot;yes&quot; version=&quot;4.01&quot; encoding=&quot;ISO-8859-1&quot; doctype-system=&quot;http://www.w3.org/TR/html4/strict.dtd&quot; doctype-public=&quot;-//W3C//DTD HTML 4.01//EN&quot;/&gt;
+&lt;xsl:template  match=&quot;/&quot;&gt;
+
+&lt;xsl:apply-templates  /&gt;
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;n2:EDXLDistribution&quot;&gt;
+
+&lt;xsl:apply-templates  select=&quot;n2:contentObject/n2:xmlContent/n2:embeddedXMLContent&quot;/&gt;
+
+&lt;/xsl:template&gt;
+&lt;xsl:template  match=&quot;embeddedXMLContent&quot;&gt;
+
+&lt;xsl:apply-templates  select=&quot;submission&quot;/&gt;
+
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;submission&quot; &gt;
+
+&lt;xsl:apply-templates select=&quot;measure-group/provider&quot;/&gt;
+
+&lt;/xsl:template&gt;
+
+&lt;xsl:template  match=&quot;pqri-measure&quot; &gt;
+ 
+	&lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;collection-method&quot;      /&gt;, &lt;xsl:value-of select=&quot;eligible-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;meets-performance-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-not-met-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;reporting-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt; &lt;xsl:text&gt;&amp;#xa;&lt;/xsl:text&gt;
+
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>1</sequenceNumber>
+          <name>destination_directory</name>
+          <script>var mapping;try { mapping = globalChannelMap.get(&apos;destination_directory&apos;);; }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;destination_directory&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>destination_directory</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>globalChannelMap.get(&apos;destination_directory&apos;);</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">PEVEWExEaXN0cmlidXRpb24geG1sbnM9InVybjpvYXNpczpuYW1lczp0YzplbWVyZ2VuY3k6RURY
+TDpERToxLjAiPg0KICAgIDxkaXN0cmlidXRpb25JRD4/PC9kaXN0cmlidXRpb25JRD4NCiAgICA8
+c2VuZGVySUQ+a2llcmFuPC9zZW5kZXJJRD4NCiAgICA8Y29tYmluZWRDb25maWRlbnRpYWxpdHk+
+PzwvY29tYmluZWRDb25maWRlbnRpYWxpdHk+DQogICAgPGxhbmd1YWdlPj88L2xhbmd1YWdlPg0K
+ICAgIDxzZW5kZXJSb2xlPg0KICAgICAgICA8dmFsdWVMaXN0VXJuPj88L3ZhbHVlTGlzdFVybj4N
+CiAgICAgICAgPHZhbHVlPj88L3ZhbHVlPg0KICAgIDwvc2VuZGVyUm9sZT4NCiAgICA8cmVjaXBp
+ZW50Um9sZT4NCiAgICAgICAgPHZhbHVlTGlzdFVybj4/PC92YWx1ZUxpc3RVcm4+DQogICAgICAg
+IDx2YWx1ZT4/PC92YWx1ZT4NCiAgICA8L3JlY2lwaWVudFJvbGU+DQogICAgPGtleXdvcmQ+DQog
+ICAgICAgIDx2YWx1ZUxpc3RVcm4+PzwvdmFsdWVMaXN0VXJuPg0KICAgICAgICA8dmFsdWU+Pzwv
+dmFsdWU+DQogICAgPC9rZXl3b3JkPg0KICAgIDxkaXN0cmlidXRpb25SZWZlcmVuY2U+PzwvZGlz
+dHJpYnV0aW9uUmVmZXJlbmNlPg0KICAgIDxleHBsaWNpdEFkZHJlc3M+DQogICAgICAgIDxleHBs
+aWNpdEFkZHJlc3NTY2hlbWU+PzwvZXhwbGljaXRBZGRyZXNzU2NoZW1lPg0KICAgICAgICA8ZXhw
+bGljaXRBZGRyZXNzVmFsdWU+PzwvZXhwbGljaXRBZGRyZXNzVmFsdWU+DQogICAgPC9leHBsaWNp
+dEFkZHJlc3M+DQogICAgPHRhcmdldEFyZWE+DQogICAgICAgIDxjaXJjbGU+PzwvY2lyY2xlPg0K
+ICAgICAgICA8cG9seWdvbj4/PC9wb2x5Z29uPg0KICAgICAgICA8Y291bnRyeT4/PC9jb3VudHJ5
+Pg0KICAgICAgICA8c3ViZGl2aXNpb24+Pzwvc3ViZGl2aXNpb24+DQogICAgICAgIDxsb2NDb2Rl
+VU4+PzwvbG9jQ29kZVVOPg0KICAgIDwvdGFyZ2V0QXJlYT4NCiAgICA8Y29udGVudE9iamVjdD4N
+CiAgICAgICAgPGNvbnRlbnREZXNjcmlwdGlvbj4/PC9jb250ZW50RGVzY3JpcHRpb24+DQogICAg
+ICAgIDxjb250ZW50S2V5d29yZD4NCiAgICAgICAgICAgIDx2YWx1ZUxpc3RVcm4+PzwvdmFsdWVM
+aXN0VXJuPg0KICAgICAgICAgICAgPHZhbHVlPj88L3ZhbHVlPg0KICAgICAgICA8L2NvbnRlbnRL
+ZXl3b3JkPg0KICAgICAgICA8aW5jaWRlbnRJRD4/PC9pbmNpZGVudElEPg0KICAgICAgICA8aW5j
+aWRlbnREZXNjcmlwdGlvbj4/PC9pbmNpZGVudERlc2NyaXB0aW9uPg0KICAgICAgICA8b3JpZ2lu
+YXRvclJvbGU+DQogICAgICAgICAgICA8dmFsdWVMaXN0VXJuPj88L3ZhbHVlTGlzdFVybj4NCiAg
+ICAgICAgICAgIDx2YWx1ZT4/PC92YWx1ZT4NCiAgICAgICAgPC9vcmlnaW5hdG9yUm9sZT4NCiAg
+ICAgICAgPGNvbnN1bWVyUm9sZT4NCiAgICAgICAgICAgIDx2YWx1ZUxpc3RVcm4+PzwvdmFsdWVM
+aXN0VXJuPg0KICAgICAgICAgICAgPHZhbHVlPj88L3ZhbHVlPg0KICAgICAgICA8L2NvbnN1bWVy
+Um9sZT4NCiAgICAgICAgPGNvbmZpZGVudGlhbGl0eT4/PC9jb25maWRlbnRpYWxpdHk+DQogICAg
+ICAgIDxub25YTUxDb250ZW50Pg0KICAgICAgICAgICAgPG1pbWVUeXBlPj88L21pbWVUeXBlPg0K
+ICAgICAgICAgICAgPGRpZ2VzdD4/PC9kaWdlc3Q+DQogICAgICAgICAgICA8dXJpPj88L3VyaT4N
+CiAgICAgICAgICAgIDxjb250ZW50RGF0YT5jaWQyMzEyMzk3OTQ8L2NvbnRlbnREYXRhPg0KICAg
+ICAgICA8L25vblhNTENvbnRlbnQ+DQogICAgICAgIDx4bWxDb250ZW50Pg0KICAgICAgICAgICAg
+PGtleVhNTENvbnRlbnQvPg0KICAgICAgICAgICAgPGVtYmVkZGVkWE1MQ29udGVudD4NCiAgICAg
+ICAgICAgICAgICA8Q2xpbmljYWxEb2N1bWVudDpDbGluaWNhbERvY3VtZW50IHhtbG5zPSJ1cm46
+aGw3LW9yZzp2MyIgeG1sbnM6Q2xpbmljYWxEb2N1bWVudD0idXJuOmhsNy1vcmc6djMiIHhtbG5z
+OnNvYXA9Imh0dHA6Ly93d3cudzMub3JnLzIwMDMvMDUvc29hcC1lbnZlbG9wZSIgeG1sbnM6dXJu
+PSJ1cm46Z292OmhoczpmaGE6bmhpbmM6Y29tbW9uOm5oaW5jY29tbW9uYWRhcHRlciIgeG1sbnM6
+dXJuMT0idXJuOm9hc2lzOm5hbWVzOnRjOmVtZXJnZW5jeTpFRFhMOkRFOjEuMCIgeG1sbnM6dXJu
+Mj0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpuaGluY2NvbW1vbiIgeG1sbnM6dm9jPSJ1
+cm46aGw3LW9yZzp2My92b2MiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxT
+Y2hlbWEtaW5zdGFuY2UiIHhzaTpzY2hlbWFMb2NhdGlvbj0idXJuOmhsNy1vcmc6djMgQ0RBLnhz
+ZCI+DQogICAgICAgICAgICAgICAgICAgIDxyZWFsbUNvZGUgeG1sbnM9IiIgeG1sbnM6bnMxMD0i
+dXJuOmhsNy1vcmc6djMiIGNvZGU9IlVTIi8+DQogICAgICAgICAgICAgICAgICAgIDx0eXBlSWQg
+eG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIGV4dGVuc2lvbj0iUE9DRF9IRDAw
+MDA0MCIgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMuMS4zIi8+DQogICAgICAgICAgICAgICAgICAg
+IDx0ZW1wbGF0ZUlkIHhtbG5zPSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiByb290PSIy
+LjE2Ljg0MC4xLjExMzg4My4xMC4yMC4xMiIvPg0KICAgICAgICAgICAgICAgICAgICA8dGVtcGxh
+dGVJZCB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46aGw3LW9yZzp2MyIgcm9vdD0iMi4xNi44NDAu
+MS4xMTM4ODMuMy4yNDkuMTEuMTAwLjEiLz4NCiAgICAgICAgICAgICAgICAgICAgPGlkIHhtbG5z
+PSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiBleHRlbnNpb249IkBAQFVVSUQtRE9DQEBA
+IiByb290PSIyLjE2Ljg0MC4xLjExMzg4My4zLjU0MyIvPg0KICAgICAgICAgICAgICAgICAgICA8
+Y29kZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46aGw3LW9yZzp2MyIgY29kZT0iNTUxODItMCIg
+Y29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi4xIiBjb2RlU3lzdGVtTmFtZT0iTE9JTkMi
+IGRpc3BsYXlOYW1lPSJRdWFsaXR5IE1lYXN1cmUgUmVwb3J0Ii8+DQogICAgICAgICAgICAgICAg
+ICAgIDx0aXRsZT5RdWFsaXR5IE1lYXN1cmUgUmVwb3J0PC90aXRsZT4NCiAgICAgICAgICAgICAg
+ICAgICAgPGVmZmVjdGl2ZVRpbWUgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMi
+IHZhbHVlPSIyMDEwMDcwMyIvPg0KICAgICAgICAgICAgICAgICAgICA8Y29uZmlkZW50aWFsaXR5
+Q29kZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46aGw3LW9yZzp2MyIgY29kZT0iTiIgY29kZVN5
+c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNS4yNSIvPg0KICAgICAgICAgICAgICAgICAgICA8bGFu
+Z3VhZ2VDb2RlIHhtbG5zPSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiBjb2RlPSJlbi1V
+UyIvPg0KICAgICAgICAgICAgICAgICAgICA8c2V0SWQgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJu
+OmhsNy1vcmc6djMiIGV4dGVuc2lvbj0iQEBAVVVJRC1TRVRAQEAiIHJvb3Q9IjIuMTYuODQwLjEu
+MTEzODgzLjMuNTQzIi8+DQogICAgICAgICAgICAgICAgICAgIDx2ZXJzaW9uTnVtYmVyIHhtbG5z
+PSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiB2YWx1ZT0iMSIvPg0KICAgICAgICAgICAg
+ICAgICAgICA8cmVjb3JkVGFyZ2V0Pg0KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGllbnRS
+b2xlPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpZCB4bWxucz0iIiB4bWxuczpuczEw
+PSJ1cm46aGw3LW9yZzp2MyIgZXh0ZW5zaW9uPSI2NjYwMDAyMDAiIHJvb3Q9IlNTTiIvPg0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDx0ZWxlY29tIHhtbG5zPSIiIHhtbG5zOm5zMTA9InVy
+bjpobDctb3JnOnYzIiB1c2U9IiIgdmFsdWU9InRlbDorMS0yMjItNTU1LTgyMzUiLz4NCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8cGF0aWVudD4NCiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPGFkbWluaXN0cmF0aXZlR2VuZGVyQ29kZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1
+cm46aGw3LW9yZzp2MyIgY29kZT0iTSIgY29kZVN5c3RlbT0iYSIgY29kZVN5c3RlbU5hbWU9IkhM
+NyBBZG1pbmlzdHJhdGl2ZUdlbmRlciIgZGlzcGxheU5hbWU9Ik1BTEUiLz4NCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgPGJpcnRoVGltZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46
+aGw3LW9yZzp2MyIgdmFsdWU9IjE5NjAwMTAxMTIwMDAwIi8+DQoJCQk8L3BhdGllbnQ+DQoJCTwv
+cGF0aWVudFJvbGU+DQoJPC9yZWNvcmRUYXJnZXQ+DQogICAgICAgICAgICAgICAgICAgIDxhdXRo
+b3I+DQogICAgICAgICAgICAgICAgICAgICAgICA8dGltZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1
+cm46aGw3LW9yZzp2MyIgdmFsdWU9IjIwMTAwNzAzIi8+DQogICAgICAgICAgICAgICAgICAgICAg
+ICA8YXNzaWduZWRBdXRob3I+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGlkIHhtbG5z
+PSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiByb290PSIyLjE2Ljg0MC4xLjExMzg4My4z
+LjU0MyIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxhc3NpZ25lZEF1dGhvcmluZ0Rl
+dmljZT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNvZnR3YXJlTmFtZT5HSEgg
+T3V0cGF0aWVudCBDbGluaWMgU3lzdGVtIHYxLjA8L3NvZnR3YXJlTmFtZT4NCiAgICAgICAgICAg
+IDwvYXNzaWduZWRBdXRob3JpbmdEZXZpY2U+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+PHJlcHJlc2VudGVkT3JnYW5pemF0aW9uPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA8aWQgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIGV4dGVuc2lvbj0iMTU1
+ODU3NDUyNiIgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMuMy41NDMiLz4NCiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgPG5hbWU+R0hIIE91dHBhdGllbnQgQ2xpbmljPC9uYW1lPg0KCQkJ
+PC9yZXByZXNlbnRlZE9yZ2FuaXphdGlvbj4NCgkJPC9hc3NpZ25lZEF1dGhvcj4NCgk8L2F1dGhv
+cj4NCiAgICAgICAgICAgICAgICAgICAgPGluZm9ybWFudD4NCiAgICAgICAgICAgICAgICAgICAg
+ICAgIDxhc3NpZ25lZEVudGl0eT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aWQgeG1s
+bnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIG51bGxGbGF2b3I9Ik5BIi8+DQogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgPHJlcHJlc2VudGVkT3JnYW5pemF0aW9uPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICA8aWQgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhs
+Ny1vcmc6djMiIGV4dGVuc2lvbj0iMTU1ODU3NDUyNiIgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMu
+My41NDMiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5hbWU+R0hIIE91dHBh
+dGllbnQgQ2xpbmljPC9uYW1lPg0KCQkJPC9yZXByZXNlbnRlZE9yZ2FuaXphdGlvbj4NCgkJPC9h
+c3NpZ25lZEVudGl0eT4NCgk8L2luZm9ybWFudD4NCiAgICAgICAgICAgICAgICAgICAgPGN1c3Rv
+ZGlhbj4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxhc3NpZ25lZEN1c3RvZGlhbj4NCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8cmVwcmVzZW50ZWRDdXN0b2RpYW5Pcmdhbml6YXRpb24+
+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpZCB4bWxucz0iIiB4bWxuczpuczEw
+PSJ1cm46aGw3LW9yZzp2MyIgZXh0ZW5zaW9uPSIxNTU4NTc0NTI2IiByb290PSIyLjE2Ljg0MC4x
+LjExMzg4My4zLjU0MyIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bmFtZT5H
+SEggT3V0cGF0aWVudCBDbGluaWM8L25hbWU+DQoJCQk8L3JlcHJlc2VudGVkQ3VzdG9kaWFuT3Jn
+YW5pemF0aW9uPg0KCQk8L2Fzc2lnbmVkQ3VzdG9kaWFuPg0KCTwvY3VzdG9kaWFuPg0KICAgICAg
+ICAgICAgICAgICAgICA8bGVnYWxBdXRoZW50aWNhdG9yPg0KICAgICAgICAgICAgICAgICAgICAg
+ICAgPHRpbWUgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIHZhbHVlPSIyMDEw
+MDcwMyIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgPHNpZ25hdHVyZUNvZGUgeG1sbnM9IiIg
+eG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIGNvZGU9IlMiLz4NCiAgICAgICAgICAgICAgICAg
+ICAgICAgIDxhc3NpZ25lZEVudGl0eT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aWQg
+eG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIGV4dGVuc2lvbj0iMTExMTExIiBy
+b290PSIyLjE2Ljg0MC4xLjExMzg4My4zLjU0MyIvPg0KICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDxhc3NpZ25lZFBlcnNvbj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5h
+bWU+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Z2l2ZW4+UGF0cmljaWE8
+L2dpdmVuPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGZhbWlseT5Qcmlt
+YXJ5PC9mYW1pbHk+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c3VmZml4
+Pk1EPC9zdWZmaXg+DQoJCQkJPC9uYW1lPg0KCQkJPC9hc3NpZ25lZFBlcnNvbj4NCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA8cmVwcmVzZW50ZWRPcmdhbml6YXRpb24+DQogICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDxpZCB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46aGw3LW9y
+Zzp2MyIgZXh0ZW5zaW9uPSIxNTU4NTc0NTI2IiByb290PSIyLjE2Ljg0MC4xLjExMzg4My4zLjU0
+MyIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bmFtZT5HSEggT3V0cGF0aWVu
+dCBDbGluaWM8L25hbWU+DQoJCQk8L3JlcHJlc2VudGVkT3JnYW5pemF0aW9uPg0KCQk8L2Fzc2ln
+bmVkRW50aXR5Pg0KCTwvbGVnYWxBdXRoZW50aWNhdG9yPg0KICAgICAgICAgICAgICAgICAgICA8
+cGFydGljaXBhbnQgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIHR5cGVDb2Rl
+PSJQUkYiPg0KICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6ZnVuY3Rpb25Db2RlIGNvZGU9
+IlBDUCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNS44OCIvPg0KICAgICAgICAgICAg
+ICAgICAgICAgICAgPG5zMTA6YXNzb2NpYXRlZEVudGl0eSBjbGFzc0NvZGU9IlBST1YiPg0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOmlkIGV4dGVuc2lvbj0iMTExMTExIiByb290
+PSIyLjE2Ljg0MC4xLjExMzg4My4zLjI0OS42Ii8+DQogICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgPG5zMTA6YXNzb2NpYXRlZFBlcnNvbj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgPG5zMTA6bmFtZT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEw
+OnByZWZpeD5Eci48L25zMTA6cHJlZml4Pg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgPG5zMTA6Z2l2ZW4+UGF0cmljaWE8L25zMTA6Z2l2ZW4+DQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA8bnMxMDpmYW1pbHk+UHJpbWFyeTwvbnMxMDpmYW1pbHk+DQoJ
+CQkJPC9uczEwOm5hbWU+DQoJCQk8L25zMTA6YXNzb2NpYXRlZFBlcnNvbj4NCgkJPC9uczEwOmFz
+c29jaWF0ZWRFbnRpdHk+DQoJPC9wYXJ0aWNpcGFudD4NCiAgICAgICAgICAgICAgICAgICAgPGNv
+bXBvbmVudD4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxzdHJ1Y3R1cmVkQm9keT4NCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8Y29tcG9uZW50Pg0KICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA8c2VjdGlvbj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IDx0ZW1wbGF0ZUlkIHhtbG5zPSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiByb290PSIy
+LjE2Ljg0MC4xLjExMzg4My4xOS4xIi8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICA8Y29kZSB4bWxucz0iIiB4bWxuczpuczEwPSJ1cm46aGw3LW9yZzp2MyIgY29kZT0iNTUx
+ODUtMyIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi4xIi8+DQogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8dGl0bGU+TWVhc3VyZSBTZXQ6IERQQ1ZISUUgTWVhc3Vy
+ZSBTZXQ8L3RpdGxlPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRleHQ+
+Li4uIChvcHRpb25hbCkgZGVzY3JpcHRpb24gb2YgbWVhc3VyZSBzZXQgLi4uPC90ZXh0Pg0KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNvbXBvbmVudD4NCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8c2VjdGlvbj4NCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRlbXBsYXRlSWQgeG1sbnM9IiIgeG1sbnM6bnMx
+MD0idXJuOmhsNy1vcmc6djMiIHJvb3Q9IjIuMTYuODQwLjEuMTEzODgzLjE5LjIiLz4NCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRlbXBsYXRlSWQgeG1sbnM9
+IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIHJvb3Q9IjIuMTYuODQwLjEuMTEzODgzLjE5
+LjMiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRlbXBs
+YXRlSWQgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIHJvb3Q9IjIuMTYuODQw
+LjEuMTEzODgzLjE5LjQiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgPGNvZGUgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIGNvZGU9IjU1
+MTg2LTEiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuMSIvPg0KICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGl0bGU+TWVhc3VyZSBTZWN0aW9uPC90
+aXRsZT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRleHQ+
+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bGlzdD4N
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aXRl
+bT5OUUYgMDA2OCBJc2NoZW1pYyBWYXNjdWxhciBEaXNlYXNlIChJVkQpOiBVc2Ugb2YgQXNwaXJp
+biBvciBhbm90aGVyIEFudGl0aHJvbWJvdGljPC9pdGVtPg0KICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpdGVtPk5RRiAwMDEzIEh5cGVydGVuc2lv
+bjogQmxvb2QgUHJlc3N1cmUgTWVhc3VyZW1lbnQ8L2l0ZW0+DQogICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGl0ZW0+TlFGIDAwNjEgVGhlIHBlcmNl
+bnRhZ2Ugb2YgcGF0aWVudHMgMTg/NzUgeWVhcnMgb2YgYWdlIHdpdGggZGlhYmV0ZXMgKHR5cGUg
+MSBvciB0eXBlIDIpIHdobyBoYWQgQlAgJmx0OzE0MC85MCBtbUhnLjwvaXRlbT4NCgkJCQkJCQkJ
+PC9saXN0Pg0KCQkJCQkJCTwvdGV4dD4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgPGVudHJ5IHhtbG5zPSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiB0
+eXBlQ29kZT0iRFJJViI+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICA8bnMxMDphY3QgY2xhc3NDb2RlPSJBQ1QiIG1vb2RDb2RlPSJERUYiPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOmlkIHJv
+b3Q9IjRkZDNiMGI0LWE1ZmMtNGJkNi05YTg3LTc1NWRhNDk0ZjZlYiIvPg0KICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOmNvZGUgY29kZT0i
+MTExMTEtWCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi4xIiBkaXNwbGF5TmFtZT0i
+T3h5Z2VuYXRpb24gQXNzZXNzbWVudCxWMi41Ii8+DQogICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6dGV4dD4uLi4gKG9wdGlvbmFsKSBkZXNj
+cmlwdGlvbiBvZiBtZWFzdXJlIC4uLjwvbnMxMDp0ZXh0Pg0KICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOnN0YXR1c0NvZGUgY29kZT0iY29t
+cGxldGVkIi8+DQoJCQkJCQkJCTwvbnMxMDphY3Q+DQoJCQkJCQkJPC9lbnRyeT4NCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGVudHJ5IHhtbG5zPSIiIHhtbG5z
+Om5zMTA9InVybjpobDctb3JnOnYzIiB0eXBlQ29kZT0iRFJJViI+DQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bnMxMDphY3QgY2xhc3NDb2RlPSJBQ1Qi
+IG1vb2RDb2RlPSJERUYiPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDxuczEwOmlkIHJvb3Q9IjRkZDNiMGI0LWE1ZmMtNGJkNi05YTg3LTc1NWRh
+NDk0ZjZlZSIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDxuczEwOmNvZGUgY29kZT0iMTExMTEtWCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4x
+MTM4ODMuNi4xIiBkaXNwbGF5TmFtZT0iQWR1bHQgU21va2luZyBDZXNzYXRpb24gQWR2aWNlL0Nv
+dW5zZWxpbmciLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICA8bnMxMDp0ZXh0Pi4uLiAob3B0aW9uYWwpIGRlc2NyaXB0aW9uIG9mIG1lYXN1cmUg
+Li4uPC9uczEwOnRleHQ+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgPG5zMTA6c3RhdHVzQ29kZSBjb2RlPSJjb21wbGV0ZWQiLz4NCgkJCQkJCQkJ
+PC9uczEwOmFjdD4NCgkJCQkJCQk8L2VudHJ5Pg0KICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA8ZW50cnkgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6
+djMiIHR5cGVDb2RlPSJEUklWIj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDxuczEwOmFjdCBjbGFzc0NvZGU9IkFDVCIgbW9vZENvZGU9IkRFRiI+DQog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6
+aWQgcm9vdD0iNGRkM2IwYjQtYTVmYy00YmQ2LTlhODctNzU1ZGE0OTRmNmVhIi8+DQogICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6Y29kZSBj
+b2RlPSIxMTExMS1YIiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42LjEiIGRpc3BsYXlO
+YW1lPSJJbml0aWFsIEFudGliaW90aWMgU2VsZWN0aW9uIGZvciBDQVAgaW4gSW1tdW5vY29tcGV0
+ZW50IC0gSUNVIFBhdGllbnQiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA8bnMxMDp0ZXh0Pi4uLiAob3B0aW9uYWwpIGRlc2NyaXB0aW9uIG9m
+IG1lYXN1cmUgLi4uPC9uczEwOnRleHQ+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgPG5zMTA6c3RhdHVzQ29kZSBjb2RlPSJjb21wbGV0ZWQiLz4N
+CgkJCQkJCQkJPC9uczEwOmFjdD4NCgkJCQkJCQk8L2VudHJ5Pg0KICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICA8Y29tcG9uZW50Pg0KICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHNlY3Rpb24+DQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNvZGUgeG1sbnM9IiIgeG1sbnM6
+bnMxMD0idXJuOmhsNy1vcmc6djMiIGNvZGU9IjU1MTg3LTkiIGNvZGVTeXN0ZW09IjIuMTYuODQw
+LjEuMTEzODgzLjYuMSIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDx0aXRsZT5SZXBvcnRpbmcgUGFyYW1ldGVyczwvdGl0bGU+DQogICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRleHQ+DQogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxsaXN0
+Pg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgPGl0ZW0+UmVwb3J0aW5nIHBlcmlvZDogMDEgSmFuIDIwMDggLSAzMSBNYXIgMjAwODwv
+aXRlbT4NCgkJCQkJCQkJCQk8L2xpc3Q+DQoJCQkJCQkJCQk8L3RleHQ+DQogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGVudHJ5Pg0KICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YWN0IHhtbG5z
+PSIiIHhtbG5zOm5zMTA9InVybjpobDctb3JnOnYzIiBjbGFzc0NvZGU9IkFDVCIgbW9vZENvZGU9
+IkVWTiI+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA8bnMxMDpjb2RlIGNvZGU9IjI1MjExNjAwNCIgY29kZVN5c3RlbT0iMi4xNi44
+NDAuMS4xMTM4ODMuNi45NiIgZGlzcGxheU5hbWU9Ik9ic2VydmF0aW9uIFBhcmFtZXRlcnMiLz4N
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDxuczEwOmVmZmVjdGl2ZVRpbWU+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6bG93IHZhbHVlPSIyMDA4MDEw
+MSIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDxuczEwOmhpZ2ggdmFsdWU9IjIwMDgwMzMxIi8+IA0KCQkJCQkJCQkJCQk8
+L25zMTA6ZWZmZWN0aXZlVGltZT4NCgkJCQkJCQkJCQk8L2FjdD4NCgkJCQkJCQkJCTwvZW50cnk+
+DQoJCQkJCQkJCTwvc2VjdGlvbj4NCgkJCQkJCQk8L2NvbXBvbmVudD4NCiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNvbXBvbmVudD4NCiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxzZWN0aW9uPg0KICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjb2RlIHhtbG5zPSIiIHht
+bG5zOm5zMTA9InVybjpobDctb3JnOnYzIiBjb2RlPSI1NTE4OC03IiBjb2RlU3lzdGVtPSIyLjE2
+Ljg0MC4xLjExMzg4My42LjEiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA8dGl0bGU+UGF0aWVudCBEYXRhPC90aXRsZT4NCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGV4dD4NCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGxpc3Q+DQog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA8aXRlbT5BZG1pc3Npb24gRGF0ZTogMTMgRmViIDIwMDg8L2l0ZW0+DQogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aXRlbT5EaXNj
+aGFyZ2UgRGF0ZTogMjAgRmViIDIwMDg8L2l0ZW0+DQogICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aXRlbT5JQ0QgRGlhZ25vc2lzIENv
+ZGVzOiA0ODEgKFBuZXVtb2NvY2NhbCBwbmV1bW9uaWEpPC9pdGVtPg0KICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGl0ZW0+SW5pdGlh
+bCBPeHlnZW4gU2F0dXJhdGlvbjogODUlPC9pdGVtPg0KICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGl0ZW0+SW5pdGlhbCBBbnRpYmlv
+dGljczogTGV2b2Zsb3hhY2luIDUwMG1nIElWIHEyNCBob3VyczwvaXRlbT4NCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpdGVtPlNt
+b2tlcjogWWVzPC9pdGVtPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgPGl0ZW0+U21va2luZyBDZXNzYXRpb24gQ291bnNlbGluZyBQ
+cm92aWRlZDogWWVzPC9pdGVtPg0KCQkJCQkJCQkJCTwvbGlzdD4NCgkJCQkJCQkJCTwvdGV4dD4N
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZW50
+cnkgeG1sbnM9IiIgeG1sbnM6bnMxMD0idXJuOmhsNy1vcmc6djMiIHR5cGVDb2RlPSJEUklWIj4N
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+PG5zMTA6ZW5jb3VudGVyIGNsYXNzQ29kZT0iRU5DIiBtb29kQ29kZT0iRVZOIj4NCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEw
+OmlkIHJvb3Q9IjNlNTQ3NTk3LWFjODEtNDIzMi1iMjBmLTMxN2RmZDFhMzU5NSIvPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5z
+MTA6Y29kZSBjb2RlPSJJTVAiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjUuODMiIGNv
+ZGVTeXN0ZW1OYW1lPSJhY3RFbmNvdW50ZXJDb2RlIiBkaXNwbGF5TmFtZT0iSW5wYXRpZW50Ii8+
+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICA8bnMxMDplZmZlY3RpdmVUaW1lPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOmxvdyB2YWx1ZT0iMjAwODAy
+MTMiLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICA8bnMxMDpoaWdoIHZhbHVlPSIyMDA4MDIyMCIvPg0KCQkJCQkJCQkJCQk8
+L25zMTA6ZWZmZWN0aXZlVGltZT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOmVudHJ5UmVsYXRpb25zaGlwIHR5cGVDb2Rl
+PSJDT01QIj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICA8bnMxMDpvYnNlcnZhdGlvbiBjbGFzc0NvZGU9Ik9CUyIgbW9vZENv
+ZGU9IkVWTiIgbmVnYXRpb25JbmQ9ImZhbHNlIj4NCiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6dGVtcGxhdGVJ
+ZCByb290PSIyLjE2Ljg0MC4xLjExMzg4My4xMC4yMC4xLjI4Ii8+DQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEw
+OmlkIHJvb3Q9ImY3YTY2ZThhLWY2ZTUtNDhmZS05M2U1LWYwZjFlZDQ2MmM4MCIvPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICA8bnMxMDpjb2RlIGNvZGU9IkFTU0VSVElPTiIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4x
+MTM4ODMuNS40Ii8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEwOnN0YXR1c0NvZGUgY29kZT0iY29tcGxldGVk
+Ii8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDxuczEwOnZhbHVlIGNvZGU9IjQ4MSIgY29kZVN5c3RlbT0iMi4xNi44
+NDAuMS4xMTM4ODMuNi4yIiBjb2RlU3lzdGVtTmFtZT0iSUNEOUNNIiBkaXNwbGF5TmFtZT0iUG5l
+dW1vY29jY2FsIHBuZXVtb25pYSIgeHNpOnR5cGU9IkNEIi8+DQoJCQkJCQkJCQkJCQk8L25zMTA6
+b2JzZXJ2YXRpb24+DQoJCQkJCQkJCQkJCTwvbnMxMDplbnRyeVJlbGF0aW9uc2hpcD4NCiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxu
+czEwOmVudHJ5UmVsYXRpb25zaGlwIHR5cGVDb2RlPSJDT01QIj4NCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bnMxMDpvYnNl
+cnZhdGlvbiBjbGFzc0NvZGU9Ik9CUyIgbW9vZENvZGU9IkVWTiI+DQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxuczEw
+OnRlbXBsYXRlSWQgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMuMTAuMjAuMS4zMSIvPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICA8bnMxMDppZCByb290PSI1YWMwNDg2My1hYTA2LTQyNTQtODRhNi1hYzAxZmFkNjA3MjMi
+Lz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgPG5zMTA6Y29kZSBjb2RlPSIyMzM5NjIwMDciIGNvZGVTeXN0ZW09IjIu
+MTYuODQwLjEuMTEzODgzLjYuOTYiIGNvZGVTeXN0ZW1OYW1lPSJzbm9tZWQtQ1QiIGRpc3BsYXlO
+YW1lPSJPeHlnZW4gc2F0dXJhdGlvbiIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bnMxMDpzdGF0dXNDb2RlIGNv
+ZGU9ImNvbXBsZXRlZCIvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8bnMxMDplZmZlY3RpdmVUaW1lPg0KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPG5zMTA6Y2VudGVyIHZhbHVlPSIyMDA4MDIxMzE0MTIiLz4NCgkJCQkJCQkJCQkJ
+CQk8L25zMTA6ZWZmZWN0aXZlVGltZT4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPG5zMTA6dmFsdWUgY29kZT0iMjMz
+OTYyMDA3IiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42Ljk2IiBjb2RlU3lzdGVtTmFt
+ZT0ic25vbWVkLUNUIiBkaXNwbGF5TmFtZT0iT3h5Z2VuIHNhdHVyYXRpb24iIHhzaTp0eXBlPSJD
+RCIvPg0KCQkJCQkJCQkJCQkJPC9uczEwOm9ic2VydmF0aW9uPg0KCQkJCQkJCQkJCQk8L25zMTA6
+ZW50cnlSZWxhdGlvbnNoaXA+DQoJCQkJCQkJCQkJCQ0KCQkJCQkJCQkJCTwvbnMxMDplbmNvdW50
+ZXI+DQoJCQkJCQkJCQk8L2VudHJ5Pg0KCQkJCQkJCQk8L3NlY3Rpb24+DQoJCQkJCQkJPC9jb21w
+b25lbnQ+DQoJCQkJCQk8L3NlY3Rpb24+DQoJCQkJCTwvY29tcG9uZW50Pg0KCQkJCTwvc2VjdGlv
+bj4NCgkJCTwvY29tcG9uZW50Pg0KCQk8L3N0cnVjdHVyZWRCb2R5Pg0KCTwvY29tcG9uZW50Pg0K
+PC9DbGluaWNhbERvY3VtZW50OkNsaW5pY2FsRG9jdW1lbnQ+DQogICAgICAgICAgICA8L2VtYmVk
+ZGVkWE1MQ29udGVudD4NCiAgICAgICAgPC94bWxDb250ZW50Pg0KICAgIDwvY29udGVudE9iamVj
+dD4NCjwvRURYTERpc3RyaWJ1dGlvbj4N</inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Web Service Listener</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>PQRI</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">35870de1-a62e-4b7c-a692-3c77d6079be7</property>
+        <property name="synchronised">0</property>
+        <property name="template">${message.rawData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+ 
+
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/AdminDistributionSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/AdminDistributionSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; +  entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

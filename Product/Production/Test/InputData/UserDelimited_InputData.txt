@@ -1,0 +1,2 @@
+delimter=~
+ID1234~Fairfax INOVA Hospital~1234 Gallows Rd.~Falls Church~VA~Fairfax~ Follow Up Visit~ 15 November 2011 12:45 PM~PATID1223334444555~MRN11122333445~42~Years~M~Springfield~22150~VA~USA~Caucasian~ Irish~ Fairfax~ABC123~10 November 2011 9:32 AM~8 November 2011~~Upset Stomach~Patient midsection is tender to the touch.  No fever.~147522~~Preliminary Diagnosis~Discharged~11 November 2011 6:30 PM~98.7~[degF]~65~%

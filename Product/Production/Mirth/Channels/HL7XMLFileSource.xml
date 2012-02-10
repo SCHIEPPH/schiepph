@@ -1,0 +1,250 @@
+<channel>
+  <id>2eeec6d5-934c-4b7d-a000-e78e09e028d3</id>
+  <name>HL7XMLFileSource</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1328133205236</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>10</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">File Reader</property>
+      <property name="FTPAnonymous">1</property>
+      <property name="autoDelete">0</property>
+      <property name="binary">0</property>
+      <property name="charsetEncoding">DEFAULT_ENCODING</property>
+      <property name="checkFileAge">1</property>
+      <property name="fileAge">1000</property>
+      <property name="fileFilter">*.xml</property>
+      <property name="host">${hl7_xml_file_source_input_dir}</property>
+      <property name="moveToDirectory">${hl7_xml_file_source_processed_dir}</property>
+      <property name="moveToErrorDirectory">${hl7_xml_file_source_error_dir}</property>
+      <property name="moveToPattern"></property>
+      <property name="passive">1</property>
+      <property name="password">anonymous</property>
+      <property name="pollingFrequency">1000</property>
+      <property name="pollingType">interval</property>
+      <property name="processBatchFiles">0</property>
+      <property name="regex">0</property>
+      <property name="scheme">file</property>
+      <property name="secure">1</property>
+      <property name="sortAttribute">date</property>
+      <property name="timeout">10000</property>
+      <property name="username">anonymous</property>
+      <property name="validateConnections">1</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundTemplate encoding="base64">PEhMN01lc3NhZ2UgeG1sbnM6Uz0iaHR0cDovL3d3dy53My5vcmcvMjAwMy8wNS9zb2FwLWVudmVs
+b3BlIiB4bWxuczpuczEwPSJodHRwOi8vZG9jcy5vYXNpcy1vcGVuLm9yZy93c3JmL2JmLTIiIHht
+bG5zOm5zMTE9Imh0dHA6Ly9kb2NzLm9hc2lzLW9wZW4ub3JnL3dzbi90LTEiIHhtbG5zOm5zMTI9
+InVybjpvYXNpczpuYW1lczp0Yzp4YWNtbDoyLjA6cG9saWN5OnNjaGVtYTpvcyIgeG1sbnM6bnMx
+Mz0iaHR0cDovL3d3dy5oaHMuZ292L2hlYWx0aGl0L25oaW4vY2RjIiB4bWxuczpuczE0PSJ1cm46
+Z292OmhoczpmaGE6bmhpbmM6Y29tbW9uOnN1YnNjcmlwdGlvbmIyb3ZlcnJpZGVmb3JjZGMiIHht
+bG5zOm5zMTU9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5z
+Om5zMTY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDQvMDgvYWRkcmVzc2luZyIg
+eG1sbnM6bnMxNz0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpuaGluY2NvbW1vbmFkYXB0
+ZXIiIHhtbG5zOm5zMTg9InVybjpvYXNpczpuYW1lczp0YzplbWVyZ2VuY3k6RURYTDpERToxLjAi
+IHhtbG5zOm5zMTk9Imh0dHA6Ly9uaGluYy5zZXJ2aWNlcy5jb20vc2NoZW1hL2F1ZGl0bWVzc2Fn
+ZSIgeG1sbnM6bnMyPSJ1cm46b2FzaXM6bmFtZXM6dGM6ZW1lcmdlbmN5OkVEWEw6REU6MS4wIiB4
+bWxuczpuczIwPSJ1cm46b2FzaXM6bmFtZXM6dGM6eGFjbWw6Mi4wOmNvbnRleHQ6c2NoZW1hOm9z
+IiB4bWxuczpuczM9InVybjpvYXNpczpuYW1lczp0YzplYnhtbC1yZWdyZXA6eHNkOnJzOjMuMCIg
+eG1sbnM6bnM0PSJ1cm46b2FzaXM6bmFtZXM6dGM6ZWJ4bWwtcmVncmVwOnhzZDpsY206My4wIiB4
+bWxuczpuczU9InVybjppaGU6aXRpOnhkcy1iOjIwMDciIHhtbG5zOm5zNj0idXJuOm9hc2lzOm5h
+bWVzOnRjOmVieG1sLXJlZ3JlcDp4c2Q6cXVlcnk6My4wIiB4bWxuczpuczc9Imh0dHA6Ly93d3cu
+dzMub3JnLzIwMDUvMDgvYWRkcmVzc2luZyIgeG1sbnM6bnM4PSJodHRwOi8vZG9jcy5vYXNpcy1v
+cGVuLm9yZy93c24vYi0yIiB4bWxuczpuczk9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246
+c3Vic2NyaXB0aW9uYjJvdmVycmlkZWZvcmRvY3VtZW50cyI+CjxNU0g+CjxNU0guMT58PC9NU0gu
+MT4KPE1TSC4yPl5+XCZhbXA7PC9NU0guMj4KPE1TSC43Pgo8VFMuMT4yMDExMTIxMzEzMTIyNTwv
+VFMuMT4KPC9NU0guNz4KPE1TSC45Pgo8TVNHLjE+QURUPC9NU0cuMT4KPE1TRy4yPkEwMTwvTVNH
+LjI+CjwvTVNILjk+CjxNU0guMTA+TVNHMDAwMDE8L01TSC4xMD4KPE1TSC4xMT4KPFBULjE+UDwv
+UFQuMT4KPC9NU0guMTE+CjxNU0guMTI+CjxWSUQuMT4yLjMuMTwvVklELjE+CjwvTVNILjEyPgo8
+TVNILjE4PlVURi04PC9NU0guMTg+CjwvTVNIPgo8RVZOPgo8RVZOLjI+CjxUUy4xPjhfWlpfcmVw
+b3J0X2RhdGVfdGltZTwvVFMuMT4KPC9FVk4uMj4KPC9FVk4+CjxQSUQ+CjxQSUQuMT4xPC9QSUQu
+MT4KPFBJRC4yPgo8Q1guMT45X1paX3VuaXF1ZV9wYXRpZW50X2lkPC9DWC4xPgo8Q1guNT5QSTwv
+Q1guNT4KPC9QSUQuMj4KPFBJRC4zPgo8Q1guMT4xMF9aWl9tZWRpY2FsX3JlY29yZF9udW1iZXI8
+L0NYLjE+CjwvUElELjM+CjxQSUQuNT4KPFhQTi4xPgo8Rk4uMT5wYWl0ZW50X25hbWU8L0ZOLjE+
+CjwvWFBOLjE+CjwvUElELjU+CjxQSUQuOD4xM19aWl9nZW5kZXI8L1BJRC44Pgo8UElELjEwPgo8
+Q0UuMT4xOF9aWl9wYWl0ZW50X3JhY2U8L0NFLjE+CjwvUElELjEwPgo8UElELjExPgo8WEFELjM+
+MTRfWlpfcGFpdGVudF9jaXR5PC9YQUQuMz4KPFhBRC40PjE2X1paX3BhdGllbnRfc3RhdGU8L1hB
+RC40Pgo8WEFELjU+MTVfWlpfcGFpdGVudF96aXBfY29kZTwvWEFELjU+CjxYQUQuNj4xN19aWl9w
+YWl0ZW50X2NvdW50cnk8L1hBRC42Pgo8WEFELjk+MjBfWlpfcGFpdGVudF9jb3VudHk8L1hBRC45
+Pgo8L1BJRC4xMT4KPFBJRC4yMj4KPENFLjE+MTlfWlpfcGFpdGVudF9ldGhuaWNpdHk8L0NFLjE+
+CjwvUElELjIyPgo8L1BJRD4KPFBWMT4KPFBWMS4yPjI0X1paX3BhaXRlbnRfY2xhc3M8L1BWMS4y
+Pgo8UFYxLjE5Pgo8Q1guMT4yMV9aWl92aXNpdF9pZDwvQ1guMT4KPC9QVjEuMTk+CjxQVjEuMzY+
+MzBfWlpfZGlzY2hhcmdlX2Rpc3Bvc2l0aW9uPC9QVjEuMzY+CjxQVjEuNDQ+CjxUUy4xPjIyX1pa
+X3Zpc2l0X2RhdGVfdGltZTwvVFMuMT4KPC9QVjEuNDQ+CjxQVjEuNDU+CjxUUy4xPjMxX1paX2Rp
+c3Bvc2l0aW9uX2RhdGVfdGltZTwvVFMuMT4KPC9QVjEuNDU+CjwvUFYxPgo8T0JYPgo8T0JYLjE+
+MTwvT0JYLjE+CjxPQlguMj5BRDwvT0JYLjI+CjxPQlguMz4KPENFLjE+U1MwMDE8L0NFLjE+CjxD
+RS4yPlRyZWF0aW5nIEZhY2lsaXR5IElkZW50aWZpZXI8L0NFLjI+CjxDRS4zPlBISU5RVUVTVElP
+TjwvQ0UuMz4KPC9PQlguMz4KPE9CWC4xMT5DPC9PQlguMTE+CjxPQlguMTU+CjxDRS4xPjFfWlpf
+ZmFjaWxpdHlfaWRlbnRpZmllcjwvQ0UuMT4KPC9PQlguMTU+CjwvT0JYPgo8T0JYPgo8T0JYLjE+
+MjwvT0JYLjE+CjxPQlguMj5IRDwvT0JYLjI+CjxPQlguMz4KPENFLjE+U1MwMDE8L0NFLjE+CjxD
+RS4yPlRyZWF0aW5nIEZhY2lsaXR5IElkZW50aWZpZXI8L0NFLjI+CjxDRS4zPlBISU5RVUVTVElP
+TjwvQ0UuMz4KPC9PQlguMz4KPE9CWC41PjJfWlpfZmFjaWxpdHlfbmFtZTwvT0JYLjU+CjxPQlgu
+MTE+WDwvT0JYLjExPgo8L09CWD4KPE9CWD4KPE9CWC4xPjM8L09CWC4xPgo8T0JYLjI+WEFEPC9P
+QlguMj4KPE9CWC4zPgo8Q0UuMT5TUzAwMjwvQ0UuMT4KPENFLjI+VHJlYXRpbmcgRmFjaWxpdHkg
+TG9jYXRpb248L0NFLjI+CjwvT0JYLjM+CjxPQlguNT4gICAgICAgICAgICAgICAgCiAgICAgICAg
+ICAgICAgIDxPQlguNS4xPjwvT0JYLjUuMT4KICAgICAgICAgICAgICAgIDxPQlguNS4yPjNfZmFj
+aWxpdHlfbnVtYmVyX2FuZF9zdHJlZXQ8L09CWC41LjI+CiAgICAgICAgICAgICAgICA8T0JYLjUu
+Mz48L09CWC41LjM+CiAgICAgICAgICAgICAgICA8T0JYLjUuND48L09CWC41LjQ+CiAgICAgICAg
+ICAgICAgICA8T0JYLjUuNT48L09CWC41LjU+CiAgICAgICAgICAgICAgICA8T0JYLjUuNj40X2Zh
+Y2lsaXR5X2NpdHk8L09CWC41LjY+CiAgICAgICAgICAgICAgICA8T0JYLjUuNz42X2ZhY2lsaXR5
+X3N0YXRlPC9PQlguNS43PgogICAgICAgICAgICAgICAgPE9CWC41Ljg+MzAzNDE8L09CWC41Ljg+
+CiAgICAgICAgICAgICAgICA8T0JYLjUuOT5VU0E8L09CWC41Ljk+CiAgICAgICAgICAgICAgICA8
+T0JYLjUuMTA+QzwvT0JYLjUuMTA+CiAgICAgICAgICAgICAgICA8T0JYLjUuMTE+PC9PQlguNS4x
+MT4KICAgICAgICAgICAgICAgIDxPQlguNS4xMj41X2ZhY2lsaXR5X2NvdW50eTwvT0JYLjUuMTI+
+CjwvT0JYLjU+CjxPQlguMTE+WDwvT0JYLjExPgo8L09CWD4KPE9CWD4KPE9CWC4xPjQ8L09CWC4x
+Pgo8T0JYLjI+Q1dFPC9PQlguMj4KPE9CWC4zPgo8Q0UuMT5TUzAwMzwvQ0UuMT4KPENFLjI+RmFj
+aWxpdHkvVmlzaXQgVHlwZTwvQ0UuMj4KPENFLjM+UEhJTlFVRVNUSU9OPC9DRS4zPgo8L09CWC4z
+Pgo8T0JYLjU+N19aWl9mYWNpbGl0eV92aXNpdF90eXBlPC9PQlguNT4KPE9CWC4xMj4KPFRTLjE+
+WDwvVFMuMT4KPC9PQlguMTI+CjwvT0JYPgo8T0JYPgo8T0JYLjE+NTwvT0JYLjE+CjxPQlguMj5O
+TTwvT0JYLjI+CjxPQlguMz4KPENFLjE+MjE2MTItNzwvQ0UuMT4KPENFLjI+QUdFIFRJTUUgUEFJ
+VEVOVCBSRVBPUlRFRDwvQ0UuMj4KPENFLjM+TE48L0NFLjM+CjwvT0JYLjM+CjxPQlguNT4xMV9a
+Wl9hZ2U8L09CWC41Pgo8T0JYLjY+CjxDRS4xPmE8L0NFLjE+CjxDRS4yPjEyX1paX2FnZV91bml0
+czwvQ0UuMj4KPENFLjM+VUNVTTwvQ0UuMz4KPC9PQlguNj4KPE9CWC4xMT5YPC9PQlguMTE+Cjwv
+T0JYPgo8T0JYPgo8T0JYLjE+NjwvT0JYLjE+CjxPQlguMj5UUzwvT0JYLjI+CjxPQlguMz4KPENF
+LjE+MTEzNjgtODwvQ0UuMT4KPENFLjI+SUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQg
+VElNRTpUTVNUUDpQVDpQQUlURU5UOlFOPC9DRS4yPgo8Q0UuMz5MTjwvQ0UuMz4KPC9PQlguMz4K
+PE9CWC41PjIzX1paX2RhdGVfb2Zfb25zZXQ8L09CWC41Pgo8T0JYLjExPlg8L09CWC4xMT4KPC9P
+Qlg+CjxPQlg+CjxPQlguMT43PC9PQlguMT4KPE9CWC4yPkNXRTwvT0JYLjI+CjxPQlguMz4KPENF
+LjE+ODY2MS0xPC9DRS4xPgo8Q0UuMj5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQUlURU5UOk5P
+TTpSRVBPUlRFRDwvQ0UuMj4KPENFLjM+TE48L0NFLjM+CjwvT0JYLjM+CjxPQlguNT4KPE9CWC41
+LjE+PC9PQlguNS4xPgo8T0JYLjUuMj48L09CWC41LjI+CjxPQlguNS4zPjwvT0JYLjUuMz4KPE9C
+WC41LjQ+PC9PQlguNS40Pgo8T0JYLjUuNT48L09CWC41LjU+CjxPQlguNS42PjwvT0JYLjUuNj4K
+PE9CWC41Ljc+PC9PQlguNS43Pgo8T0JYLjUuOD48L09CWC41Ljg+CjxPQlguNS45PjI1X1paX2No
+aWVmX2NvbXBsYWludDwvT0JYLjUuOT4KPC9PQlguNT4KPE9CWC4xMT5YPC9PQlguMTE+CjwvT0JY
+Pgo8T0JYPgo8T0JYLjE+ODwvT0JYLjE+CjxPQlguMj5UWDwvT0JYLjI+CjxPQlguMz4KPENFLjE+
+NTQwOTQtODwvQ0UuMT4KPENFLjI+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VOQ1kgREVQQVJU
+TUVOVDpET0M8L0NFLjI+CjxDRS4zPkxOPC9DRS4zPgo8L09CWC4zPgo8T0JYLjU+MjZfWlpfdHJp
+YWdlX25vdGVzPC9PQlguNT4KPE9CWC4xMT5YPC9PQlguMTE+CjwvT0JYPgo8T0JYPgo8T0JYLjE+
+OTwvT0JYLjE+CjxPQlguMj5UWDwvT0JYLjI+CjxPQlguMz4KPENFLjE+NDQ4MzMtMjwvQ0UuMT4K
+PENFLjI+RElBR05PU0lTOlBSRUxJTUlOQVJZOklNUDpQVDpQQUlURU5UOk5PTTo8L0NFLjI+CjxD
+RS4zPkxOPC9DRS4zPgo8L09CWC4zPgo8T0JYLjU+MjhfWlpfY2xpbmljYWxfaW1wcmVzc2lvbjwv
+T0JYLjU+CjxPQlguMTE+WDwvT0JYLjExPgo8L09CWD4KPE9CWD4KPE9CWC4xPjEwPC9PQlguMT4K
+PE9CWC4yPk5NPC9PQlguMj4KPE9CWC4zPgo8Q0UuMT4xMTI4OS02PC9DRS4xPgo8Q0UuMj5CT0RZ
+IFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQUlURU5UOlFOPC9DRS4yPgo8Q0UuMz5MTjwv
+Q0UuMz4KPC9PQlguMz4KPE9CWC41PjMyX1paX2luaXRpYWxfdGVtcGVyYXR1cmU8L09CWC41Pgo8
+T0JYLjY+CjxDRS4yPnh4X3RlbXBlcmF0dXJlX3VuaXRzPC9DRS4yPgo8Q0UuMz5VQ1VNPC9DRS4z
+Pgo8L09CWC42Pgo8T0JYLjExPlg8L09CWC4xMT4KPC9PQlg+CjxPQlg+CjxPQlguMT4xMTwvT0JY
+LjE+CjxPQlguMj5OTTwvT0JYLjI+CjxPQlguMz4KPENFLjE+NTk0MDgtNTwvQ0UuMT4KPENFLjI+
+T1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0UgT1hJTUVUUlk8L0NFLjI+CjxD
+RS4zPkxOPC9DRS4zPgo8L09CWC4zPgo8T0JYLjU+MzNfWlpfcHVsc2Vfb3hpbWV0cnk8L09CWC41
+Pgo8T0JYLjY+CjxDRS4yPnh4X3B1bHNlX294aW1ldHJ5X3VuaXRzPC9DRS4yPgo8L09CWC42Pgo8
+T0JYLjExPlg8L09CWC4xMT4KPC9PQlg+CjxERzE+CjxERzEuMT4xPC9ERzEuMT4KPERHMS4zPgo8
+Q0UuMj4yN19aWl9kaWFnbm9pc2lzX2luanVyeV9jb2RlPC9DRS4yPgo8L0RHMS4zPgo8REcxLjY+
+MjlfWlpfZGlhZ25vc2lzX3R5cGU8L0RHMS42Pgo8L0RHMT4KPC9ITDdNZXNzYWdlPgo=</inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="convertLFtoCR">true</property>
+        <property name="handleRepetitions">false</property>
+        <property name="handleSubcomponents">false</property>
+        <property name="stripNamespaces">true</property>
+        <property name="useStrictParser">false</property>
+        <property name="useStrictValidation">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>File Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">5fab7b95-867b-4759-856d-bd35a234bba8</property>
+        <property name="synchronised">0</property>
+        <property name="template">${message.rawData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/HL7XMLFileSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/HL7XMLFileSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; + entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

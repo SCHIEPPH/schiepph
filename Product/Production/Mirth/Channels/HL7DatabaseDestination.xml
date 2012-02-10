@@ -1,0 +1,1165 @@
+<channel>
+  <id>581bd476-aab6-43e5-8b1a-7b8a06180b6f</id>
+  <name>HL7DatabaseDestination</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1328822770942</time>
+    <timezone>US/Eastern</timezone>
+  </lastModified>
+  <revision>18</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">Destination 1</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>OBX_MAPPINGS</name>
+          <script>for each (seg in msg..OBX) {
+	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
+	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
+
+	if(segmentType == &apos;HD&apos; )
+	{
+		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
+	}
+    else if(segmentType == &apos;AD&apos;)
+    {
+		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.15&apos;][&apos;OBX.15.1&apos;].toString());
+    }
+	else if(segmentType == &apos;XAD&apos;)
+	{
+		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
+	}
+    else if(segmentType == &apos;NM&apos; )
+	{
+
+        if(segmentCode == &apos;21612-7&apos;)
+        {
+			channelMap.put(&apos;syndromic_surveillance_data_age&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );
+
+        }
+		else if(segmentCode == &apos;11289-6&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );			
+
+		}
+		else if(segmentCode ==&apos;59408-5&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );	
+		}
+		else
+		{
+			logger.info(&apos;Unknown NM code: &apos; + nmCode);
+		}
+
+
+
+	}
+	else if(segmentType ==&apos;CWE&apos;)
+	{
+
+		if (segmentCode == &apos;8661-1&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
+		}
+		else if (segmentCode == &apos;SS003&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else
+		{
+			logger.info(&apos;Unknown CWE Code: &apos; + code);
+		}
+	}
+	else if(segmentType == &apos;TX&apos;)
+	{
+		
+		if (segmentCode == &apos;44833-2&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else if (segmentCode == &apos;54094-8&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else
+		{
+			logger.warn(&apos;Unknown TX Code: &apos; + code);
+		}
+	}
+	else if(segmentType == &apos;TS&apos;)
+	{
+		if (segmentCode == &apos;11368-8&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else 
+		{
+			logger.warn(&apos;Unknown TS code: &apos; + segmentCode);
+		}
+		
+
+	}
+	else
+	{
+		logger.warn(&apos;Unknown Segment: &apos; + segmentType);
+	}
+
+
+
+}</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>for each (seg in msg..OBX) {
+	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
+	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
+
+	if(segmentType == &apos;HD&apos; )
+	{
+		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
+	}
+    else if(segmentType == &apos;AD&apos;)
+    {
+		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.15&apos;][&apos;OBX.15.1&apos;].toString());
+    }
+	else if(segmentType == &apos;XAD&apos;)
+	{
+		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
+	}
+    else if(segmentType == &apos;NM&apos; )
+	{
+
+        if(segmentCode == &apos;21612-7&apos;)
+        {
+			channelMap.put(&apos;syndromic_surveillance_data_age&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );
+
+        }
+		else if(segmentCode == &apos;11289-6&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );			
+
+		}
+		else if(segmentCode ==&apos;59408-5&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );	
+		}
+		else
+		{
+			logger.info(&apos;Unknown NM code: &apos; + nmCode);
+		}
+
+
+
+	}
+	else if(segmentType ==&apos;CWE&apos;)
+	{
+
+		if (segmentCode == &apos;8661-1&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
+		}
+		else if (segmentCode == &apos;SS003&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else
+		{
+			logger.info(&apos;Unknown CWE Code: &apos; + code);
+		}
+	}
+	else if(segmentType == &apos;TX&apos;)
+	{
+		
+		if (segmentCode == &apos;44833-2&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else if (segmentCode == &apos;54094-8&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else
+		{
+			logger.warn(&apos;Unknown TX Code: &apos; + code);
+		}
+	}
+	else if(segmentType == &apos;TS&apos;)
+	{
+		if (segmentCode == &apos;11368-8&apos;)
+		{
+			channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
+		}
+		else 
+		{
+			logger.warn(&apos;Unknown TS code: &apos; + segmentCode);
+		}
+		
+
+	}
+	else
+	{
+		logger.warn(&apos;Unknown Segment: &apos; + segmentType);
+	}
+
+
+
+}</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>1</sequenceNumber>
+          <name>syndromic_surveillance_data_sending_facility_identifier</name>
+          <script>var mapping;try { mapping = msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_sending_facility_identifier&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_sending_facility_identifier</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>2</sequenceNumber>
+          <name>syndromic_surveillance_data_report_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_report_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_report_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>3</sequenceNumber>
+          <name>syndromic_surveillance_data_unique_patient_id</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_unique_patient_id</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>4</sequenceNumber>
+          <name>syndromic_surveillance_data_gender</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_gender&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_gender</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>5</sequenceNumber>
+          <name>syndromic_surveillance_data_race</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_race&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_race</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>6</sequenceNumber>
+          <name>syndromic_surveillance_data_city_town</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_city_town&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_city_town</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>7</sequenceNumber>
+          <name>syndromic_surveillance_data_state</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_state&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_state</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>8</sequenceNumber>
+          <name>syndromic_surveillance_data_zip_code</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_zip_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_zip_code</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>9</sequenceNumber>
+          <name>syndromic_surveillance_data_country</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_country&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_country</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>10</sequenceNumber>
+          <name>syndromic_surveillance_data_county</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_county&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_county</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>11</sequenceNumber>
+          <name>syndromic_surveillance_data_ethnicity</name>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_ethnicity&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_ethnicity</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>12</sequenceNumber>
+          <name>syndromic_surveillance_data_patient_class</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_patient_class&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_patient_class</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>13</sequenceNumber>
+          <name>syndromic_surveillance_data_unique_visiting_id</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_unique_visiting_id&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_unique_visiting_id</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>14</sequenceNumber>
+          <name>syndromic_surveillance_data_discharge_disposition</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_discharge_disposition&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_discharge_disposition</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>15</sequenceNumber>
+          <name>syndromic_surveillance_data_visit_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_visit_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_visit_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>16</sequenceNumber>
+          <name>syndromic_surveillance_data_disposition_date_time</name>
+          <script>var mapping;try { mapping = msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_disposition_date_time&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_disposition_date_time</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>17</sequenceNumber>
+          <name>syndromic_surveillance_data_diagnosis_injury_code</name>
+          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_diagnosis_injury_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_diagnosis_injury_code</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>18</sequenceNumber>
+          <name>syndromic_surveillance_data_diagnosis_type</name>
+          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_diagnosis_type&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>syndromic_surveillance_data_diagnosis_type</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>19</sequenceNumber>
+          <name>PID3</name>
+          <script>//
+for each (seg in msg..PID) {
+	//var sample_value = seg[&apos;SEG.1&apos;][&apos;SEG.1.1&apos;].toString();
+	
+	var uniqueID = &apos;&apos;;
+	var mrn = &apos;&apos;;
+
+	for each(id in seg[&apos;PID.3&apos;])
+	{
+		var idType = id[&apos;PID.3.5&apos;].toString();
+		if (uniqueID == &apos;&apos;)
+		{
+			uniqueID = id[&apos;PID.3.1&apos;].toString();
+		}
+		if(idType == &apos;MR&apos;)
+		{
+			mrn = id[&apos;PID.3.1&apos;].toString();
+		}
+	}
+
+	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
+	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
+}</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>//
+for each (seg in msg..PID) {
+	//var sample_value = seg[&apos;SEG.1&apos;][&apos;SEG.1.1&apos;].toString();
+	
+	var uniqueID = &apos;&apos;;
+	var mrn = &apos;&apos;;
+
+	for each(id in seg[&apos;PID.3&apos;])
+	{
+		var idType = id[&apos;PID.3.5&apos;].toString();
+		if (uniqueID == &apos;&apos;)
+		{
+			uniqueID = id[&apos;PID.3.1&apos;].toString();
+		}
+		if(idType == &apos;MR&apos;)
+		{
+			mrn = id[&apos;PID.3.1&apos;].toString();
+		}
+	}
+
+	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
+	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
+}</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">PEhMN01lc3NhZ2U+DQogICAgPE1TSD4NCiAgICAgICAgPE1TSC4xPnw8L01TSC4xPg0KICAgICAg
+ICA8TVNILjI+Xn5cJmFtcDs8L01TSC4yPg0KICAgICAgICA8TVNILjMvPg0KICAgICAgICA8TVNI
+LjQvPg0KICAgICAgICA8TVNILjUvPg0KICAgICAgICA8TVNILjYvPg0KICAgICAgICA8TVNILjc+
+DQogICAgICAgICAgICA8TVNILjcuMT4yMDExMTIxMzEzMTIyNTwvTVNILjcuMT4NCiAgICAgICAg
+PC9NU0guNz4NCiAgICAgICAgPE1TSC44Lz4NCiAgICAgICAgPE1TSC45Pg0KICAgICAgICAgICAg
+PE1TSC45LjE+QURUPC9NU0guOS4xPg0KICAgICAgICAgICAgPE1TSC45LjI+QTAxPC9NU0guOS4y
+Pg0KICAgICAgICA8L01TSC45Pg0KICAgICAgICA8TVNILjEwPg0KICAgICAgICAgICAgPE1TSC4x
+MC4xPk1TRzAwMDAxPC9NU0guMTAuMT4NCiAgICAgICAgPC9NU0guMTA+DQogICAgICAgIDxNU0gu
+MTE+DQogICAgICAgICAgICA8TVNILjExLjE+UDwvTVNILjExLjE+DQogICAgICAgIDwvTVNILjEx
+Pg0KICAgICAgICA8TVNILjEyPg0KICAgICAgICAgICAgPE1TSC4xMi4xPjIuMy4xPC9NU0guMTIu
+MT4NCiAgICAgICAgPC9NU0guMTI+DQogICAgICAgIDxNU0guMTMvPg0KICAgICAgICA8TVNILjE0
+Lz4NCiAgICAgICAgPE1TSC4xNS8+DQogICAgICAgIDxNU0guMTYvPg0KICAgICAgICA8TVNILjE3
+Lz4NCiAgICAgICAgPE1TSC4xOD4NCiAgICAgICAgICAgIDxNU0guMTguMT5VVEYtODwvTVNILjE4
+LjE+DQogICAgICAgIDwvTVNILjE4Pg0KICAgIDwvTVNIPg0KICAgIDxFVk4+DQogICAgICAgIDxF
+Vk4uMS8+DQogICAgICAgIDxFVk4uMj4NCiAgICAgICAgICAgIDxFVk4uMi4xPjhfWlpfQUFfcmVw
+b3J0X2RhdGVfdGltZTwvRVZOLjIuMT4NCiAgICAgICAgPC9FVk4uMj4NCiAgICA8L0VWTj4NCiAg
+ICA8UElEPg0KICAgICAgICA8UElELjE+DQogICAgICAgICAgICA8UElELjEuMT4xPC9QSUQuMS4x
+Pg0KICAgICAgICA8L1BJRC4xPg0KICAgICAgICA8UElELjI+DQogICAgICAgICAgICA8UElELjIu
+MT45X1paX0FBX3VuaXF1ZV9wYXRpZW50X2lkPC9QSUQuMi4xPg0KICAgICAgICAgICAgPFBJRC4y
+LjIvPg0KICAgICAgICAgICAgPFBJRC4yLjMvPg0KICAgICAgICAgICAgPFBJRC4yLjQvPg0KICAg
+ICAgICAgICAgPFBJRC4yLjU+UEk8L1BJRC4yLjU+DQogICAgICAgIDwvUElELjI+DQogICAgICAg
+IDxQSUQuMz4NCiAgICAgICAgICAgIDxQSUQuMy4xPjEwX1paX0FBX21lZGljYWxfcmVjb3JkX251
+bWJlcjwvUElELjMuMT4NCiAgICAgICAgPC9QSUQuMz4NCiAgICAgICAgPFBJRC40Lz4NCiAgICAg
+ICAgPFBJRC41Pg0KICAgICAgICAgICAgPFBJRC41LjE+cGFpdGVudF9uYW1lPC9QSUQuNS4xPg0K
+ICAgICAgICA8L1BJRC41Pg0KICAgICAgICA8UElELjYvPg0KICAgICAgICA8UElELjcvPg0KICAg
+ICAgICA8UElELjg+DQogICAgICAgICAgICA8UElELjguMT4xM19aWl9BQV9nZW5kZXI8L1BJRC44
+LjE+DQogICAgICAgIDwvUElELjg+DQogICAgICAgIDxQSUQuOS8+DQogICAgICAgIDxQSUQuMTA+
+DQogICAgICAgICAgICA8UElELjEwLjE+MThfWlpfQUFfcGFpdGVudF9yYWNlPC9QSUQuMTAuMT4N
+CiAgICAgICAgPC9QSUQuMTA+DQogICAgICAgIDxQSUQuMTE+DQogICAgICAgICAgICA8UElELjEx
+LjEvPg0KICAgICAgICAgICAgPFBJRC4xMS4yLz4NCiAgICAgICAgICAgIDxQSUQuMTEuMz4xNF9a
+Wl9BQV9wYWl0ZW50X2NpdHk8L1BJRC4xMS4zPg0KICAgICAgICAgICAgPFBJRC4xMS40PjE2X1pa
+X0FBX3BhdGllbnRfc3RhdGU8L1BJRC4xMS40Pg0KICAgICAgICAgICAgPFBJRC4xMS41PjE1X1pa
+X0FBX3BhaXRlbnRfemlwX2NvZGU8L1BJRC4xMS41Pg0KICAgICAgICAgICAgPFBJRC4xMS42PjE3
+X1paX0FBX3BhaXRlbnRfY291bnRyeTwvUElELjExLjY+DQogICAgICAgICAgICA8UElELjExLjcv
+Pg0KICAgICAgICAgICAgPFBJRC4xMS44Lz4NCiAgICAgICAgICAgIDxQSUQuMTEuOT4yMF9aWl9B
+QV9wYWl0ZW50X2NvdW50eTwvUElELjExLjk+DQogICAgICAgIDwvUElELjExPg0KICAgICAgICA8
+UElELjEyLz4NCiAgICAgICAgPFBJRC4xMy8+DQogICAgICAgIDxQSUQuMTQvPg0KICAgICAgICA8
+UElELjE1Lz4NCiAgICAgICAgPFBJRC4xNi8+DQogICAgICAgIDxQSUQuMTcvPg0KICAgICAgICA8
+UElELjE4Lz4NCiAgICAgICAgPFBJRC4xOS8+DQogICAgICAgIDxQSUQuMjAvPg0KICAgICAgICA8
+UElELjIxLz4NCiAgICAgICAgPFBJRC4yMj4NCiAgICAgICAgICAgIDxQSUQuMjIuMT4xOV9aWl9B
+QV9wYWl0ZW50X2V0aG5pY2l0eTwvUElELjIyLjE+DQogICAgICAgIDwvUElELjIyPg0KICAgIDwv
+UElEPg0KICAgIDxQVjE+DQogICAgICAgIDxQVjEuMS8+DQogICAgICAgIDxQVjEuMj4NCiAgICAg
+ICAgICAgIDxQVjEuMi4xPjI0X1paX0FBX3BhaXRlbnRfY2xhc3M8L1BWMS4yLjE+DQogICAgICAg
+IDwvUFYxLjI+DQogICAgICAgIDxQVjEuMy8+DQogICAgICAgIDxQVjEuNC8+DQogICAgICAgIDxQ
+VjEuNS8+DQogICAgICAgIDxQVjEuNi8+DQogICAgICAgIDxQVjEuNy8+DQogICAgICAgIDxQVjEu
+OC8+DQogICAgICAgIDxQVjEuOS8+DQogICAgICAgIDxQVjEuMTAvPg0KICAgICAgICA8UFYxLjEx
+Lz4NCiAgICAgICAgPFBWMS4xMi8+DQogICAgICAgIDxQVjEuMTMvPg0KICAgICAgICA8UFYxLjE0
+Lz4NCiAgICAgICAgPFBWMS4xNS8+DQogICAgICAgIDxQVjEuMTYvPg0KICAgICAgICA8UFYxLjE3
+Lz4NCiAgICAgICAgPFBWMS4xOC8+DQogICAgICAgIDxQVjEuMTk+DQogICAgICAgICAgICA8UFYx
+LjE5LjE+MjFfWlpfQUFfdmlzaXRfaWQ8L1BWMS4xOS4xPg0KICAgICAgICA8L1BWMS4xOT4NCiAg
+ICAgICAgPFBWMS4yMC8+DQogICAgICAgIDxQVjEuMjEvPg0KICAgICAgICA8UFYxLjIyLz4NCiAg
+ICAgICAgPFBWMS4yMy8+DQogICAgICAgIDxQVjEuMjQvPg0KICAgICAgICA8UFYxLjI1Lz4NCiAg
+ICAgICAgPFBWMS4yNi8+DQogICAgICAgIDxQVjEuMjcvPg0KICAgICAgICA8UFYxLjI4Lz4NCiAg
+ICAgICAgPFBWMS4yOS8+DQogICAgICAgIDxQVjEuMzAvPg0KICAgICAgICA8UFYxLjMxLz4NCiAg
+ICAgICAgPFBWMS4zMi8+DQogICAgICAgIDxQVjEuMzMvPg0KICAgICAgICA8UFYxLjM0Lz4NCiAg
+ICAgICAgPFBWMS4zNS8+DQogICAgICAgIDxQVjEuMzY+DQogICAgICAgICAgICA8UFYxLjM2LjE+
+MzBfWlpfQUFfZGlzY2hhcmdlX2Rpc3Bvc2l0aW9uPC9QVjEuMzYuMT4NCiAgICAgICAgPC9QVjEu
+MzY+DQogICAgICAgIDxQVjEuMzcvPg0KICAgICAgICA8UFYxLjM4Lz4NCiAgICAgICAgPFBWMS4z
+OS8+DQogICAgICAgIDxQVjEuNDAvPg0KICAgICAgICA8UFYxLjQxLz4NCiAgICAgICAgPFBWMS40
+Mi8+DQogICAgICAgIDxQVjEuNDMvPg0KICAgICAgICA8UFYxLjQ0Pg0KICAgICAgICAgICAgPFBW
+MS40NC4xPjIyX1paX0FBX3Zpc2l0X2RhdGVfdGltZTwvUFYxLjQ0LjE+DQogICAgICAgIDwvUFYx
+LjQ0Pg0KICAgICAgICA8UFYxLjQ1Pg0KICAgICAgICAgICAgPFBWMS40NS4xPjMxX1paX0FBX2Rp
+c3Bvc2l0aW9uX2RhdGVfdGltZTwvUFYxLjQ1LjE+DQogICAgICAgIDwvUFYxLjQ1Pg0KICAgIDwv
+UFYxPg0KICAgIDxPQlg+DQogICAgICAgIDxPQlguMT4NCiAgICAgICAgICAgIDxPQlguMS4xPjE8
+L09CWC4xLjE+DQogICAgICAgIDwvT0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAgICAg
+IDxPQlguMi4xPkFEPC9PQlguMi4xPg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JYLjM+
+DQogICAgICAgICAgICA8T0JYLjMuMT5TUzAwMTwvT0JYLjMuMT4NCiAgICAgICAgICAgIDxPQlgu
+My4yPlRyZWF0aW5nIEZhY2lsaXR5IElkZW50aWZpZXI8L09CWC4zLjI+DQogICAgICAgICAgICA8
+T0JYLjMuMz5QSElOUVVFU1RJT048L09CWC4zLjM+DQogICAgICAgIDwvT0JYLjM+DQogICAgICAg
+IDxPQlguNC8+DQogICAgICAgIDxPQlguNS8+DQogICAgICAgIDxPQlguNi8+DQogICAgICAgIDxP
+QlguNy8+DQogICAgICAgIDxPQlguOC8+DQogICAgICAgIDxPQlguOS8+DQogICAgICAgIDxPQlgu
+MTAvPg0KICAgICAgICA8T0JYLjExPg0KICAgICAgICAgICAgPE9CWC4xMS4xPkM8L09CWC4xMS4x
+Pg0KICAgICAgICA8L09CWC4xMT4NCiAgICAgICAgPE9CWC4xMi8+DQogICAgICAgIDxPQlguMTMv
+Pg0KICAgICAgICA8T0JYLjE0Lz4NCiAgICAgICAgPE9CWC4xNT4NCiAgICAgICAgICAgIDxPQlgu
+MTUuMT4xX1paX0FBX2ZhY2lsaXR5X2lkZW50aWZpZXI8L09CWC4xNS4xPg0KICAgICAgICA8L09C
+WC4xNT4NCiAgICAgICAgPE9CWC4xNi8+DQogICAgICAgIDxPQlguMTcvPg0KICAgIDwvT0JYPg0K
+ICAgIDxPQlg+DQogICAgICAgIDxPQlguMT4NCiAgICAgICAgICAgIDxPQlguMS4xPjI8L09CWC4x
+LjE+DQogICAgICAgIDwvT0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAgICAgIDxPQlgu
+Mi4xPkhEPC9PQlguMi4xPg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JYLjM+DQogICAg
+ICAgICAgICA8T0JYLjMuMT5TUzAwMTwvT0JYLjMuMT4NCiAgICAgICAgICAgIDxPQlguMy4yPlRy
+ZWF0aW5nIEZhY2lsaXR5IElkZW50aWZpZXI8L09CWC4zLjI+DQogICAgICAgICAgICA8T0JYLjMu
+Mz5QSElOUVVFU1RJT048L09CWC4zLjM+DQogICAgICAgIDwvT0JYLjM+DQogICAgICAgIDxPQlgu
+NC8+DQogICAgICAgIDxPQlguNT4NCiAgICAgICAgICAgIDxPQlguNS4xPjJfWlpfQUFfZmFjaWxp
+dHlfbmFtZTwvT0JYLjUuMT4NCiAgICAgICAgPC9PQlguNT4NCiAgICAgICAgPE9CWC42Lz4NCiAg
+ICAgICAgPE9CWC43Lz4NCiAgICAgICAgPE9CWC44Lz4NCiAgICAgICAgPE9CWC45Lz4NCiAgICAg
+ICAgPE9CWC4xMC8+DQogICAgICAgIDxPQlguMTE+DQogICAgICAgICAgICA8T0JYLjExLjE+WDwv
+T0JYLjExLjE+DQogICAgICAgIDwvT0JYLjExPg0KICAgIDwvT0JYPg0KICAgIDxPQlg+DQogICAg
+ICAgIDxPQlguMT4NCiAgICAgICAgICAgIDxPQlguMS4xPjM8L09CWC4xLjE+DQogICAgICAgIDwv
+T0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAgICAgIDxPQlguMi4xPlhBRDwvT0JYLjIu
+MT4NCiAgICAgICAgPC9PQlguMj4NCiAgICAgICAgPE9CWC4zPg0KICAgICAgICAgICAgPE9CWC4z
+LjE+U1MwMDI8L09CWC4zLjE+DQogICAgICAgICAgICA8T0JYLjMuMj5UcmVhdGluZyBGYWNpbGl0
+eSBMb2NhdGlvbjwvT0JYLjMuMj4NCiAgICAgICAgPC9PQlguMz4NCiAgICAgICAgPE9CWC40Lz4N
+CiAgICAgICAgPE9CWC41Pg0KICAgICAgICAgICAgPE9CWC41LjEvPg0KICAgICAgICAgICAgPE9C
+WC41LjI+M19aWl9BQV9mYWNpbGl0eV9udW1iZXJfYW5kX3N0cmVldDwvT0JYLjUuMj4NCiAgICAg
+ICAgICAgIDxPQlguNS4zLz4NCiAgICAgICAgICAgIDxPQlguNS40Lz4NCiAgICAgICAgICAgIDxP
+QlguNS41Lz4NCiAgICAgICAgICAgIDxPQlguNS42PjRfWlpfQUFfZmFjaWxpdHlfY2l0eTwvT0JY
+LjUuNj4NCiAgICAgICAgICAgIDxPQlguNS43PjZfWlpfQUFfZmFjaWxpdHlfc3RhdGU8L09CWC41
+Ljc+DQogICAgICAgICAgICA8T0JYLjUuOD4zMDM0MTwvT0JYLjUuOD4NCiAgICAgICAgICAgIDxP
+QlguNS45PlVTQTwvT0JYLjUuOT4NCiAgICAgICAgICAgIDxPQlguNS4xMD5DPC9PQlguNS4xMD4N
+CiAgICAgICAgICAgIDxPQlguNS4xMS8+DQogICAgICAgICAgICA8T0JYLjUuMTI+NV9aWl9BQV9m
+YWNpbGl0eV9jb3VudHk8L09CWC41LjEyPg0KICAgICAgICA8L09CWC41Pg0KICAgICAgICA8T0JY
+LjYvPg0KICAgICAgICA8T0JYLjcvPg0KICAgICAgICA8T0JYLjgvPg0KICAgICAgICA8T0JYLjkv
+Pg0KICAgICAgICA8T0JYLjEwLz4NCiAgICAgICAgPE9CWC4xMT4NCiAgICAgICAgICAgIDxPQlgu
+MTEuMT5YPC9PQlguMTEuMT4NCiAgICAgICAgPC9PQlguMTE+DQogICAgPC9PQlg+DQogICAgPE9C
+WD4NCiAgICAgICAgPE9CWC4xPg0KICAgICAgICAgICAgPE9CWC4xLjE+NDwvT0JYLjEuMT4NCiAg
+ICAgICAgPC9PQlguMT4NCiAgICAgICAgPE9CWC4yPg0KICAgICAgICAgICAgPE9CWC4yLjE+Q1dF
+PC9PQlguMi4xPg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JYLjM+DQogICAgICAgICAg
+ICA8T0JYLjMuMT5TUzAwMzwvT0JYLjMuMT4NCiAgICAgICAgICAgIDxPQlguMy4yPkZhY2lsaXR5
+L1Zpc2l0IFR5cGU8L09CWC4zLjI+DQogICAgICAgICAgICA8T0JYLjMuMz5QSElOUVVFU1RJT048
+L09CWC4zLjM+DQogICAgICAgIDwvT0JYLjM+DQogICAgICAgIDxPQlguNC8+DQogICAgICAgIDxP
+QlguNT4NCiAgICAgICAgICAgIDxPQlguNS4xPjdfWlpfQUFfZmFjaWxpdHlfdmlzaXRfdHlwZTwv
+T0JYLjUuMT4NCiAgICAgICAgPC9PQlguNT4NCiAgICAgICAgPE9CWC42Lz4NCiAgICAgICAgPE9C
+WC43Lz4NCiAgICAgICAgPE9CWC44Lz4NCiAgICAgICAgPE9CWC45Lz4NCiAgICAgICAgPE9CWC4x
+MC8+DQogICAgICAgIDxPQlguMTEvPg0KICAgICAgICA8T0JYLjEyPg0KICAgICAgICAgICAgPE9C
+WC4xMi4xPlg8L09CWC4xMi4xPg0KICAgICAgICA8L09CWC4xMj4NCiAgICA8L09CWD4NCiAgICA8
+T0JYPg0KICAgICAgICA8T0JYLjE+DQogICAgICAgICAgICA8T0JYLjEuMT41PC9PQlguMS4xPg0K
+ICAgICAgICA8L09CWC4xPg0KICAgICAgICA8T0JYLjI+DQogICAgICAgICAgICA8T0JYLjIuMT5O
+TTwvT0JYLjIuMT4NCiAgICAgICAgPC9PQlguMj4NCiAgICAgICAgPE9CWC4zPg0KICAgICAgICAg
+ICAgPE9CWC4zLjE+MjE2MTItNzwvT0JYLjMuMT4NCiAgICAgICAgICAgIDxPQlguMy4yPkFHRSBU
+SU1FIFBBSVRFTlQgUkVQT1JURUQ8L09CWC4zLjI+DQogICAgICAgICAgICA8T0JYLjMuMz5MTjwv
+T0JYLjMuMz4NCiAgICAgICAgPC9PQlguMz4NCiAgICAgICAgPE9CWC40Lz4NCiAgICAgICAgPE9C
+WC41Pg0KICAgICAgICAgICAgPE9CWC41LjE+MTFfWlpfQUFfYWdlPC9PQlguNS4xPg0KICAgICAg
+ICA8L09CWC41Pg0KICAgICAgICA8T0JYLjY+DQogICAgICAgICAgICA8T0JYLjYuMT5hPC9PQlgu
+Ni4xPg0KICAgICAgICAgICAgPE9CWC42LjI+MTJfWlpfQUFfYWdlX3VuaXRzPC9PQlguNi4yPg0K
+ICAgICAgICAgICAgPE9CWC42LjM+VUNVTTwvT0JYLjYuMz4NCiAgICAgICAgPC9PQlguNj4NCiAg
+ICAgICAgPE9CWC43Lz4NCiAgICAgICAgPE9CWC44Lz4NCiAgICAgICAgPE9CWC45Lz4NCiAgICAg
+ICAgPE9CWC4xMC8+DQogICAgICAgIDxPQlguMTE+DQogICAgICAgICAgICA8T0JYLjExLjE+WDwv
+T0JYLjExLjE+DQogICAgICAgIDwvT0JYLjExPg0KICAgIDwvT0JYPg0KICAgIDxPQlg+DQogICAg
+ICAgIDxPQlguMT4NCiAgICAgICAgICAgIDxPQlguMS4xPjY8L09CWC4xLjE+DQogICAgICAgIDwv
+T0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAgICAgIDxPQlguMi4xPlRTPC9PQlguMi4x
+Pg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JYLjM+DQogICAgICAgICAgICA8T0JYLjMu
+MT4xMTM2OC04PC9PQlguMy4xPg0KICAgICAgICAgICAgPE9CWC4zLjI+SUxMTkVTUyBPUiBJTkpV
+UlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQUlURU5UOlFOPC9PQlguMy4yPg0KICAg
+ICAgICAgICAgPE9CWC4zLjM+TE48L09CWC4zLjM+DQogICAgICAgIDwvT0JYLjM+DQogICAgICAg
+IDxPQlguNC8+DQogICAgICAgIDxPQlguNT4NCiAgICAgICAgICAgIDxPQlguNS4xPjIzX1paX0FB
+X2RhdGVfb2Zfb25zZXQ8L09CWC41LjE+DQogICAgICAgIDwvT0JYLjU+DQogICAgICAgIDxPQlgu
+Ni8+DQogICAgICAgIDxPQlguNy8+DQogICAgICAgIDxPQlguOC8+DQogICAgICAgIDxPQlguOS8+
+DQogICAgICAgIDxPQlguMTAvPg0KICAgICAgICA8T0JYLjExPg0KICAgICAgICAgICAgPE9CWC4x
+MS4xPlg8L09CWC4xMS4xPg0KICAgICAgICA8L09CWC4xMT4NCiAgICA8L09CWD4NCiAgICA8T0JY
+Pg0KICAgICAgICA8T0JYLjE+DQogICAgICAgICAgICA8T0JYLjEuMT43PC9PQlguMS4xPg0KICAg
+ICAgICA8L09CWC4xPg0KICAgICAgICA8T0JYLjI+DQogICAgICAgICAgICA8T0JYLjIuMT5DV0U8
+L09CWC4yLjE+DQogICAgICAgIDwvT0JYLjI+DQogICAgICAgIDxPQlguMz4NCiAgICAgICAgICAg
+IDxPQlguMy4xPjg2NjEtMTwvT0JYLjMuMT4NCiAgICAgICAgICAgIDxPQlguMy4yPkNISUVGIENP
+TVBMQUlOVDpGSU5EOlBUOlBBSVRFTlQ6Tk9NOlJFUE9SVEVEPC9PQlguMy4yPg0KICAgICAgICAg
+ICAgPE9CWC4zLjM+TE48L09CWC4zLjM+DQogICAgICAgIDwvT0JYLjM+DQogICAgICAgIDxPQlgu
+NC8+DQogICAgICAgIDxPQlguNT4NCiAgICAgICAgICAgIDxPQlguNS4xLz4NCiAgICAgICAgICAg
+IDxPQlguNS4yLz4NCiAgICAgICAgICAgIDxPQlguNS4zLz4NCiAgICAgICAgICAgIDxPQlguNS40
+Lz4NCiAgICAgICAgICAgIDxPQlguNS41Lz4NCiAgICAgICAgICAgIDxPQlguNS42Lz4NCiAgICAg
+ICAgICAgIDxPQlguNS43Lz4NCiAgICAgICAgICAgIDxPQlguNS44Lz4NCiAgICAgICAgICAgIDxP
+QlguNS45PjI1X1paX0FBX2NoaWVmX2NvbXBsYWludDwvT0JYLjUuOT4NCiAgICAgICAgPC9PQlgu
+NT4NCiAgICAgICAgPE9CWC42Lz4NCiAgICAgICAgPE9CWC43Lz4NCiAgICAgICAgPE9CWC44Lz4N
+CiAgICAgICAgPE9CWC45Lz4NCiAgICAgICAgPE9CWC4xMC8+DQogICAgICAgIDxPQlguMTE+DQog
+ICAgICAgICAgICA8T0JYLjExLjE+WDwvT0JYLjExLjE+DQogICAgICAgIDwvT0JYLjExPg0KICAg
+IDwvT0JYPg0KICAgIDxPQlg+DQogICAgICAgIDxPQlguMT4NCiAgICAgICAgICAgIDxPQlguMS4x
+Pjg8L09CWC4xLjE+DQogICAgICAgIDwvT0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAg
+ICAgIDxPQlguMi4xPlRYPC9PQlguMi4xPg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JY
+LjM+DQogICAgICAgICAgICA8T0JYLjMuMT41NDA5NC04PC9PQlguMy4xPg0KICAgICAgICAgICAg
+PE9CWC4zLjI+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VOQ1kgREVQQVJUTUVOVDpET0M8L09C
+WC4zLjI+DQogICAgICAgICAgICA8T0JYLjMuMz5MTjwvT0JYLjMuMz4NCiAgICAgICAgPC9PQlgu
+Mz4NCiAgICAgICAgPE9CWC40Lz4NCiAgICAgICAgPE9CWC41Pg0KICAgICAgICAgICAgPE9CWC41
+LjE+MjZfWlpfQUFfdHJpYWdlX25vdGVzPC9PQlguNS4xPg0KICAgICAgICA8L09CWC41Pg0KICAg
+ICAgICA8T0JYLjYvPg0KICAgICAgICA8T0JYLjcvPg0KICAgICAgICA8T0JYLjgvPg0KICAgICAg
+ICA8T0JYLjkvPg0KICAgICAgICA8T0JYLjEwLz4NCiAgICAgICAgPE9CWC4xMT4NCiAgICAgICAg
+ICAgIDxPQlguMTEuMT5YPC9PQlguMTEuMT4NCiAgICAgICAgPC9PQlguMTE+DQogICAgPC9PQlg+
+DQogICAgPE9CWD4NCiAgICAgICAgPE9CWC4xPg0KICAgICAgICAgICAgPE9CWC4xLjE+OTwvT0JY
+LjEuMT4NCiAgICAgICAgPC9PQlguMT4NCiAgICAgICAgPE9CWC4yPg0KICAgICAgICAgICAgPE9C
+WC4yLjE+VFg8L09CWC4yLjE+DQogICAgICAgIDwvT0JYLjI+DQogICAgICAgIDxPQlguMz4NCiAg
+ICAgICAgICAgIDxPQlguMy4xPjQ0ODMzLTI8L09CWC4zLjE+DQogICAgICAgICAgICA8T0JYLjMu
+Mj5ESUFHTk9TSVM6UFJFTElNSU5BUlk6SU1QOlBUOlBBSVRFTlQ6Tk9NOjwvT0JYLjMuMj4NCiAg
+ICAgICAgICAgIDxPQlguMy4zPkxOPC9PQlguMy4zPg0KICAgICAgICA8L09CWC4zPg0KICAgICAg
+ICA8T0JYLjQvPg0KICAgICAgICA8T0JYLjU+DQogICAgICAgICAgICA8T0JYLjUuMT4yOF9aWl9B
+QV9jbGluaWNhbF9pbXByZXNzaW9uPC9PQlguNS4xPg0KICAgICAgICA8L09CWC41Pg0KICAgICAg
+ICA8T0JYLjYvPg0KICAgICAgICA8T0JYLjcvPg0KICAgICAgICA8T0JYLjgvPg0KICAgICAgICA8
+T0JYLjkvPg0KICAgICAgICA8T0JYLjEwLz4NCiAgICAgICAgPE9CWC4xMT4NCiAgICAgICAgICAg
+IDxPQlguMTEuMT5YPC9PQlguMTEuMT4NCiAgICAgICAgPC9PQlguMTE+DQogICAgPC9PQlg+DQog
+ICAgPE9CWD4NCiAgICAgICAgPE9CWC4xPg0KICAgICAgICAgICAgPE9CWC4xLjE+MTA8L09CWC4x
+LjE+DQogICAgICAgIDwvT0JYLjE+DQogICAgICAgIDxPQlguMj4NCiAgICAgICAgICAgIDxPQlgu
+Mi4xPk5NPC9PQlguMi4xPg0KICAgICAgICA8L09CWC4yPg0KICAgICAgICA8T0JYLjM+DQogICAg
+ICAgICAgICA8T0JYLjMuMT4xMTI4OS02PC9PQlguMy4xPg0KICAgICAgICAgICAgPE9CWC4zLjI+
+Qk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFJVEVOVDpRTjwvT0JYLjMuMj4NCiAg
+ICAgICAgICAgIDxPQlguMy4zPkxOPC9PQlguMy4zPg0KICAgICAgICA8L09CWC4zPg0KICAgICAg
+ICA8T0JYLjQvPg0KICAgICAgICA8T0JYLjU+DQogICAgICAgICAgICA8T0JYLjUuMT4zMl9aWl9B
+QV9pbml0aWFsX3RlbXBlcmF0dXJlPC9PQlguNS4xPg0KICAgICAgICA8L09CWC41Pg0KICAgICAg
+ICA8T0JYLjY+DQogICAgICAgICAgICA8T0JYLjYuMS8+DQogICAgICAgICAgICA8T0JYLjYuMj54
+eF9aWl9BQV90ZW1wZXJhdHVyZV91bml0czwvT0JYLjYuMj4NCiAgICAgICAgICAgIDxPQlguNi4z
+PlVDVU08L09CWC42LjM+DQogICAgICAgIDwvT0JYLjY+DQogICAgICAgIDxPQlguNy8+DQogICAg
+ICAgIDxPQlguOC8+DQogICAgICAgIDxPQlguOS8+DQogICAgICAgIDxPQlguMTAvPg0KICAgICAg
+ICA8T0JYLjExPg0KICAgICAgICAgICAgPE9CWC4xMS4xPlg8L09CWC4xMS4xPg0KICAgICAgICA8
+L09CWC4xMT4NCiAgICA8L09CWD4NCiAgICA8T0JYPg0KICAgICAgICA8T0JYLjE+DQogICAgICAg
+ICAgICA8T0JYLjEuMT4xMTwvT0JYLjEuMT4NCiAgICAgICAgPC9PQlguMT4NCiAgICAgICAgPE9C
+WC4yPg0KICAgICAgICAgICAgPE9CWC4yLjE+Tk08L09CWC4yLjE+DQogICAgICAgIDwvT0JYLjI+
+DQogICAgICAgIDxPQlguMz4NCiAgICAgICAgICAgIDxPQlguMy4xPjU5NDA4LTU8L09CWC4zLjE+
+DQogICAgICAgICAgICA8T0JYLjMuMj5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQ
+VUxTRSBPWElNRVRSWTwvT0JYLjMuMj4NCiAgICAgICAgICAgIDxPQlguMy4zPkxOPC9PQlguMy4z
+Pg0KICAgICAgICA8L09CWC4zPg0KICAgICAgICA8T0JYLjQvPg0KICAgICAgICA8T0JYLjU+DQog
+ICAgICAgICAgICA8T0JYLjUuMT4zM19aWl9BQV9wdWxzZV9veGltZXRyeTwvT0JYLjUuMT4NCiAg
+ICAgICAgPC9PQlguNT4NCiAgICAgICAgPE9CWC42Pg0KICAgICAgICAgICAgPE9CWC42LjEvPg0K
+ICAgICAgICAgICAgPE9CWC42LjI+eHhfWlpfQUFfcHVsc2Vfb3hpbWV0cnlfdW5pdHM8L09CWC42
+LjI+DQogICAgICAgIDwvT0JYLjY+DQogICAgICAgIDxPQlguNy8+DQogICAgICAgIDxPQlguOC8+
+DQogICAgICAgIDxPQlguOS8+DQogICAgICAgIDxPQlguMTAvPg0KICAgICAgICA8T0JYLjExPg0K
+ICAgICAgICAgICAgPE9CWC4xMS4xPlg8L09CWC4xMS4xPg0KICAgICAgICA8L09CWC4xMT4NCiAg
+ICA8L09CWD4NCiAgICA8REcxPg0KICAgICAgICA8REcxLjE+DQogICAgICAgICAgICA8REcxLjEu
+MT4xPC9ERzEuMS4xPg0KICAgICAgICA8L0RHMS4xPg0KICAgICAgICA8REcxLjIvPg0KICAgICAg
+ICA8REcxLjM+DQogICAgICAgICAgICA8REcxLjMuMS8+DQogICAgICAgICAgICA8REcxLjMuMj4y
+N19aWl9BQV9kaWFnbm9pc2lzX2luanVyeV9jb2RlPC9ERzEuMy4yPg0KICAgICAgICA8L0RHMS4z
+Pg0KICAgICAgICA8REcxLjQvPg0KICAgICAgICA8REcxLjUvPg0KICAgICAgICA8REcxLjY+DQog
+ICAgICAgICAgICA8REcxLjYuMT4yOV9aWl9BQV9kaWFnbm9zaXNfdHlwZTwvREcxLjYuMT4NCiAg
+ICAgICAgPC9ERzEuNj4NCiAgICA8L0RHMT4NCjwvSEw3TWVzc2FnZT4NCg==</inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">true</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Database Writer</property>
+        <property name="URL">${DB_WRITER_DBURL}</property>
+        <property name="driver">com.mysql.jdbc.Driver</property>
+        <property name="host">query</property>
+        <property name="password"></property>
+        <property name="query"></property>
+        <property name="script">
+
+
+
+var dbConn = DatabaseConnectionFactory.createDatabaseConnection(&apos;com.mysql.jdbc.Driver&apos;,globalMap.get(&apos;DB_WRITER_DBURL&apos;),globalMap.get(&apos;DB_WRITER_USER&apos;),globalMap.get(&apos;DB_WRITER_PWD&apos;));
+
+
+var sql = &quot;INSERT INTO &quot; + globalMap.get(&apos;DB_WRITER_TABLE_NAME&apos;) + 
+&quot; (facility_identifier, report_date_time, unique_patient_id, medical_record_number, gender, race, city_town, state, zip_code, country, county, ethnicity, patient_class, unique_visiting_id, discharge_disposition, visit_date_time, disposition_date_time, facility_name, facility_location_street, facility_location_city, facility_location_county, facility_location_state, age, age_units, date_of_onset, chief_complaint_reason_for_visit, triage_notes, &quot; + 
+&quot;clinical_impression, initial_temperature, temperature_units, diagnosis_injury_code, diagnosis_type,  facility_visit_type, initial_pulse_oximetry, pulse_oximetry_units  ) values (&apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_identifier&apos;) +&quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_report_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_unique_patient_id&apos;)  + &quot;&apos;, &apos;&quot; +  
+$(&apos;syndromic_surveillance_data_medical_record_number&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_gender&apos;) +   &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_race&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_city_town&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_state&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_zip_code&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_country&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_county&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_ethnicity&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_patient_class&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_unique_visiting_id&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_discharge_disposition&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_visit_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_disposition_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_name&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_location_street&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_location_city&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_location_county&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_location_state&apos;) + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_age&apos;) + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_age_units&apos;) + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_date_of_onset&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_triage_notes&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_clinical_impression&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_initial_temperature&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_temperature_units&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_diagnosis_injury_code&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_diagnosis_type&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_facility_visit_type&apos;) + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;) + 
+&quot;&apos;);&quot;;
+
+var result = dbConn.executeUpdate(sql);
+
+dbConn.close();
+
+$(&apos;syndromic_surveillance_data_medical_record_number&apos;)</property>
+        <property name="useScript">1</property>
+        <property name="username"></property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>HL7V2</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="convertLFtoCR">true</property>
+          <property name="handleRepetitions">false</property>
+          <property name="handleSubcomponents">false</property>
+          <property name="stripNamespaces">true</property>
+          <property name="useStrictParser">false</property>
+          <property name="useStrictValidation">false</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Database Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/HL7DatabaseDestination.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/HL7DatabaseDestination.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(&apos;key = &apos; + entry.getKey());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

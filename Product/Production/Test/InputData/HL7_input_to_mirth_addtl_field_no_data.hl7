@@ -1,0 +1,17 @@
+MSH|^~\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8
+EVN||8_ZZ_AA_report_date_time
+PID|1|9_ZZ_AA_unique_patient_id^^^^PI|10_ZZ_AA_medical_record_number||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity
+PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time
+OBX|1|AD|SS001^Treating Facility Identifier^PHINQUESTION||||||||C||||1_ZZ_AA_facility_identifier||
+OBX|13|NM|59468-5^:MFR:PT:BLDA:QN:|||^|||||X
+OBX|2|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name||||||X
+OBX|3|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X
+OBX|4|CWE|SS003^Facility/Visit Type^PHINQUESTION||7_ZZ_AA_facility_visit_type|||||||X
+OBX|5|NM|21612-7^AGE TIME PAITENT REPORTED^LN||11_ZZ_AA_age|a^12_ZZ_AA_age_units^UCUM|||||X
+OBX|6|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||23_ZZ_AA_date_of_onset||||||X
+OBX|7|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^25_ZZ_AA_chief_complaint||||||X
+OBX|8|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||26_ZZ_AA_triage_notes||||||X
+OBX|9|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X
+OBX|10|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X
+OBX|11|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X
+DG1|1||^27_ZZ_AA_diagnoisis_injury_code|||29_ZZ_AA_diagnosis_type

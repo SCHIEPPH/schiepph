@@ -1,0 +1,332 @@
+<channel>
+  <id>5fab7b95-867b-4759-856d-bd35a234bba8</id>
+  <name>AdminDistributionDestination</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1328819013675</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>11</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">None</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>HL7_MSG</name>
+          <script>var mapping;try { mapping = msg; }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;HL7_MSG&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>HL7_MSG</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64"></inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">false</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Web Service Sender</property>
+        <property name="dispatcherAttachmentContents">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentNames">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentTypes">&lt;list/&gt;</property>
+        <property name="dispatcherEnvelope">&lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot; xmlns:urn=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonentity&quot; xmlns:urn1=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; xmlns:urn2=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot;&gt;
+   &lt;soap:Header/&gt;
+   &lt;soap:Body projectName=&quot;Admin-Distribution&quot; testCase=&quot;EntityRequest with XML data&quot;&gt;
+      &lt;urn:RespondingGateway_SendAlertMessage&gt;
+         &lt;urn:assertion&gt;
+            &lt;urn1:address&gt;
+               &lt;urn1:addressType&gt;
+                  &lt;urn1:code&gt;O&lt;/urn1:code&gt;
+                  &lt;urn1:codeSystem&gt;2.16.840.1.113883.12.190&lt;/urn1:codeSystem&gt;
+                  &lt;urn1:codeSystemName&gt;Address Type (HL7)&lt;/urn1:codeSystemName&gt;
+                  &lt;urn1:codeSystemVersion&gt;1.0&lt;/urn1:codeSystemVersion&gt;
+                  &lt;urn1:displayName&gt;Office&lt;/urn1:displayName&gt;
+                  &lt;urn1:originalText&gt;Office&lt;/urn1:originalText&gt;
+               &lt;/urn1:addressType&gt;
+               &lt;urn1:city&gt;${admin_distribution_sender_addr_city}&lt;/urn1:city&gt;
+               &lt;urn1:country&gt;${admin_dist_dest_sender_addr_country}&lt;/urn1:country&gt;
+               &lt;urn1:state&gt;${admin_dist_dest_sender_addr_state}&lt;/urn1:state&gt;
+               &lt;urn1:streetAddress&gt;${admin_dist_dest_sender_addr_street}&lt;/urn1:streetAddress&gt;
+               &lt;urn1:zipCode&gt;${admin_dist_dest_sender_addr_zip}&lt;/urn1:zipCode&gt;
+            &lt;/urn1:address&gt;
+            &lt;urn1:dateOfBirth/&gt;
+            &lt;urn1:dateOfSignature/&gt;
+            &lt;urn1:expirationDate/&gt;
+            &lt;urn1:haveSecondWitnessSignature&gt;false&lt;/urn1:haveSecondWitnessSignature&gt;
+            &lt;urn1:haveSignature&gt;false&lt;/urn1:haveSignature&gt;
+            &lt;urn1:haveWitnessSignature&gt;false&lt;/urn1:haveWitnessSignature&gt;
+            &lt;urn1:homeCommunity&gt;
+               &lt;urn1:description&gt;${admin_dist_dest_home_community_description}&lt;/urn1:description&gt;
+               &lt;urn1:homeCommunityId&gt;${admin_dist_dest_home_community_id}&lt;/urn1:homeCommunityId&gt;
+               &lt;urn1:name&gt;${admin_dist_dest_home_community_name}&lt;/urn1:name&gt;
+            &lt;/urn1:homeCommunity&gt;
+            &lt;urn1:phoneNumber&gt;
+               &lt;urn1:areaCode&gt;${admin_dist_dest_sender_office_areacode}&lt;/urn1:areaCode&gt;
+               &lt;urn1:countryCode&gt;${admin_dist_dest_sender_office_countrycode}&lt;/urn1:countryCode&gt;
+               &lt;urn1:extension/&gt;
+               &lt;urn1:localNumber&gt;${admin_dist_dest_sender_office_local}&lt;/urn1:localNumber&gt;
+               &lt;urn1:phoneNumberType&gt;
+                  &lt;urn1:code&gt;O&lt;/urn1:code&gt;
+                  &lt;urn1:codeSystem&gt;2.16.840.1.114222.4.11.3021&lt;/urn1:codeSystem&gt;
+                  &lt;urn1:codeSystemName&gt;Preferred Method of Contact (HL7) &lt;/urn1:codeSystemName&gt;
+                  &lt;urn1:codeSystemVersion&gt;1.0&lt;/urn1:codeSystemVersion&gt;
+                  &lt;urn1:displayName&gt;Office Phone Number&lt;/urn1:displayName&gt;
+                  &lt;urn1:originalText&gt;Office Phone Number&lt;/urn1:originalText&gt;
+               &lt;/urn1:phoneNumberType&gt;
+            &lt;/urn1:phoneNumber&gt;
+            &lt;urn1:purposeOfDisclosure&gt;${admin_dist_dest_purpose_of_disclosure}&lt;/urn1:purposeOfDisclosure&gt;
+            &lt;!--1 or more repetitions:--&gt;
+            &lt;urn1:authorized&gt;true&lt;/urn1:authorized&gt;
+            &lt;urn1:samlAuthnStatement&gt;
+               &lt;urn1:authInstant&gt;2009-09-01T13:00:00.000Z&lt;/urn1:authInstant&gt;
+               &lt;urn1:sessionIndex&gt;mySessionIndex&lt;/urn1:sessionIndex&gt;
+               &lt;urn1:authContextClassRef&gt;myContextClassRef&lt;/urn1:authContextClassRef&gt;
+               &lt;urn1:subjectLocalityAddress&gt;mySubjectLocalityAddress&lt;/urn1:subjectLocalityAddress&gt;
+               &lt;urn1:subjectLocalityDNSName&gt;mySubjectLocalityDns&lt;/urn1:subjectLocalityDNSName&gt;
+            &lt;/urn1:samlAuthnStatement&gt;
+            &lt;urn1:samlAuthzDecisionStatement&gt;
+               &lt;urn1:decision&gt;Permit&lt;/urn1:decision&gt;
+               &lt;urn1:resource&gt;myAuthzDecisionStatementResource&lt;/urn1:resource&gt;
+               &lt;urn1:action&gt;myAuthzDecisionStatementAction&lt;/urn1:action&gt;
+               &lt;urn1:evidence&gt;
+                  &lt;urn1:assertion&gt;
+                     &lt;urn1:id&gt;AuthzDecisionStatementEvidenceAssertionId&lt;/urn1:id&gt;
+                     &lt;urn1:issueInstant&gt;2009-09-02T14:00:00.000Z&lt;/urn1:issueInstant&gt;
+                     &lt;urn1:version&gt;2.0&lt;/urn1:version&gt;
+                     &lt;urn1:issuer&gt;CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US&lt;/urn1:issuer&gt;
+                     &lt;urn1:issuerFormat&gt;urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName&lt;/urn1:issuerFormat&gt;
+                     &lt;urn1:conditions&gt;
+                        &lt;urn1:notBefore&gt;01/01/2001 01:00:00&lt;/urn1:notBefore&gt;
+                        &lt;urn1:notOnOrAfter&gt;05/06/2009 22:00:17&lt;/urn1:notOnOrAfter&gt;
+                     &lt;/urn1:conditions&gt;
+                     &lt;urn1:accessConsentPolicy&gt;urn:oid:1.2.3.4&lt;/urn1:accessConsentPolicy&gt;
+                     &lt;urn1:instanceAccessConsentPolicy&gt;urn:oid:1.2.3.4.123456789&lt;/urn1:instanceAccessConsentPolicy&gt;
+                  &lt;/urn1:assertion&gt;
+               &lt;/urn1:evidence&gt;
+            &lt;/urn1:samlAuthzDecisionStatement&gt;
+            &lt;urn1:samlSignature&gt;
+               &lt;!--Optional:--&gt;
+               &lt;urn1:keyInfo&gt;
+                  &lt;!--Optional:--&gt;
+                  &lt;urn1:rsaKeyValueModulus&gt;cid:921853060605&lt;/urn1:rsaKeyValueModulus&gt;
+                  &lt;!--Optional:--&gt;
+                  &lt;urn1:rsaKeyValueExponent&gt;cid:507157468547&lt;/urn1:rsaKeyValueExponent&gt;
+               &lt;/urn1:keyInfo&gt;
+               &lt;!--Optional:--&gt;
+               &lt;urn1:signatureValue&gt;cid:175264679488&lt;/urn1:signatureValue&gt;
+            &lt;/urn1:samlSignature&gt;
+            &lt;!--Optional:--&gt;
+            &lt;urn1:asyncMessageId&gt;?&lt;/urn1:asyncMessageId&gt;
+         &lt;/urn:assertion&gt;
+         &lt;!--Optional:--&gt;
+         &lt;urn:nhinTargetCommunities&gt;
+            &lt;!--1 or more repetitions:--&gt;
+            &lt;urn1:nhinTargetCommunity&gt;
+               &lt;urn1:homeCommunity&gt;
+                  &lt;urn1:description&gt;${admin_dist_dest_target_community_description}&lt;/urn1:description&gt;
+                  &lt;urn1:homeCommunityId&gt;${admin_dist_dest_target_community_id}&lt;/urn1:homeCommunityId&gt;
+                  &lt;urn1:name&gt;${admin_dist_dest_target_community_name}&lt;/urn1:name&gt;
+               &lt;/urn1:homeCommunity&gt;
+               &lt;urn1:list&gt;?&lt;/urn1:list&gt;
+               &lt;urn1:region&gt;?&lt;/urn1:region&gt;
+            &lt;/urn1:nhinTargetCommunity&gt;
+         &lt;/urn:nhinTargetCommunities&gt;
+         &lt;urn2:EDXLDistribution&gt;
+            &lt;urn2:distributionID&gt;${UUID}&lt;/urn2:distributionID&gt;
+            &lt;urn2:senderID&gt;${admin_dist_dest_sender_id}&lt;/urn2:senderID&gt;
+            &lt;urn2:dateTimeSent&gt;2010-08-14T12:18:13.512375-08:00&lt;/urn2:dateTimeSent&gt;
+            &lt;urn2:distributionStatus&gt;${admin_dist_dest_distribution_status}&lt;/urn2:distributionStatus&gt;
+            &lt;urn2:distributionType&gt;${admin_dist_dest_distribution_type}&lt;/urn2:distributionType&gt;
+            &lt;urn2:combinedConfidentiality&gt;${admin_dist_dest_combined_confidentiality}&lt;/urn2:combinedConfidentiality&gt;
+            &lt;!--Optional:--&gt;
+            &lt;urn2:language&gt;${admin_dist_dest_language}&lt;/urn2:language&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+            &lt;urn2:senderRole&gt;
+               &lt;urn2:valueListUrn&gt;?&lt;/urn2:valueListUrn&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;urn2:value&gt;?&lt;/urn2:value&gt;
+            &lt;/urn2:senderRole&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+            &lt;urn2:recipientRole&gt;
+               &lt;urn2:valueListUrn&gt;?&lt;/urn2:valueListUrn&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;urn2:value&gt;?&lt;/urn2:value&gt;
+            &lt;/urn2:recipientRole&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+            &lt;urn2:keyword&gt;
+               &lt;urn2:valueListUrn&gt;?&lt;/urn2:valueListUrn&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;urn2:value&gt;?&lt;/urn2:value&gt;
+            &lt;/urn2:keyword&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+            &lt;urn2:distributionReference&gt;?&lt;/urn2:distributionReference&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+            &lt;urn2:explicitAddress&gt;
+               &lt;urn2:explicitAddressScheme&gt;modified_IHEIntendedRecipient&lt;/urn2:explicitAddressScheme&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;urn2:explicitAddressValue&gt;^^^^^^^^^${admin_dist_dest_target_community_id}|0000000001&lt;/urn2:explicitAddressValue&gt;
+            &lt;/urn2:explicitAddress&gt;
+            &lt;!--Zero or more repetitions:--&gt;
+             &lt;urn2:contentObject&gt;
+              &lt;!--You have a CHOICE of the next 2 items at this level--&gt;
+               &lt;urn2:xmlContent&gt;
+                  &lt;!--Zero or more repetitions:--&gt;
+                  &lt;urn2:keyXMLContent&gt;
+                     &lt;!--You may enter ANY elements at this point--&gt;
+                  &lt;/urn2:keyXMLContent&gt;
+                  &lt;!--Zero or more repetitions:--&gt;
+                  &lt;urn2:embeddedXMLContent&gt;
+					${HL7_MSG}
+                  &lt;/urn2:embeddedXMLContent&gt;
+               &lt;/urn2:xmlContent&gt;
+               &lt;!--You may enter ANY elements at this point--&gt;
+            &lt;/urn2:contentObject&gt;
+         &lt;/urn2:EDXLDistribution&gt;
+      &lt;/urn:RespondingGateway_SendAlertMessage&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+</property>
+        <property name="dispatcherOneWay">1</property>
+        <property name="dispatcherOperation">SendAlertMessage</property>
+        <property name="dispatcherPassword"></property>
+        <property name="dispatcherPort">{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_PortType</property>
+        <property name="dispatcherReplyChannelId">sink</property>
+        <property name="dispatcherService">{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Service</property>
+        <property name="dispatcherSoapAction"></property>
+        <property name="dispatcherUseAuthentication">0</property>
+        <property name="dispatcherUseMtom">0</property>
+        <property name="dispatcherUsername"></property>
+        <property name="dispatcherWsdlOperations">&lt;list&gt;
+  &lt;string&gt;SendAlertMessage&lt;/string&gt;
+&lt;/list&gt;</property>
+        <property name="dispatcherWsdlUrl">http://${admin_dist_dest_connect_host):${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
+        <property name="host">${admin_dist_dest_connect_host):${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
+        <property name="queuePollInterval">200</property>
+        <property name="reconnectMillisecs">10000</property>
+        <property name="rotateQueue">0</property>
+        <property name="usePersistentQueues">0</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">false</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Web Service Sender</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/AdminDistributionDestination.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/AdminDistributionDestination.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; + entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>
