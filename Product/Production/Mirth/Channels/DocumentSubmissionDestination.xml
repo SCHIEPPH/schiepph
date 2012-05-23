@@ -1,0 +1,551 @@
+<channel>
+  <id>aae1ad9d-3f1c-4711-bb07-bdc5cf8cd429</id>
+  <name>DocumentSubmissionDestination</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.1.1.5490</version>
+  <lastModified>
+    <time>1333570423000</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>10</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">Destination 1</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>HL7_MSG</name>
+          <script>var mapping;try { mapping = msg; }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;HL7_MSG&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>HL7_MSG</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg</string>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>1</sequenceNumber>
+          <name>Base64Encode</name>
+          <script>var xml = msg.toString();
+logger.info(xml);
+
+
+var encoded = Packages.org.cophm.util.Base64Coder.encodeString(xml);
+
+channelMap.put(&apos;messagePayload&apos;,encoded);</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var xml = msg.toString();
+logger.info(xml);
+
+
+var encoded = Packages.org.cophm.util.Base64Coder.encodeString(xml);
+
+channelMap.put(&apos;messagePayload&apos;,encoded);</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64"></inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">false</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.1.1.5490</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Web Service Sender</property>
+        <property name="dispatcherAttachmentContents">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentNames">&lt;list/&gt;</property>
+        <property name="dispatcherAttachmentTypes">&lt;list/&gt;</property>
+        <property name="dispatcherEnvelope">&lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot; xmlns:urn=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonentity&quot; xmlns:urn1=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; xmlns:urn2=&quot;urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0&quot; xmlns:urn3=&quot;urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0&quot; xmlns:urn4=&quot;urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0&quot; xmlns:urn5=&quot;urn:ihe:iti:xds-b:2007&quot;&gt;&#xd;
+   &lt;soap:Header/&gt;&#xd;
+   &lt;soap:Body&gt;&#xd;
+      &lt;urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest&gt;&#xd;
+         &lt;urn:assertion&gt;&#xd;
+               &lt;urn1:address&gt;
+               &lt;urn1:addressType&gt;
+                  &lt;urn1:code&gt;O&lt;/urn1:code&gt;
+                  &lt;urn1:codeSystem&gt;2.16.840.1.113883.12.190&lt;/urn1:codeSystem&gt;
+                  &lt;urn1:codeSystemName&gt;Address Type (HL7)&lt;/urn1:codeSystemName&gt;
+                  &lt;urn1:codeSystemVersion&gt;1.0&lt;/urn1:codeSystemVersion&gt;
+                  &lt;urn1:displayName&gt;Office&lt;/urn1:displayName&gt;
+                  &lt;urn1:originalText&gt;Office&lt;/urn1:originalText&gt;
+               &lt;/urn1:addressType&gt;
+               &lt;urn1:city&gt;${SENDER_CITY}&lt;/urn1:city&gt;
+               &lt;urn1:country&gt;${SENDER_COUNTRY}&lt;/urn1:country&gt;
+               &lt;urn1:state&gt;${SENDER_STATE}&lt;/urn1:state&gt;
+               &lt;urn1:streetAddress&gt;${SENDER_STREETAddress}&lt;/urn1:streetAddress&gt;
+               &lt;urn1:zipCode&gt;${SENDER_ZIP}&lt;/urn1:zipCode&gt;
+            &lt;/urn1:address&gt;
+            &lt;urn1:dateOfBirth/&gt;
+            &lt;urn1:explanationNonClaimantSignature/&gt;
+            &lt;urn1:haveSecondWitnessSignature/&gt;
+            &lt;urn1:haveSignature/&gt;
+            &lt;urn1:haveWitnessSignature/&gt;
+            &lt;urn1:homeCommunity&gt;&#xd;
+               &lt;urn1:description/&gt;
+               &lt;urn1:homeCommunityId&gt;${SENDER_SENDERID}&lt;/urn1:homeCommunityId&gt;&#xd;
+               &lt;urn1:name/&gt;
+            &lt;/urn1:homeCommunity&gt;&#xd;
+            &lt;urn1:personName&gt;&#xd;
+               &lt;urn1:familyName&gt;?&lt;/urn1:familyName&gt;&#xd;
+               &lt;urn1:givenName&gt;?&lt;/urn1:givenName&gt;&#xd;
+               &lt;urn1:nameType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:nameType&gt;&#xd;
+               &lt;urn1:secondNameOrInitials&gt;?&lt;/urn1:secondNameOrInitials&gt;&#xd;
+               &lt;urn1:fullName&gt;?&lt;/urn1:fullName&gt;&#xd;
+               &lt;urn1:prefix&gt;?&lt;/urn1:prefix&gt;&#xd;
+               &lt;urn1:suffix&gt;?&lt;/urn1:suffix&gt;&#xd;
+            &lt;/urn1:personName&gt;&#xd;
+            &lt;urn1:phoneNumber&gt;&#xd;
+               &lt;urn1:areaCode&gt;?&lt;/urn1:areaCode&gt;&#xd;
+               &lt;urn1:countryCode&gt;?&lt;/urn1:countryCode&gt;&#xd;
+               &lt;urn1:extension&gt;?&lt;/urn1:extension&gt;&#xd;
+               &lt;urn1:localNumber&gt;?&lt;/urn1:localNumber&gt;&#xd;
+               &lt;urn1:phoneNumberType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:phoneNumberType&gt;&#xd;
+            &lt;/urn1:phoneNumber&gt;&#xd;
+            &lt;urn1:secondWitnessAddress&gt;&#xd;
+               &lt;urn1:addressType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:addressType&gt;&#xd;
+               &lt;urn1:city&gt;?&lt;/urn1:city&gt;&#xd;
+               &lt;urn1:country&gt;?&lt;/urn1:country&gt;&#xd;
+               &lt;urn1:state&gt;?&lt;/urn1:state&gt;&#xd;
+               &lt;urn1:streetAddress&gt;?&lt;/urn1:streetAddress&gt;&#xd;
+               &lt;urn1:zipCode&gt;?&lt;/urn1:zipCode&gt;&#xd;
+            &lt;/urn1:secondWitnessAddress&gt;&#xd;
+            &lt;urn1:secondWitnessName&gt;&#xd;
+               &lt;urn1:familyName&gt;?&lt;/urn1:familyName&gt;&#xd;
+               &lt;urn1:givenName&gt;?&lt;/urn1:givenName&gt;&#xd;
+               &lt;urn1:nameType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:nameType&gt;&#xd;
+               &lt;urn1:secondNameOrInitials&gt;?&lt;/urn1:secondNameOrInitials&gt;&#xd;
+               &lt;urn1:fullName&gt;?&lt;/urn1:fullName&gt;&#xd;
+               &lt;urn1:prefix&gt;?&lt;/urn1:prefix&gt;&#xd;
+               &lt;urn1:suffix&gt;?&lt;/urn1:suffix&gt;&#xd;
+            &lt;/urn1:secondWitnessName&gt;&#xd;
+            &lt;urn1:secondWitnessPhone&gt;&#xd;
+               &lt;urn1:areaCode&gt;?&lt;/urn1:areaCode&gt;&#xd;
+               &lt;urn1:countryCode&gt;?&lt;/urn1:countryCode&gt;&#xd;
+               &lt;urn1:extension&gt;?&lt;/urn1:extension&gt;&#xd;
+               &lt;urn1:localNumber&gt;?&lt;/urn1:localNumber&gt;&#xd;
+               &lt;urn1:phoneNumberType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:phoneNumberType&gt;&#xd;
+            &lt;/urn1:secondWitnessPhone&gt;&#xd;
+            &lt;urn1:SSN&gt;?&lt;/urn1:SSN&gt;&#xd;
+            &lt;!--1 or more repetitions:--&gt;&#xd;
+            &lt;urn1:uniquePatientId&gt;?&lt;/urn1:uniquePatientId&gt;&#xd;
+            &lt;urn1:witnessAddress&gt;&#xd;
+               &lt;urn1:addressType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:addressType&gt;&#xd;
+               &lt;urn1:city&gt;?&lt;/urn1:city&gt;&#xd;
+               &lt;urn1:country&gt;?&lt;/urn1:country&gt;&#xd;
+               &lt;urn1:state&gt;?&lt;/urn1:state&gt;&#xd;
+               &lt;urn1:streetAddress&gt;?&lt;/urn1:streetAddress&gt;&#xd;
+               &lt;urn1:zipCode&gt;?&lt;/urn1:zipCode&gt;&#xd;
+            &lt;/urn1:witnessAddress&gt;&#xd;
+            &lt;urn1:witnessName&gt;&#xd;
+               &lt;urn1:familyName&gt;?&lt;/urn1:familyName&gt;&#xd;
+               &lt;urn1:givenName&gt;?&lt;/urn1:givenName&gt;&#xd;
+               &lt;urn1:nameType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:nameType&gt;&#xd;
+               &lt;urn1:secondNameOrInitials&gt;?&lt;/urn1:secondNameOrInitials&gt;&#xd;
+               &lt;urn1:fullName&gt;?&lt;/urn1:fullName&gt;&#xd;
+               &lt;urn1:prefix&gt;?&lt;/urn1:prefix&gt;&#xd;
+               &lt;urn1:suffix&gt;?&lt;/urn1:suffix&gt;&#xd;
+            &lt;/urn1:witnessName&gt;&#xd;
+            &lt;urn1:witnessPhone&gt;&#xd;
+               &lt;urn1:areaCode&gt;?&lt;/urn1:areaCode&gt;&#xd;
+               &lt;urn1:countryCode&gt;?&lt;/urn1:countryCode&gt;&#xd;
+               &lt;urn1:extension&gt;?&lt;/urn1:extension&gt;&#xd;
+               &lt;urn1:localNumber&gt;?&lt;/urn1:localNumber&gt;&#xd;
+               &lt;urn1:phoneNumberType&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:phoneNumberType&gt;&#xd;
+            &lt;/urn1:witnessPhone&gt;&#xd;
+            &lt;urn1:userInfo&gt;&#xd;
+               &lt;urn1:personName&gt;&#xd;
+                  &lt;urn1:familyName&gt;?&lt;/urn1:familyName&gt;&#xd;
+                  &lt;urn1:givenName&gt;?&lt;/urn1:givenName&gt;&#xd;
+                  &lt;urn1:nameType&gt;&#xd;
+                     &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                     &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                     &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                     &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                     &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                     &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                     &lt;!--Zero or more repetitions:--&gt;&#xd;
+                     &lt;urn1:translation/&gt;&#xd;
+                  &lt;/urn1:nameType&gt;&#xd;
+                  &lt;urn1:secondNameOrInitials&gt;?&lt;/urn1:secondNameOrInitials&gt;&#xd;
+                  &lt;urn1:fullName&gt;?&lt;/urn1:fullName&gt;&#xd;
+                  &lt;urn1:prefix&gt;?&lt;/urn1:prefix&gt;&#xd;
+                  &lt;urn1:suffix&gt;?&lt;/urn1:suffix&gt;&#xd;
+               &lt;/urn1:personName&gt;&#xd;
+               &lt;urn1:userName&gt;?&lt;/urn1:userName&gt;&#xd;
+               &lt;urn1:org&gt;&#xd;
+                  &lt;urn1:description&gt;?&lt;/urn1:description&gt;&#xd;
+                  &lt;urn1:homeCommunityId&gt;?&lt;/urn1:homeCommunityId&gt;&#xd;
+                  &lt;urn1:name&gt;?&lt;/urn1:name&gt;&#xd;
+               &lt;/urn1:org&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:roleCoded&gt;&#xd;
+                  &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+                  &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+                  &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+                  &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+                  &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+                  &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+                  &lt;!--Zero or more repetitions:--&gt;&#xd;
+                  &lt;urn1:translation/&gt;&#xd;
+               &lt;/urn1:roleCoded&gt;&#xd;
+            &lt;/urn1:userInfo&gt;&#xd;
+            &lt;urn1:authorized&gt;?&lt;/urn1:authorized&gt;&#xd;
+            &lt;!--Optional:--&gt;&#xd;
+            &lt;urn1:purposeOfDisclosureCoded&gt;&#xd;
+               &lt;urn1:code&gt;?&lt;/urn1:code&gt;&#xd;
+               &lt;urn1:codeSystem&gt;?&lt;/urn1:codeSystem&gt;&#xd;
+               &lt;urn1:codeSystemName&gt;?&lt;/urn1:codeSystemName&gt;&#xd;
+               &lt;urn1:codeSystemVersion&gt;?&lt;/urn1:codeSystemVersion&gt;&#xd;
+               &lt;urn1:displayName&gt;?&lt;/urn1:displayName&gt;&#xd;
+               &lt;urn1:originalText&gt;?&lt;/urn1:originalText&gt;&#xd;
+               &lt;!--Zero or more repetitions:--&gt;&#xd;
+               &lt;urn1:translation/&gt;&#xd;
+            &lt;/urn1:purposeOfDisclosureCoded&gt;&#xd;
+            &lt;!--Optional:--&gt;&#xd;
+            &lt;urn1:samlAuthnStatement&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:authInstant&gt;?&lt;/urn1:authInstant&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:sessionIndex&gt;?&lt;/urn1:sessionIndex&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:authContextClassRef&gt;?&lt;/urn1:authContextClassRef&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:subjectLocalityAddress&gt;?&lt;/urn1:subjectLocalityAddress&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:subjectLocalityDNSName&gt;?&lt;/urn1:subjectLocalityDNSName&gt;&#xd;
+            &lt;/urn1:samlAuthnStatement&gt;&#xd;
+            &lt;!--Optional:--&gt;&#xd;
+            &lt;urn1:samlAuthzDecisionStatement&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:decision&gt;?&lt;/urn1:decision&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:resource&gt;?&lt;/urn1:resource&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:action&gt;?&lt;/urn1:action&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:evidence&gt;&#xd;
+                  &lt;!--Optional:--&gt;&#xd;
+                  &lt;urn1:assertion&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:id&gt;?&lt;/urn1:id&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:issueInstant&gt;?&lt;/urn1:issueInstant&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:version&gt;?&lt;/urn1:version&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:issuer&gt;?&lt;/urn1:issuer&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:issuerFormat&gt;?&lt;/urn1:issuerFormat&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:conditions&gt;&#xd;
+                        &lt;!--Optional:--&gt;&#xd;
+                        &lt;urn1:notBefore&gt;?&lt;/urn1:notBefore&gt;&#xd;
+                        &lt;!--Optional:--&gt;&#xd;
+                        &lt;urn1:notOnOrAfter&gt;?&lt;/urn1:notOnOrAfter&gt;&#xd;
+                     &lt;/urn1:conditions&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:accessConsentPolicy&gt;?&lt;/urn1:accessConsentPolicy&gt;&#xd;
+                     &lt;!--Optional:--&gt;&#xd;
+                     &lt;urn1:instanceAccessConsentPolicy&gt;?&lt;/urn1:instanceAccessConsentPolicy&gt;&#xd;
+                  &lt;/urn1:assertion&gt;&#xd;
+               &lt;/urn1:evidence&gt;&#xd;
+            &lt;/urn1:samlAuthzDecisionStatement&gt;&#xd;
+            &lt;!--Optional:--&gt;&#xd;
+            &lt;urn1:samlSignature&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:keyInfo&gt;&#xd;
+                  &lt;!--Optional:--&gt;&#xd;
+                  &lt;urn1:rsaKeyValueModulus&gt;cid:591807649103&lt;/urn1:rsaKeyValueModulus&gt;&#xd;
+                  &lt;!--Optional:--&gt;&#xd;
+                  &lt;urn1:rsaKeyValueExponent&gt;cid:1107389487716&lt;/urn1:rsaKeyValueExponent&gt;&#xd;
+               &lt;/urn1:keyInfo&gt;&#xd;
+               &lt;!--Optional:--&gt;&#xd;
+               &lt;urn1:signatureValue&gt;cid:829218131310&lt;/urn1:signatureValue&gt;&#xd;
+            &lt;/urn1:samlSignature&gt;&#xd;
+            &lt;!--Optional:--&gt;&#xd;
+            &lt;urn1:asyncMessageId&gt;?&lt;/urn1:asyncMessageId&gt;&#xd;
+         &lt;/urn:assertion&gt;&#xd;
+         &lt;!--Optional:--&gt;&#xd;
+         &lt;urn:nhinTargetCommunities&gt;&#xd;
+            &lt;!--1 or more repetitions:--&gt;&#xd;
+            &lt;urn1:nhinTargetCommunity&gt;&#xd;
+               &lt;urn1:homeCommunity&gt;&#xd;
+                  &lt;urn1:description/&gt;
+                  &lt;urn1:homeCommunityId&gt;${TARGET_TARGETID}&lt;/urn1:homeCommunityId&gt;&#xd;
+                  &lt;urn1:name/&gt;
+               &lt;/urn1:homeCommunity&gt;&#xd;
+               &lt;urn1:list&gt;?&lt;/urn1:list&gt;&#xd;
+               &lt;urn1:region&gt;?&lt;/urn1:region&gt;&#xd;
+            &lt;/urn1:nhinTargetCommunity&gt;&#xd;
+         &lt;/urn:nhinTargetCommunities&gt;&#xd;
+         &lt;urn:ProvideAndRegisterDocumentSetRequest&gt;&#xd;
+           &lt;urn2:SubmitObjectsRequest id=&quot;123&quot; comment=&quot;comme&quot;&gt;
+               &lt;urn4:RegistryObjectList&gt;
+                  &lt;urn4:ExtrinsicObject id=&quot;Document01&quot; mimeType=&quot;text/plain&quot; objectType=&quot;urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1&quot;&gt;
+                     &lt;urn4:Slot name=&quot;sourcePatientId&quot;&gt;
+                        &lt;urn4:ValueList&gt;
+                           &lt;urn4:Value&gt;${patientId}&lt;/urn4:Value&gt;
+                        &lt;/urn4:ValueList&gt;
+                     &lt;/urn4:Slot&gt;
+                     &lt;urn4:Slot name=&quot;intendedRecipient&quot;&gt;
+                        &lt;urn4:ValueList&gt;
+			   				&lt;urn4:Value&gt;${INTENDED_RECIPIENT}&lt;/urn4:Value&gt;
+                        &lt;/urn4:ValueList&gt;
+                     &lt;/urn4:Slot&gt;
+
+                     &lt;urn4:ExternalIdentifier id=&quot;ei01&quot; registryObject=&quot;Document01&quot; identificationScheme=&quot;urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427&quot; value=&quot;${patientId}&quot;&gt;
+                        &lt;urn4:Name&gt;
+                           &lt;urn4:LocalizedString value=&quot;XDSDocumentEntry.patientId&quot;/&gt;
+                        &lt;/urn4:Name&gt;
+                     &lt;/urn4:ExternalIdentifier&gt;
+                     &lt;urn4:ExternalIdentifier id=&quot;ei02&quot; registryObject=&quot;Document01&quot; identificationScheme=&quot;urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab&quot; value=&quot;${XDSDocumentEntry_uniqueId}&quot;&gt;
+                        &lt;urn4:Name&gt;
+                           &lt;urn4:LocalizedString value=&quot;XDSDocumentEntry.uniqueId&quot;/&gt;
+                        &lt;/urn4:Name&gt;
+                     &lt;/urn4:ExternalIdentifier&gt;
+
+                  &lt;/urn4:ExtrinsicObject&gt;
+                  &lt;urn4:RegistryPackage id=&quot;SubmissionSet01&quot;&gt;
+		
+                     &lt;urn4:ExternalIdentifier id=&quot;urn:oid: ${SENDER_SENDERID}&quot; registryObject=&quot;SubmissionSet01&quot; identificationScheme=&quot;urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832&quot; value=&quot;2.16.840.1.113883.3.1239&quot;&gt;
+                        &lt;urn4:Name&gt;
+                           &lt;urn4:LocalizedString value=&quot;XDSSubmissionSet.sourceId&quot;/&gt;
+                        &lt;/urn4:Name&gt;
+                     &lt;/urn4:ExternalIdentifier&gt;
+                     &lt;urn4:ExternalIdentifier id=&quot;ei05&quot; registryObject=&quot;SubmissionSet01&quot; identificationScheme=&quot;urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446&quot; value=&quot;${patientId}&quot;&gt;
+                        &lt;urn4:Name&gt;
+                           &lt;urn4:LocalizedString value=&quot;XDSSubmissionSet.patientId&quot;/&gt;
+                        &lt;/urn4:Name&gt;
+                     &lt;/urn4:ExternalIdentifier&gt;
+                  &lt;/urn4:RegistryPackage&gt;
+                  &lt;urn4:Classification id=&quot;cl10&quot; classifiedObject=&quot;SubmissionSet01&quot; classificationNode=&quot;urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd&quot;/&gt;
+                  &lt;urn4:Association id=&quot;as01&quot; associationType=&quot;HasMember&quot; sourceObject=&quot;SubmissionSet01&quot; targetObject=&quot;Document01&quot;&gt;
+                     &lt;urn4:Slot name=&quot;SubmissionSetStatus&quot;&gt;
+                        &lt;urn4:ValueList&gt;
+                           &lt;urn4:Value&gt;Original&lt;/urn4:Value&gt;
+                        &lt;/urn4:ValueList&gt;
+                     &lt;/urn4:Slot&gt;
+                  &lt;/urn4:Association&gt;
+               &lt;/urn4:RegistryObjectList&gt; 
+
+            &lt;/urn2:SubmitObjectsRequest&gt;
+            &lt;!--1 or more repetitions:--&gt;&#xd;
+            &lt;urn5:Document id=&quot;Document01&quot;&gt;${messagePayload}&lt;/urn5:Document&gt;&#xd;
+         &lt;/urn:ProvideAndRegisterDocumentSetRequest&gt;&#xd;
+      &lt;/urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest&gt;&#xd;
+   &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</property>
+        <property name="dispatcherOneWay">0</property>
+        <property name="dispatcherOperation">ProvideAndRegisterDocumentSet-b</property>
+        <property name="dispatcherPassword"></property>
+        <property name="dispatcherPort">{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Port</property>
+        <property name="dispatcherReplyChannelId">sink</property>
+        <property name="dispatcherService">{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Service</property>
+        <property name="dispatcherSoapAction"></property>
+        <property name="dispatcherUseAuthentication">0</property>
+        <property name="dispatcherUseMtom">0</property>
+        <property name="dispatcherUsername"></property>
+        <property name="dispatcherWsdlOperations">&lt;list&gt;
+  &lt;string&gt;ProvideAndRegisterDocumentSet-b&lt;/string&gt;
+&lt;/list&gt;</property>
+        <property name="dispatcherWsdlUrl">http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured?wsdl</property>
+        <property name="host">localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured?wsdl</property>
+        <property name="queuePollInterval">200</property>
+        <property name="reconnectMillisecs">10000</property>
+        <property name="rotateQueue">0</property>
+        <property name="usePersistentQueues">0</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundTemplate encoding="base64"></inboundTemplate>
+        <outboundTemplate encoding="base64"></outboundTemplate>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">false</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Web Service Sender</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.1.1.5490</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/DocumentSubmissionDestination.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/DocumentSubmissionDestination.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; + entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

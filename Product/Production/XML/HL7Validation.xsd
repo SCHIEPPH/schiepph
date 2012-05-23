@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="HL7Validation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ValidHL7Versions">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="version" maxOccurs="unbounded">
+                                <xs:complexType/>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="severity" type="xs:string"/>
+                        <xs:attribute name="errorMessageId" type="xs:unsignedInt"/>
+                        <xs:attribute name="errorCodeId" type="xs:unsignedInt"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="SupportedAdtMessages">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="adtMessage"/>
+                        </xs:sequence>
+                        <xs:attribute name="severity" type="xs:string"/>
+                        <xs:attribute name="errorMessageId" type="xs:unsignedInt"/>
+                        <xs:attribute name="errorCodeId" type="xs:unsignedInt"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Fields">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Field" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name"/>
+                                        <xs:element name="Location" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="hl7Segment">
+                                                  <xs:complexType>
+                                                  <xs:attribute name="fieldNumber" type="xs:double"
+                                                  />
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element maxOccurs="unbounded" minOccurs="0"
+                                                  name="identifier">
+                                                  <xs:complexType>
+                                                  <xs:attribute default="Segment"
+                                                  name="repeatingElement" type="xs:string"/>
+                                                  <xs:attribute name="fieldNumber" type="xs:double"/>
+                                                  <xs:attribute name="mustMatch" type="xs:boolean"
+                                                  default="true"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="version" type="xs:string"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="description"/>
+                                        <xs:element name="Validations">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="usage">
+                                                  <xs:complexType>
+                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="cardinality" maxOccurs="1"
+                                                  minOccurs="0">
+                                                  <xs:complexType>
+                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="dataType" minOccurs="0">
+                                                  <xs:complexType>
+                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="dataRange" minOccurs="0">
+                                                  <xs:complexType>
+                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="valueList" minOccurs="0">
+                                                  <xs:complexType>
+                                                  <xs:sequence>
+                                                  <xs:element name="value"/>
+                                                  </xs:sequence>
+                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt"/>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ErrorMessages">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="errorMessage" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="id" type="xs:unsignedInt"/>
+                                    <xs:attribute name="printFieldName" type="xs:boolean"/>
+                                    <xs:attribute name="printFieldValue" type="xs:boolean"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ErrorCodes">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="errorCode">
+                                <xs:complexType>
+                                    <xs:attribute name="id" type="xs:unsignedInt"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

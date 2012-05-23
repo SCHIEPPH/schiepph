@@ -98,7 +98,7 @@
         <step>
           <sequenceNumber>2</sequenceNumber>
           <name>3_facility_number_and_street</name>
-          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+          <script>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 2);
 
@@ -107,7 +107,7 @@ channelMap.put(&apos;3_facility_number_and_street&apos;, data);</script>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+              <string>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 2);
 
@@ -118,7 +118,7 @@ channelMap.put(&apos;3_facility_number_and_street&apos;, data);</string>
         <step>
           <sequenceNumber>3</sequenceNumber>
           <name>4_facility_city</name>
-          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+          <script>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 6);
 
@@ -127,7 +127,7 @@ channelMap.put(&apos;4_facility_city&apos;, data);</script>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+              <string>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 6);
 
@@ -138,7 +138,7 @@ channelMap.put(&apos;4_facility_city&apos;, data);</string>
         <step>
           <sequenceNumber>4</sequenceNumber>
           <name>5_facility_state</name>
-          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+          <script>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 7);
 
@@ -147,7 +147,7 @@ channelMap.put(&apos;6_facility_state&apos;, data);</script>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+              <string>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 7);
 
@@ -158,7 +158,7 @@ channelMap.put(&apos;6_facility_state&apos;, data);</string>
         <step>
           <sequenceNumber>5</sequenceNumber>
           <name>5_facility_county</name>
-          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+          <script>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 12);
 
@@ -167,7 +167,7 @@ channelMap.put(&apos;5_facility_county&apos;, data);</script>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+              <string>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][2][&apos;OBX.5&apos;].toString(), 12);
 
@@ -682,7 +682,7 @@ channelMap.put(&apos;5_facility_county&apos;, data);</string>
         <step>
           <sequenceNumber>24</sequenceNumber>
           <name>25_chief_complaint</name>
-          <script>var fieldParser = new Packages.org.cophm.util.FieldParser();
+          <script>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][6][&apos;OBX.5&apos;].toString(), 9);
 
@@ -691,7 +691,7 @@ channelMap.put(&apos;25_chief_complaint&apos;, data);</script>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var fieldParser = new Packages.org.cophm.util.FieldParser();
+              <string>var fieldParser = new Packages.org.cophm.validation.FieldParser();
 
 var data = fieldParser.parse(msg[&apos;OBX&apos;][6][&apos;OBX.5&apos;].toString(), 9);
 
@@ -1437,7 +1437,7 @@ importPackage(Packages.java.io);
 
 	if (value == null)
 	{
-		//no enviroment variable, default to Mirth Properties directory. 
+		//no enviroment variable, default to Mirth Properties directory.
 		property_file = &apos;conf/HL7XMLGenericFileSource.properties&apos;;
 	}
 	else

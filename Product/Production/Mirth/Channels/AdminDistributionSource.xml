@@ -15,7 +15,7 @@
       <property name="DataType">Web Service Listener</property>
       <property name="host">0.0.0.0</property>
       <property name="port">${admin_distribution_source_port}</property>
-      <property name="receiverClassName">gov.hhs.fha.nhinc.admindist.mirth.MirthAdminDist</property>
+      <property name="receiverClassName">org.cophm.mirth.MirthAdminDist</property>
       <property name="receiverPasswords">&lt;list/&gt;</property>
       <property name="receiverResponseValue">None</property>
       <property name="receiverServiceName">Mirth</property>
@@ -27,16 +27,16 @@
           <sequenceNumber>0</sequenceNumber>
           <name>adt_a01_message</name>
           <script>tFactory = Packages.javax.xml.transform.TransformerFactory.newInstance();xsltTemplate = new Packages.java.io.StringReader(&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;xsl:stylesheet version=&quot;1.0&quot;  
-                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
-                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
-                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; 
+&lt;xsl:stylesheet version=&quot;1.0&quot;
+                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot;
+                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot;
+                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot;
                 xmlns:ns3=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonadapter&quot;
-                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;  
+                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
                 xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
 
                 &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; /&gt;
-                
+
                 &lt;xsl:template  match=&quot;/&quot;&gt;
 
                                 &lt;xsl:apply-templates select=&quot;ns3:RespondingGateway_SendAlertMessage&quot;/&gt;
@@ -63,16 +63,16 @@
             <entry>
               <string>XsltTemplate</string>
               <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;xsl:stylesheet version=&quot;1.0&quot;  
-                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
-                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot; 
-                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot; 
+&lt;xsl:stylesheet version=&quot;1.0&quot;
+                xmlns=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot;
+                xmlns:ns4=&quot;urn:oasis:names:tc:emergency:EDXL:DE:1.0&quot;
+                xmlns:ns2=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommon&quot;
                 xmlns:ns3=&quot;urn:gov:hhs:fha:nhinc:common:nhinccommonadapter&quot;
-                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;  
+                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
                 xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
 
                 &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; /&gt;
-                
+
                 &lt;xsl:template  match=&quot;/&quot;&gt;
 
                                 &lt;xsl:apply-templates select=&quot;ns3:RespondingGateway_SendAlertMessage&quot;/&gt;
@@ -152,7 +152,7 @@
     <property name="transactional">false</property>
   </properties>
   <preprocessingScript>// Modify the message variable below to pre process data
- 
+
 
 return message;</preprocessingScript>
   <postprocessingScript>// This script executes once after a message has been processed
@@ -168,7 +168,7 @@ importPackage(Packages.java.io);
 
 	if (value == null)
 	{
-		//no enviroment variable, default to Mirth Properties directory. 
+		//no enviroment variable, default to Mirth Properties directory.
 		property_file = &apos;conf/AdminDistributionSource.properties&apos;;
 	}
 	else

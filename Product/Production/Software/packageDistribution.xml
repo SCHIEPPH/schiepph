@@ -1,0 +1,149 @@
+<project default="package.distribution" name="SCHIEPPH Distribution Packages" basedir="../../../">
+    <property name="project.dir" location="../../../" />
+
+
+    <property name="release.number" value="2.0" />
+
+
+    <property name="src.dir" value="${basedir}/src/main/java" />
+    <property name="dist.dir" value="${basedir}/../dist" />
+    <property name="binary.staging.dir" value="${dist.dir}/release" />
+    <property name="validation.staging.dir" value="${dist.dir}/test" />
+    <property name="target.dir" value="${basedir}/target" />
+    <property name="xml.dir" value="${basedir}/../XML" />
+    <property name="db.scripts.dir" value="${basedir}/../Database/scripts" />
+
+    <property name="channel.src.dir" value="${basedir}/../Mirth/Channels" />
+    <property name="channel.dest.dir" value="${dist.dir}/release/Mirth/Channels" />
+
+    <property name="config.src.dir" value="${basedir}/../Mirth/Config" />
+    <property name="config.dest.dir" value="${dist.dir}/release/Mirth/Config" />
+
+    <property name="jaxws.src.dir" value="${basedir}/../Support/JAXWS2.1" />
+    <property name="jaxws.dest.dir" value="${dist.dir}/release/JAXWS2.1" />
+
+    <property name="test.input.src.dir" value="${basedir}/../Test/InputData" />
+    <property name="test.input.dest.dir" value="${dist.dir}/test/input" />
+
+    <property name="test.control.src.dir" value="${basedir}/../Test/ControlFiles" />
+    <property name="test.control.dest.dir" value="${dist.dir}/test/control" />
+
+    <property name="binary.dist.name" value="SCHIEPPH-release" />
+    <property name="validation.dist.name" value="SCHIEPPH-validation" />
+    <property name="zip.ext" value="zip" />
+    <property name="tar.ext" value="tar" />
+    <property name="tar.gz.ext" value="tar.gz" />
+
+
+    <!--  target that builds a war file  -->
+    <target name="package.distribution" description="Creates a SCHIEPPH distribution file." >
+        <!-- clean out the staging directory -->
+        <delete dir="${dist.dir}"/>
+
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${channel.dest.dir}"/>
+        <mkdir dir="${config.dest.dir}"/>
+        <mkdir dir="${jaxws.dest.dir}"/>
+        <mkdir dir="${test.input.dest.dir}"/>
+        <mkdir dir="${test.control.dest.dir}"/>
+
+
+        <!-- copy the Mirth Channel Definitions to the staging directory -->
+        <copy todir="${channel.dest.dir}">
+            <fileset dir="${channel.src.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <!-- copy the Mirth Channel Definition configuration files to the staging directory -->
+        <copy todir="${config.dest.dir}">
+            <fileset dir="${config.src.dir}">
+                <include name="*/**"/>
+            </fileset>
+        </copy>
+
+        <!-- copy the input test data files to the staging directory -->
+        <copy todir="${test.input.dest.dir}">
+            <fileset dir="${test.input.src.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <!-- copy the test control files to the staging directory -->
+        <copy todir="${test.control.dest.dir}">
+            <fileset dir="${test.control.src.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <!-- copy the JAXWS2.1 jar files to the staging directory -->
+        <copy todir="${jaxws.dest.dir}">
+            <fileset dir="${jaxws.src.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+
+        <!-- Build tar.gz format of the release binaries -->
+        <tar destfile="${dist.dir}/${binary.dist.name}-${release.number}.${tar.ext}">
+            <fileset dir="${binary.staging.dir}">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${target.dir}">
+                <include name="schiepph-*.jar"/>
+            </fileset>
+            <fileset dir="${xml.dir}">
+                <include name="SyndromicDataValidations.xml"/>
+            </fileset>
+            <fileset dir="${db.scripts.dir}">
+                <include name="CreateSyndromicData.sql"/>
+            </fileset>
+        </tar>
+        <gzip src="${dist.dir}/${binary.dist.name}-${release.number}.${tar.ext}"
+              destfile="${dist.dir}/${binary.dist.name}-${release.number}.${tar.gz.ext}"/>
+        <delete file="${dist.dir}/${binary.dist.name}-${release.number}.${tar.ext}" />
+
+        <!-- Build tar.gz format of the validation files -->
+        <tar destfile="${dist.dir}/${validation.dist.name}-${release.number}.${tar.ext}">
+            <fileset dir="${validation.staging.dir}">
+                <include name="**/*InputData*"/>
+            </fileset>
+            <fileset dir="${validation.staging.dir}">
+                <include name="control/*"/>
+            </fileset>
+        </tar>
+        <gzip src="${dist.dir}/${validation.dist.name}-${release.number}.${tar.ext}"
+              destfile="${dist.dir}/${validation.dist.name}-${release.number}.${tar.gz.ext}"/>
+        <delete file="${dist.dir}/${validation.dist.name}-${release.number}.${tar.ext}" />
+
+        <!-- Build zip format of the release binaries -->
+        <zip destfile="${dist.dir}/${binary.dist.name}-${release.number}.${zip.ext}">
+            <fileset dir="${binary.staging.dir}">
+                <include name="**/*"/>
+            </fileset>
+            <fileset dir="${target.dir}">
+                <include name="schiepph-*.jar"/>
+            </fileset>
+            <fileset dir="${xml.dir}">
+                <include name="SyndromicDataValidations.xml"/>
+            </fileset>
+            <fileset dir="${db.scripts.dir}">
+                <include name="CreateSyndromicData.sql"/>
+            </fileset>
+        </zip>
+
+        <!-- Build zip format of the validation files -->
+        <zip destfile="${dist.dir}/${validation.dist.name}-${release.number}.${zip.ext}">
+            <fileset dir="${validation.staging.dir}">
+                <include name="**/*InputData*"/>
+            </fileset>
+            <fileset dir="${validation.staging.dir}">
+                <include name="control/*"/>
+            </fileset>
+        </zip>
+
+        <delete dir="${binary.staging.dir}" />
+        <delete dir="${validation.staging.dir}" />
+    </target>
+
+</project>

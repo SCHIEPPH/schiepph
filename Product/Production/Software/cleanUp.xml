@@ -1,0 +1,18 @@
+<project default="delete.generated.source" name="SCHIEPPH WSDL Cleanup" basedir="../../../../..//">
+    <property name="project.dir" location="../../../../..//" />
+
+
+    <property name="release.number" value="1.0" />
+
+
+    <property name="generated.src.dir" value="${basedir}/generated" />
+
+
+    <!--  target that cleans up source generated from WSDL  -->
+    <target name="delete.generated.source" description="Deletes source code that was generated from WSDL." >
+
+        <delete dir="${generated.src.dir}"/>
+
+    </target>
+
+</project>

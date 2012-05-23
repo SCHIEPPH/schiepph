@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.1.1.5490</version>
   <lastModified>
-    <time>1328819013675</time>
+    <time>1330114544000</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>11</revision>
+  <revision>1</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -32,12 +32,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -240,11 +240,12 @@
         <property name="dispatcherUseAuthentication">0</property>
         <property name="dispatcherUseMtom">0</property>
         <property name="dispatcherUsername"></property>
+        <property name="dispatcherWsdlCacheId"></property>
         <property name="dispatcherWsdlOperations">&lt;list&gt;
   &lt;string&gt;SendAlertMessage&lt;/string&gt;
 &lt;/list&gt;</property>
-        <property name="dispatcherWsdlUrl">http://${admin_dist_dest_connect_host):${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
-        <property name="host">${admin_dist_dest_connect_host):${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
+        <property name="dispatcherWsdlUrl">http://${admin_dist_dest_connect_host}:${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
+        <property name="host">${admin_dist_dest_connect_host}:${admin_dist_dest_connect_port}/CONNECTGateway/AdministrativeDistribution_Service?wsdl</property>
         <property name="queuePollInterval">200</property>
         <property name="reconnectMillisecs">10000</property>
         <property name="rotateQueue">0</property>

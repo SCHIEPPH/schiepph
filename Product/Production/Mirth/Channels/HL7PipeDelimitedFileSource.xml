@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.1.1.5490</version>
   <lastModified>
-    <time>1328132893096</time>
+    <time>1335533272000</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>6</revision>
+  <revision>11</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -45,8 +45,8 @@
       <outboundProtocol>XML</outboundProtocol>
       <inboundProperties>
         <property name="convertLFtoCR">true</property>
-        <property name="handleRepetitions">false</property>
-        <property name="handleSubcomponents">false</property>
+        <property name="handleRepetitions">true</property>
+        <property name="handleSubcomponents">true</property>
         <property name="stripNamespaces">true</property>
         <property name="useStrictParser">false</property>
         <property name="useStrictValidation">false</property>

@@ -3,20 +3,187 @@
   <parent>
   	<groupId>com.cophm</groupId>
   	<artifactId>Production</artifactId>
-  	<version>1.0-SNAPSHOT</version>
+  	<version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cophm</groupId>
   <artifactId>schiepph</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>Top Level Parent :: Product :: Production :: Software</name>
-  <dependencies>
+  <version>2.0</version>
+    <name>Top Level Parent :: Product :: Production :: Software</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>1.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sei>
+                        <version>1.9</version>
+                    </sei>
+                    <target>2.1</target>
+                    <verbose>true</verbose>
+                    <sourceDestDir>${basedir}/generated</sourceDestDir>
+                    <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.6</version>
+              <executions>
+                <execution>
+                  <id>compile</id>
+                  <phase>package</phase>
+                  <configuration>
+                    <target>
+                      <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+
+                      <if>
+                        <!--This sets the property os.family that is used else where in the compile scripts to manage path separators \ vs. /-->
+                        <os family="windows" />
+                        <then>
+                          <property name="os.family" value="windows"/>
+                        </then>
+                        <elseif>
+                          <os family="unix" />
+                          <then>
+                            <property name="os.family" value="unix"/>
+                          </then>
+                        </elseif>
+                        <else>
+                          <fail message="You are running on an unsupported OS."/>
+                        </else>
+                      </if>
+
+                      <ant antfile="${basedir}/packageDistribution.xml">
+                        <target name="package.distribution"/>
+                      </ant>
+                    </target>
+                  </configuration>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <dependencies>
+                <dependency>
+                  <groupId>org.apache.ant</groupId>
+                  <artifactId>ant</artifactId>
+                  <version>1.8.1</version>
+                </dependency>
+                <dependency>
+                  <groupId>ant-contrib</groupId>
+                  <artifactId>ant-contrib</artifactId>
+                  <version>1.0b3</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+<!--
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.6</version>
+              <executions>
+                <execution>
+                  <id>cleanUp</id>
+                  <phase>clean</phase>
+                  <configuration>
+                    <target>
+                      <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+                      <ant antfile="${basedir}/cleanUp.xml">
+                        <target name="delete.generated.source"/>
+                      </ant>
+                    </target>
+                  </configuration>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <dependencies>
+                <dependency>
+                  <groupId>org.apache.ant</groupId>
+                  <artifactId>ant</artifactId>
+                  <version>1.8.1</version>
+                </dependency>
+                <dependency>
+                  <groupId>ant-contrib</groupId>
+                  <artifactId>ant-contrib</artifactId>
+                  <version>1.0b3</version>
+                </dependency>
+              </dependencies>
+            </plugin>
+-->
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+          <groupId>ca.uhn.hapi</groupId>
+          <artifactId>hapi-base</artifactId>
+          <version>1.2</version>
+        </dependency>
+        <dependency>
+          <groupId>ca.uhn.hapi</groupId>
+          <artifactId>hapi-structures-v231</artifactId>
+          <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.4</version>
+<!--
+              <exclusions>
+                  <exclusion>
+                      <groupId>xml-apis</groupId>
+                      <artifactId>xml-apis</artifactId>
+                  </exclusion>
+                  <exclusion>
+                      <groupId>org.apache.xerces</groupId>
+                      <artifactId>xml-apis</artifactId>
+                  </exclusion>
+              </exclusions>
+-->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.1.12</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
-   </dependencies>
+        <dependency>
+            <groupId>org.apache.xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+    </dependencies>
 </project>

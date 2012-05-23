@@ -3,12 +3,12 @@
   <parent>
   	<groupId>com.cophm</groupId>
   	<artifactId>Product</artifactId>
-  	<version>1.0-SNAPSHOT</version>
+  	<version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cophm</groupId>
   <artifactId>Production</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
   <name>Top Level Parent :: Product :: Production</name>
   <modules>

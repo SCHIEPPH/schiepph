@@ -15,7 +15,7 @@
       <property name="DataType">Web Service Listener</property>
       <property name="host">0.0.0.0</property>
       <property name="port">${admin_distribution_source_port}</property>
-      <property name="receiverClassName">gov.hhs.fha.nhinc.admindist.mirth.MirthAdminDist</property>
+      <property name="receiverClassName">org.cophm.mirth.MirthAdminDist</property>
       <property name="receiverPasswords">&lt;list/&gt;</property>
       <property name="receiverResponseValue">None</property>
       <property name="receiverServiceName">Mirth</property>
@@ -52,7 +52,7 @@
 &lt;/xsl:template&gt;
 
 &lt;xsl:template  match=&quot;pqri-measure&quot; &gt;
- 
+
 	&lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;collection-method&quot;      /&gt;, &lt;xsl:value-of select=&quot;eligible-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;meets-performance-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-not-met-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;reporting-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt; &lt;xsl:text&gt;&amp;#xa;&lt;/xsl:text&gt;
 
 &lt;/xsl:template&gt;
@@ -96,7 +96,7 @@
 &lt;/xsl:template&gt;
 
 &lt;xsl:template  match=&quot;pqri-measure&quot; &gt;
- 
+
 	&lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;collection-method&quot;      /&gt;, &lt;xsl:value-of select=&quot;eligible-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;meets-performance-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-not-met-instances&quot;      /&gt;, &lt;xsl:value-of select=&quot;reporting-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;performance-rate&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt;, &lt;xsl:value-of select=&quot;pqri-measure-number&quot;      /&gt; &lt;xsl:text&gt;&amp;#xa;&lt;/xsl:text&gt;
 
 &lt;/xsl:template&gt;
@@ -508,7 +508,7 @@ dD4NCjwvRURYTERpc3RyaWJ1dGlvbj4N</inboundTemplate>
     <property name="transactional">false</property>
   </properties>
   <preprocessingScript>// Modify the message variable below to pre process data
- 
+
 
 return message;</preprocessingScript>
   <postprocessingScript>// This script executes once after a message has been processed
@@ -524,7 +524,7 @@ importPackage(Packages.java.io);
 
 	if (value == null)
 	{
-		//no enviroment variable, default to Mirth Properties directory. 
+		//no enviroment variable, default to Mirth Properties directory.
 		property_file = &apos;conf/AdminDistributionSource.properties&apos;;
 	}
 	else

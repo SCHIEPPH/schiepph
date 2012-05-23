@@ -3,15 +3,37 @@
   <parent>
   	<groupId>com.cophm</groupId>
   	<artifactId>Parent</artifactId>
-  	<version>1.0-SNAPSHOT</version>
+  	<version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cophm</groupId>
   <artifactId>Product</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
   <name>Top Level Parent :: Product</name>
   <modules>
 	<module>Production</module>
   </modules>
+  <dependencies>
+    <dependency>
+      <groupId>mirth.connect</groupId>
+      <artifactId>ws-server</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.ejb</groupId>
+      <artifactId>ejb-api</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mule</groupId>
+      <artifactId>mule</artifactId>
+      <version>1.2</version>
+    </dependency>
+  </dependencies>
 </project>

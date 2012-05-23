@@ -1,14 +1,14 @@
 <channel>
-  <id>581bd476-aab6-43e5-8b1a-7b8a06180b6f</id>
+  <id>c81ac5d1-b0e2-48e8-8d3d-4171c57d45c4</id>
   <name>HL7DatabaseDestination</name>
   <description></description>
   <enabled>true</enabled>
   <version>2.1.1.5490</version>
   <lastModified>
-    <time>1328822770942</time>
+    <time>1336166616262</time>
     <timezone>US/Eastern</timezone>
   </lastModified>
-  <revision>18</revision>
+  <revision>7</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -20,23 +20,28 @@
         <step>
           <sequenceNumber>0</sequenceNumber>
           <name>OBX_MAPPINGS</name>
-          <script>for each (seg in msg..OBX) {
+          <script>var chiefComplaintArr = new Array();
+var ccCount = 0;
+
+for each (seg in msg..OBX) {
 	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
 	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
 
 	if(segmentType == &apos;HD&apos; )
 	{
 		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString());
 	}
     else if(segmentType == &apos;AD&apos;)
     {
-		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.15&apos;][&apos;OBX.15.1&apos;].toString());
+
     }
 	else if(segmentType == &apos;XAD&apos;)
 	{
 		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
 	}
     else if(segmentType == &apos;NM&apos; )
@@ -51,13 +56,13 @@
 		else if(segmentCode == &apos;11289-6&apos;)
 		{
 			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );			
+			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );			
 
 		}
 		else if(segmentCode ==&apos;59408-5&apos;)
 		{
 			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );	
+			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );	
 		}
 		else
 		{
@@ -72,7 +77,9 @@
 
 		if (segmentCode == &apos;8661-1&apos;)
 		{
-			channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
+			var ccString = seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString() + &quot;|&quot; + seg[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + seg[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
+			chiefComplaintArr[ccCount] = ccString;
+			ccCount++;			
 		}
 		else if (segmentCode == &apos;SS003&apos;)
 		{
@@ -119,28 +126,34 @@
 
 
 
-}</script>
+}
+channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,chiefComplaintArr);</script>
           <type>JavaScript</type>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>for each (seg in msg..OBX) {
+              <string>var chiefComplaintArr = new Array();
+var ccCount = 0;
+
+for each (seg in msg..OBX) {
 	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
 	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
 
 	if(segmentType == &apos;HD&apos; )
 	{
 		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString());
 	}
     else if(segmentType == &apos;AD&apos;)
     {
-		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.15&apos;][&apos;OBX.15.1&apos;].toString());
+
     }
 	else if(segmentType == &apos;XAD&apos;)
 	{
 		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
+		channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
 		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
 	}
     else if(segmentType == &apos;NM&apos; )
@@ -155,13 +168,13 @@
 		else if(segmentCode == &apos;11289-6&apos;)
 		{
 			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );			
+			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );			
 
 		}
 		else if(segmentCode ==&apos;59408-5&apos;)
 		{
 			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.1&apos;].toString() );	
+			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );	
 		}
 		else
 		{
@@ -176,7 +189,9 @@
 
 		if (segmentCode == &apos;8661-1&apos;)
 		{
-			channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
+			var ccString = seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString() + &quot;|&quot; + seg[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + seg[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
+			chiefComplaintArr[ccCount] = ccString;
+			ccCount++;			
 		}
 		else if (segmentCode == &apos;SS003&apos;)
 		{
@@ -223,7 +238,8 @@
 
 
 
-}</string>
+}
+channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,chiefComplaintArr);</string>
             </entry>
           </data>
         </step>
@@ -242,12 +258,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -270,12 +286,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -342,7 +358,7 @@
         <step>
           <sequenceNumber>5</sequenceNumber>
           <name>syndromic_surveillance_data_race</name>
-          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_race&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <script>var mapping;try { mapping = msg[&apos;PID&apos;][&apos;PID.10&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_race&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
           <type>Mapper</type>
           <data class="map">
             <entry>
@@ -355,7 +371,7 @@
             </entry>
             <entry>
               <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;][&apos;PID.10.1&apos;].toString()</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;].toString()</string>
             </entry>
             <entry>
               <string>RegularExpressions</string>
@@ -410,12 +426,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -438,12 +454,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -466,12 +482,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -494,12 +510,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -522,12 +538,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -550,12 +566,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -578,12 +594,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -606,12 +622,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -634,12 +650,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -662,12 +678,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -678,7 +694,7 @@
         <step>
           <sequenceNumber>17</sequenceNumber>
           <name>syndromic_surveillance_data_diagnosis_injury_code</name>
-          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_diagnosis_injury_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <script>var mapping;try { mapping = msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;syndromic_surveillance_data_diagnosis_injury_code&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
           <type>Mapper</type>
           <data class="map">
             <entry>
@@ -691,7 +707,7 @@
             </entry>
             <entry>
               <string>Mapping</string>
-              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString()</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString()</string>
             </entry>
             <entry>
               <string>RegularExpressions</string>
@@ -741,8 +757,19 @@ for each (seg in msg..PID) {
 	var uniqueID = &apos;&apos;;
 	var mrn = &apos;&apos;;
 
+	var arrPatientIds = new Array();
+	var arrPatientRace = new Array();
+	var arrPatientEthnicity = new Array();
+	var idCount = 0;
+	var raceCount = 0;
+	var ethCount = 0;
+
 	for each(id in seg[&apos;PID.3&apos;])
 	{
+		var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
+		arrPatientIds[idCount] = idStr;
+		idCount++;
+		logger.info(id[&apos;PID.3.1&apos;].toString());
 		var idType = id[&apos;PID.3.5&apos;].toString();
 		if (uniqueID == &apos;&apos;)
 		{
@@ -754,8 +781,24 @@ for each (seg in msg..PID) {
 		}
 	}
 
+	for each(race in seg[&apos;PID.10&apos;])
+	{
+		var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
+		arrPatientRace[raceCount] = raceStr;
+		raceCount++;
+	}
+	for each(ethnicity in seg[&apos;PID.22&apos;])
+	{
+		var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
+		arrPatientEthnicity[ethCount] = ethStr;
+		ethCount++;
+	}
 	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
 	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
+	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;, arrPatientIds );
+	channelMap.put(&apos;syndromic_surveillance_data_race__array&apos;, arrPatientRace);
+	channelMap.put(&apos;syndromic_surveillance_data_ethnic_array&apos;, arrPatientEthnicity);
+
 }</script>
           <type>JavaScript</type>
           <data class="map">
@@ -768,8 +811,19 @@ for each (seg in msg..PID) {
 	var uniqueID = &apos;&apos;;
 	var mrn = &apos;&apos;;
 
+	var arrPatientIds = new Array();
+	var arrPatientRace = new Array();
+	var arrPatientEthnicity = new Array();
+	var idCount = 0;
+	var raceCount = 0;
+	var ethCount = 0;
+
 	for each(id in seg[&apos;PID.3&apos;])
 	{
+		var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
+		arrPatientIds[idCount] = idStr;
+		idCount++;
+		logger.info(id[&apos;PID.3.1&apos;].toString());
 		var idType = id[&apos;PID.3.5&apos;].toString();
 		if (uniqueID == &apos;&apos;)
 		{
@@ -781,9 +835,59 @@ for each (seg in msg..PID) {
 		}
 	}
 
+	for each(race in seg[&apos;PID.10&apos;])
+	{
+		var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
+		arrPatientRace[raceCount] = raceStr;
+		raceCount++;
+	}
+	for each(ethnicity in seg[&apos;PID.22&apos;])
+	{
+		var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
+		arrPatientEthnicity[ethCount] = ethStr;
+		ethCount++;
+	}
 	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
 	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
+	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;, arrPatientIds );
+	channelMap.put(&apos;syndromic_surveillance_data_race__array&apos;, arrPatientRace);
+	channelMap.put(&apos;syndromic_surveillance_data_ethnic_array&apos;, arrPatientEthnicity);
+
 }</string>
+            </entry>
+          </data>
+        </step>
+        <step>
+          <sequenceNumber>20</sequenceNumber>
+          <name>DX</name>
+          <script>var dxArr = new Array();
+var dxCount = 0;
+
+for each (seg in msg..DG1) {
+
+	var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
+		seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
+	logger.info(&apos;DG1 &apos; + dxStr);	
+	dxArr[dxCount] = dxStr;
+	dxCount++;
+}
+channelMap.put(&apos;syndromic_surveillance_data_diagnosis&apos;, dxArr );</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var dxArr = new Array();
+var dxCount = 0;
+
+for each (seg in msg..DG1) {
+
+	var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
+		seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
+	logger.info(&apos;DG1 &apos; + dxStr);	
+	dxArr[dxCount] = dxStr;
+	dxCount++;
+}
+channelMap.put(&apos;syndromic_surveillance_data_diagnosis&apos;, dxArr );</string>
             </entry>
           </data>
         </step>
@@ -1026,29 +1130,24 @@ ICAgICAgPC9ERzEuNj4NCiAgICA8L0RHMT4NCjwvSEw3TWVzc2FnZT4NCg==</inboundTemplate>
         <property name="query"></property>
         <property name="script">
 
-
-
 var dbConn = DatabaseConnectionFactory.createDatabaseConnection(&apos;com.mysql.jdbc.Driver&apos;,globalMap.get(&apos;DB_WRITER_DBURL&apos;),globalMap.get(&apos;DB_WRITER_USER&apos;),globalMap.get(&apos;DB_WRITER_PWD&apos;));
 
-
-var sql = &quot;INSERT INTO &quot; + globalMap.get(&apos;DB_WRITER_TABLE_NAME&apos;) + 
-&quot; (facility_identifier, report_date_time, unique_patient_id, medical_record_number, gender, race, city_town, state, zip_code, country, county, ethnicity, patient_class, unique_visiting_id, discharge_disposition, visit_date_time, disposition_date_time, facility_name, facility_location_street, facility_location_city, facility_location_county, facility_location_state, age, age_units, date_of_onset, chief_complaint_reason_for_visit, triage_notes, &quot; + 
-&quot;clinical_impression, initial_temperature, temperature_units, diagnosis_injury_code, diagnosis_type,  facility_visit_type, initial_pulse_oximetry, pulse_oximetry_units  ) values (&apos;&quot; + 
+var sql = &quot;INSERT INTO syndromic_surveillance &quot; + 
+&quot; (facility_identifier, facility_visit_type, report_date_time, medical_record_num, gender, patient_city, patient_state, patient_zip, patient_country, patient_class, unique_visiting_id, &quot; + 
+&quot; visit_date_time, disposition_datetime, &quot; +
+&quot; facility_name, facility_street_address, facility_city, facility_county, facility_state, age, age_units, onset_date, triage_notes, &quot; + 
+&quot;clinical_impression, initial_temp, initial_temp_units, initial_pulse_oximetry, initial_pulse_oximetry_units, discharge_disposition  ) values (&apos;&quot; + 
 $(&apos;syndromic_surveillance_data_facility_identifier&apos;) +&quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_facility_visit_type&apos;) +&quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_report_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_unique_patient_id&apos;)  + &quot;&apos;, &apos;&quot; +  
-$(&apos;syndromic_surveillance_data_medical_record_number&apos;)  + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_medical_record_number&apos;) + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_gender&apos;) +   &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_race&apos;)  + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_city_town&apos;)  + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_state&apos;)  + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_zip_code&apos;)  + &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_country&apos;)  + &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_county&apos;)  + &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_ethnicity&apos;) + &quot;&apos;, &apos;&quot; + 
+$(&apos;syndromic_surveillance_data_country&apos;)  + &quot;&apos;, &apos;&quot; +  
 $(&apos;syndromic_surveillance_data_patient_class&apos;) + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_unique_visiting_id&apos;) + &quot;&apos;, &apos;&quot; + 
-$(&apos;syndromic_surveillance_data_discharge_disposition&apos;) + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_visit_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_disposition_date_time&apos;) + &quot;&apos;, &apos;&quot; + 
 $(&apos;syndromic_surveillance_data_facility_name&apos;) + &quot;&apos;, &apos;&quot; + 
@@ -1059,23 +1158,78 @@ $(&apos;syndromic_surveillance_data_facility_location_state&apos;) + &quot;&apos
 $(&apos;syndromic_surveillance_data_age&apos;) + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_age_units&apos;) + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_date_of_onset&apos;)  + &quot;&apos;, &apos;&quot; +
-$(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)  + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_triage_notes&apos;)  + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_clinical_impression&apos;)  + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_initial_temperature&apos;)  + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_temperature_units&apos;)  + &quot;&apos;, &apos;&quot; +
-$(&apos;syndromic_surveillance_data_diagnosis_injury_code&apos;)  + &quot;&apos;, &apos;&quot; +
-$(&apos;syndromic_surveillance_data_diagnosis_type&apos;)  + &quot;&apos;, &apos;&quot; +
-$(&apos;syndromic_surveillance_data_facility_visit_type&apos;) + &quot;&apos;, &apos;&quot; +
 $(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;)  + &quot;&apos;, &apos;&quot; +
-$(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;) + 
+$(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;)  + &quot;&apos;, &apos;&quot; +
+$(&apos;syndromic_surveillance_data_discharge_disposition&apos;) + 
 &quot;&apos;);&quot;;
+logger.info(sql);
 
-var result = dbConn.executeUpdate(sql);
+var result = dbConn.executeUpdateAndGetGeneratedKeys(sql);
+var rs = result.getOriginal();
 
-dbConn.close();
+if (rs.next())
+{
+	logger.info(&apos;next&apos;);
+	var ss_id = rs.getInt(1);
+	logger.info(ss_id);
+}
 
-$(&apos;syndromic_surveillance_data_medical_record_number&apos;)</property>
+
+//	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;, arrPatientIds );
+//	channelMap.put(&apos;syndromic_surveillance_data_race__array&apos;, arrPatientRace);
+
+for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_race__array&apos;).length; i++) { 
+    logger.info($(&apos;syndromic_surveillance_data_race__array&apos;)[i]); 
+	var lineArr = $(&apos;syndromic_surveillance_data_race__array&apos;)[i].split(&quot;|&quot;);
+	sql = &quot;insert into patient_race (concept_code, concept_name, coding_system, ss_id) values (&apos;&quot; +
+	lineArr[0] + &quot;&apos;,&apos;&quot; + lineArr[1] + &quot;&apos;,&apos;&quot; + lineArr[2] + &quot;&apos;,&quot; + ss_id + &quot;);&quot;;
+    var result = dbConn.executeUpdate(sql);
+} 
+
+for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;).length; i++) { 
+
+	var lineArr = $(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i].split(&quot;|&quot;);
+	logger.info($(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i]); 
+	sql = &quot;insert into unique_patient_identifier (identifier, identifier_type_code,ss_id) values (&apos;&quot; +
+	lineArr[0] + &quot;&apos;,&apos;&quot; + lineArr[1] + &quot;&apos;,&quot; + ss_id + &quot;);&quot;;
+    var result = dbConn.executeUpdate(sql);
+} 
+
+for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_ethnic_array&apos;).length; i++) { 
+
+	var lineArr = $(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i].split(&quot;|&quot;);
+	logger.info($(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i]); 
+	sql = &quot;insert into patient_ethnicity (concept_code, concept_name, coding_system, ss_id) values (&apos;&quot; +
+	lineArr[0] + &quot;&apos;,&apos;&quot; + lineArr[1] + &quot;&apos;,&apos;&quot; + lineArr[2] + &quot;&apos;,&quot; + ss_id + &quot;);&quot;;
+    var result = dbConn.executeUpdate(sql);
+} 
+
+for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;).length; i++) { 
+
+	var lineArr = $(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i].split(&quot;|&quot;);
+	logger.info($(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i]); 
+
+	sql = &quot;insert into chief_complaint (free_text, result_status,timestamp, ss_id) values (&apos;&quot; +
+	lineArr[0] + &quot;&apos;,&apos;&quot; + lineArr[1] + &quot;&apos;,&apos;&quot; + lineArr[2] + &quot;&apos;,&quot;+ ss_id + &quot;);&quot;;
+    var result = dbConn.executeUpdate(sql);
+} 
+
+for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_diagnosis&apos;).length; i++) { 
+
+	var lineArr = $(&apos;syndromic_surveillance_data_diagnosis&apos;)[i].split(&quot;|&quot;);
+	logger.info($(&apos;syndromic_surveillance_data_diagnosis&apos;)[i]); 
+
+	sql = &quot;insert into injury_codes (identifier, text,coding_system, dx_type, ss_id) values (&apos;&quot; +
+	lineArr[0] + &quot;&apos;,&apos;&quot; + lineArr[1] + &quot;&apos;,&apos;&quot; + lineArr[2] + &quot;&apos;,&apos;&quot;+ lineArr[3] + &quot;&apos;,&quot; + ss_id + &quot;);&quot;;
+    var result = dbConn.executeUpdate(sql);
+} 
+
+
+dbConn.close();</property>
         <property name="useScript">1</property>
         <property name="username"></property>
       </properties>
@@ -1110,7 +1264,7 @@ $(&apos;syndromic_surveillance_data_medical_record_number&apos;)</property>
     <property name="encryptData">false</property>
     <property name="error_messages_only">false</property>
     <property name="initialState">started</property>
-    <property name="max_message_age">-1</property>
+    <property name="max_message_age">2</property>
     <property name="store_messages">true</property>
     <property name="synchronous">true</property>
     <property name="transactional">false</property>
