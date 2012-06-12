@@ -39,7 +39,7 @@
         <EVN.5/>
         <EVN.6/>
         <EVN.7>
-            <EVN.7.1>OTH_REG_MEDCTR</EVN.7.1>
+            <EVN.7.1>TestAllData2.5.1</EVN.7.1>
             <EVN.7.2>1234567890</EVN.7.2>
             <EVN.7.3>NPI</EVN.7.3>
         </EVN.7>
@@ -56,6 +56,13 @@
             <PID.3.3/>
             <PID.3.4/>
             <PID.3.5>PI</PID.3.5>
+        </PID.3>
+        <PID.3>
+            <PID.3.1>MR01234567</PID.3.1>
+            <PID.3.2/>
+            <PID.3.3/>
+            <PID.3.4/>
+            <PID.3.5>MR</PID.3.5>
         </PID.3>
         <PID.4/>
         <PID.5/>
@@ -82,7 +89,7 @@
         <PID.11>
             <PID.11.1/>
             <PID.11.2/>
-            <PID.11.3/>
+            <PID.11.3>Fairfax</PID.11.3>
             <PID.11.4>24</PID.11.4>
             <PID.11.5>21502</PID.11.5>
             <PID.11.6>USA</PID.11.6>
@@ -183,45 +190,13 @@
         </OBX.3>
         <OBX.4/>
         <OBX.5>
-            <OBX.5.1>99</OBX.5.1>
+            <OBX.5.1>30</OBX.5.1>
         </OBX.5>
         <OBX.6>
             <OBX.6.1>a</OBX.6.1>
             <OBX.6.2>YEAR</OBX.6.2>
             <OBX.6.3>UCUM</OBX.6.3>
         </OBX.6>
-        <OBX.7/>
-        <OBX.8/>
-        <OBX.9/>
-        <OBX.10/>
-        <OBX.11>
-            <OBX.11.1>F</OBX.11.1>
-        </OBX.11>
-        <OBX.12/>
-        <OBX.13/>
-        <OBX.14>
-            <OBX.14.1>201102171531</OBX.14.1>
-        </OBX.14>
-    </OBX>
-    <OBX>
-        <OBX.1>
-            <OBX.1.1>2</OBX.1.1>
-        </OBX.1>
-        <OBX.2>
-            <OBX.2.1>HD</OBX.2.1>
-        </OBX.2>
-        <OBX.3>
-            <OBX.3.1>SS001</OBX.3.1>
-            <OBX.3.2>TREATING FACILITY IDENTIFIER</OBX.3.2>
-            <OBX.3.3>PHINQUESTION</OBX.3.3>
-        </OBX.3>
-        <OBX.4/>
-        <OBX.5>
-            <OBX.5.1>TestAllData251</OBX.5.1>
-            <OBX.5.2>1234567890</OBX.5.2>
-            <OBX.5.3>NPI</OBX.5.3>
-        </OBX.5>
-        <OBX.6/>
         <OBX.7/>
         <OBX.8/>
         <OBX.9/>
@@ -391,6 +366,107 @@
             <OBX.5.1>1108-0</OBX.5.1>
             <OBX.5.2>EMERGENCY DEPARTMENT</OBX.5.2>
             <OBX.5.3>HSLOC</OBX.5.3>
+        </OBX.5>
+        <OBX.6/>
+        <OBX.7/>
+        <OBX.8/>
+        <OBX.9/>
+        <OBX.10/>
+        <OBX.11>
+            <OBX.11.1>F</OBX.11.1>
+        </OBX.11>
+        <OBX.12/>
+        <OBX.13/>
+        <OBX.14>
+            <OBX.14.1>201102091114</OBX.14.1>
+        </OBX.14>
+    </OBX>
+    <OBX>
+        <OBX.1>
+            <OBX.1.1>8</OBX.1.1>
+        </OBX.1>
+        <OBX.2>
+            <OBX.2.1>XAD</OBX.2.1>
+        </OBX.2>
+        <OBX.3>
+            <OBX.3.1>SS002</OBX.3.1>
+            <OBX.3.2>TREATING FACILITY LOCATION</OBX.3.2>
+            <OBX.3.3>PHINQUESTION</OBX.3.3>
+        </OBX.3>
+        <OBX.4/>
+        <OBX.5>
+            <OBX.5.1/>
+            <OBX.5.2>1234</OBX.5.2>
+            <OBX.5.3/>
+            <OBX.5.4/>
+            <OBX.5.5/>
+            <OBX.5.6>Chantilly</OBX.5.6>
+            <OBX.5.7>VA</OBX.5.7>
+            <OBX.5.8>30341</OBX.5.8>
+            <OBX.5.9>USA</OBX.5.9>
+            <OBX.5.10>C</OBX.5.10>
+            <OBX.5.11/>
+            <OBX.5.12>County</OBX.5.12>
+        </OBX.5>
+        <OBX.6/>
+        <OBX.7/>
+        <OBX.8/>
+        <OBX.9/>
+        <OBX.10/>
+        <OBX.11>
+            <OBX.11.1>F</OBX.11.1>
+        </OBX.11>
+        <OBX.12/>
+        <OBX.13/>
+        <OBX.14>
+            <OBX.14.1>201102091114</OBX.14.1>
+        </OBX.14>
+    </OBX>
+    <OBX>
+        <OBX.1>
+            <OBX.1.1>9</OBX.1.1>
+        </OBX.1>
+        <OBX.2>
+            <OBX.2.1>TX</OBX.2.1>
+        </OBX.2>
+        <OBX.3>
+            <OBX.3.1>54094-8</OBX.3.1>
+            <OBX.3.2>TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC</OBX.3.2>
+            <OBX.3.3>LN</OBX.3.3>
+        </OBX.3>
+        <OBX.4/>
+        <OBX.5>
+            <OBX.5.1>Pain a recurrent cramping sensation.</OBX.5.1>
+        </OBX.5>
+        <OBX.6/>
+        <OBX.7/>
+        <OBX.8/>
+        <OBX.9/>
+        <OBX.10/>
+        <OBX.11>
+            <OBX.11.1>F</OBX.11.1>
+        </OBX.11>
+        <OBX.12/>
+        <OBX.13/>
+        <OBX.14>
+            <OBX.14.1>201102091114</OBX.14.1>
+        </OBX.14>
+    </OBX>
+    <OBX>
+        <OBX.1>
+            <OBX.1.1>10</OBX.1.1>
+        </OBX.1>
+        <OBX.2>
+            <OBX.2.1>TX</OBX.2.1>
+        </OBX.2>
+        <OBX.3>
+            <OBX.3.1>44833-2</OBX.3.1>
+            <OBX.3.2>DIAGNOSIS.PRELIMINARY:IMP:PT:PATIENT:NOM:</OBX.3.2>
+            <OBX.3.3>LN</OBX.3.3>
+        </OBX.3>
+        <OBX.4/>
+        <OBX.5>
+            <OBX.5.1>Pain consist with appendicitis</OBX.5.1>
         </OBX.5>
         <OBX.6/>
         <OBX.7/>
