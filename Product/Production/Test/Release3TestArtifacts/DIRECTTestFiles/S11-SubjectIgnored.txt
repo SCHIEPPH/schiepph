@@ -1,0 +1,5 @@
+Scenario 11 - Verifies the subject in an email sent to DIRECT is ignored
+
+Add the following text in the subject line and a valid attachment
+
+RE: FW: Test files
