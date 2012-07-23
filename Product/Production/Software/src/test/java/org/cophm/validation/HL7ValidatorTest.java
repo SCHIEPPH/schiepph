@@ -1,7 +1,7 @@
 package org.cophm.validation;
 
+import ca.uhn.hl7v2.HL7Exception;
 import junit.framework.TestCase;
-import org.cophm.util.Base64Coder;
 import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
 import org.jdom.Element;
@@ -21,168 +21,168 @@ import java.util.ArrayList;
  */
 public class HL7ValidatorTest extends TestCase {
 
-    public static String  xmitXmlPrefix = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+    public static String    xmitXmlPrefix = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<ns2:Adapter_ProvideAndRegisterDocumentSetRequest\n" +
-            "    xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\"\n" +
-            "    xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\"\n" +
-            "    xmlns:ns4=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\"\n" +
-            "    xmlns:ns3=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\"\n" +
-            "    xmlns:ns5=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns:ns6=\"urn:ihe:iti:xds-b:2007\"\n" +
-            "    xmlns:ns7=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\">\n" +
-            "    <ns2:assertion>\n" +
-            "        <haveSecondWitnessSignature>false </haveSecondWitnessSignature>\n" +
-            "        <haveSignature>false </haveSignature>\n" +
-            "        <haveWitnessSignature>false </haveWitnessSignature>\n" +
-            "        <homeCommunity>\n" +
-            "            <homeCommunityId>1234 </homeCommunityId>\n" +
-            "        </homeCommunity>\n" +
-            "        <uniquePatientId>? </uniquePatientId>\n" +
-            "        <userInfo>\n" +
-            "            <personName>\n" +
-            "                <familyName>? </familyName>\n" +
-            "                <givenName>? </givenName>\n" +
-            "                <secondNameOrInitials>? </secondNameOrInitials>\n" +
-            "                <fullName>? ? ? </fullName>\n" +
-            "            </personName>\n" +
-            "            <userName>? </userName>\n" +
-            "            <org>\n" +
-            "                <homeCommunityId>? </homeCommunityId>\n" +
-            "                <name>? </name>\n" +
-            "            </org>\n" +
-            "            <roleCoded>\n" +
-            "                <code>? </code>\n" +
-            "                <codeSystem>? </codeSystem>\n" +
-            "                <codeSystemName>? </codeSystemName>\n" +
-            "                <displayName>? </displayName>\n" +
-            "            </roleCoded>\n" +
-            "        </userInfo>\n" +
-            "        <authorized>false </authorized>\n" +
-            "        <purposeOfDisclosureCoded>\n" +
-            "            <code>? </code>\n" +
-            "            <codeSystem>? </codeSystem>\n" +
-            "            <codeSystemName>? </codeSystemName>\n" +
-            "            <displayName>? </displayName>\n" +
-            "        </purposeOfDisclosureCoded>\n" +
-            "        <samlAuthnStatement>\n" +
-            "            <authInstant>2012-04-23T19:03:33.179Z </authInstant>\n" +
-            "            <sessionIndex>? </sessionIndex>\n" +
-            "            <authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified </authContextClassRef>\n" +
-            "            <subjectLocalityAddress>? </subjectLocalityAddress>\n" +
-            "            <subjectLocalityDNSName>? </subjectLocalityDNSName>\n" +
-            "        </samlAuthnStatement>\n" +
-            "        <samlAuthzDecisionStatement>\n" +
-            "            <decision>Permit </decision>\n" +
-            "            <resource>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service </resource>\n" +
-            "            <action>Execute </action>\n" +
-            "            <evidence>\n" +
-            "                <assertion>\n" +
-            "                    <id>? </id>\n" +
-            "                    <issueInstant>2012-04-23T19:03:33.182Z </issueInstant>\n" +
-            "                    <version>2.0 </version>\n" +
-            "                    <issuer>CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US </issuer>\n" +
-            "                    <issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName </issuerFormat>\n" +
-            "                    <conditions>\n" +
-            "                        <notBefore>2012-04-23T19:03:33.184Z </notBefore>\n" +
-            "                        <notOnOrAfter>2012-04-23T19:03:33.184Z </notOnOrAfter>\n" +
-            "                    </conditions>\n" +
-            "                    <accessConsentPolicy>? </accessConsentPolicy>\n" +
-            "                    <instanceAccessConsentPolicy>? </instanceAccessConsentPolicy>\n" +
-            "                </assertion>\n" +
-            "            </evidence>\n" +
-            "        </samlAuthzDecisionStatement>\n" +
-            "        <samlSignature>\n" +
-            "            <keyInfo>\n" +
-            "                <rsaKeyValueModulus> </rsaKeyValueModulus>\n" +
-            "                <rsaKeyValueExponent> </rsaKeyValueExponent>\n" +
-            "            </keyInfo>\n" +
-            "            <signatureValue> </signatureValue>\n" +
-            "        </samlSignature>\n" +
-            "        <messageId>790ab04e-afc4-4982-bc7a-97618e712992 </messageId>\n" +
-            "    </ns2:assertion>\n" +
-            "    <ns2:ProvideAndRegisterDocumentSetRequest>\n" +
-            "        <ns5:SubmitObjectsRequest comment=\"comme\" id=\"123\">\n" +
-            "            <ns3:RegistryObjectList>\n" +
+            "                                                                                                                     xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\"\n" +
+            "                                                                                                                     xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\"\n" +
+            "                                                                                                                     xmlns:ns4=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\"\n" +
+            "                                                                                                                     xmlns:ns3=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\"\n" +
+            "                                                                                                                     xmlns:ns5=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns:ns6=\"urn:ihe:iti:xds-b:2007\"\n" +
+            "                                                                                                                     xmlns:ns7=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\">\n" +
+            "    <ns2:assertion>\n"                                                                                               +
+            "        <haveSecondWitnessSignature>false </haveSecondWitnessSignature>\n"                                           +
+            "        <haveSignature>false </haveSignature>\n"                                                                     +
+            "        <haveWitnessSignature>false </haveWitnessSignature>\n"                                                       +
+            "        <homeCommunity>\n"                                                                                           +
+            "            <homeCommunityId>1234 </homeCommunityId>\n"                                                              +
+            "        </homeCommunity>\n"                                                                                          +
+            "        <uniquePatientId>? </uniquePatientId>\n"                                                                     +
+            "        <userInfo>\n"                                                                                                +
+            "            <personName>\n"                                                                                          +
+            "                <familyName>? </familyName>\n"                                                                       +
+            "                <givenName>? </givenName>\n"                                                                         +
+            "                <secondNameOrInitials>? </secondNameOrInitials>\n"                                                   +
+            "                <fullName>? ? ? </fullName>\n"                                                                       +
+            "            </personName>\n"                                                                                         +
+            "            <userName>? </userName>\n"                                                                               +
+            "            <org>\n"                                                                                                 +
+            "                <homeCommunityId>? </homeCommunityId>\n"                                                             +
+            "                <name>? </name>\n"                                                                                   +
+            "            </org>\n"                                                                                                +
+            "            <roleCoded>\n"                                                                                           +
+            "                <code>? </code>\n"                                                                                   +
+            "                <codeSystem>? </codeSystem>\n"                                                                       +
+            "                <codeSystemName>? </codeSystemName>\n"                                                               +
+            "                <displayName>? </displayName>\n"                                                                     +
+            "            </roleCoded>\n"                                                                                          +
+            "        </userInfo>\n"                                                                                               +
+            "        <authorized>false </authorized>\n"                                                                           +
+            "        <purposeOfDisclosureCoded>\n"                                                                                +
+            "            <code>? </code>\n"                                                                                       +
+            "            <codeSystem>? </codeSystem>\n"                                                                           +
+            "            <codeSystemName>? </codeSystemName>\n"                                                                   +
+            "            <displayName>? </displayName>\n"                                                                         +
+            "        </purposeOfDisclosureCoded>\n"                                                                               +
+            "        <samlAuthnStatement>\n"                                                                                      +
+            "            <authInstant>2012-04-23T19:03:33.179Z </authInstant>\n"                                                  +
+            "            <sessionIndex>? </sessionIndex>\n"                                                                       +
+            "            <authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified </authContextClassRef>\n"        +
+            "            <subjectLocalityAddress>? </subjectLocalityAddress>\n"                                                   +
+            "            <subjectLocalityDNSName>? </subjectLocalityDNSName>\n"                                                   +
+            "        </samlAuthnStatement>\n"                                                                                     +
+            "        <samlAuthzDecisionStatement>\n"                                                                              +
+            "            <decision>Permit </decision>\n"                                                                          +
+            "            <resource>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service </resource>\n"     +
+            "            <action>Execute </action>\n"                                                                             +
+            "            <evidence>\n"                                                                                            +
+            "                <assertion>\n"                                                                                       +
+            "                    <id>? </id>\n"                                                                                   +
+            "                    <issueInstant>2012-04-23T19:03:33.182Z </issueInstant>\n"                                        +
+            "                    <version>2.0 </version>\n"                                                                       +
+            "                                                                                                                     <issuer>CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US </issuer>\n" +
+            "                    <issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName </issuerFormat>\n"       +
+            "                    <conditions>\n"                                                                                  +
+            "                        <notBefore>2012-04-23T19:03:33.184Z </notBefore>\n"                                          +
+            "                        <notOnOrAfter>2012-04-23T19:03:33.184Z </notOnOrAfter>\n"                                    +
+            "                    </conditions>\n"                                                                                 +
+            "                    <accessConsentPolicy>? </accessConsentPolicy>\n"                                                 +
+            "                    <instanceAccessConsentPolicy>? </instanceAccessConsentPolicy>\n"                                 +
+            "                </assertion>\n"                                                                                      +
+            "            </evidence>\n"                                                                                           +
+            "        </samlAuthzDecisionStatement>\n"                                                                             +
+            "        <samlSignature>\n"                                                                                           +
+            "            <keyInfo>\n"                                                                                             +
+            "                <rsaKeyValueModulus> </rsaKeyValueModulus>\n"                                                        +
+            "                <rsaKeyValueExponent> </rsaKeyValueExponent>\n"                                                      +
+            "            </keyInfo>\n"                                                                                            +
+            "            <signatureValue> </signatureValue>\n"                                                                    +
+            "        </samlSignature>\n"                                                                                          +
+            "        <messageId>790ab04e-afc4-4982-bc7a-97618e712992 </messageId>\n"                                              +
+            "    </ns2:assertion>\n"                                                                                              +
+            "    <ns2:ProvideAndRegisterDocumentSetRequest>\n"                                                                    +
+            "        <ns5:SubmitObjectsRequest                                                                                    comment=\"comme\" id=\"123\">\n" +
+            "            <ns3:RegistryObjectList>\n"                                                                              +
             "                <ns3:ExtrinsicObject mimeType=\"text/plain\"\n" +
-            "                    objectType=\"urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1\" id=\"Document01\">\n" +
-            "                    <ns3:Slot name=\"sourcePatientId\">\n" +
-            "                        <ns3:ValueList>\n" +
-            "                            <ns3:Value>${patientId} </ns3:Value>\n" +
-            "                        </ns3:ValueList>\n" +
-            "                    </ns3:Slot>\n" +
-            "                    <ns3:Slot name=\"intendedRecipient\">\n" +
-            "                        <ns3:ValueList>\n" +
-            "                            <ns3:Value>${INTENDED_RECIPIENT} </ns3:Value>\n" +
-            "                        </ns3:ValueList>\n" +
-            "                    </ns3:Slot>\n" +
+            "                                                                                 objectType=\"urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1\" id=\"Document01\">\n" +
+            "                    <ns3:Slot                                                    name=\"sourcePatientId\">\n" +
+            "                        <ns3:ValueList>\n"                                       +
+            "                            <ns3:Value>${patientId} </ns3:Value>\n"              +
+            "                        </ns3:ValueList>\n"                                      +
+            "                    </ns3:Slot>\n"                                               +
+            "                    <ns3:Slot                                                    name=\"intendedRecipient\">\n" +
+            "                        <ns3:ValueList>\n"                                       +
+            "                            <ns3:Value>${INTENDED_RECIPIENT} </ns3:Value>\n"     +
+            "                        </ns3:ValueList>\n"                                      +
+            "                    </ns3:Slot>\n"                                               +
             "                    <ns3:ExternalIdentifier value=\"${patientId}\"\n" +
-            "                        identificationScheme=\"urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427\"\n" +
-            "                        registryObject=\"Document01\" id=\"ei01\">\n" +
-            "                        <ns3:Name>\n" +
-            "                            <ns3:LocalizedString value=\"XDSDocumentEntry.patientId\"/>\n" +
-            "                        </ns3:Name>\n" +
-            "                    </ns3:ExternalIdentifier>\n" +
+            "                                                     identificationScheme=\"urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427\"\n" +
+            "                                                     registryObject=\"Document01\" id=\"ei01\">\n" +
+            "                        <ns3:Name>\n"                +
+            "                            <ns3:LocalizedString     value=\"XDSDocumentEntry.patientId\"/>\n" +
+            "                        </ns3:Name>\n"               +
+            "                    </ns3:ExternalIdentifier>\n"     +
             "                    <ns3:ExternalIdentifier value=\"${XDSDocumentEntry_uniqueId}\"\n" +
-            "                        identificationScheme=\"urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab\"\n" +
-            "                        registryObject=\"Document01\" id=\"ei02\">\n" +
-            "                        <ns3:Name>\n" +
-            "                            <ns3:LocalizedString value=\"XDSDocumentEntry.uniqueId\"/>\n" +
-            "                        </ns3:Name>\n" +
-            "                    </ns3:ExternalIdentifier>\n" +
-            "                </ns3:ExtrinsicObject>\n" +
-            "                <ns3:RegistryPackage id=\"SubmissionSet01\">\n" +
+            "                                                     identificationScheme=\"urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab\"\n" +
+            "                                                     registryObject=\"Document01\" id=\"ei02\">\n" +
+            "                        <ns3:Name>\n"                +
+            "                            <ns3:LocalizedString     value=\"XDSDocumentEntry.uniqueId\"/>\n" +
+            "                        </ns3:Name>\n"               +
+            "                    </ns3:ExternalIdentifier>\n"     +
+            "                </ns3:ExtrinsicObject>\n"            +
+            "                <ns3:RegistryPackage                 id=\"SubmissionSet01\">\n" +
             "                    <ns3:ExternalIdentifier value=\"2.16.840.1.113883.3.1239\"\n" +
-            "                        identificationScheme=\"urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832\"\n" +
-            "                        registryObject=\"SubmissionSet01\" id=\"urn:oid: 1234\">\n" +
-            "                        <ns3:Name>\n" +
-            "                            <ns3:LocalizedString value=\"XDSSubmissionSet.sourceId\"/>\n" +
-            "                        </ns3:Name>\n" +
-            "                    </ns3:ExternalIdentifier>\n" +
+            "                                                     identificationScheme=\"urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832\"\n" +
+            "                                                     registryObject=\"SubmissionSet01\" id=\"urn:oid: 1234\">\n" +
+            "                        <ns3:Name>\n"                +
+            "                            <ns3:LocalizedString     value=\"XDSSubmissionSet.sourceId\"/>\n" +
+            "                        </ns3:Name>\n"               +
+            "                    </ns3:ExternalIdentifier>\n"     +
             "                    <ns3:ExternalIdentifier value=\"${patientId}\"\n" +
-            "                        identificationScheme=\"urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446\"\n" +
-            "                        registryObject=\"SubmissionSet01\" id=\"ei05\">\n" +
-            "                        <ns3:Name>\n" +
-            "                            <ns3:LocalizedString value=\"XDSSubmissionSet.patientId\"/>\n" +
-            "                        </ns3:Name>\n" +
-            "                    </ns3:ExternalIdentifier>\n" +
-            "                </ns3:RegistryPackage>\n" +
+            "                                                     identificationScheme=\"urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446\"\n" +
+            "                                                     registryObject=\"SubmissionSet01\" id=\"ei05\">\n" +
+            "                        <ns3:Name>\n"                +
+            "                            <ns3:LocalizedString     value=\"XDSSubmissionSet.patientId\"/>\n" +
+            "                        </ns3:Name>\n"               +
+            "                    </ns3:ExternalIdentifier>\n"     +
+            "                </ns3:RegistryPackage>\n"            +
             "                <ns3:Classification\n" +
-            "                    classificationNode=\"urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd\"\n" +
-            "                    classifiedObject=\"SubmissionSet01\" id=\"cl10\"/>\n" +
+            "     classificationNode=\"urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd\"\n" +
+            "     classifiedObject=\"SubmissionSet01\" id=\"cl10\"/>\n" +
             "                <ns3:Association targetObject=\"Document01\" sourceObject=\"SubmissionSet01\"\n" +
-            "                    associationType=\"HasMember\" id=\"as01\">\n" +
-            "                    <ns3:Slot name=\"SubmissionSetStatus\">\n" +
-            "                        <ns3:ValueList>\n" +
-            "                            <ns3:Value>Original </ns3:Value>\n" +
-            "                        </ns3:ValueList>\n" +
-            "                    </ns3:Slot>\n" +
-            "                </ns3:Association>\n" +
-            "            </ns3:RegistryObjectList>\n" +
-            "        </ns5:SubmitObjectsRequest>\n" +
+            "                                                                   associationType=\"HasMember\" id=\"as01\">\n" +
+            "                    <ns3:Slot                                      name=\"SubmissionSetStatus\">\n" +
+            "                        <ns3:ValueList>\n"                         +
+            "                            <ns3:Value>Original </ns3:Value>\n"    +
+            "                        </ns3:ValueList>\n"                        +
+            "                    </ns3:Slot>\n"                                 +
+            "                </ns3:Association>\n"                              +
+            "            </ns3:RegistryObjectList>\n"                           +
+            "        </ns5:SubmitObjectsRequest>\n"                             +
             "        <ns6:Document id=\"Document01\"\n" +
-            "            >";
+            "     >";
 
-    public static String   xmitXmlPostfix = "</ns6:Document>\n" +
-            "    </ns2:ProvideAndRegisterDocumentSetRequest>\n" +
+    public static String                                              xmitXmlPostfix = "</ns6:Document>\n" +
+            "    </ns2:ProvideAndRegisterDocumentSetRequest>\n"       +
             "</ns2:Adapter_ProvideAndRegisterDocumentSetRequest>";
 
-    public static String                                                                                                                                                                                                                                                                                                hl7TestData_1 =
-                    "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n" +
-                            "EVN||8_ZZ_AA_report_date_time\n" +
-                            "PID|1||9_ZZ_AA_unique_patient_id^^^^PG~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^PQ~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n" +
-                            "PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time\n" +
-                            "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name^1_ZZ_AA_facility_identifier^NP||||||C||||||\n" +
-                            "OBX|2|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X\n" +
-                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||7_ZZ_AA_facility_visit_type|||||||X\n" +
-                            "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||11_ZZ_AA_age|a^12_ZZ_AA_age_units^UCUM|||||X\n" +
-                            "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||23_ZZ_AA_date_of_onset||||||X\n" +
-                            "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^25_ZZ_AA_chief_complaint||||||X\n" +
-                            "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||26_ZZ_AA_triage_notes||||||X\n" +
-                            "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X\n" +
-                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X\n" +
-                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X\n" +
+    public static String                                                                                                                                                                                                                                                                                                                                                                                  hl7TestData_1 =
+                    "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
+                            "EVN||8_ZZ_AA_report_date_time\n"                                                                                                                                                                                                                                                                                                                                             +
+                            "PID|1||9_ZZ_AA_unique_patient_id^^^^PG~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^PQ~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n"       +
+                            "PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time\n"                                                                                                                                                                                               +
+                            "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name^1_ZZ_AA_facility_identifier^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
+                            "OBX|2|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X\n"                                                                                                                                                                                               +
+                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||7_ZZ_AA_facility_visit_type|||||||X\n"                                                                                                                                                                                                                                                                                     +
+                            "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||11_ZZ_AA_age|a^12_ZZ_AA_age_units^UCUM|||||X\n"                                                                                                                                                                                                                                                                               +
+                            "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||23_ZZ_AA_date_of_onset||||||X\n"                                                                                                                                                                                                                                                              +
+                            "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^25_ZZ_AA_chief_complaint||||||X\n"                                                                                                                                                                                                                                                                 +
+                            "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||26_ZZ_AA_triage_notes||||||X\n"                                                                                                                                                                                                                                                                            +
+                            "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X\n"                                                                                                                                                                                                                                                                        +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X\n"                                                                                                                                                                                                                                        +
                             "DG1|1||27_ZZ_AA_diagnoisis_injury_code^|||29_ZZ_AA_diagnosis_type";
 
-    public static String  xmlData_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+    public static String    xmlData_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
             "<HL7Message>\n"+
             "    <MSH>\n"+
             "        <MSH.1>| </MSH.1>\n"+
@@ -360,7 +360,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>SS001 </OBX.3.1>\n"+
-            "            <OBX.3.2>Treating Facility Identifier </OBX.3.2>\n"+
+            "            <OBX.3.2>Treating Facility Identifier      </OBX.3.2>\n"+
             "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -393,7 +393,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>SS002 </OBX.3.1>\n"+
-            "            <OBX.3.2>Treating Facility Location </OBX.3.2>\n"+
+            "            <OBX.3.2>Treating Facility Location    </OBX.3.2>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
             "        <OBX.5>\n"+
@@ -428,7 +428,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>SS003 </OBX.3.1>\n"+
-            "            <OBX.3.2>Facility/Visit Type </OBX.3.2>\n"+
+            "            <OBX.3.2>Facility/Visit Type     </OBX.3.2>\n"+
             "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -454,7 +454,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>21612-7 </OBX.3.1>\n"+
-            "            <OBX.3.2>AGE TIME PAITENT REPORTED </OBX.3.2>\n"+
+            "            <OBX.3.2>AGE TIME PAITENT REPORTED       </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -483,7 +483,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>11368-8 </OBX.3.1>\n"+
-            "            <OBX.3.2>ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN </OBX.3.2>\n"+
+            "            <OBX.3.2>ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN       </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -508,7 +508,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>8661-1 </OBX.3.1>\n"+
-            "            <OBX.3.2>CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED </OBX.3.2>\n"+
+            "            <OBX.3.2>CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED      </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -541,7 +541,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>54094-8 </OBX.3.1>\n"+
-            "            <OBX.3.2>TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC </OBX.3.2>\n"+
+            "            <OBX.3.2>TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC      </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -591,7 +591,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>11289-6 </OBX.3.1>\n"+
-            "            <OBX.3.2>BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN </OBX.3.2>\n"+
+            "            <OBX.3.2>BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN     </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -620,7 +620,7 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.2>\n"+
             "        <OBX.3>\n"+
             "            <OBX.3.1>59408-5 </OBX.3.1>\n"+
-            "            <OBX.3.2>OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY </OBX.3.2>\n"+
+            "            <OBX.3.2>OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY     </OBX.3.2>\n"+
             "            <OBX.3.3>LN </OBX.3.3>\n"+
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
@@ -655,6 +655,21 @@ public class HL7ValidatorTest extends TestCase {
             "    </DG1>\n"+
             "</HL7Message>";
 
+    public static String                                                                                                                                            hl7TestData_2 = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
+            "EVN||201110090314-0500|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
+            "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
+            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915-0500|20110113164512-0500\n"                                        +
+            "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
+            "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
+            "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
+            "OBX|5|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PATIENT:NOM:REPORTED^LN||^^^^^^^^STOMACH ACHE||||||F|||201102171531\n"                                        +
+            "OBX|6|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PATIENT:QN^LN||20110215||||||F|||201102171658\n"                                       +
+            "OBX|7|CWE|SS003^FACILITY / VISIT TYPE^PHINQUESTION||1108-0^EMERGENCY DEPARTMENT^HSLOC||||||F|||201102091114\n"                                         +
+            "OBX|8|XAD|SS002^TREATING FACILITY LOCATION^PHINQUESTION||^1234^^^^Chantilly^VA^30341^USA^C^^County||||||F|||201102091114\n"                            +
+            "OBX|9|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||Pain a recurrent cramping sensation.||||||F|||201102091114\n"                        +
+            "OBX|10|TX|44833-2^DIAGNOSIS.PRELIMINARY:IMP:PT:PATIENT:NOM:^LN||Pain consist with appendicitis||||||F|||201102091114\n"                                +
+            "DG1|1||E8809^FALL ON STAIR/STEP                                                                                                                        NEC^I9CDX|||A";
+
     public static final String      expectedSubFieldSeparator = "^";
     public static final String      expectedFieldRepititionSeparator = "~";
 
@@ -681,6 +696,9 @@ public class HL7ValidatorTest extends TestCase {
     public static final String      pipe_result_11 = "A01";
     public static final String      xml_result_11 = "A01";
 
+    public static final String      facility_identifier_2_3_1 = "1_ZZ_AA_facility_identifier";
+    public static final String      facility_identifier_2_5_1 = "1234567890";
+
     @Before
     public void setup() {
 
@@ -693,8 +711,8 @@ public class HL7ValidatorTest extends TestCase {
 
     @Test
     public void testSeparatorValues() throws IOException {
-        PipeParser            pipeParser = new PipeParser();
-        XmlParser             xmlParser = new XmlParser();
+        PipeParser      pipeParser = new PipeParser();
+        XmlParser       xmlParser = new XmlParser();
 
         pipeParser.loadData(hl7TestData_1);
 
@@ -707,9 +725,9 @@ public class HL7ValidatorTest extends TestCase {
 
     @Test
     public void testSimpleGetFieldValue() throws IOException {
-        PipeParser            pipeParser = new PipeParser();
-        XmlParser             xmlParser = new XmlParser();
-        String                  value;
+        PipeParser      pipeParser = new PipeParser();
+        XmlParser       xmlParser = new XmlParser();
+        String          value;
 
         pipeParser.loadData(hl7TestData_1);
         xmlParser.loadData(xmlData_1);
@@ -747,9 +765,9 @@ public class HL7ValidatorTest extends TestCase {
 
     @Test
     public void testGetSubFieldValue() throws IOException {
-        PipeParser            pipeParser = new PipeParser();
-        XmlParser             xmlParser = new XmlParser();
-        String                  value;
+        PipeParser      pipeParser = new PipeParser();
+        XmlParser       xmlParser = new XmlParser();
+        String          value;
 
         pipeParser.loadData(hl7TestData_1);
         xmlParser.loadData(xmlData_1);
@@ -779,8 +797,8 @@ public class HL7ValidatorTest extends TestCase {
 
     @Test
     public void testConditionalAbsoluteGetSubFieldValue() throws IOException {
-        PipeParser            pipeParser = new PipeParser();
-        XmlParser             xmlParser = new XmlParser();
+        PipeParser              pipeParser = new PipeParser();
+        XmlParser               xmlParser = new XmlParser();
         String                  value;
         ArrayList<Element>      identifierList = new ArrayList<Element>();
         Element                 identifier;
@@ -822,8 +840,8 @@ public class HL7ValidatorTest extends TestCase {
 
     @Test
     public void testConditionalOrGetSubFieldValue() throws IOException {
-        PipeParser            pipeParser = new PipeParser();
-        XmlParser             xmlParser = new XmlParser();
+        PipeParser              pipeParser = new PipeParser();
+        XmlParser               xmlParser = new XmlParser();
         String                  value;
         ArrayList<Element>      identifierList = new ArrayList<Element>();
         Element                 identifier;
@@ -860,18 +878,41 @@ public class HL7ValidatorTest extends TestCase {
     }
 
     @Test
-    public void testValidateHl7Transmission()
-            throws JDOMException, IOException, HL7ValidatorException, PropertyAccessException {
-        HL7Validator            validator = new HL7Validator("/tmp", "/tmp");
-        boolean                 result;
+    public void testGetFieldValueByName()
+            throws IOException, HL7ValidatorException,
+            HL7Exception, JDOMException, PropertyAccessException {
+        HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
+        String          value;
 
         validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
 
-        result = validator.validateData(xmlData_1);
+        validator.loadData(hl7TestData_2);
+
+        value = validator.getFieldValueByName("Facility Identifier");
+        assertEquals("Retrieving Facility Identifier (2.5.1) failed.", facility_identifier_2_5_1, value);
+
+
+        validator.loadData(hl7TestData_1);
+
+        value = validator.getFieldValueByName("Facility Identifier");
+        assertEquals("Retrieving Facility Identifier (2.3.1) failed.", facility_identifier_2_3_1, value);
+    }
+
+    @Test
+    public void testValidateHl7Transmission()
+            throws JDOMException, IOException, HL7ValidatorException, PropertyAccessException {
+        HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
+        boolean         result;
+
+        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+
+        validator.loadData(hl7TestData_1);
+        result = validator.validateData();
 
         assertEquals("Validation of entire HL7 Pipe Delimited transmission Failed.", true, result);
 
-        result = validator.validateData(xmlData_1);
+        validator.loadData(xmlData_1);
+        result = validator.validateData();
 
         assertEquals("Validation of entire HL7 XML transmission Failed.", true, result);
     }

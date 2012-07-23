@@ -101,8 +101,8 @@ public class MirthDocumentSubmission  extends AcceptMessage{
 
 
 
-
-                if(validator.validateData(decodedData) == true) {
+                validator.loadData(decodedData);
+                if(validator.validateData() == true) {
 //                    String              destinationDirectory;
 //                    File                file;
 //                    FileOutputStream    dataOutput;

@@ -41,10 +41,13 @@ public class HL7Validator {
 
     private Logger      log = Logger.getLogger(this.getClass().getName());
 
-    private String      reportDirectory;
-    private String      holdDirectory;
+    private String      reportDirectory = null;
+    private String      holdDirectory = null;
 
-    private IDataParser       dataParser;
+    private String      inputData;
+
+    private IDataParser                 dataParser;
+    private HashMap<String, Element>    validationFieldCache = new HashMap<String, Element>();
 
     public HL7Validator(String  _holdDirectory, String  _reportDirectory) {
         holdDirectory = _holdDirectory;
@@ -69,6 +72,7 @@ public class HL7Validator {
         SAXBuilder      builder = new SAXBuilder();
         Iterator        errorMessageIterator;
         Iterator        errorCodeIterator;
+        Iterator        fieldIterator;
 
         validationRules = builder.build(new File(fileName));
 
@@ -100,6 +104,20 @@ public class HL7Validator {
             errorCodeMap.put(errorCode.getAttributeValue(Constants.ID, errorCode.getNamespace()),
                                 errorCode.getText());
         }
+
+        //
+        // Cache the validation fields so we can use tat data to quickly get the value
+        // of a field.
+        //
+        validationFieldCache.clear();
+        fieldIterator = rootElement.getChild(Constants.FIELDS, rootElement.getNamespace())
+                .getChildren(Constants.FIELD, rootElement.getNamespace()).iterator();
+        while(fieldIterator.hasNext()) {
+            Element       fieldElement = (Element)fieldIterator.next();
+
+            validationFieldCache.put(fieldElement.getChildText(Constants.NAME, fieldElement.getNamespace()),
+                                     fieldElement);
+        }
     }
 
 
@@ -130,28 +148,19 @@ public class HL7Validator {
         return validationResultsList;
     }
 
-    public boolean  validateData(String  inputData)
-            throws HL7ValidatorException, IOException, JDOMException {
-        Element     fieldsElement;
-        Element     validVersionElement;
-        Element     validMessageTypeElement;
-        Iterator    versionNumberIterator;
-        Iterator    messageTypeIterator;
-        boolean     versionIsValid = false;
-        boolean     messageTypeIsValid = false;
-        Date        reportDate = new Date();
+    public void  loadData(String  _inputData)
+            throws HL7ValidatorException, IOException {
 
         if(validationRules == null) {
             throw new HL7ValidatorException("No validation rules have been loaded.");
         }
 
+        inputData = _inputData;
+
         validationResultsList.clear();
         maxErrorSeverity = org.cophm.validation.ErrorSeverity.NONE;
 
-        validVersionElement = rootElement.getChild(Constants.VALID_HL7_VERSIONS, rootElement.getNamespace());
-        validMessageTypeElement = rootElement.getChild(Constants.SUPPORTED_ADT_MESSAGES, rootElement.getNamespace());
-
-        if(inputIsXML(inputData)) {
+        if(Parser.inputIsXML(inputData)) {
             dataParser = new XmlParser();
         }
         else {
@@ -164,6 +173,42 @@ public class HL7Validator {
         hl7VersionNumber = dataParser.getFieldValue("MSH", "12");
         hl7MessageId = dataParser.getFieldValue("MSH", "10");
         hl7MessageType = dataParser.getFieldValue("MSH", "9.2");
+
+        return;
+    }
+
+    public String  getMessageId() {
+        return hl7MessageId;
+    }
+
+    public String  getFieldValueByName(String  fieldName)
+            throws HL7ValidatorException, HL7Exception {
+        Element     fieldElement;
+        Element     location;
+
+        fieldElement = validationFieldCache.get(fieldName);
+        if(fieldElement == null) {
+            return "";
+        }
+
+        location = getLocationElement(fieldElement);
+
+        return dataParser.getFieldValue(location);
+    }
+
+    public boolean validateData()
+            throws HL7ValidatorException, IOException {
+        Element     fieldsElement;
+        Element     validVersionElement;
+        Element     validMessageTypeElement;
+        Iterator    versionNumberIterator;
+        Iterator    messageTypeIterator;
+        boolean     versionIsValid = false;
+        boolean     messageTypeIsValid = false;
+        Date        reportDate = new Date();
+
+        validVersionElement = rootElement.getChild(Constants.VALID_HL7_VERSIONS, rootElement.getNamespace());
+        validMessageTypeElement = rootElement.getChild(Constants.SUPPORTED_ADT_MESSAGES, rootElement.getNamespace());
 
         versionNumberIterator = validVersionElement.getChildren(Constants.VERSION, validVersionElement.getNamespace()).iterator();
         while(versionNumberIterator.hasNext()) {
@@ -219,33 +264,25 @@ public class HL7Validator {
         }
     }
 
-    private boolean inputIsXML(String data) {
-        if(data.indexOf("<MSH.12") != -1 ||
-            data.indexOf("<Msh.12") != -1 ||
-            data.indexOf("<msh.12 ") != -1) {
-            return true;
-        }
-
-        return false;
-    }
-
     private void saveData(Date  reportDate, String data) throws IOException {
         File                file;
         FileOutputStream    output;
         SimpleDateFormat    df = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss-SSS");
 
-        file = new File(holdDirectory);
-        file.mkdirs();
+        if(holdDirectory != null) {
+            file = new File(holdDirectory);
+            file.mkdirs();
 
-        file = new File(holdDirectory + File.separatorChar
-                                + Constants.DATA_PREFIX + hl7MessageId + "_"
-                                + df.format(reportDate)
-                                + (inputIsXML(data) ? Constants.XML_DATA_POSTFIX : Constants.PIPE_DELIMITED_DATA_POSTFIX));
+            file = new File(holdDirectory + File.separatorChar
+                                    + Constants.DATA_PREFIX + hl7MessageId + "_"
+                                    + df.format(reportDate)
+                                    + (Parser.inputIsXML(data) ? Constants.XML_DATA_POSTFIX : Constants.PIPE_DELIMITED_DATA_POSTFIX));
 
 
-        output = new FileOutputStream(file);
-        output.write(data.getBytes());
-        output.close();
+            output = new FileOutputStream(file);
+            output.write(data.getBytes());
+            output.close();
+        }
 
         return;
     }
@@ -258,7 +295,7 @@ public class HL7Validator {
         Iterator            messageIterator;
         String              reportHeader;
 
-        if(validationResultsList.size() > 0) {
+        if(reportDirectory != null && validationResultsList.size() > 0) {
             file = new File(reportDirectory);
             file.mkdirs();
 
@@ -312,12 +349,6 @@ public class HL7Validator {
                                                      field.getChildText(Constants.NAME,
                                                                         field.getNamespace()),
                                                      field.getText().trim());
-//                captureError(getErrorCode(field.getChild(Constants.VALIDATIONS,
-//                                                  fieldsElement.getNamespace())
-//                                           .getChild(Constants.USAGE,
-//                                                     fieldsElement.getNamespace())),
-//                             field.getChildText(Constants.NAME, field.getNamespace()),
-//                             e.getMessage(), org.cophm.validation.ErrorSeverity.FATAL);
                 log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
             }
         }
@@ -384,7 +415,7 @@ public class HL7Validator {
                 (container.isPrintFieldName() ? fieldName + " " : "") +
                 (container.isPrintFieldValue() ? "[value = " + fieldValue + "] " : "") +
                 container.getMessage(),
-                fieldName, severity);
+                fieldName,      severity);
 
         validationResultsList.add(vr);
 

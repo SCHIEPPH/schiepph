@@ -1,5 +1,7 @@
 package org.cophm.validation;
 
+import java.io.IOException;
+
 /**
  * Created by
  * User: ralph
@@ -7,6 +9,32 @@ package org.cophm.validation;
  * Time: 10:12 PM
  */
 public class Parser {
+
+
+    public static boolean inputIsXML(String data) {
+        if(data.indexOf("<MSH.12") != -1 ||
+            data.indexOf("<Msh.12") != -1 ||
+            data.indexOf("<msh.12 ") != -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static IDataParser   getParser(String  data) throws IOException {
+        IDataParser     parser;
+
+        if(inputIsXML(data)) {
+            parser = new XmlParser();
+        }
+        else {
+            parser = new PipeParser();
+        }
+
+        parser.loadData(data);
+
+        return parser;
+    }
 
     protected int getFieldNumber(String fieldNumber) {
         int       number;

@@ -9,7 +9,7 @@
   <groupId>com.cophm</groupId>
   <artifactId>schiepph</artifactId>
   <packaging>jar</packaging>
-  <version>2.0</version>
+  <version>3.0</version>
     <name>Top Level Parent :: Product :: Production :: Software</name>
     <build>
         <plugins>

@@ -9,18 +9,39 @@ public class EmailSender {
 
     private Properties emailProperties;
 
-    public EmailSender(String smtpHost, String toEmailAddress,
-                       String fromEmailAddress, String adminEmailAddress) throws IOException {
+    public EmailSender(String smtpHost, String fromEmailAddress, String adminEmailAddress)
+            throws IOException {
 
+        //
+        // email property names:
+        //      mail.smtp.host
+        //      mail.to.email
+        //      mail.from.email
+        //      mail.admin.email
+        //
+        // Set some default values.
+        //
         emailProperties = new Properties();
         emailProperties.put("mail.smtp.host", smtpHost);
-        emailProperties.put("mail.to.email", toEmailAddress);
         emailProperties.put("mail.from.email", fromEmailAddress);
         emailProperties.put("mail.admin.email", adminEmailAddress);
 
     }
 
     public void sendEmail(String recipientEmailAddress, String  subject, String messageText) {
+        String[]    messageTextArray = new String[1];
+
+        messageTextArray[0] = messageText;
+
+        sendEmail(recipientEmailAddress, subject, messageTextArray);
+    }
+
+    public void sendEmail(String recipientEmailAddress, String  subject, String[] attachments) {
+
+        sendEmail(recipientEmailAddress, subject, " ", attachments);
+    }
+
+    public void sendEmail(String recipientEmailAddress, String  subject, String  messageText, String[] attachments) {
         Session               session;
         MimeMessage           message;
         Multipart             multiPartMessage;
@@ -30,13 +51,15 @@ public class EmailSender {
         session = Session.getInstance(emailProperties, null);
         session.setDebug(false);
 
-        if(messageText == null) {
-            messageText = "";
+        if(attachments == null) {
+            attachments = new String[1];
+            attachments[0] = "";
         }
 
         try {
             message = new MimeMessage(session);
             message.setFrom(new InternetAddress((String)emailProperties.get("mail.from.email")));
+            message.setText(messageText);
 
             address = new InternetAddress[1];
             address[0] = new InternetAddress(recipientEmailAddress);
@@ -45,11 +68,13 @@ public class EmailSender {
             message.setSubject(subject);
             message.setSentDate(new Date());
 
-            emailBody = new MimeBodyPart();
-            emailBody.setText(messageText);
-
             multiPartMessage = new MimeMultipart();
-            multiPartMessage.addBodyPart(emailBody);
+            for(int  x = 0; x < attachments.length; x++) {
+                emailBody = new MimeBodyPart();
+                emailBody.setText(attachments[x]);
+
+                multiPartMessage.addBodyPart(emailBody);
+            }
 
             message.setContent(multiPartMessage);
 
