@@ -1,0 +1,5 @@
+Scenario 10 - Verifies the text in an email sent to DIRECT is ignored
+
+Add the following text in an email and a valid attachment
+
+This is to verify the attached file is processed correctly

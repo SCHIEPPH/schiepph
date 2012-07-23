@@ -1,0 +1,4 @@
+Scenario 15 - Verifies the email sent without an attachment sends back an appropriate message
+
+- Send an email without an attachment
+- Verify the return email has an appropriate error message
