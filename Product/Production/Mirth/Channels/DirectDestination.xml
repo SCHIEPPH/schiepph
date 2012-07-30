@@ -1,0 +1,141 @@
+<channel>
+  <id>9c657a5b-71ee-43f7-be65-387f9ce20763</id>
+  <name>DirectDestination</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.1.5861</version>
+  <lastModified>
+    <time>1343148182128</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>8</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Channel Reader</property>
+      <property name="responseValue">None</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">true</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Channel Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.1.5861</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">SMTP Sender</property>
+        <property name="attachments">&lt;list&gt;
+  &lt;com.mirth.connect.connectors.smtp.Attachment&gt;
+    &lt;name&gt;Attachment 1&lt;/name&gt;
+    &lt;content&gt;${message.encodedData}&lt;/content&gt;
+    &lt;mimeType&gt;text/xml&lt;/mimeType&gt;
+  &lt;/com.mirth.connect.connectors.smtp.Attachment&gt;
+&lt;/list&gt;</property>
+        <property name="authentication">0</property>
+        <property name="body">Syndromic Surviellance Data Submission.</property>
+        <property name="charsetEncoding">DEFAULT_ENCODING</property>
+        <property name="encryption">none</property>
+        <property name="from">${direct_sender_from_address}</property>
+        <property name="headers">&lt;linked-hash-map/&gt;</property>
+        <property name="html">0</property>
+        <property name="password">ralph123</property>
+        <property name="smtpHost">${direct_sender_smtp_host}</property>
+        <property name="smtpPort">${direct_sender_smtp_port}</property>
+        <property name="subject">${direct_sender_subject}</property>
+        <property name="timeout">5000</property>
+        <property name="to">${direct_sender_to_address}</property>
+        <property name="username">ralph@directconnect.agilexhealth.com</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>SMTP Sender</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.1.5861</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory. 
+		property_file = &apos;conf/DirectDestination.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/DirectDestination.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; +  entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

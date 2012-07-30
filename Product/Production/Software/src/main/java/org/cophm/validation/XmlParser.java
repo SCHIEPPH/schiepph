@@ -49,6 +49,7 @@ public class XmlParser extends Parser implements IDataParser {
         }
         catch(JDOMException e) {
             log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
+            log.error("XML Data = [" + data + "]");
             throw new IOException(e.getMessage());
         }
     }

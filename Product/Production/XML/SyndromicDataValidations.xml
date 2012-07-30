@@ -199,7 +199,7 @@
             </Location>
             <description>Field #13 - Gender of patient</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -225,7 +225,7 @@
             </Location>
             <description>Field #15 - ZIP Code of patient residence</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -264,7 +264,7 @@
             </Location>
             <description>Field #18 - Race of patient</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -277,7 +277,7 @@
             </Location>
             <description>Field #19 - Ethnicity of patient</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -359,7 +359,7 @@
             </Location>
             <description>Field #25 - Short description of the chief complaint or reason of patient’s visit, recorded when seeking care</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -387,7 +387,7 @@
             </Location>
             <description>Field #27 - Diagnosis or injury code of patient condition</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>
@@ -428,7 +428,7 @@
             </Location>
             <description>Field #30 - Patient's anticipated location or status following ED/UC visit</description>
             <Validations>
-                <usage errorCodeId="2" errorMessageId="2" severity="None" >RequiredEmpty</usage>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
         <Field>

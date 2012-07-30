@@ -11,7 +11,7 @@ public class ValidationResult {
     private String            errorCode;
     private String            errorMessage;
     private String            fieldName;
-    private ErrorSeverity severity;
+    private ErrorSeverity     severity;
 
     public ValidationResult() {
     }

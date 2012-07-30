@@ -1,17 +1,27 @@
 package org.cophm.direct;
 
+import com.sun.mail.imap.IMAPMessage;
+import com.sun.mail.imap.IMAPNestedMessage;
 import com.sun.mail.imap.IMAPStore;
+import com.sun.mail.util.BASE64DecoderStream;
+import org.apache.log4j.Logger;
+import org.cophm.util.Base64Coder;
 import org.cophm.util.Constants;
 import org.cophm.util.EmailSender;
 import org.cophm.util.PropertyAccessException;
+import org.cophm.validation.ErrorSeverity;
 import org.cophm.validation.HL7Validator;
 import org.cophm.validation.HL7ValidatorException;
 import org.cophm.validation.Parser;
 import org.jdom.JDOMException;
+import sun.misc.BASE64Decoder;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -47,16 +57,28 @@ public class DirectConnectReader {
     private String      reportDirectory;
 
     private SimpleDateFormat    df = new SimpleDateFormat(Constants.OUTPUT_FILE_DATE_FORMAT);
+    private SimpleDateFormat    logDf = new SimpleDateFormat(Constants.LOG_FILE_DATE_FORMAT);
 
     private String      url_path = "/JavaBridge/webmail/src/right_main.php?PG_SHOWALL=0&sort=0&startMessage=1&mailbox=INBOX";
 
     public static final int       BYTE_BUFFER_SIZE = 1024;
 
+    private Logger      log = Logger.getLogger(this.getClass().getName());
+
+    private FileOutputStream    myOutputStream;
+
+    private ArrayList<String>     contentTypesToProcess = new ArrayList<String>();
+
 
     public DirectConnectReader(String _host, String _port, String _userId, String _password,
-                               String  _receivedDirectory, String     _holdDirectory,
-                               String  _reportDirectory, String       _validationRulesFileName,
-                               String  _smtpHost, String  _fromEmail, String  _adminEmail) {
+                               String  _receivedDirectory, String               _holdDirectory,
+                               String  _reportDirectory, String                 _validationRulesFileName,
+                               String  _smtpHost, String  _fromEmail, String    _adminEmail,
+                               String  _contentTypesToProcess, String  _logDirectory) throws IOException {
+        StringTokenizer       strtok;
+
+        myOutputStream = new FileOutputStream(_logDirectory + File.separator + "myLogfile.log", true);
+
         host = _host;
         port = Integer.parseInt(_port);
         userId = _userId;
@@ -78,6 +100,25 @@ public class DirectConnectReader {
         props.put("type", "store");
         props.put("class", "com.sun.mail.imap.IMAPStore");
 
+        strtok = new StringTokenizer(_contentTypesToProcess, ",");
+        while(strtok.hasMoreTokens()) {
+            String mimeTypeToProcess = strtok.nextToken();
+
+            contentTypesToProcess.add(mimeTypeToProcess.trim().toLowerCase());
+        }
+    }
+
+    private void  myLog(String  msg) {
+        try {
+            myOutputStream.write(logDf.format(new Date()).getBytes());
+            myOutputStream.write(msg.getBytes());
+            myOutputStream.write(msg.getBytes());
+            myOutputStream.write("\n".getBytes());
+            myOutputStream.flush();
+        }
+        catch(IOException e) {
+            log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
+        }
 
     }
 
@@ -123,7 +164,9 @@ public class DirectConnectReader {
         return store;
     }
 
-    private ArrayList  processInbox(IMAPStore  store, String  validationRulesFileName) throws MessagingException, IOException, HL7ValidatorException, JDOMException, PropertyAccessException {
+    private ArrayList  processInbox(IMAPStore  store, String  validationRulesFileName)
+            throws MessagingException, IOException,       HL7ValidatorException,
+            JDOMException, PropertyAccessException {
         Folder                inbox;
         Message[]             messages;
         Address[]             returnedAddresses;
@@ -138,6 +181,7 @@ public class DirectConnectReader {
         ArrayList<String>     validationReports = new ArrayList<String>();
         HL7Validator          validator = new HL7Validator(null, null);
         EmailSender           emailUtil = new EmailSender(smtpHost, fromEmail, adminEmail);
+        Iterator              messageDataIterator;
 
         validator.loadValidationRules(validationRulesFileName);
 
@@ -165,34 +209,57 @@ public class DirectConnectReader {
                 }
             }
 
+            validationReports.clear();
+
             msg = messages[x].getContent();
             if(msg instanceof Multipart) {
                 attachmentCount = ((Multipart)msg).getCount();
                 for(int y = 0; y < attachmentCount; y++) {
                     part = ((Multipart)msg).getBodyPart(y);
                     if(part instanceof MimeBodyPart) {
-                        msgData = getContent(((MimeBodyPart)part).getInputStream());
-                        if(isHL7Data(msgData)) {
-                            foundHl7Data = true;
-                            //
-                            // Need to validate the data, and send a report back to
-                            // the sender.
-                            //
-                            validator.loadData(msgData);
-
-                            if(validator.validateData()) {
+                        messageDataIterator = getContent((MimeBodyPart)part).iterator();
+                        while(messageDataIterator.hasNext()) {
+                            msgData = (String)messageDataIterator.next();
+                            if(isHL7Data(msgData)) {
+                                foundHl7Data = true;
                                 //
-                                // Need to move th processed emails to a "processed" folder.
+                                // Need to validate the data, and send a report back to
+                                // the sender.
                                 //
-                                hl7DataToPassAlong.add(msgData);
+                                try {
+                                    validator.loadData(msgData);
 
-                                writeDataToProcessedDirectory(msgData, validator);
+                                    if(validator.validateData()) {
+                                        //
+                                        // Need to move th processed emails to a "processed" folder.
+                                        //
+                                        hl7DataToPassAlong.add(msgData);
+
+                                        writeDataToProcessedDirectory(msgData, validator);
+                                        if(validator.getMaxErrorSeverity().ordinal()
+                                                >= ErrorSeverity.REPORT.ordinal()) {
+                                            writeValidationReportToReportDirectory(validator);
+                                        }
+                                    }
+                                    else {
+                                        writeDataToHoldDirectory(msgData, validator);
+                                        writeValidationReportToReportDirectory(validator);
+                                    }
+                                    validationReports.add(createResponseMessages(validator));
+                                }
+                                catch(HL7ValidatorException e) {
+                                    validationReports.add("Could not parse input data: " + e.getMessage() +
+                                            "  Input    data = [\n" + msgData + "]");
+                                }
+                                catch(IOException e) {
+                                    validationReports.add("Could not parse input data: " + e.getMessage() +
+                                            "  Input    data = [\n" + msgData + "]");
+                                }
+                                catch(IllegalArgumentException e) {
+                                    validationReports.add("Could not parse input data: " + e.getMessage() +
+                                            "  Input    data = [\n" + msgData + "]");
+                                }
                             }
-                            else {
-                                writeDataToHoldDirectory(msgData, validator);
-                                writeValidationReportToReportDirectory(validator);
-                            }
-                            validationReports.add(createResponseMessages(validator));
                         }
                     }
                 }
@@ -230,7 +297,98 @@ public class DirectConnectReader {
         return hl7DataToPassAlong;
     }
 
-    private String getContent(InputStream inputStream) throws IOException {
+    private ArrayList<String> getContent(MimeBodyPart  bodyPart) throws IOException, MessagingException {
+        ArrayList<String>     returnData = new ArrayList<String>();
+        Object                content;
+        Object                embeddedContent;
+        Object                part;
+
+        //
+        // If the disposition is null or disposition is not "attachment"
+        // then we need to ignore the content.
+        //
+        if(bodyPart.getDisposition() == null ||
+                bodyPart.getDisposition().equalsIgnoreCase("attachment") == false) {
+            return returnData;
+        }
+
+        if(contentShouldBeIgnored(bodyPart.getContentType())) {
+            return returnData;
+        }
+
+        content = bodyPart.getContent();
+
+        if(content instanceof String) {
+            returnData.add((String)content);
+        }
+        else if(content instanceof IMAPNestedMessage) {
+            int       messagePartCount = 0;
+            embeddedContent = ((IMAPNestedMessage)content).getContent();
+            if(embeddedContent instanceof MimeMultipart) {
+                messagePartCount = ((MimeMultipart)embeddedContent).getCount();
+                for(int x = 0; x < messagePartCount; x++) {
+                    part = ((MimeMultipart)embeddedContent).getBodyPart(x);
+                    if(contentShouldBeIgnored(((BodyPart)part).getContentType())) {
+                        continue;
+                    }
+                    if(part instanceof String) {
+                        returnData.add((String)part);
+                    }
+                    else if(part instanceof BASE64DecoderStream) {
+                        String      base64EncodedData;
+
+                        base64EncodedData = getContentFromInputStream(((BASE64DecoderStream)part));
+
+                        returnData.add(base64EncodedData);
+                    }
+                    else if(part instanceof StreamSource) {
+                        String      data;
+
+                        data = getContentFromInputStream(((StreamSource)part).getInputStream());
+
+                        returnData.add(data);
+                    }
+                    else {
+                      myLog("Fell through getContent(2).  Content = [" + part.getClass().getName() + "]");
+                  }
+                }
+            }
+        }
+        else if(content instanceof BASE64DecoderStream) {
+            String      base64EncodedData;
+
+            base64EncodedData = getContentFromInputStream(((BASE64DecoderStream)content));
+
+            returnData.add(base64EncodedData);
+        }
+        else if(content instanceof StreamSource) {
+            String      data;
+
+            data = getContentFromInputStream(((StreamSource)content).getInputStream());
+
+            returnData.add(data);
+        }
+        else {
+            myLog("Fell through getContent(1).  Content = [" + content.getClass().getName() + "]");
+        }
+
+        return returnData;
+    }
+
+    private boolean contentShouldBeIgnored(String contentType) {
+        int     semicolonIndex;
+
+        semicolonIndex = contentType.indexOf(";");
+        if(semicolonIndex > 0) {
+            return (contentTypesToProcess.contains(contentType.substring(0, semicolonIndex).trim().toLowerCase()) ?
+                false : true);
+        }
+
+        return true;
+    }
+
+    private String getContentFromInputStream(InputStream inputStream)
+            throws IOException, MessagingException {
         byte[]          byteBuffer;
         int             bytesRead;
         int             totalBytesRead;
@@ -368,12 +526,14 @@ public class DirectConnectReader {
         DirectConnectReader       reader;
 
 
-        reader = new DirectConnectReader("10.0.1.111", "110",
-                                         "ralph@directconnect.agilexhealth.com",    "ralph123",
+        reader = new DirectConnectReader("directconnect.agilexhealth.com", "110",
+                                         "receiver@directconnect.agilexhealth.com",       "receiver123",
                                          "/usr/tmp/processedMessages", "/usr/tmp/holdMessages", "/usr/tmp/validationReports",
                                          "../XML/SyndromicDataValidations.xml",
-                                         "directconnect.agilexhealth.com",      "ralph@directconnect.agilex.com",
-                                         "ralph@directconnect.agilex.com");
+                                         "directconnect.agilexhealth.com",      "ralph@directconnect.agilexhealth.com",
+                                         "ralph@directconnect.agilexhealth.com",
+                                         "text/plain,text/xml,application/octet-stream",
+                                         "/usr/tmp");
 //        reader = new DirectConnectReader("172.16.45.49", "143", "ralph@directconnect.agilexhealth.com", "ralph123");
 
         reader.processIncommingEmail();

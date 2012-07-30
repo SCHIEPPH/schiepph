@@ -255,7 +255,8 @@ public class HL7Validator {
 
         saveReport(reportDate);
 
-        if(maxErrorSeverity == org.cophm.validation.ErrorSeverity.NONE) {
+        if(maxErrorSeverity.ordinal()
+                <= org.cophm.validation.ErrorSeverity.REPORT.ordinal()) {
             return true;
         }
         else {
