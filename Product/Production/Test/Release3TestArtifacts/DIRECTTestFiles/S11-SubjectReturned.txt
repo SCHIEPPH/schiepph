@@ -1,0 +1,6 @@
+Scenario 11 - Verifies the subject in an email sent to DIRECT is returned back in the response email.
+
+Add the following text in the subject line and a valid attachment
+
+RE: FW: Test files - Verify the subject is returned in the response email
+No Subjectc in the email - Verify the subject either says No SUbject or is blank
