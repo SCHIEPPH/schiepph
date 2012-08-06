@@ -16,8 +16,10 @@ public class Constants {
     public static final String      DATA_PREFIX = "HL7_Data_";
     public static final String      PIPE_DELIMITED_DATA_POSTFIX = ".hl7";
     public static final String      XML_DATA_POSTFIX = ".xml";
+    public static final String      HL7_DATA_POSTFIX = ".hl7";
 
     public static final String      OUTPUT_FILE_DATE_FORMAT = "yyyy-MM-dd_hh-mm-ss-SSS";
+    public static final String      LOG_FILE_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss:SSS - ";
     public static final String      VALIDATED_DATA_FILE_PREFIX = "VALIDATED_DATA_FILE_PREFIX";
     public static final String      VALIDATED_DATA_FILE_EXTENSION = "VALIDATED_DATA_FILE_EXTENSION";
     public static final String      VALIDATED_DATA_OUTPUT_DIRECTORY = "VALIDATED_DATA_OUTPUT_DIRECTORY";
@@ -54,6 +56,13 @@ public class Constants {
     public static final String      MUST_MATCH = "mustMatch";
     public static final String      REPEATING_ELEMENT = "repeatingElement";
     public static final String      ERROR_CODE_ID = "errorCodeId";
+
+    public static final String      PROCESSED_MESSAGE_FOLDER = "ProcessedMessages";
+    public static final String      ERROR_MESSAGE_FOLDER = "MessagesWithErrors";
+
+    public static final String      RESPONSE_EMAIL_SUBJECT = "SCHIEPPH NwHIN Direct Connect Reader Validation Results for :  ";
+
+    public static final String      NO_HL7_DATA_FOUND_TEXT = "There was no HL7 data found in the email with the Subject: ";
 
 
     private Constants() {

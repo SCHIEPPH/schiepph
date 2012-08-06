@@ -1,0 +1,183 @@
+<channel>
+  <id>e62d621d-29c9-45eb-ad57-6404962ccc43</id>
+  <name>DirectSource</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.1.5861</version>
+  <lastModified>
+    <time>1343407894757</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>66</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">JavaScript Reader</property>
+      <property name="host">sink</property>
+      <property name="pollingFrequency">300000</property>
+      <property name="pollingType">interval</property>
+      <property name="script">var directReader = new org.cophm.direct.DirectConnectReader(globalMap.get(&apos;direct_source_host&apos;), globalMap.get(&apos;direct_source_port&apos;), 
+															globalMap.get(&apos;direct_source_userid&apos;), globalMap.get(&apos;direct_source_password&apos;), 
+															globalMap.get(&apos;direct_source_received_directory&apos;), globalMap.get(&apos;direct_source_hold_directory&apos;), 
+															globalMap.get(&apos;direct_source_report_directory&apos;), globalMap.get(&apos;direct_source_validation_rules_file_name&apos;), 
+															globalMap.get(&apos;direct_source_smtp_host&apos;), globalMap.get(&apos;direct_source_from_email_address&apos;), 
+														    globalMap.get(&apos;direct_source_admin_email_address&apos;), globalMap.get(&apos;direct_source_content_types_to_process&apos;), 
+                                                            globalMap.get(&apos;direct_source_log_directory&apos;));
+
+directReader.processIncommingEmail();
+
+return &quot;&quot;;</property>
+    </properties>
+    <transformer>
+      <steps/>
+      <inboundTemplate encoding="base64"></inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>DELIMITED</inboundProtocol>
+      <outboundProtocol>DELIMITED</outboundProtocol>
+      <inboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="batchGroupingColumn"></property>
+        <property name="batchMessageDelimiter"></property>
+        <property name="batchMessageDelimiterIncluded">false</property>
+        <property name="batchScript"></property>
+        <property name="batchSkipRecords">0</property>
+        <property name="batchSplitByRecord">true</property>
+        <property name="columnDelimiter">,</property>
+        <property name="columnNames"></property>
+        <property name="columnWidths"></property>
+        <property name="escapeWithDoubleQuote">true</property>
+        <property name="ignoreCR">true</property>
+        <property name="numberedRows">false</property>
+        <property name="quoteChar">&quot;</property>
+        <property name="quoteEscapeChar">\</property>
+        <property name="recordDelimiter">
+</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>JavaScript Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.1.5861</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">dc89620c-0db2-40a3-a26f-314e0c5af4b9</property>
+        <property name="synchronised">0</property>
+        <property name="template">${message.encodedData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>DELIMITED</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="batchGroupingColumn"></property>
+          <property name="batchMessageDelimiter"></property>
+          <property name="batchMessageDelimiterIncluded">false</property>
+          <property name="batchScript"></property>
+          <property name="batchSkipRecords">0</property>
+          <property name="batchSplitByRecord">true</property>
+          <property name="columnDelimiter">,</property>
+          <property name="columnNames"></property>
+          <property name="columnWidths"></property>
+          <property name="escapeWithDoubleQuote">true</property>
+          <property name="ignoreCR">true</property>
+          <property name="numberedRows">false</property>
+          <property name="quoteChar">&quot;</property>
+          <property name="quoteEscapeChar">\</property>
+          <property name="recordDelimiter">
+</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.1.5861</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">false</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory.
+		property_file = &apos;conf/DirectSource.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/DirectSource.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; +  entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>

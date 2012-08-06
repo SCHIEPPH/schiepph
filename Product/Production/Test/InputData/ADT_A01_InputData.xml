@@ -14,7 +14,7 @@
 <PT.1>P</PT.1>
 </MSH.11>
 <MSH.12>
-<VID.1>2.3.1</VID.1>
+<MSH12.1>2.3.1</MSH12.1>
 </MSH.12>
 <MSH.18>UTF-8</MSH.18>
 </MSH>
@@ -30,7 +30,7 @@
 <CX.5>PI</CX.5>
 </PID.2>
 <PID.3>
-<CX.1>10_ZZ_AA_medical_record_number</CX.1>
+<PID3.1>10_ZZ_AA_medical_record_number</PID3.1>
 </PID.3>
 <PID.5>
 <XPN.1>
@@ -96,7 +96,7 @@
 <CE.1>SS002</CE.1>
 <CE.2>Treating Facility Location</CE.2>
 </OBX.3>
-<OBX.5>                
+<OBX.5>
                <OBX.5.1></OBX.5.1>
                 <OBX.5.2>3_ZZ_AA_facility_number_and_street</OBX.5.2>
                 <OBX.5.3></OBX.5.3>

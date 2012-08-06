@@ -58,6 +58,10 @@ public class PipeParser extends Parser implements IDataParser {
         while((line = reader.readLine()) != null) {
             StringTokenizer       strtok;
 
+            if(line.trim().length() == 0) {
+                continue;
+            }
+
             //
             // The first character following the MSH in the MSH record is overloaded and
             // is both a field separator and a the definition of the field separator ,
