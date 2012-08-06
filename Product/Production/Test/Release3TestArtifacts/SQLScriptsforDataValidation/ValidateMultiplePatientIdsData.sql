@@ -1,4 +1,4 @@
-# Validate 3 records were inserted into the patient identifier table:
+# Validate 2 records were inserted into the patient identifier table:
 select count(*) from schiepph.unique_patient_identifier where ss_id =
 ( select ss_id from schiepph.syndromic_surveillance where facility_name ='TestMultiplePatientIds');
 
