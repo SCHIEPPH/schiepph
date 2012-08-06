@@ -1,0 +1,7 @@
+The HL7 data associated with message id: MultipleMissingREandR had the following errors and warnings:
+
+SCHIEPPHRequiredFieldMissing: Facility Identifier is a required field and is missing or empty.
+SCHIEPPHRequiredFieldMissing: Unique Patient Identifier is a required field and is missing or empty.
+SCHIEPPHRequiredFieldMissing: Age is a required field and is missing or empty.
+SCHIEPPHRequiredEmptyFieldMissing: Race is a required/empty field and is missing.
+SCHIEPPHRequiredEmptyFieldMissing: Ethnicity is a required/empty field and is missing.
