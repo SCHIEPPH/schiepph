@@ -1,5 +1,0 @@
-Scenario 12 - Verifies the returned email that bounces back is saved in an Error folder
-
-- Send an email with a valid attachment
-- Login to the James DB and change the email id to a non-existing email id
-- Verify the return email bounces back and is saved in an Error folder
