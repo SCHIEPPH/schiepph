@@ -176,6 +176,7 @@ public class DirectConnectReader {
         boolean               foundHl7Data = false;
         Object                part;
         String                msgData;
+        String                msgSubject;
         String[]              reports;
         ArrayList<String>     hl7DataToPassAlong = new ArrayList<String>();
         ArrayList<String>     validationReports = new ArrayList<String>();
@@ -271,6 +272,11 @@ public class DirectConnectReader {
             // Send an email back to the sender with validation results.
             //
 
+            msgSubject = messages[x].getSubject();
+            if(msgSubject == null || msgSubject.trim().length() == 0) {
+                msgSubject = "No Subject";
+            }
+
             if(foundHl7Data) {
                 reports = new String[validationReports.size()];
 
@@ -281,11 +287,11 @@ public class DirectConnectReader {
             else {
                 reports = new String[1];
 
-                reports[0] = Constants.NO_HL7_DATA_FOUND_TEXT + messages[x].getSubject();
+                reports[0] = Constants.NO_HL7_DATA_FOUND_TEXT + msgSubject;
             }
 
             emailUtil.sendEmail(replyToAddress.toString(), Constants.RESPONSE_EMAIL_SUBJECT +
-                    messages[x].getSubject(), reports);
+                    msgSubject, reports);
         }
 
         //

@@ -127,16 +127,16 @@
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-          <groupId>ca.uhn.hapi</groupId>
-          <artifactId>hapi-base</artifactId>
-          <version>1.2</version>
-        </dependency>
-        <dependency>
-          <groupId>ca.uhn.hapi</groupId>
-          <artifactId>hapi-structures-v231</artifactId>
-          <version>1.2</version>
-        </dependency>
+        <!--<dependency>-->
+          <!--<groupId>ca.uhn.hapi</groupId>-->
+          <!--<artifactId>hapi-base</artifactId>-->
+          <!--<version>1.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+          <!--<groupId>ca.uhn.hapi</groupId>-->
+          <!--<artifactId>hapi-structures-v231</artifactId>-->
+          <!--<version>1.2</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -181,7 +181,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.xerces</groupId>
+            <groupId>apache-xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.9.1</version>
         </dependency>

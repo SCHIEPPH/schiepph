@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import ca.uhn.hl7v2.HL7Exception;
+//import ca.uhn.hl7v2.HL7Exception;
 import junit.framework.TestCase;
 import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
@@ -880,7 +880,7 @@ public class HL7ValidatorTest extends TestCase {
     @Test
     public void testGetFieldValueByName()
             throws IOException, HL7ValidatorException,
-            HL7Exception, JDOMException, PropertyAccessException {
+            JDOMException, PropertyAccessException {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         String          value;
 

@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import ca.uhn.hl7v2.HL7Exception;
+//import ca.uhn.hl7v2.HL7Exception;
 import org.jdom.Element;
 
 import java.io.IOException;
@@ -20,5 +20,5 @@ public interface IDataParser {
 
     public String  getFieldValue(String  segmentName, String fieldNumber);
 
-    public String  getFieldValue(Element  location) throws HL7Exception, HL7ValidatorException;
+    public String  getFieldValue(Element  location) throws HL7ValidatorException;
 }

@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import ca.uhn.hl7v2.HL7Exception;
+//import ca.uhn.hl7v2.HL7Exception;
 import org.cophm.util.Constants;
 import org.jdom.Element;
 import sun.util.resources.LocaleNames_el;
@@ -30,7 +30,7 @@ public class PipeParser extends Parser implements IDataParser {
     }
 
     public String  getFieldValue(Element  location)
-            throws HL7Exception, HL7ValidatorException {
+            throws HL7ValidatorException {
         String            value;
         String            segmentName;
         String            fieldNumber;

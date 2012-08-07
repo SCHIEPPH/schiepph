@@ -1,7 +1,7 @@
 package org.cophm.validation;
 
-import ca.uhn.hl7v2.HL7Exception;
-import ca.uhn.hl7v2.model.Message;
+//import ca.uhn.hl7v2.HL7Exception;
+//import ca.uhn.hl7v2.model.Message;
 import com.sun.org.apache.xml.internal.utils.NameSpace;
 import org.apache.log4j.Logger;
 import org.cophm.util.Base64Coder;
@@ -160,12 +160,14 @@ public class HL7Validator {
         validationResultsList.clear();
         maxErrorSeverity = org.cophm.validation.ErrorSeverity.NONE;
 
-        if(Parser.inputIsXML(inputData)) {
-            dataParser = new XmlParser();
-        }
-        else {
-            dataParser = new PipeParser();
-        }
+        dataParser = Parser.getParser(inputData);
+
+//        if(Parser.inputIsXML(inputData)) {
+//            dataParser = new XmlParser();
+//        }
+//        else {
+//            dataParser = new PipeParser();
+//        }
 
 
         dataParser.loadData(inputData);
@@ -182,7 +184,7 @@ public class HL7Validator {
     }
 
     public String  getFieldValueByName(String  fieldName)
-            throws HL7ValidatorException, HL7Exception {
+            throws HL7ValidatorException {
         Element     fieldElement;
         Element     location;
 
@@ -333,7 +335,7 @@ public class HL7Validator {
             Element       field = (Element)fieldIterator.next();
             String        fieldValue = null;
 
-            try {
+//            try {
                 fieldValue = dataParser.getFieldValue(getLocationElement(field));
                 validateFieldUsage(fieldValue,
                                    field.getChild(Constants.VALIDATIONS,
@@ -341,17 +343,17 @@ public class HL7Validator {
                                            .getChild(Constants.USAGE,
                                                      fieldsElement.getNamespace()),
                                    field.getChildText(Constants.NAME, field.getNamespace()));
-            }
-            catch(HL7Exception e) {
-                captureError(field.getChild(Constants.VALIDATIONS,
-                                                  fieldsElement.getNamespace())
-                                           .getChild(Constants.USAGE,
-                                                     fieldsElement.getNamespace()),
-                                                     field.getChildText(Constants.NAME,
-                                                                        field.getNamespace()),
-                                                     field.getText().trim());
-                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
-            }
+//            }
+//            catch(HL7Exception e) {
+//                captureError(field.getChild(Constants.VALIDATIONS,
+//                                                  fieldsElement.getNamespace())
+//                                           .getChild(Constants.USAGE,
+//                                                     fieldsElement.getNamespace()),
+//                                                     field.getChildText(Constants.NAME,
+//                                                                        field.getNamespace()),
+//                                                     field.getText().trim());
+//                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
+//            }
         }
     }
 

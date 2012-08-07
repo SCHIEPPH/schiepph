@@ -7,6 +7,7 @@ package org.cophm.mirth;
 
 import com.mirth.connect.connectors.ws.AcceptMessage;
 import com.mirth.connect.connectors.ws.WebServiceMessageReceiver;
+import org.mule.providers.AbstractMessageReceiver;
 
 import javax.jws.WebService;
 import javax.ejb.Stateless;

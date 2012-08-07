@@ -9,6 +9,28 @@
     <modules>
         <module>Product</module>
     </modules>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+                    <id>maven-nuxeo</id>
+                    <name>Maven Nuxeo Repository</name>
+                    <url>https://maven.nuxeo.org/nexus/content/groups/public/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+    </repositories>
     <build>
         <plugins>
         </plugins>

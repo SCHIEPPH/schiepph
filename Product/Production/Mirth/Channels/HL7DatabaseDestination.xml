@@ -3,12 +3,12 @@
   <name>HL7DatabaseDestination</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.1.1.5490</version>
+  <version>2.2.1.5861</version>
   <lastModified>
-    <time>1336166616262</time>
-    <timezone>US/Eastern</timezone>
+    <time>1344361959395</time>
+    <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>7</revision>
+  <revision>4</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -20,226 +20,64 @@
         <step>
           <sequenceNumber>0</sequenceNumber>
           <name>OBX_MAPPINGS</name>
-          <script>var chiefComplaintArr = new Array();
-var ccCount = 0;
-
-for each (seg in msg..OBX) {
-	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
-	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
-
-	if(segmentType == &apos;HD&apos; )
-	{
-		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString());
-	}
-    else if(segmentType == &apos;AD&apos;)
-    {
-
-    }
-	else if(segmentType == &apos;XAD&apos;)
-	{
-		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
-	}
-    else if(segmentType == &apos;NM&apos; )
-	{
-
-        if(segmentCode == &apos;21612-7&apos;)
-        {
-			channelMap.put(&apos;syndromic_surveillance_data_age&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );
-
-        }
-		else if(segmentCode == &apos;11289-6&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );			
-
-		}
-		else if(segmentCode ==&apos;59408-5&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );	
-		}
-		else
-		{
-			logger.info(&apos;Unknown NM code: &apos; + nmCode);
-		}
+          <script>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
 
 
 
-	}
-	else if(segmentType ==&apos;CWE&apos;)
-	{
+channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,validator.getFieldValueByName(&apos;Facility Name&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,validator.getFieldValueByName(&apos;Facility Identifier&apos;));
+channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,validator.getFieldValueByName(&apos;Facility Location - Street Address&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,validator.getFieldValueByName(&apos;Facility Location - City&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,validator.getFieldValueByName(&apos;Facility Location - State&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,validator.getFieldValueByName(&apos;Facility Location - Country&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,validator.getFieldValueByName(&apos;Facility Location - County&apos;));
 
-		if (segmentCode == &apos;8661-1&apos;)
-		{
-			var ccString = seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString() + &quot;|&quot; + seg[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + seg[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
-			chiefComplaintArr[ccCount] = ccString;
-			ccCount++;			
-		}
-		else if (segmentCode == &apos;SS003&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else
-		{
-			logger.info(&apos;Unknown CWE Code: &apos; + code);
-		}
-	}
-	else if(segmentType == &apos;TX&apos;)
-	{
-		
-		if (segmentCode == &apos;44833-2&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else if (segmentCode == &apos;54094-8&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else
-		{
-			logger.warn(&apos;Unknown TX Code: &apos; + code);
-		}
-	}
-	else if(segmentType == &apos;TS&apos;)
-	{
-		if (segmentCode == &apos;11368-8&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else 
-		{
-			logger.warn(&apos;Unknown TS code: &apos; + segmentCode);
-		}
-		
+channelMap.put(&apos;syndromic_surveillance_data_age&apos;, validator.getFieldValueByName(&apos;Age&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, validator.getFieldValueByName(&apos;Age Units&apos;));
 
-	}
-	else
-	{
-		logger.warn(&apos;Unknown Segment: &apos; + segmentType);
-	}
+channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, validator.getFieldValueByName(&apos;Initial Temperature&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, validator.getFieldValueByName(&apos;Initial Temperature - Units&apos;));
 
+channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, validator.getFieldValueByName(&apos;Initial Pulse Oximetry&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, validator.getFieldValueByName(&apos;Initial Pulse Oximetry - Units&apos;));
 
+channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, validator.getFieldValueByName(&apos;Facility/Visit Type&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, validator.getFieldValueByName(&apos;Clinical Impression&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, validator.getFieldValueByName(&apos;Triage Notes&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, validator.getFieldValueByName(&apos;Date of Onset&apos;));
 
-}
-channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,chiefComplaintArr);</script>
+channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,validator.getFieldValueByName(&apos;Chief Complaint / Reason for visit&apos;));</script>
           <type>JavaScript</type>
           <data class="map">
             <entry>
               <string>Script</string>
-              <string>var chiefComplaintArr = new Array();
-var ccCount = 0;
-
-for each (seg in msg..OBX) {
-	var segmentType = seg[&apos;OBX.2&apos;][&apos;OBX.2.1&apos;].toString();
-	var segmentCode = seg[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;].toString();
-
-	if(segmentType == &apos;HD&apos; )
-	{
-		channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString());
-	}
-    else if(segmentType == &apos;AD&apos;)
-    {
-
-    }
-	else if(segmentType == &apos;XAD&apos;)
-	{
-		channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,seg[&apos;OBX.5&apos;][&apos;OBX.5.2&apos;].toString() );
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.6&apos;].toString() );
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.7&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString());
-		channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,seg[&apos;OBX.5&apos;][&apos;OBX.5.12&apos;].toString());
-	}
-    else if(segmentType == &apos;NM&apos; )
-	{
-
-        if(segmentCode == &apos;21612-7&apos;)
-        {
-			channelMap.put(&apos;syndromic_surveillance_data_age&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );
-
-        }
-		else if(segmentCode == &apos;11289-6&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );			
-
-		}
-		else if(segmentCode ==&apos;59408-5&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-			channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, seg[&apos;OBX.6&apos;][&apos;OBX.6.2&apos;].toString() );	
-		}
-		else
-		{
-			logger.info(&apos;Unknown NM code: &apos; + nmCode);
-		}
+              <string>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
 
 
 
-	}
-	else if(segmentType ==&apos;CWE&apos;)
-	{
+channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,validator.getFieldValueByName(&apos;Facility Name&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_identifier&apos;,validator.getFieldValueByName(&apos;Facility Identifier&apos;));
+channelMap.put(&quot;syndromic_surveillance_data_facility_location_street&quot;,validator.getFieldValueByName(&apos;Facility Location - Street Address&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_city&apos;,validator.getFieldValueByName(&apos;Facility Location - City&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_state&apos;,validator.getFieldValueByName(&apos;Facility Location - State&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_country&apos;,validator.getFieldValueByName(&apos;Facility Location - Country&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_facility_location_county&apos;,validator.getFieldValueByName(&apos;Facility Location - County&apos;));
 
-		if (segmentCode == &apos;8661-1&apos;)
-		{
-			var ccString = seg[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString() + &quot;|&quot; + seg[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + seg[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
-			chiefComplaintArr[ccCount] = ccString;
-			ccCount++;			
-		}
-		else if (segmentCode == &apos;SS003&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else
-		{
-			logger.info(&apos;Unknown CWE Code: &apos; + code);
-		}
-	}
-	else if(segmentType == &apos;TX&apos;)
-	{
-		
-		if (segmentCode == &apos;44833-2&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else if (segmentCode == &apos;54094-8&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else
-		{
-			logger.warn(&apos;Unknown TX Code: &apos; + code);
-		}
-	}
-	else if(segmentType == &apos;TS&apos;)
-	{
-		if (segmentCode == &apos;11368-8&apos;)
-		{
-			channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, seg[&apos;OBX.5&apos;][&apos;OBX.5.1&apos;].toString() );
-		}
-		else 
-		{
-			logger.warn(&apos;Unknown TS code: &apos; + segmentCode);
-		}
-		
+channelMap.put(&apos;syndromic_surveillance_data_age&apos;, validator.getFieldValueByName(&apos;Age&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_age_units&apos;, validator.getFieldValueByName(&apos;Age Units&apos;));
 
-	}
-	else
-	{
-		logger.warn(&apos;Unknown Segment: &apos; + segmentType);
-	}
+channelMap.put(&apos;syndromic_surveillance_data_initial_temperature&apos;, validator.getFieldValueByName(&apos;Initial Temperature&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_temperature_units&apos;, validator.getFieldValueByName(&apos;Initial Temperature - Units&apos;));
 
+channelMap.put(&apos;syndromic_surveillance_data_initial_pulse_oximetry&apos;, validator.getFieldValueByName(&apos;Initial Pulse Oximetry&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_pulse_oximetry_units&apos;, validator.getFieldValueByName(&apos;Initial Pulse Oximetry - Units&apos;));
 
+channelMap.put(&apos;syndromic_surveillance_data_facility_visit_type&apos;, validator.getFieldValueByName(&apos;Facility/Visit Type&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_clinical_impression&apos;, validator.getFieldValueByName(&apos;Clinical Impression&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_triage_notes&apos;, validator.getFieldValueByName(&apos;Triage Notes&apos;));
+channelMap.put(&apos;syndromic_surveillance_data_date_of_onset&apos;, validator.getFieldValueByName(&apos;Date of Onset&apos;));
 
-}
-channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,chiefComplaintArr);</string>
+channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;,validator.getFieldValueByName(&apos;Chief Complaint / Reason for visit&apos;));</string>
             </entry>
           </data>
         </step>
@@ -258,12 +96,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -286,12 +124,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -314,12 +152,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -342,12 +180,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -370,12 +208,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.10&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -398,12 +236,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -426,12 +264,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -454,12 +292,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -482,12 +320,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -510,12 +348,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -538,12 +376,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -566,12 +404,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -594,12 +432,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -622,12 +460,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -650,12 +488,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -678,12 +516,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -706,12 +544,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -734,12 +572,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -1116,7 +954,7 @@ ICAgICAgPC9ERzEuNj4NCiAgICA8L0RHMT4NCjwvSEw3TWVzc2FnZT4NCg==</inboundTemplate>
     <transportName>Channel Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.1.1.5490</version>
+    <version>2.2.1.5861</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
@@ -1255,7 +1093,7 @@ dbConn.close();</property>
       <transportName>Database Writer</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.1.1.5490</version>
+      <version>2.2.1.5861</version>
     </connector>
   </destinationConnectors>
   <properties>

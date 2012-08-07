@@ -19,7 +19,7 @@ public class FieldParserTest extends TestCase {
    }
 
     @After
-    void tesrdown() {
+    void teardown() {
 
     }
 

@@ -1,0 +1,9 @@
+There are two jar files referenced in the pom files of this project that are not in the
+central maven repository and need to be installed into your local maven repository in order
+for the source code to compile successfully.  Those two jar files are ws-server-1.0.jar and
+mule-1.2.jar and they can be installed into your local repository by running the following
+two maven install commands in the top level directory of the source tree.
+
+
+mvn install:install-file -Dfile=Product/Production/Support/ws-server-1.0.jar -DgroupId=mirth.connect -DartifactId=ws-server -Dversion=1.0 -Dpackaging=jar -DgeneratePOM=true
+mvn install:install-file -Dfile=Product/Production/Support/mule-1.2.jar -DgroupId=org.mule -DartifactId=mule -Dversion=1.2 -Dpackaging=jar -DgeneratePOM=true

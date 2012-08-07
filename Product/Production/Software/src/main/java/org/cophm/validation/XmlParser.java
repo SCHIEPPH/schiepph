@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import ca.uhn.hl7v2.HL7Exception;
+//import ca.uhn.hl7v2.HL7Exception;
 import org.apache.log4j.Logger;
 import org.cophm.util.Constants;
 import org.jdom.Document;
@@ -59,7 +59,7 @@ public class XmlParser extends Parser implements IDataParser {
         return getFieldValue(segmentName, null, fieldNumber);
     }
 
-    public String getFieldValue(Element location) throws HL7Exception, HL7ValidatorException {
+    public String getFieldValue(Element location) throws HL7ValidatorException {
         String            value;
         String            segmentName;
         String            fieldNumber;
