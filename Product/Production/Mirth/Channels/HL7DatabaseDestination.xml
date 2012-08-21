@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.2.1.5861</version>
   <lastModified>
-    <time>1344361959395</time>
+    <time>1344377957252</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>4</revision>
+  <revision>5</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -22,6 +22,7 @@
           <name>OBX_MAPPINGS</name>
           <script>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
 
+validator.loadData(msg);
 
 
 channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,validator.getFieldValueByName(&apos;Facility Name&apos;));
@@ -53,6 +54,7 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string>Script</string>
               <string>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
 
+validator.loadData(msg);
 
 
 channelMap.put(&apos;syndromic_surveillance_data_facility_name&apos;,validator.getFieldValueByName(&apos;Facility Name&apos;));
@@ -96,12 +98,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -124,12 +126,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;EVN&apos;][&apos;EVN.2&apos;][&apos;EVN.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -152,12 +154,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.2&apos;][&apos;PID.2.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -180,12 +182,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -208,12 +210,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.10&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -236,12 +238,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.3&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -264,12 +266,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.4&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -292,12 +294,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.5&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -320,12 +322,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.6&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -348,12 +350,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.11&apos;][&apos;PID.11.9&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -376,12 +378,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PID&apos;][&apos;PID.22&apos;][&apos;PID.22.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -404,12 +406,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.2&apos;][&apos;PV1.2.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -432,12 +434,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>Mapping</string>
-              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
-            </entry>
-            <entry>
               <string>RegularExpressions</string>
               <list/>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;PV1&apos;][&apos;PV1.19&apos;][&apos;PV1.19.1&apos;].toString()</string>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -460,12 +462,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.36&apos;][&apos;PV1.36.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -488,12 +490,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.44&apos;][&apos;PV1.44.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -516,12 +518,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;PV1&apos;][&apos;PV1.45&apos;][&apos;PV1.45.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -544,12 +546,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;DG1&apos;][&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>
@@ -572,12 +574,12 @@ channelMap.put(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visi
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;DG1&apos;][&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
             <entry>
               <string>isGlobal</string>

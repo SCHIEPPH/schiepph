@@ -61,6 +61,10 @@ public class PropertyAccessor
     private PropertyAccessor() {
     }
 
+    public static void  loadAdapterProperties(String  adapterPropertyFileName)
+            throws IOException {
+        props.load(new InputStreamReader(new FileInputStream(configDirectory + adapterPropertyFileName)));
+    }
 
     public static String getProperty(String name)
         throws      PropertyAccessException     {

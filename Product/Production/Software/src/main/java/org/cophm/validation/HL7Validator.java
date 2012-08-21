@@ -1,7 +1,5 @@
 package org.cophm.validation;
 
-//import ca.uhn.hl7v2.HL7Exception;
-//import ca.uhn.hl7v2.model.Message;
 import com.sun.org.apache.xml.internal.utils.NameSpace;
 import org.apache.log4j.Logger;
 import org.cophm.util.Base64Coder;
@@ -48,6 +46,7 @@ public class HL7Validator {
 
     private IDataParser                 dataParser;
     private HashMap<String, Element>    validationFieldCache = new HashMap<String, Element>();
+
 
     public HL7Validator(String  _holdDirectory, String  _reportDirectory) {
         holdDirectory = _holdDirectory;
@@ -162,14 +161,6 @@ public class HL7Validator {
 
         dataParser = Parser.getParser(inputData);
 
-//        if(Parser.inputIsXML(inputData)) {
-//            dataParser = new XmlParser();
-//        }
-//        else {
-//            dataParser = new PipeParser();
-//        }
-
-
         dataParser.loadData(inputData);
 
         hl7VersionNumber = dataParser.getFieldValue("MSH", "12");
@@ -209,20 +200,26 @@ public class HL7Validator {
         boolean     messageTypeIsValid = false;
         Date        reportDate = new Date();
 
+        log.error("V - 1");
         validVersionElement = rootElement.getChild(Constants.VALID_HL7_VERSIONS, rootElement.getNamespace());
         validMessageTypeElement = rootElement.getChild(Constants.SUPPORTED_ADT_MESSAGES, rootElement.getNamespace());
 
+        log.error("V - 2");
         versionNumberIterator = validVersionElement.getChildren(Constants.VERSION, validVersionElement.getNamespace()).iterator();
         while(versionNumberIterator.hasNext()) {
             Element       version = (Element)versionNumberIterator.next();
 
+            log.error("V - 3");
             if(hl7VersionNumber.equalsIgnoreCase(version.getTextTrim())) {
+                log.error("V - 1");
                 versionIsValid = true;
                 break;
             }
         }
 
+        log.error("V - 4");
         if(versionIsValid == false) {
+            log.error("V - 5");
             captureError(validVersionElement,
                          validVersionElement.getChildText(Constants.NAME, validVersionElement.getNamespace()),
                          hl7VersionNumber);
@@ -231,6 +228,7 @@ public class HL7Validator {
 
             return false;
         }
+        log.error("V - 6");
 
         messageTypeIterator = validMessageTypeElement.getChildren(Constants.ADT_MESSAGE, validVersionElement.getNamespace()).iterator();
         while(messageTypeIterator.hasNext()) {
@@ -272,19 +270,26 @@ public class HL7Validator {
         FileOutputStream    output;
         SimpleDateFormat    df = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss-SSS");
 
+        log.error("D - 1");
         if(holdDirectory != null) {
+            log.error("D - 2");
             file = new File(holdDirectory);
             file.mkdirs();
 
+            log.error("D - 3");
             file = new File(holdDirectory + File.separatorChar
                                     + Constants.DATA_PREFIX + hl7MessageId + "_"
                                     + df.format(reportDate)
                                     + (Parser.inputIsXML(data) ? Constants.XML_DATA_POSTFIX : Constants.PIPE_DELIMITED_DATA_POSTFIX));
 
+            log.error("D - 4");
 
             output = new FileOutputStream(file);
+            log.error("D - 5");
             output.write(data.getBytes());
+            log.error("D - 6");
             output.close();
+            log.error("D - 7");
         }
 
         return;
@@ -298,29 +303,37 @@ public class HL7Validator {
         Iterator            messageIterator;
         String              reportHeader;
 
+        log.error("R - 1");
         if(reportDirectory != null && validationResultsList.size() > 0) {
+            log.error("R - 2");
             file = new File(reportDirectory);
             file.mkdirs();
 
+            log.error("R - 3");
             file = new File(reportDirectory + File.separatorChar
                                     + Constants.REPORT_PREFIX + hl7MessageId + "_" +
                                     df.format(reportDate) + Constants.REPORT_POSTFIX);
 
 
+            log.error("R - 4");
             output = new FileOutputStream(file);
 
+            log.error("R - 5");
             reportHeader = "The following Warnings and Errors were found while validating message "
                     + hl7MessageId + " on " + dfDisplay.format(reportDate) + ":\n";
             output.write(reportHeader.getBytes());
 
+            log.error("R - 6");
             messageIterator = getErrorMessages().iterator();
             while(messageIterator.hasNext()) {
                 String      msg = (String)messageIterator.next();
 
+                log.error("R - 7");
                 output.write(msg.getBytes());
                 output.write("\n".getBytes());
             }
             output.close();
+            log.error("R - 8");
         }
 
         return;
@@ -335,25 +348,13 @@ public class HL7Validator {
             Element       field = (Element)fieldIterator.next();
             String        fieldValue = null;
 
-//            try {
-                fieldValue = dataParser.getFieldValue(getLocationElement(field));
-                validateFieldUsage(fieldValue,
-                                   field.getChild(Constants.VALIDATIONS,
-                                                  fieldsElement.getNamespace())
-                                           .getChild(Constants.USAGE,
-                                                     fieldsElement.getNamespace()),
-                                   field.getChildText(Constants.NAME, field.getNamespace()));
-//            }
-//            catch(HL7Exception e) {
-//                captureError(field.getChild(Constants.VALIDATIONS,
-//                                                  fieldsElement.getNamespace())
-//                                           .getChild(Constants.USAGE,
-//                                                     fieldsElement.getNamespace()),
-//                                                     field.getChildText(Constants.NAME,
-//                                                                        field.getNamespace()),
-//                                                     field.getText().trim());
-//                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
-//            }
+            fieldValue = dataParser.getFieldValue(getLocationElement(field));
+            validateFieldUsage(fieldValue,
+                               field.getChild(Constants.VALIDATIONS,
+                                              fieldsElement.getNamespace())
+                                       .getChild(Constants.USAGE,
+                                                 fieldsElement.getNamespace()),
+                               field.getChildText(Constants.NAME, field.getNamespace()));
         }
     }
 

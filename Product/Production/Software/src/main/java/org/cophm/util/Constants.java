@@ -57,13 +57,13 @@ public class Constants {
     public static final String      REPEATING_ELEMENT = "repeatingElement";
     public static final String      ERROR_CODE_ID = "errorCodeId";
 
-    public static final String      PROCESSED_MESSAGE_FOLDER = "ProcessedMessages";
-    public static final String      ERROR_MESSAGE_FOLDER = "MessagesWithErrors";
-
     public static final String      RESPONSE_EMAIL_SUBJECT = "SCHIEPPH NwHIN Direct Connect Reader Validation Results for :  ";
 
-    public static final String      NO_HL7_DATA_FOUND_TEXT = "There was no HL7 data found in the email with the Subject: ";
+    public static final String      COULD_NOT_PARSE_DATA_TEXT = "Could not parse input data. ";
 
+    public static final String      ADMIN_DIST_HOLD_DIR_PROPERTY_NAME = "admin_distribution_source_hold_directory";
+    public static final String      ADMIN_DIST_REPORT_DIR_PROPERTY_NAME = "admin_distribution_source_report_directory";
+    public static final String      ADMIN_DIST_VALIDATION_RULES_PROPERTY_NAME = "admin_distribution_source_validation_rules";
 
     private Constants() {
     }

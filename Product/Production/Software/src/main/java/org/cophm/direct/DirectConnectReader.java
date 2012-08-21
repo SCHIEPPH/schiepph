@@ -249,16 +249,16 @@ public class DirectConnectReader {
                                     validationReports.add(createResponseMessages(validator));
                                 }
                                 catch(HL7ValidatorException e) {
-                                    validationReports.add("Could not parse input data: " + e.getMessage() +
-                                            "  Input    data = [\n" + msgData + "]");
+                                    validationReports.add(Constants.COULD_NOT_PARSE_DATA_TEXT + e.getMessage() +
+                                            ".  Input    data = [\n" + msgData + "]");
                                 }
                                 catch(IOException e) {
-                                    validationReports.add("Could not parse input data: " + e.getMessage() +
-                                            "  Input    data = [\n" + msgData + "]");
+                                    validationReports.add(Constants.COULD_NOT_PARSE_DATA_TEXT + e.getMessage() +
+                                            ".  Input    data = [\n" + msgData + "]");
                                 }
                                 catch(IllegalArgumentException e) {
-                                    validationReports.add("Could not parse input data: " + e.getMessage() +
-                                            "  Input    data = [\n" + msgData + "]");
+                                    validationReports.add(Constants.COULD_NOT_PARSE_DATA_TEXT + e.getMessage() +
+                                            ".  Input    data = [\n" + msgData + "]");
                                 }
                             }
                         }
@@ -287,7 +287,7 @@ public class DirectConnectReader {
             else {
                 reports = new String[1];
 
-                reports[0] = Constants.NO_HL7_DATA_FOUND_TEXT + msgSubject;
+                reports[0] = Constants.COULD_NOT_PARSE_DATA_TEXT + "Email subject: " + msgSubject;
             }
 
             emailUtil.sendEmail(replyToAddress.toString(), Constants.RESPONSE_EMAIL_SUBJECT +

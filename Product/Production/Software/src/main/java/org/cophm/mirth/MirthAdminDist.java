@@ -7,10 +7,13 @@ package org.cophm.mirth;
 
 import com.mirth.connect.connectors.ws.AcceptMessage;
 import com.mirth.connect.connectors.ws.WebServiceMessageReceiver;
+import org.cophm.util.PropertyAccessException;
+import org.jdom.JDOMException;
 import org.mule.providers.AbstractMessageReceiver;
 
 import javax.jws.WebService;
 import javax.ejb.Stateless;
+import java.io.IOException;
 
 /**
  *
@@ -33,8 +36,7 @@ public class MirthAdminDist extends AcceptMessage {
         logger = this.getLogger();
     }
 
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) {
-        //TODO implement this method
+    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) throws JDOMException, PropertyAccessException, IOException {
         logger.info("begin sendAlertMessage()");
 
         String message = new MirthAdminDistImpl().buildXMLMessageWithHeader(body);

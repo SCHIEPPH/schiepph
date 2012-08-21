@@ -70,6 +70,21 @@
             </Validations>
         </Field>
         <Field>
+            <name>Facility Location - Country</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #4 - Country of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field>
             <name>Facility Location - County</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="5.12" >OBX</hl7Segment>
@@ -88,7 +103,7 @@
             <name>Facility Location - State</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
-                <identifier fieldNumber="3.1">SS002</identifier>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
             </Location>
             <Location version="2.5.1" >
                 <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
@@ -147,12 +162,14 @@
         <Field>
             <name>Medical Record Number</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="3" >PID</hl7Segment>
-                <identifier repeatingElement="Field" mustMatch="true" fieldNumber="3.5">MR</identifier>
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+                <identifier repeatingElement="Field" mustMatch="false" fieldNumber="3.5">PI</identifier>
+                <identifier repeatingElement="Field" mustMatch="false" fieldNumber="3.5">PT</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="3" >PID</hl7Segment>
-                <identifier repeatingElement="Field" mustMatch="true" fieldNumber="3.5">MR</identifier>
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+                <identifier repeatingElement="Field" mustMatch="false" fieldNumber="3.5">PI</identifier>
+                <identifier repeatingElement="Field" mustMatch="false" fieldNumber="3.5">PT</identifier>
             </Location>
             <description>Field #10 - Patient medical record number</description>
             <Validations>
@@ -177,11 +194,11 @@
         <Field>
             <name>Age Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
             </Location>
             <description>Field #12 - Unit corresponding to numeric value of patient age (e.g. Days, Month or Years) </description>
@@ -462,11 +479,11 @@
         <Field>
             <name>Initial Temperature - Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <description>Field #32 - First recorded temperature units</description>
@@ -492,11 +509,11 @@
         <Field>
             <name>Initial Pulse Oximetry - Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <description>Field #33 - First recorded pulse oximetry units</description>

@@ -1,6 +1,5 @@
 package org.cophm.validation;
 
-//import ca.uhn.hl7v2.HL7Exception;
 import org.apache.log4j.Logger;
 import org.cophm.util.Constants;
 import org.jdom.Document;
@@ -153,10 +152,6 @@ public class XmlParser extends Parser implements IDataParser {
                             }
                         }
                     }
-
-//                    if(matchFound) {
-//                        break;
-//                    }
                 }
 
                 if(matchFound) {
@@ -168,6 +163,10 @@ public class XmlParser extends Parser implements IDataParser {
             if(matchFound == false) {
                 return "";
             }
+        }
+
+        if(segment == null) {
+            return "";
         }
 
         fieldNumberInt = getFieldNumber(fieldNumber);
