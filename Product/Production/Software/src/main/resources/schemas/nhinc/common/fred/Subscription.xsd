@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-    targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" 
-    xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" 
-    elementFormDefault="qualified" 
-    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" 
-    xmlns:addr="http://www.w3.org/2005/08/addressing"
-    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
-    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
-    xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc"
-    xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
-    xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
-    >
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription"
+            xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription"
+            elementFormDefault="qualified"
+            xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+            xmlns:addr="http://www.w3.org/2005/08/addressing"
+            xmlns:ihe="urn:ihe:iti:xds-b:2007"
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+            xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+        >
     <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
     <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
     <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -301,7 +298,7 @@
     </xsd:complexType>
     <xsd:element name="SubscribeDocument" type="tns:SubscribeDocumentType">
     </xsd:element>
-<!--    
+<!--
     <xsd:complexType name="NotificationMessageHolderType">
         <xsd:sequence>
             <xsd:element ref="wsnt:SubscriptionReference" minOccurs="0"/>

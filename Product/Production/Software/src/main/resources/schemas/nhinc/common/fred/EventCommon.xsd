@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:hl7="urn:hl7-org:v3" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:auditmessage="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonevent="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" targetNamespace="urn:gov:hhs:fha:nhinc:common:eventcommon" elementFormDefault="qualified" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:eventcommon"
+            xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:hl7="urn:hl7-org:v3"
+            xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:auditmessage="http://nhinc.services.com/schema/auditmessage"
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" targetNamespace="urn:gov:hhs:fha:nhinc:common:eventcommon"
+            elementFormDefault="qualified" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
 	<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../hl7/HL7PatientDiscoveryMessages.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
@@ -236,12 +241,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<!-- end HIEM notify request -->
-	
+
 		<!-- begin XDR request -->
 	<xsd:complexType name="XDRMessageType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>			
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="XDREventType">
@@ -271,7 +276,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<!-- end XDR request -->
-	
+
 </xsd:schema>
 
 

@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema 
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-    xmlns:hl7="urn:hl7-org:v3"
-    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-    xmlns:ihe="urn:ihe:iti:xds-b:2007"
-    xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage"
-    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
-    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
-    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
-    xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
-    xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
-    xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription"
-    xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
-    targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-    elementFormDefault="qualified">
-        
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+        xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+        xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        xmlns:ihe="urn:ihe:iti:xds-b:2007"
+        xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage"
+        xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+        xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+        xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+        xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
+        xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
+        xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+        targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+        elementFormDefault="qualified">
+
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
     <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -39,7 +37,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType"/>
-	
+
 	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType">
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryResponse"/>
@@ -48,15 +46,15 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType"/>
-	
+
 	<xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseSecuredType">
 		<xsd:sequence>
-			<xsd:element ref="query:AdhocQueryResponse"/>			
+			<xsd:element ref="query:AdhocQueryResponse"/>
 			<xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>	
-	
+	<xsd:element name="RespondingGateway_CrossGatewayQueryResponseSecured" type="tns:RespondingGateway_CrossGatewayQueryResponseSecuredType"/>
+
 	<xsd:complexType name="RespondingGateway_CrossGatewayQuerySecuredRequestType">
 		<xsd:sequence>
 			<xsd:element ref="query:AdhocQueryRequest"/>
@@ -244,9 +242,9 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-	
-	
-	
+
+
+
   <xsd:complexType name="RespondingGateway_SendAlertMessageType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -259,7 +257,7 @@
 	 <xsd:complexType name="RespondingGateway_SendAlertMessageSecuredType">
 		<xsd:sequence>
 			<xsd:element ref="edxlde:EDXLDistribution"/>
-			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>		 
+			<xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_SendAlertMessageSecured" type="tns:RespondingGateway_SendAlertMessageSecuredType"/>

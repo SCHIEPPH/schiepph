@@ -1,4 +1,7 @@
-<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://docs.oasis-open.org/wsrf/bf-2">
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
+            elementFormDefault="qualified" attributeFormDefault="unqualified"
+            targetNamespace="http://docs.oasis-open.org/wsrf/bf-2">
     <xsd:import namespace="http://www.w3.org/2005/08/addressing" schemaLocation="rs-20.xsd"/>
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="rs-19.xsd">
         <xsd:annotation>

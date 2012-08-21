@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
-            xmlns:tns="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
             elementFormDefault="qualified"
             xmlns:hiemauditlog="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
             xmlns:auditlog="urn:gov:hhs:fha:nhinc:common:auditlog"
             xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
-            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
-            xmlns:nccommonorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
-            xmlns:ns3="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" 
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+            xmlns:nccommonorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"
+            xmlns:ns3="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
             xmlns:ns1="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc">
-    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"
                 schemaLocation="../common/NhincCommon.xsd"/>
-    <xsd:import schemaLocation="../common/NhincCommonInternalOrch.xsd" 
+    <xsd:import schemaLocation="../common/NhincCommonInternalOrch.xsd"
                 namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"/>
-    <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" 
+    <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"
                 namespace="http://docs.oasis-open.org/wsn/b-2"/>
-    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd" 
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd"
                 namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"/>
-    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd" 
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd"
                 namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"/>
-    <xsd:import schemaLocation="../common/AuditLog.xsd" 
+    <xsd:import schemaLocation="../common/AuditLog.xsd"
                 namespace="urn:gov:hhs:fha:nhinc:common:auditlog"/>
     <xsd:complexType name="LogNhinSubscribeRequestType">
         <xsd:sequence>

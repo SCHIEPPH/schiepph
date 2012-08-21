@@ -1,4 +1,7 @@
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc"
+            targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified">
     <xsd:import schemaLocation="rs-20.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
     <xsd:import schemaLocation="rs-1.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
     <xsd:import schemaLocation="rs-11.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>

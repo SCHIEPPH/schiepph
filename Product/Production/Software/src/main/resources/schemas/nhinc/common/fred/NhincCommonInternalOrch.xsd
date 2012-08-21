@@ -2,23 +2,22 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"
             xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"
-            xmlns:hl7="urn:hl7-org:v3" 
-            xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-            xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-            xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" 
-            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+            xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            xmlns:ihe="urn:ihe:iti:xds-b:2007"
+            xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage"
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
             xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
-            elementFormDefault="qualified" 
+            elementFormDefault="qualified"
             xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
-    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"
                 schemaLocation="NhincCommon.xsd"/>
-    <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+    <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                 schemaLocation="../../ebRS/query.xsd"/>
-    <xsd:import namespace="urn:ihe:iti:xds-b:2007" 
+    <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                 schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
-    <xsd:import namespace="http://nhinc.services.com/schema/auditmessage" 
+    <xsd:import namespace="http://nhinc.services.com/schema/auditmessage"
                 schemaLocation="../../ihe/auditmessage.xsd"/>
-    <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
+    <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2"
                 schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"/>
     <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription"
                 schemaLocation="../common/Subscription.xsd" />
@@ -33,7 +32,7 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType" />
-    
+
     <xsd:complexType name="RespondingGateway_CrossGatewayQueryResponseType" >
         <xsd:sequence>
             <xsd:element ref="query:AdhocQueryResponse" />
@@ -41,8 +40,8 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RespondingGateway_CrossGatewayQueryResponse" type="tns:RespondingGateway_CrossGatewayQueryResponseType" />
-    
-        
+
+
 
     <!-- ====================================================================
          Document Retrieve Schemas.
@@ -84,7 +83,7 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="UnsubscribeRequest" type="tns:UnsubscribeRequestType" />
-    
+
     <!-- ====================================================================
          Notification Schemas.
          ==================================================================== -->
@@ -94,7 +93,7 @@
             <xsd:element name="assertion" type="nccommon:AssertionType" />
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="NotifyRequest" type="tns:NotifyRequestType" />	
+    <xsd:element name="NotifyRequest" type="tns:NotifyRequestType" />
     <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetRequestType">
 		<xsd:sequence>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -103,6 +102,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
-	
+
 
 </xsd:schema>
