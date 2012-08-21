@@ -1,9 +1,13 @@
 package org.cophm.util;
 
-import java.io.IOException;
-import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Properties;
 
 public class EmailSender {
 

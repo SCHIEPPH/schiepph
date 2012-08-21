@@ -1,11 +1,10 @@
 package org.cophm.validation;
 
 //import ca.uhn.hl7v2.HL7Exception;
+
 import org.jdom.Element;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

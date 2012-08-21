@@ -2,7 +2,6 @@ package org.cophm.validation;
 
 import org.cophm.util.Constants;
 import org.jdom.Element;
-import sun.util.resources.LocaleNames_el;
 
 import java.io.CharArrayReader;
 import java.io.IOException;

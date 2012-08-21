@@ -1,7 +1,5 @@
 package org.cophm.util;
 
-import com.sun.tools.internal.ws.wsdl.document.Input;
-
 import java.util.StringTokenizer;
 
 /**

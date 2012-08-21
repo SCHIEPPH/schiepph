@@ -4,6 +4,7 @@
  */
 
 package org.cophm.mirth;
+
 import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
 import org.cophm.util.PropertyAccessor;
@@ -17,14 +18,13 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
-import java.io.FileReader;
+import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 /**
  *
  * @author dunnek

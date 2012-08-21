@@ -7,24 +7,14 @@ package org.cophm.mirth;
 
 import com.mirth.connect.connectors.ws.AcceptMessage;
 import com.mirth.connect.connectors.ws.WebServiceMessageReceiver;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-
-import javax.ejb.Stateless;
-
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.cophm.util.*;
+import org.cophm.util.Base64Coder;
+import org.cophm.util.DocumentSubmissionHelper;
+import org.cophm.util.PropertyAccessException;
+import org.cophm.util.PropertyAccessor;
 import org.cophm.validation.ErrorSeverity;
 import org.cophm.validation.HL7Validator;
 import org.cophm.validation.ValidationResult;
@@ -32,6 +22,13 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+
+import javax.ejb.Stateless;
+import javax.jws.WebService;
+import javax.xml.ws.BindingType;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Iterator;
 
 /**
  *

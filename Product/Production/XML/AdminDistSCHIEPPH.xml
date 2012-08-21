@@ -34,26 +34,9 @@
                 <keyXMLContent/>
                 <embeddedXMLContent>
                     <HL7Message xmlns=""
-                        xmlns:ns16="http://schemas.xmlsoap.org/ws/2004/08/addressing"
-                        xmlns:ns17="urn:oasis:names:tc:xacml:2.0:context:schema:os"
-                        xmlns:ns14="urn:ihe:iti:xds-b:2007"
-                        xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommon"
-                        xmlns:ns18="http://nhinc.services.com/schema/auditmessage"
-                        xmlns:ns19="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"
-                        xmlns:ns9="http://www.hhs.gov/healthit/nhin/cdc"
-                        xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
-                        xmlns:ns12="http://docs.oasis-open.org/wsn/t-1"
-                        xmlns:ns6="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
-                        xmlns:ns13="urn:oasis:names:tc:xacml:2.0:policy:schema:os"
-                        xmlns:ns7="http://www.w3.org/2005/08/addressing"
-                        xmlns:ns10="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"
-                        xmlns:ns8="http://docs.oasis-open.org/wsn/b-2"
-                        xmlns:ns20="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-                        xmlns:ns11="http://docs.oasis-open.org/wsrf/bf-2"
-                        xmlns:ns2="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
-                        xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-                        xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-                        xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+                                xmlns:ns2="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+                                xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+                            >
                         <MSH>
                             <MSH.1>| </MSH.1>
                             <MSH.2>^~\\ </MSH.2>

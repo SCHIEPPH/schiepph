@@ -1,8 +1,6 @@
 package org.cophm.validation;
 
-import com.sun.org.apache.xml.internal.utils.NameSpace;
 import org.apache.log4j.Logger;
-import org.cophm.util.Base64Coder;
 import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
 import org.cophm.util.PropertyAccessor;
@@ -11,9 +9,14 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 
 
 /**

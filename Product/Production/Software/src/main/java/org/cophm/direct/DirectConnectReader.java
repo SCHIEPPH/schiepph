@@ -1,11 +1,9 @@
 package org.cophm.direct;
 
-import com.sun.mail.imap.IMAPMessage;
 import com.sun.mail.imap.IMAPNestedMessage;
 import com.sun.mail.imap.IMAPStore;
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.log4j.Logger;
-import org.cophm.util.Base64Coder;
 import org.cophm.util.Constants;
 import org.cophm.util.EmailSender;
 import org.cophm.util.PropertyAccessException;
@@ -14,15 +12,16 @@ import org.cophm.validation.HL7Validator;
 import org.cophm.validation.HL7ValidatorException;
 import org.cophm.validation.Parser;
 import org.jdom.JDOMException;
-import sun.misc.BASE64Decoder;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.*;

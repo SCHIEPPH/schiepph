@@ -8,10 +8,11 @@ package org.cophm.util;
 
 import org.apache.log4j.Logger;
 
-import java.io.*;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Properties;
 
 
 public class PropertyAccessor

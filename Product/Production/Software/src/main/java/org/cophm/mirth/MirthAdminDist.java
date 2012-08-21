@@ -9,10 +9,9 @@ import com.mirth.connect.connectors.ws.AcceptMessage;
 import com.mirth.connect.connectors.ws.WebServiceMessageReceiver;
 import org.cophm.util.PropertyAccessException;
 import org.jdom.JDOMException;
-import org.mule.providers.AbstractMessageReceiver;
 
-import javax.jws.WebService;
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 import java.io.IOException;
 
 /**

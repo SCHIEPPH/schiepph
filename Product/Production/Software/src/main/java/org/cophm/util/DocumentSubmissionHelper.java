@@ -4,30 +4,24 @@
  */
 
 package org.cophm.util;
-import org.cophm.util.PropertyAccessor;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.util.ArrayList;
-import java.util.List;
 
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.*;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.Marshaller;
-import java.io.StringReader;
-import java.io.StringWriter;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

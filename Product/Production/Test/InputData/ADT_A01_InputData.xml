@@ -1,4 +1,4 @@
-<ADT_A01 xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:ns10="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns11="http://docs.oasis-open.org/wsn/t-1" xmlns:ns12="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns16="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns18="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns19="http://nhinc.services.com/schema/auditmessage" xmlns:ns2="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns20="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:ihe:iti:xds-b:2007" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns7="http://www.w3.org/2005/08/addressing" xmlns:ns8="http://docs.oasis-open.org/wsn/b-2" xmlns:ns9="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+<ADT_A01>
 <MSH>
 <MSH.1>|</MSH.1>
 <MSH.2>^~\&amp;</MSH.2>
