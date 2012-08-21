@@ -88,7 +88,6 @@
                 </dependency>
               </dependencies>
             </plugin>
-<!--
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-antrun-plugin</artifactId>
@@ -123,67 +122,6 @@
                 </dependency>
               </dependencies>
             </plugin>
--->
         </plugins>
     </build>
-    <dependencies>
-        <!--<dependency>-->
-          <!--<groupId>ca.uhn.hapi</groupId>-->
-          <!--<artifactId>hapi-base</artifactId>-->
-          <!--<version>1.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-          <!--<groupId>ca.uhn.hapi</groupId>-->
-          <!--<artifactId>hapi-structures-v231</artifactId>-->
-          <!--<version>1.2</version>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.0.5</version>
-        </dependency>
-        <dependency>
-            <groupId>jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.4</version>
-<!--
-              <exclusions>
-                  <exclusion>
-                      <groupId>xml-apis</groupId>
-                      <artifactId>xml-apis</artifactId>
-                  </exclusion>
-                  <exclusion>
-                      <groupId>org.apache.xerces</groupId>
-                      <artifactId>xml-apis</artifactId>
-                  </exclusion>
-              </exclusions>
--->
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.1.12</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>apache-xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.9.1</version>
-        </dependency>
-    </dependencies>
 </project>
