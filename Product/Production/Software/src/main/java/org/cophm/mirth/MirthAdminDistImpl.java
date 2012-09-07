@@ -5,12 +5,10 @@
 
 package org.cophm.mirth;
 
-import org.cophm.util.Constants;
-import org.cophm.util.PropertyAccessException;
-import org.cophm.util.PropertyAccessor;
-import org.cophm.util.XMLDefs;
+import org.cophm.util.*;
 import org.cophm.validation.ErrorSeverity;
 import org.cophm.validation.HL7Validator;
+import org.cophm.validation.HL7ValidatorException;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -39,13 +37,15 @@ public class MirthAdminDistImpl {
 
         PropertyAccessor.loadAdapterProperties("AdminDistributionSource.properties");
 
-        validator = new HL7Validator(PropertyAccessor.getProperty(Constants.ADMIN_DIST_HOLD_DIR_PROPERTY_NAME),
-                                     PropertyAccessor.getProperty(Constants.ADMIN_DIST_REPORT_DIR_PROPERTY_NAME),
-                                     PropertyAccessor.getProperty(Constants.ADMIN_DIST_VALIDATION_RULES_PROPERTY_NAME));
-
-        logger.error("Hold = " + PropertyAccessor.getProperty(Constants.ADMIN_DIST_HOLD_DIR_PROPERTY_NAME));
-        logger.error("Report = " + PropertyAccessor.getProperty(Constants.ADMIN_DIST_REPORT_DIR_PROPERTY_NAME));
-        logger.error("Rules = " + PropertyAccessor.getProperty(Constants.ADMIN_DIST_VALIDATION_RULES_PROPERTY_NAME));
+        try {
+            validator = new HL7Validator(PropertyAccessor.getProperty(Constants.ADMIN_DIST_HOLD_DIR_PROPERTY_NAME),
+                                         PropertyAccessor.getProperty(Constants.ADMIN_DIST_REPORT_DIR_PROPERTY_NAME),
+                                         PropertyAccessor.getProperty(Constants.ADMIN_DIST_VALIDATION_RULES_PROPERTY_NAME));
+        }
+        catch(HL7ValidatorException e) {
+            logger.error("Caught an HL7ValidatorException: " + e.toString());
+            return "";
+        }
 
         try
         {
@@ -57,8 +57,9 @@ public class MirthAdminDistImpl {
             StringReader    reader;
             StringWriter    writer = new StringWriter();
             List            alternateNamespace;
+            String          dataToValidate;
 
-            logger.error("MAD - 0");
+//            logger.error("MAD - 0");
 
             QName             qName = new QName("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter","RespondingGateway_SendAlertMessage");
             JAXBElement       element = new JAXBElement(qName,body.getClass(),body);
@@ -71,24 +72,39 @@ public class MirthAdminDistImpl {
             marshaller.marshal( element, writer);
             message = writer.toString();
 
-            logger.error("MAD - 1");
+            logger.error(message);
+
+//            logger.error("MAD - 1");
             reader = new StringReader(message);
             doc = builder.build(reader);
             root = doc.getRootElement();
             if(root == null) {
-                logger.error("MAD - 2");
+//                logger.error("MAD - 2");
                 return "";
             }
 
-            logger.error("MAD - 3");
+//            logger.error("MAD - 3");
             //
             // Walk through the Admin Distribution XML to get to the HL7 data.
+            //
+            // This is what the Admin Distribution XML looks like if the payload is in XML format.
             //  <RespondingGateway_SendAlertMessage>
             //      <EDXLDistribution>
             //          <contentObject>
             //              <xmlContent>
             //                  <embeddedXMLContent>
-            //                      <HL7Message>
+            //                      <HL7Message>      This is the "root" element of the transmitted data.
+            //
+            // This is what the Admin Distribution XML looks like if the payload is in HL7 (non-XML) format.
+            //  <RespondingGateway_SendAlertMessage>
+            //      <EDXLDistribution>
+            //          <contentObject>
+            //              <nonXMLContent>
+            //                  <mimeType>
+            //                  <size>
+            //                  <digest>
+            //                  <uri>
+            //                  <contentData>  Base 64 encoded data  </contentData>
             //
             alternateNamespace = root.getAdditionalNamespaces();
 
@@ -97,27 +113,41 @@ public class MirthAdminDistImpl {
                 currentElement = getChild(currentElement, XMLDefs.EDXL_DISTRIBUTION, alternateNamespace);
                 currentElement = getChild(currentElement, XMLDefs.CONTENT_OBJECT, alternateNamespace);
                 currentElement = getChild(currentElement, XMLDefs.XML_CONTENT, alternateNamespace);
-                currentElement = getChild(currentElement, XMLDefs.EMBEDDED_XML_CONTENT, alternateNamespace);
-                currentElement = getChild(currentElement, XMLDefs.HL7_MESSAGE, alternateNamespace);
+
+                if(currentElement == null) {
+                    currentElement = getChild(currentElement, XMLDefs.NON_XML_CONTENT, alternateNamespace);
+                    currentElement = getChild(currentElement, XMLDefs.CONTENT_DATA, alternateNamespace);
+
+                    dataToValidate = new String(Base64Coder.decode(currentElement.getText().trim()));
+                }
+                else {
+                    currentElement = getChild(currentElement, XMLDefs.EMBEDDED_XML_CONTENT, alternateNamespace);
+                    currentElement = getChild(currentElement, XMLDefs.HL7_MESSAGE, alternateNamespace);
+
+                    root.detach();
+                    currentElement.detach();
+
+                    doc.setRootElement(currentElement);
+
+                    xmlOutputter = new XMLOutputter();
+                    writer = new StringWriter();
+
+                    xmlOutputter.output(doc, writer);
+
+                    dataToValidate = writer.toString();
+                }
             }
             catch(JDOMException e) {
+                logger.error(e.getMessage());
                 return "";
             }
 
-            root.detach();
-            currentElement.detach();
-
-            doc.setRootElement(currentElement);
-
-            xmlOutputter = new XMLOutputter();
-            writer = new StringWriter();
-
-            xmlOutputter.output(doc, writer);
+//            logger.error("MAD - 4");
 
             logger.info(message);
 
 
-            validator.loadData(writer.toString());
+            validator.loadData(dataToValidate);
             validator.validateData();
         }
         catch(Exception ex)

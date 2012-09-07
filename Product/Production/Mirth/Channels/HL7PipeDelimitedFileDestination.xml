@@ -3,12 +3,12 @@
   <name>HL7PipeDelimitedFileDestination</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.1.1.5490</version>
+  <version>2.2.1.5861</version>
   <lastModified>
-    <time>1328710755124</time>
-    <timezone>US/Eastern</timezone>
+    <time>1345818589886</time>
+    <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>5</revision>
+  <revision>4</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -16,7 +16,28 @@
       <property name="responseValue">None</property>
     </properties>
     <transformer>
-      <steps/>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>Get_hl7_message_id</name>
+          <script>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
+
+validator.loadData(msg);
+
+globalChannelMap.put(&apos;hl7_message_id&apos;, validator.getMessageId());</script>
+          <type>JavaScript</type>
+          <data class="map">
+            <entry>
+              <string>Script</string>
+              <string>var validator = new Packages.org.cophm.validation.HL7Validator(null, null, &apos;SyndromicDataValidations.xml&apos;);
+
+validator.loadData(msg);
+
+globalChannelMap.put(&apos;hl7_message_id&apos;, validator.getMessageId());</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
       <inboundTemplate encoding="base64"></inboundTemplate>
       <outboundTemplate encoding="base64"></outboundTemplate>
       <inboundProtocol>XML</inboundProtocol>
@@ -39,7 +60,7 @@
     <transportName>Channel Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.1.1.5490</version>
+    <version>2.2.1.5861</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
@@ -49,14 +70,16 @@
         <property name="FTPAnonymous">1</property>
         <property name="binary">0</property>
         <property name="charsetEncoding">DEFAULT_ENCODING</property>
+        <property name="errorOnExists">0</property>
         <property name="host">${hl7_pipe_delimited_file_dest_output_dir}</property>
         <property name="outputAppend">0</property>
-        <property name="outputPattern">${hl7_pipe_delimited_file_dest_name_prefix}${UUID}.hl7</property>
+        <property name="outputPattern">${hl7_pipe_delimited_file_dest_name_prefix}${hl7_message_id}_${date.get(&apos;yyyy-M-d_H.m.s&apos;)}.hl7</property>
         <property name="passive">1</property>
         <property name="password">anonymous</property>
         <property name="scheme">file</property>
         <property name="secure">1</property>
         <property name="template">${message.encodedData}</property>
+        <property name="temporary">0</property>
         <property name="timeout">10000</property>
         <property name="username">anonymous</property>
         <property name="validateConnections">1</property>
@@ -88,7 +111,7 @@
       <transportName>File Writer</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.1.1.5490</version>
+      <version>2.2.1.5861</version>
     </connector>
   </destinationConnectors>
   <properties>

@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
 import org.cophm.util.PropertyAccessor;
+import org.cophm.util.XMLDefs;
+import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -12,11 +14,9 @@ import org.jdom.input.SAXBuilder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 
 /**
@@ -34,7 +34,7 @@ public class HL7Validator {
     private HashMap<String, String>                     errorCodeMap = new HashMap<String, String>();
     private ArrayList<ValidationResult>                 validationResultsList = new ArrayList<ValidationResult>();
 
-    private org.cophm.validation.ErrorSeverity      maxErrorSeverity = org.cophm.validation.ErrorSeverity.NONE;
+    private ErrorSeverity     maxErrorSeverity = ErrorSeverity.NONE;
 
     private String      hl7VersionNumber = "unset";
     private String      hl7MessageId = "unset";
@@ -47,8 +47,11 @@ public class HL7Validator {
 
     private String      inputData;
 
-    private IDataParser                 dataParser;
-    private HashMap<String, Element>    validationFieldCache = new HashMap<String, Element>();
+    private IDataParser                   dataParser;
+    private HashMap<String, Element>      validationFieldByNameCache = new HashMap<String, Element>();
+    private HashMap<Integer, Element>     validationFieldByIdCache = new HashMap<Integer, Element>();
+
+    private String[]    allDateFormats = new String[0];
 
 
     public HL7Validator(String  _holdDirectory, String  _reportDirectory) {
@@ -57,7 +60,7 @@ public class HL7Validator {
     }
 
     public HL7Validator(String  _holdDirectory, String  _reportDirectory, String  _validationRules)
-            throws JDOMException, IOException, PropertyAccessException {
+            throws JDOMException, IOException, PropertyAccessException, HL7ValidatorException {
         String      fullyQualifiedFileName;
 
         holdDirectory = _holdDirectory;
@@ -70,60 +73,92 @@ public class HL7Validator {
     }
 
     public void loadValidationRules(String  fileName)
-            throws JDOMException, IOException, PropertyAccessException {
+            throws JDOMException, IOException, PropertyAccessException, HL7ValidatorException {
         SAXBuilder      builder = new SAXBuilder();
         Iterator        errorMessageIterator;
         Iterator        errorCodeIterator;
+        Iterator        validDateIterator;
+        Element         dateFormatsElement;
+        List            dateFormatsList;
         Iterator        fieldIterator;
+        Integer         fieldId;
+        int             adfIndex;
 
         validationRules = builder.build(new File(fileName));
 
         rootElement = validationRules.getRootElement();
 
-        errorMessageIterator = rootElement.getChild(Constants.ERROR_MESSAGES,
-                                                       rootElement.getNamespace()).getChildren(Constants.ERROR_MESSAGE,
+        errorMessageIterator = rootElement.getChild(XMLDefs.ERROR_MESSAGES,
+                                                       rootElement.getNamespace()).getChildren(XMLDefs.ERROR_MESSAGE,
                                                        rootElement.getNamespace()).iterator();
 
-        errorCodeIterator = rootElement.getChild(Constants.ERROR_CODES,
-                                                       rootElement.getNamespace()).getChildren(Constants.ERROR_CODE,
+        errorCodeIterator = rootElement.getChild(XMLDefs.ERROR_CODES,
+                                                       rootElement.getNamespace()).getChildren(XMLDefs.ERROR_CODE,
                                                        rootElement.getNamespace()).iterator();
 
         validationResultsList.clear();
         errorMessageMap.clear();
         errorCodeMap.clear();
-        maxErrorSeverity = org.cophm.validation.ErrorSeverity.NONE;
+        maxErrorSeverity = ErrorSeverity.NONE;
 
         while(errorMessageIterator.hasNext()) {
             Element       message = (Element)errorMessageIterator.next();
 
-            errorMessageMap.put(message.getAttributeValue(Constants.ID, message.getNamespace()),
+            errorMessageMap.put(message.getAttributeValue(XMLDefs.ID, message.getNamespace()),
                                 new ErrorMessageContainer(message));
         }
 
         while(errorCodeIterator.hasNext()) {
             Element       errorCode = (Element)errorCodeIterator.next();
 
-            errorCodeMap.put(errorCode.getAttributeValue(Constants.ID, errorCode.getNamespace()),
+            errorCodeMap.put(errorCode.getAttributeValue(XMLDefs.ID, errorCode.getNamespace()),
                                 errorCode.getText());
         }
 
         //
-        // Cache the validation fields so we can use tat data to quickly get the value
+        // Cache the validation fields so we can use that data to quickly get the value
         // of a field.
         //
-        validationFieldCache.clear();
-        fieldIterator = rootElement.getChild(Constants.FIELDS, rootElement.getNamespace())
-                .getChildren(Constants.FIELD, rootElement.getNamespace()).iterator();
+        validationFieldByNameCache.clear();
+        fieldIterator = rootElement.getChild(XMLDefs.FIELDS, rootElement.getNamespace())
+                .getChildren(XMLDefs.FIELD, rootElement.getNamespace()).iterator();
         while(fieldIterator.hasNext()) {
             Element       fieldElement = (Element)fieldIterator.next();
 
-            validationFieldCache.put(fieldElement.getChildText(Constants.NAME, fieldElement.getNamespace()),
+            validationFieldByNameCache.put(fieldElement.getChildText(XMLDefs.NAME, fieldElement.getNamespace()),
                                      fieldElement);
+            fieldId = new Integer(fieldElement.getAttributeValue(XMLDefs.ID, fieldElement.getNamespace()));
+            if(validationFieldByIdCache.containsKey(fieldId)) {
+                throw new HL7ValidatorException("Duplicate field id attribute [" + fieldId.toString() +
+                                                        "] found in " + fileName + ".");
+            }
+            validationFieldByIdCache.put(fieldId, fieldElement);
+        }
+
+        //
+        // Load the valid date formats.
+        //
+        dateFormatsElement = rootElement.getChild(XMLDefs.DATE_FORMATS, rootElement.getNamespace());
+        if(dateFormatsElement != null) {
+            dateFormatsList = dateFormatsElement.getChildren(XMLDefs.FORMAT,
+                                                             dateFormatsElement.getNamespace());
+            allDateFormats = new String[dateFormatsList.size()];
+            validDateIterator = dateFormatsList.iterator();
+            adfIndex = 0;
+            while(validDateIterator.hasNext()) {
+                Element       dateFormat = (Element)validDateIterator.next();
+
+                allDateFormats[adfIndex++] = dateFormat.getText().trim();
+            }
         }
     }
 
 
-    public org.cophm.validation.ErrorSeverity getMaxErrorSeverity() {
+    public ErrorSeverity setMaxErrorSeverity(ErrorSeverity  severity) {
+        return maxErrorSeverity = severity;
+    }
+
+    public ErrorSeverity getMaxErrorSeverity() {
         return maxErrorSeverity;
     }
 
@@ -160,7 +195,7 @@ public class HL7Validator {
         inputData = _inputData;
 
         validationResultsList.clear();
-        maxErrorSeverity = org.cophm.validation.ErrorSeverity.NONE;
+        maxErrorSeverity = ErrorSeverity.NONE;
 
         dataParser = Parser.getParser(inputData);
 
@@ -179,17 +214,32 @@ public class HL7Validator {
 
     public String  getFieldValueByName(String  fieldName)
             throws HL7ValidatorException {
-        Element     fieldElement;
-        Element     location;
+        Element       fieldElement;
+        List          locationList;
 
-        fieldElement = validationFieldCache.get(fieldName);
+        fieldElement = validationFieldByNameCache.get(fieldName);
         if(fieldElement == null) {
             return "";
         }
 
-        location = getLocationElement(fieldElement);
+        locationList = getLocationElement(fieldElement);
 
-        return dataParser.getFieldValue(location);
+        return dataParser.getFieldValue(locationList);
+    }
+
+    public String  getFieldValueById(Integer  fieldId)
+            throws HL7ValidatorException {
+        Element       fieldElement;
+        List          locationList;
+
+        fieldElement = validationFieldByIdCache.get(fieldId);
+        if(fieldElement == null) {
+            return "";
+        }
+
+        locationList = getLocationElement(fieldElement);
+
+        return dataParser.getFieldValue(locationList);
     }
 
     public boolean validateData()
@@ -203,37 +253,30 @@ public class HL7Validator {
         boolean     messageTypeIsValid = false;
         Date        reportDate = new Date();
 
-        log.error("V - 1");
-        validVersionElement = rootElement.getChild(Constants.VALID_HL7_VERSIONS, rootElement.getNamespace());
-        validMessageTypeElement = rootElement.getChild(Constants.SUPPORTED_ADT_MESSAGES, rootElement.getNamespace());
+        validVersionElement = rootElement.getChild(XMLDefs.VALID_HL7_VERSIONS, rootElement.getNamespace());
+        validMessageTypeElement = rootElement.getChild(XMLDefs.SUPPORTED_ADT_MESSAGES, rootElement.getNamespace());
 
-        log.error("V - 2");
-        versionNumberIterator = validVersionElement.getChildren(Constants.VERSION, validVersionElement.getNamespace()).iterator();
+        versionNumberIterator = validVersionElement.getChildren(XMLDefs.VERSION, validVersionElement.getNamespace()).iterator();
         while(versionNumberIterator.hasNext()) {
             Element       version = (Element)versionNumberIterator.next();
 
-            log.error("V - 3");
             if(hl7VersionNumber.equalsIgnoreCase(version.getTextTrim())) {
-                log.error("V - 1");
                 versionIsValid = true;
                 break;
             }
         }
 
-        log.error("V - 4");
         if(versionIsValid == false) {
-            log.error("V - 5");
             captureError(validVersionElement,
-                         validVersionElement.getChildText(Constants.NAME, validVersionElement.getNamespace()),
-                         hl7VersionNumber);
+                         validVersionElement.getChildText(XMLDefs.NAME, validVersionElement.getNamespace()),
+                         hl7VersionNumber,      null);
             saveData(reportDate, inputData);
             saveReport(reportDate);
 
             return false;
         }
-        log.error("V - 6");
 
-        messageTypeIterator = validMessageTypeElement.getChildren(Constants.ADT_MESSAGE, validVersionElement.getNamespace()).iterator();
+        messageTypeIterator = validMessageTypeElement.getChildren(XMLDefs.ADT_MESSAGE, validVersionElement.getNamespace()).iterator();
         while(messageTypeIterator.hasNext()) {
             Element       messageType = (Element)messageTypeIterator.next();
 
@@ -245,21 +288,21 @@ public class HL7Validator {
 
         if(messageTypeIsValid == false) {
             captureError(validMessageTypeElement,
-                         validMessageTypeElement.getChildText(Constants.NAME, validMessageTypeElement.getNamespace()),
-                         hl7MessageType);
+                         validMessageTypeElement.getChildText(XMLDefs.NAME, validMessageTypeElement.getNamespace()),
+                         hl7MessageType,    null);
             saveData(reportDate, inputData);
             saveReport(reportDate);
 
             return false;
         }
 
-        fieldsElement = rootElement.getChild(Constants.FIELDS, rootElement.getNamespace());
+        fieldsElement = rootElement.getChild(XMLDefs.FIELDS, rootElement.getNamespace());
         validateFieldData(fieldsElement);
 
         saveReport(reportDate);
 
         if(maxErrorSeverity.ordinal()
-                <= org.cophm.validation.ErrorSeverity.REPORT.ordinal()) {
+                <= ErrorSeverity.REPORT.ordinal()) {
             return true;
         }
         else {
@@ -273,26 +316,18 @@ public class HL7Validator {
         FileOutputStream    output;
         SimpleDateFormat    df = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss-SSS");
 
-        log.error("D - 1");
         if(holdDirectory != null) {
-            log.error("D - 2");
             file = new File(holdDirectory);
             file.mkdirs();
 
-            log.error("D - 3");
             file = new File(holdDirectory + File.separatorChar
                                     + Constants.DATA_PREFIX + hl7MessageId + "_"
                                     + df.format(reportDate)
                                     + (Parser.inputIsXML(data) ? Constants.XML_DATA_POSTFIX : Constants.PIPE_DELIMITED_DATA_POSTFIX));
 
-            log.error("D - 4");
-
             output = new FileOutputStream(file);
-            log.error("D - 5");
             output.write(data.getBytes());
-            log.error("D - 6");
             output.close();
-            log.error("D - 7");
         }
 
         return;
@@ -306,37 +341,29 @@ public class HL7Validator {
         Iterator            messageIterator;
         String              reportHeader;
 
-        log.error("R - 1");
         if(reportDirectory != null && validationResultsList.size() > 0) {
-            log.error("R - 2");
             file = new File(reportDirectory);
             file.mkdirs();
 
-            log.error("R - 3");
             file = new File(reportDirectory + File.separatorChar
                                     + Constants.REPORT_PREFIX + hl7MessageId + "_" +
                                     df.format(reportDate) + Constants.REPORT_POSTFIX);
 
 
-            log.error("R - 4");
             output = new FileOutputStream(file);
 
-            log.error("R - 5");
             reportHeader = "The following Warnings and Errors were found while validating message "
                     + hl7MessageId + " on " + dfDisplay.format(reportDate) + ":\n";
             output.write(reportHeader.getBytes());
 
-            log.error("R - 6");
             messageIterator = getErrorMessages().iterator();
             while(messageIterator.hasNext()) {
                 String      msg = (String)messageIterator.next();
 
-                log.error("R - 7");
                 output.write(msg.getBytes());
                 output.write("\n".getBytes());
             }
             output.close();
-            log.error("R - 8");
         }
 
         return;
@@ -346,37 +373,480 @@ public class HL7Validator {
             throws HL7ValidatorException {
         Iterator    fieldIterator;
 
-        fieldIterator = fieldsElement.getChildren(Constants.FIELD, fieldsElement.getNamespace()).iterator();
+        fieldIterator = fieldsElement.getChildren(XMLDefs.FIELD, fieldsElement.getNamespace()).iterator();
         while(fieldIterator.hasNext()) {
             Element       field = (Element)fieldIterator.next();
-            String        fieldValue = null;
 
-            fieldValue = dataParser.getFieldValue(getLocationElement(field));
-            validateFieldUsage(fieldValue,
-                               field.getChild(Constants.VALIDATIONS,
-                                              fieldsElement.getNamespace())
-                                       .getChild(Constants.USAGE,
-                                                 fieldsElement.getNamespace()),
-                               field.getChildText(Constants.NAME, field.getNamespace()));
+            validateField(field);
         }
     }
 
-    private void validateFieldUsage(String  value, Element usageElement, String  name) {
-        Usage     usage;
+    private void validateField(Element  field)
+            throws HL7ValidatorException {
+        Element       usageElement;
+        Usage         usage;
+        String        fieldName;
+        Element       validations;
+        String        fieldValue = null;
+
+        fieldName = field.getChildText(XMLDefs.NAME, field.getNamespace());
+        fieldValue = dataParser.getFieldValue(getLocationElement(field));
+        validations = field.getChild(XMLDefs.VALIDATIONS, field.getNamespace());
+        if(validations == null) {
+            throw new HL7ValidatorException("Field definition for " + fieldName + " does not have a " +
+                                                    XMLDefs.VALIDATIONS + " element.");
+        }
+
+        usageElement = validations.getChild(XMLDefs.USAGE, field.getNamespace());
+
+        if(usageElement != null) {
+            usage = getUsage(usageElement);
+        }
+        else {
+            usage = Usage.Optional;
+        }
+
+        validateFieldUsage(fieldValue, usageElement, fieldName, usage);
+
+        validateFieldValue(fieldValue, validations.getChild(XMLDefs.VALUE_LIST, field.getNamespace()),
+                           fieldName, usage);
+
+        validateFieldDataType(fieldValue, validations.getChild(XMLDefs.DATA_TYPE, field.getNamespace()),
+                              fieldName, usage);
+
+        validateFieldRequiresFieldValue(fieldValue, validations.getChild(XMLDefs.REQUIRES, field.getNamespace()),
+                                        fieldName, usage);
+
+        validateFieldRequiresConditionalField(fieldValue,
+                                              validations.getChild(XMLDefs.REQUIRES, field.getNamespace()),
+                                              fieldName, usage);
+
+    }
+
+    private void validateFieldRequiresConditionalField(String fieldValue, Element requiresElement, String fieldName, Usage usage)
+            throws HL7ValidatorException {
+        List            conditionalFieldList;
+        Iterator        conditionalFieldIterator;
+        Element         validationRulesFieldElement;
+        Element         validationRulesFieldElementClone;
+        Element         validationsElement = null;
+        Element         usageElement = null;
+        String          mustExistStr;
+        boolean         mustExist;
+        boolean         foundConditionalField = false;
 
 
-        usage = getUsage(usageElement);
+        if(fieldValue.trim().length() == 0) {
+            //
+            // If the field is not present, then it cannot require anything else.
+            //
+            return;
+        }
+
+        //
+        // If the requires element is not present, then there is nothing to check.
+        //
+        if(requiresElement == null) {
+            return;
+        }
+
+        conditionalFieldList = requiresElement.getChildren(XMLDefs.CONDITIONAL_FIELD_ID,
+                                                               requiresElement.getNamespace());
+
+        conditionalFieldIterator = conditionalFieldList.iterator();
+        while(conditionalFieldIterator.hasNext()) {
+            Element conditionalFieldIdElement = (Element)conditionalFieldIterator.next();
+
+            mustExistStr = conditionalFieldIdElement.getAttributeValue(XMLDefs.MUST_EXIST, conditionalFieldIdElement
+                                .getNamespace(), "true");
+            mustExist = Boolean.parseBoolean(mustExistStr);
+
+            validationRulesFieldElement = validationFieldByIdCache.get(new Integer(conditionalFieldIdElement.getText()));
+            if(validationRulesFieldElement == null) {
+                if(mustExist) {
+                    captureError(requiresElement, fieldName, "FieldId = " + conditionalFieldIdElement.getText(), usage);
+                }
+            }
+            else {
+                foundConditionalField = true;
+
+                //
+                // Conditional fields are not validated by default, so we need to clone the validation rule field element
+                // and change the Usage from conditional to required.  Allow for the condition where the validations
+                // element or the usage element are missing.
+                //
+                validationsElement = validationRulesFieldElement.getChild(XMLDefs.VALIDATIONS, validationRulesFieldElement
+                                        .getNamespace());
+                if(validationsElement != null) {
+                    usageElement = validationsElement.getChild(XMLDefs.USAGE, validationsElement
+                                                .getNamespace());
+                }
+
+                validationRulesFieldElementClone = (Element)validationRulesFieldElement.clone();
+                validationsElement = validationRulesFieldElementClone.getChild(XMLDefs.VALIDATIONS,
+                                                                               validationRulesFieldElementClone
+                                                                                       .getNamespace());
+                if(validationsElement != null) {
+                    usageElement = validationsElement.getChild(XMLDefs.USAGE, validationsElement
+                                                .getNamespace());
+                    if(usageElement != null) {
+                        usageElement.removeAttribute(XMLDefs.SEVERITY);
+                        usageElement.setAttribute(XMLDefs.SEVERITY, ErrorSeverity.HOLD.name());
+                        usageElement.setText(Usage.Required.name());
+                    }
+                    else {
+                        addRequiredUsageElement(validationsElement);
+                    }
+                }
+                else {
+                    validationsElement = new Element(XMLDefs.VALIDATIONS);
+                    validationRulesFieldElementClone.addContent(validationsElement);
+
+                    addRequiredUsageElement(validationsElement);
+                }
+
+                validateField(validationRulesFieldElementClone);
+            }
+        }
+
+        if(conditionalFieldList.size() > 0 && foundConditionalField == false) {
+            captureError(requiresElement, fieldName, "", usage, " Conditionally required field(s) not found.");
+        }
+    }
+
+    private void addRequiredUsageElement(Element validationsElement) {
+        Element     usageElement;
+
+        usageElement = new Element(XMLDefs.USAGE);
+        usageElement.setAttribute(XMLDefs.SEVERITY, ErrorSeverity.HOLD.name());
+        usageElement.setAttribute(XMLDefs.ERROR_CODE_ID, "1");
+        usageElement.setAttribute(XMLDefs.ERROR_MESSAGE_ID, "1");
+        usageElement.setText(Usage.Required.name());
+
+        validationsElement.addContent(usageElement);
+    }
+
+    private void validateFieldRequiresFieldValue(String fieldValue, Element requiresElement,
+                                                 String fieldName, Usage usage)
+            throws HL7ValidatorException {
+        Iterator    fieldValueIterator;
+
+
+        //
+        // If the field is not present, then it cannot require anything else.
+        //
+        if(fieldValue.trim().length() == 0) {
+            return;
+        }
+
+        //
+        // If the requires element is not present, then there is nothing to check.
+        //
+        if(requiresElement == null) {
+            return;
+        }
+        //
+        // Process all field value elements that we find.
+        //
+        fieldValueIterator = requiresElement.getChildren(XMLDefs.FIELD_VALUE,
+                                                         requiresElement.getNamespace()).iterator();
+
+        while(fieldValueIterator.hasNext()) {
+            Element                 fieldValueElement = (Element)fieldValueIterator.next();
+            Element                 fieldRuleElement;
+            Iterator                locationElementIterator;
+            Element                 locationElementClone;
+            ArrayList<Element>      locationElementList = new ArrayList<Element>();
+            Element                 hl7SegmentElement;
+            Element                 identifierElement;
+            String                  requiredFieldValue;
+            String                  fieldNumberStr;
+            String                  valueToCheck;
+            String                  mustMatchStr;
+            boolean                 mustMatch;
+            String                  caseSensitiveStr;
+            boolean                 caseSensitive;
+
+
+            requiredFieldValue = fieldValueElement.getText();
+            fieldNumberStr = fieldValueElement.getAttributeValue(XMLDefs.FIELD_NUMBER,
+                                                                 fieldValueElement.getNamespace(), "");
+
+            mustMatchStr = fieldValueElement.getAttributeValue(XMLDefs.MUST_MATCH,
+                                                               fieldValueElement.getNamespace(), "false");
+            mustMatch = Boolean.getBoolean(mustMatchStr);
+
+            caseSensitiveStr = fieldValueElement.getAttributeValue(XMLDefs.CASE_SENSITIVE,
+                                                                 fieldValueElement.getNamespace(), "false");
+            caseSensitive = Boolean.getBoolean(caseSensitiveStr);
+
+            fieldRuleElement = (Element)requiresElement.getParent().getParent();
+
+            locationElementIterator = getLocationElement(fieldRuleElement).iterator();
+            while(locationElementIterator.hasNext()) {
+                Element       locationElement = (Element)locationElementIterator.next();
+
+                locationElementList.add(locationElement);
+                if(dataParser.getFieldValue(locationElementList).length() == 0) {
+                    locationElementList.clear();
+                    continue;
+                }
+
+                locationElementClone = (Element)locationElement.clone();
+                identifierElement = locationElementClone.getChild(XMLDefs.IDENTIFIER, locationElement.getNamespace());
+                hl7SegmentElement = locationElementClone.getChild(XMLDefs.HL7_SEGMENT, locationElement.getNamespace());
+                hl7SegmentElement.removeAttribute(XMLDefs.FIELD_NUMBER);
+                hl7SegmentElement.setAttribute(XMLDefs.FIELD_NUMBER, fieldNumberStr);
+                locationElementClone.removeContent();
+                locationElementClone.addContent((Content)hl7SegmentElement);
+                locationElementClone.addContent((Content)identifierElement);
+
+                locationElementList.clear();
+                locationElementList.add(locationElementClone);
+            }
+
+            valueToCheck = dataParser.getFieldValue(locationElementList);
+
+            if(caseSensitive) {
+                if(valueToCheck.equals(requiredFieldValue) == false) {
+                    if(mustMatch) {
+                        captureError(requiresElement, fieldName, valueToCheck, usage);
+                    }
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                if(valueToCheck.equalsIgnoreCase(requiredFieldValue) == false) {
+                    if(mustMatch) {
+                        captureError(requiresElement, fieldName, valueToCheck, usage);
+                    }
+                }
+                else {
+                    return;
+                }
+            }
+        }
+
+        captureError(requiresElement, fieldName, "", usage);
+
+        return;
+    }
+
+    protected void validateFieldDataType(String fieldValue, Element dataTypeElement, String fieldName, Usage  usage) {
+        DataType    dataType;
+        String      format;
+        String      specialCharactersStr;
+        char[]      specialCharacters = new char[0];
+        int         minimumLength;
+        int         maximumLength;
+
+        if(dataTypeElement == null) {
+            return;
+        }
+
+        minimumLength = Integer.parseInt(dataTypeElement.getAttributeValue(XMLDefs.MINIMUM_LENGTH,
+                                                                           dataTypeElement.getNamespace(), "-1"));
+
+        maximumLength = Integer.parseInt(dataTypeElement.getAttributeValue(XMLDefs.MAXIMUM_LENGTH,
+                                                                           dataTypeElement.getNamespace(), "-1"));
+
+        specialCharactersStr = dataTypeElement.getAttributeValue(XMLDefs.SPECIAL_CHARACTERS, dataTypeElement.getNamespace());
+        if(specialCharactersStr != null) {
+            specialCharacters = specialCharactersStr.toCharArray();
+        }
+
+        format = dataTypeElement.getAttributeValue(XMLDefs.FORMAT, dataTypeElement.getNamespace());
+
+        dataType = getDataType(dataTypeElement);
+
+        if(checkDataLength(fieldValue, minimumLength, maximumLength) == false) {
+            ErrorMessageContainer     container;
+
+            container = errorMessageMap.get(dataTypeElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
+
+            captureError(getErrorCode(dataTypeElement), container.getMessage() + " (invalid length)",
+                         fieldName, getSeverity(dataTypeElement));
+            return;
+        }
+
+        switch(dataType) {
+            case Alpha:
+                if(dataIsAlphabetic(fieldValue, specialCharacters) == false) {
+                    captureError(dataTypeElement, fieldName, fieldValue, usage);
+                }
+                break;
+            case Numeric:
+                if(dataIsNumeric(fieldValue, specialCharacters) == false) {
+                    captureError(dataTypeElement, fieldName, fieldValue, usage);
+                }
+                break;
+            case Date:
+                try {
+                    if(dataIsDate(fieldValue, format) == false) {
+                        captureError(dataTypeElement, fieldName, fieldValue, usage);
+                    }
+                }
+                catch(IllegalArgumentException e) {
+                    captureError(dataTypeElement, fieldName, fieldValue, usage, " Invalid date format " + format);
+                }
+                break;
+            case AlphaNumeric:
+                if(dataIsAlphNumeric(fieldValue, specialCharacters) == false) {
+                    captureError(dataTypeElement, fieldName, fieldValue, usage);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean dataIsDate(String fieldValue, String format) {
+        SimpleDateFormat    df = new SimpleDateFormat();
+        Date                result;
+
+        df.setLenient(false);
+
+        if(format != null && format.length() > 0) {
+            df.applyPattern(format);
+            try {
+                df.parse(fieldValue);
+                return true;
+            }
+            catch(ParseException e) {
+                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
+            }
+        }
+        else {
+            for(int  x = 0; x < allDateFormats.length; x++) {
+                df.applyPattern(allDateFormats[x]);
+                try {
+                    df.parse(fieldValue);
+                    return true;
+                }
+                catch(ParseException e) {
+                    //
+                    // Data did not conform to the supplied pattern, so try the next one.
+                    //
+                    continue;
+                }
+            }
+        }
+
+        //
+        // The data didn't conform to the format that was passed in or, if no format was passed in
+        // it didn't conform to the set of allowable date formats.
+        //
+        return false;
+    }
+
+    private boolean dataIsAlphNumeric(String fieldValue, char[] specialCharacters) {
+        char[]      fieldValueChar = new char[0];
+
+        if(fieldValue == null || fieldValue.length() == 0) {
+            return false;
+        }
+
+        fieldValueChar = fieldValue.toCharArray();
+        for(int  x = 0; x < fieldValueChar.length; x++) {
+            if(Character.isLetterOrDigit(fieldValueChar[x]) == false) {
+                if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+    }
+
+    private boolean dataIsNumeric(String fieldValue, char[] specialCharacters) {
+        char[]      fieldValueChar = new char[0];
+
+        if(fieldValue == null || fieldValue.length() == 0) {
+            return false;
+        }
+
+        fieldValueChar = fieldValue.toCharArray();
+        for(int  x = 0; x < fieldValueChar.length; x++) {
+            if(Character.isDigit(fieldValueChar[x]) == false) {
+                if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean dataIsAlphabetic(String fieldValue, char[] specialCharacters) {
+        char[]      fieldValueChar = new char[0];
+
+        if(fieldValue == null || fieldValue.length() == 0) {
+            return false;
+        }
+
+        fieldValueChar = fieldValue.toCharArray();
+        for(int  x = 0; x < fieldValueChar.length; x++) {
+            if(Character.isLetter(fieldValueChar[x]) == false) {
+                if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isSpecialCharacter(char ch, char[] specialCharacters) {
+
+        for(int  x = 0; x < specialCharacters.length; x++) {
+            if(ch == specialCharacters[x]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean checkDataLength(String fieldValue, int minimumLength, int maximumLength) {
+        int       fieldLength;
+
+        fieldLength = fieldValue.length();
+
+        if(minimumLength > -1) {
+            if(fieldLength < minimumLength) {
+                return false;
+            }
+        }
+
+        if(maximumLength > -1) {
+            if(fieldLength > maximumLength) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void validateFieldUsage(String  value, Element usageElement, String  name, Usage  usage) {
 
         if(value == null) {
-            if(usage.ordinal() == Usage.Optional.ordinal()) {
+            if(usage.ordinal() == Usage.Optional.ordinal() ||
+                    usage.ordinal() == Usage.Conditional.ordinal() ||
+                    usage.ordinal() == Usage.ConditionalEmpty.ordinal()) {
                 //
-                // Missing Optional fields are not an error;
+                // Missing Optional fields are not an error.
+                // Neither are missing Conditional or Conditional Empty fields.
+                // Note that Conditional fields are checked when the field that
+                // requires them are checked.
                 //
                 return;
             }
             if(usage.ordinal() == Usage.Required.ordinal() ||
                     usage.ordinal() == Usage.RequiredEmpty.ordinal()) {
-                captureError(usageElement, name, null);
+                captureError(usageElement, name, null, usage);
                 return;
             }
         }
@@ -384,44 +854,105 @@ public class HL7Validator {
             if(value.trim().length() == 0) {
                 if(usage.ordinal() == Usage.Required.ordinal() ||
                     usage.ordinal() == Usage.RequiredEmpty.ordinal()) {
-                    captureError(usageElement, name, null);
+                    captureError(usageElement, name, null, usage);
                     return;
                 }
             }
         }
     }
 
-    private Element getLocationElement(Element fieldElement)
-            throws HL7ValidatorException {
-        Iterator    locationIterator;
+    protected void validateFieldValue(String  value, Element  validValues, String  name, Usage  usage) {
+        Iterator    validValueIterator;
+        String      caseSensitiveStr;
+        boolean     caseSensitive;
 
-        locationIterator = fieldElement.getChildren(Constants.LOCATION, fieldElement.getNamespace()).iterator();
-        while(locationIterator.hasNext()) {
-            Element       location = (Element)locationIterator.next();
+        //
+        // If there is no valid values list, then any value is valid.
+        //
+        if(validValues == null) {
+            return;
+        }
 
-            if(location.getAttributeValue(Constants.VERSION,
-                                     location.getNamespace()).toString().equals(hl7VersionNumber)) {
-                return location;
+        caseSensitiveStr = validValues.getAttributeValue(XMLDefs.CASE_SENSITIVE, validValues.getNamespace());
+        if(caseSensitiveStr == null ||  caseSensitiveStr.equalsIgnoreCase("false")) {
+            caseSensitive = false;
+        }
+        else {
+            caseSensitive = true;
+        }
+
+        validValueIterator = validValues.getChildren(XMLDefs.VALUE, validValues.getNamespace()).iterator();
+        while(validValueIterator.hasNext()) {
+            Element       validValueElement = (Element)validValueIterator.next();
+            String        validValue;
+
+            validValue = validValueElement.getText();
+            if(caseSensitive) {
+                if(validValue.equals(value)) {
+                    return;
+                }
+            }
+            else {
+                if(validValue.equalsIgnoreCase(value)) {
+                    return;
+                }
             }
         }
 
-        throw new HL7ValidatorException("Could not find a location element for " +
-                                        fieldElement.getChildText(Constants.NAME, fieldElement.getNamespace()) +
-                                        ".  HL7       version = " + hl7VersionNumber);
+        //
+        // If we got here, we didn't match one of the valid values.
+        //
+        captureError(validValues, name, null, usage);
+
+        return;
     }
 
-    private void captureError(Element validationElement, String fieldName, String fieldValue) {
+    private List getLocationElement(Element fieldElement)
+            throws HL7ValidatorException {
+        Iterator                locationIterator;
+        ArrayList<Element>      locations = new ArrayList<Element>();
+
+        locationIterator = fieldElement.getChildren(XMLDefs.LOCATION, fieldElement.getNamespace()).iterator();
+        while(locationIterator.hasNext()) {
+            Element       location = (Element)locationIterator.next();
+
+            if(location.getAttributeValue(XMLDefs.VERSION,
+                                     location.getNamespace()).toString().equals(hl7VersionNumber)) {
+                locations.add(location);
+            }
+        }
+
+        if(locations.size() == 0) {
+            throw new HL7ValidatorException("Could not find a location element for " +
+                                            fieldElement.getChildText(XMLDefs.NAME, fieldElement.getNamespace()) +
+                                            ".  HL7       version = " + hl7VersionNumber);
+        }
+        else {
+            return locations;
+        }
+    }
+
+    private void captureError(Element validationElement, String fieldName, String fieldValue, Usage  usage) {
+        captureError(validationElement, fieldName, fieldValue, usage, null);
+    }
+
+    private void captureError(Element validationElement, String fieldName, String fieldValue, Usage  usage,
+                              String  additionalMessageDetail) {
         ErrorSeverity             severity;
         ErrorMessageContainer     container;
 
+        if(usageIsOptionalOrConditional(usage)) {
+            return;
+        }
+
         severity = getSeverity(validationElement);
 
-        container = errorMessageMap.get(validationElement.getAttributeValue(Constants.ERROR_MESSAGE_ID));
+        container = errorMessageMap.get(validationElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
 
         ValidationResult    vr = new ValidationResult(getErrorCode(validationElement),
                 (container.isPrintFieldName() ? fieldName + " " : "") +
-                (container.isPrintFieldValue() ? "[value = " + fieldValue + "] " : "") +
-                container.getMessage(),
+                (container.isPrintFieldValue() ? "[value = " + fieldValue + "] " : " ") +
+                container.getMessage() + (additionalMessageDetail != null ? " " + additionalMessageDetail : ""),
                 fieldName,      severity);
 
         validationResultsList.add(vr);
@@ -431,6 +962,22 @@ public class HL7Validator {
         }
 
         return;
+    }
+
+    private boolean usageIsOptionalOrConditional(Usage usage) {
+
+        if(usage != null) {
+            switch(usage) {
+                case Optional:
+                case Conditional:
+                case ConditionalEmpty:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        return false;
     }
 
     private void captureError(String  errorCode, String message, String fieldName, ErrorSeverity severity) {
@@ -448,40 +995,40 @@ public class HL7Validator {
 
     private String getErrorCode(Element validationElement) {
 
-        return errorCodeMap.get(validationElement.getAttributeValue(Constants.ERROR_CODE_ID,
+        return errorCodeMap.get(validationElement.getAttributeValue(XMLDefs.ERROR_CODE_ID,
                                                                     validationElement.getNamespace(), ""));
     }
 
 
     private boolean printFieldName(Element validationElement) {
 
-        return Boolean.valueOf(validationElement.getAttributeValue(Constants.PRINT_FIELD_NAME,
+        return Boolean.valueOf(validationElement.getAttributeValue(XMLDefs.PRINT_FIELD_NAME,
                                                           validationElement.getNamespace(), "false"));
     }
 
     private boolean printFieldValue(Element validationElement) {
 
-        return Boolean.valueOf(validationElement.getAttributeValue(Constants.PRINT_FIELD_VALUE,
+        return Boolean.valueOf(validationElement.getAttributeValue(XMLDefs.PRINT_FIELD_VALUE,
                                                           validationElement.getNamespace(), "false"));
     }
 
     private ErrorSeverity getSeverity(Element validationElement) {
         String      severityStr;
 
-        severityStr = validationElement.getAttributeValue(Constants.SEVERITY,
+        severityStr = validationElement.getAttributeValue(XMLDefs.SEVERITY,
                                                           validationElement.getNamespace(), "None");
 
-        if(severityStr.equalsIgnoreCase(org.cophm.validation.ErrorSeverity.FATAL.name())) {
-            return org.cophm.validation.ErrorSeverity.FATAL;
+        if(severityStr.equalsIgnoreCase(ErrorSeverity.FATAL.name())) {
+            return ErrorSeverity.FATAL;
         }
-        else if(severityStr.equalsIgnoreCase(org.cophm.validation.ErrorSeverity.HOLD.name())) {
-            return org.cophm.validation.ErrorSeverity.HOLD;
+        else if(severityStr.equalsIgnoreCase(ErrorSeverity.HOLD.name())) {
+            return ErrorSeverity.HOLD;
         }
-        else if(severityStr.equalsIgnoreCase(org.cophm.validation.ErrorSeverity.REPORT.name())) {
-            return org.cophm.validation.ErrorSeverity.REPORT;
+        else if(severityStr.equalsIgnoreCase(ErrorSeverity.REPORT.name())) {
+            return ErrorSeverity.REPORT;
         }
         else {
-            return org.cophm.validation.ErrorSeverity.NONE;
+            return ErrorSeverity.NONE;
         }
     }
 
@@ -496,8 +1043,33 @@ public class HL7Validator {
         else if(usageStr.equalsIgnoreCase(Usage.RequiredEmpty.name())) {
             return Usage.RequiredEmpty;
         }
+        else if(usageStr.equalsIgnoreCase(Usage.Conditional.name())) {
+            return Usage.Conditional;
+        }
+        else if(usageStr.equalsIgnoreCase(Usage.ConditionalEmpty.name())) {
+            return Usage.ConditionalEmpty;
+        }
         else {
             return Usage.Optional;
+        }
+    }
+
+    private DataType  getDataType(Element dataTypeElement) {
+        String      dataTypeStr;
+
+        dataTypeStr = dataTypeElement.getTextTrim();
+
+        if(dataTypeStr.equalsIgnoreCase(DataType.Alpha.name())) {
+            return DataType.Alpha;
+        }
+        else if(dataTypeStr.equalsIgnoreCase(DataType.Numeric.name())) {
+            return DataType.Numeric;
+        }
+        else if(dataTypeStr.equalsIgnoreCase(DataType.Date.name())) {
+            return DataType.Date;
+        }
+        else {
+            return DataType.AlphaNumeric;
         }
     }
 

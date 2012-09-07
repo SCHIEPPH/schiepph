@@ -39,7 +39,6 @@ public class MirthAdminDist extends AcceptMessage {
         logger.info("begin sendAlertMessage()");
 
         String message = new MirthAdminDistImpl().buildXMLMessageWithHeader(body);
-        System.out.println(message);
         this.webServiceMessageReceiver.processData(message);
     }
     protected org.apache.log4j.Logger getLogger()

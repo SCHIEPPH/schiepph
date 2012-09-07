@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import org.cophm.util.Constants;
+import org.cophm.util.XMLDefs;
 import org.jdom.Element;
 
 /**
@@ -23,11 +23,11 @@ public class ErrorMessageContainer {
             throw new IllegalArgumentException("Error message element may not be null.");
         }
 
-        id = Integer.parseInt(errorMessageElement.getAttributeValue(Constants.ID, errorMessageElement.getNamespace()));
+        id = Integer.parseInt(errorMessageElement.getAttributeValue(XMLDefs.ID, errorMessageElement.getNamespace()));
         message = errorMessageElement.getText().trim();
-        printFieldName = Boolean.valueOf(errorMessageElement.getAttributeValue(Constants.PRINT_FIELD_NAME,
+        printFieldName = Boolean.valueOf(errorMessageElement.getAttributeValue(XMLDefs.PRINT_FIELD_NAME,
                                                                                errorMessageElement.getNamespace()));
-        printFieldValue = Boolean.valueOf(errorMessageElement.getAttributeValue(Constants.PRINT_FIELD_VALUE,
+        printFieldValue = Boolean.valueOf(errorMessageElement.getAttributeValue(XMLDefs.PRINT_FIELD_VALUE,
                                                                                errorMessageElement.getNamespace()));
     }
 

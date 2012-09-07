@@ -7,5 +7,5 @@ package org.cophm.validation;
  * Time: 5:10 PM
  */
 public enum Usage {
-    Optional, RequiredEmpty, Required
+    Optional, RequiredEmpty, Required, Conditional, ConditionalEmpty
 }

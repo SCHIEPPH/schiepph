@@ -1,6 +1,6 @@
 package org.cophm.validation;
 
-import org.cophm.util.Constants;
+import org.cophm.util.XMLDefs;
 import org.jdom.Element;
 
 import java.io.CharArrayReader;
@@ -21,28 +21,37 @@ public class PipeParser extends Parser implements IDataParser {
     private String      subFieldSeparator;
     private String      repeatingFieldSeparator;
 
-    public static String fieldSeparator = "|";
+    public static String    fieldSeparator = "|";
 
 
     public PipeParser() {
     }
 
-    public String  getFieldValue(Element  location)
-            throws HL7ValidatorException {
+    public String getFieldValue(List locationList) throws HL7ValidatorException {
         String            value;
         String            segmentName;
         String            fieldNumber;
+        Element           location;
+        Iterator          locationIterator;
         List<Element>     identifiers;
 
-        segmentName = location.getChildText(Constants.HL7_SEGMENT, location.getNamespace());
-        fieldNumber = location.getChild(Constants.HL7_SEGMENT,
-                                        location.getNamespace()).getAttributeValue(Constants.FIELD_NUMBER,
-                                                                                   location.getNamespace());
-        identifiers = location.getChildren(Constants.IDENTIFIER, location.getNamespace());
+        locationIterator = locationList.iterator();
 
-        value = getFieldValue(segmentName, identifiers, fieldNumber);
+        while(locationIterator.hasNext()) {
+            location = (Element)locationIterator.next();
+            segmentName = location.getChildText(XMLDefs.HL7_SEGMENT, location.getNamespace()).trim();
+            fieldNumber = location.getChild(XMLDefs.HL7_SEGMENT,
+                                            location.getNamespace()).getAttributeValue(XMLDefs.FIELD_NUMBER,
+                                                                                       location.getNamespace());
+            identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
 
-        return value;
+            value = getFieldValue(segmentName, identifiers, fieldNumber);
+            if(value != null && value.trim().length() > 0) {
+                return value;
+            }
+        }
+
+        return "";
     }
 
     public void loadData(String  pipeDelimitedData) throws IOException {
@@ -86,7 +95,7 @@ public class PipeParser extends Parser implements IDataParser {
         repeatingFieldSeparator = String.valueOf(getFieldValue("MSH", 0, "2").charAt(1));
     }
 
-    public String  getFieldValue(String  segmentName, String fieldNumber) {
+    public String  getFieldValue(String segmentName, String fieldNumber) {
 
         return getFieldValue(segmentName, 0, fieldNumber);
     }
@@ -96,17 +105,17 @@ public class PipeParser extends Parser implements IDataParser {
         return hl7DataMap.get(segmentName).size();
     }
 
-    protected String  getFieldValue(String  segmentName, List<Element> identifiers, String fieldNumber) {
-        String                                    idFieldNumber;
-        boolean                                   mustMatch;
-        boolean                                   matchFound;
-        String                                    matchValue;
-        String                                    valueToCheck = "";
-        String                                    valueToReturn = "";
-        Iterator                                  identifierIterator;
-        int                                       segmentCount;
-        int                                       currentSegement = 0;
-        RepeatingElement     repeatingElement;
+    protected String  getFieldValue(String segmentName, List<Element> identifiers, String fieldNumber) {
+        String              idFieldNumber;
+        boolean             mustMatch;
+        boolean             matchFound;
+        String              matchValue;
+        String              valueToCheck = "";
+        String              valueToReturn = "";
+        Iterator            identifierIterator;
+        int                 segmentCount;
+        int                 currentSegement = 0;
+        RepeatingElement    repeatingElement;
 
 
         if(identifiers == null || identifiers.size() == 0) {
@@ -121,13 +130,13 @@ public class PipeParser extends Parser implements IDataParser {
         while(identifierIterator.hasNext()) {
             Element       identifier = (Element)identifierIterator.next();
 
-            idFieldNumber = identifier.getAttributeValue(Constants.FIELD_NUMBER,
+            idFieldNumber = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                                           identifier.getNamespace(), "0");
-            mustMatch = Boolean.parseBoolean(identifier.getAttributeValue(Constants.MUST_MATCH,
+            mustMatch = Boolean.parseBoolean(identifier.getAttributeValue(XMLDefs.MUST_MATCH,
                                                                           identifier.getNamespace(), "true"));
             matchValue = identifier.getTextTrim();
 
-            repeatingElement = getRepeatingElement(identifier.getAttributeValue(Constants.REPEATING_ELEMENT,
+            repeatingElement = getRepeatingElement(identifier.getAttributeValue(XMLDefs.REPEATING_ELEMENT,
                                                                           identifier.getNamespace(), "Segment"));
 
             matchFound = false;

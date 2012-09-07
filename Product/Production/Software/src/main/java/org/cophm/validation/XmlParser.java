@@ -1,7 +1,7 @@
 package org.cophm.validation;
 
 import org.apache.log4j.Logger;
-import org.cophm.util.Constants;
+import org.cophm.util.XMLDefs;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -52,27 +52,38 @@ public class XmlParser extends Parser implements IDataParser {
         }
     }
 
+    public String getFieldValue(List locationList) throws HL7ValidatorException {
+        String            value;
+        String            segmentName;
+        String            fieldNumber;
+        Element           location;
+        Iterator          locationIterator;
+        List<Element>     identifiers;
+
+        locationIterator = locationList.iterator();
+
+        while(locationIterator.hasNext()) {
+            location = (Element)locationIterator.next();
+            segmentName = location.getChildText(XMLDefs.HL7_SEGMENT, location.getNamespace()).trim();
+            fieldNumber = location.getChild(XMLDefs.HL7_SEGMENT,
+                                            location.getNamespace()).getAttributeValue(XMLDefs.FIELD_NUMBER,
+                                                                                       location.getNamespace());
+            identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
+
+            value = getFieldValue(segmentName, identifiers, fieldNumber);
+            if(value != null && value.trim().length() > 0) {
+                return value;
+            }
+        }
+
+        return "";
+    }
+
     public String getFieldValue(String segmentName, String fieldNumber) {
 
         return getFieldValue(segmentName, null, fieldNumber);
     }
 
-    public String getFieldValue(Element location) throws HL7ValidatorException {
-        String            value;
-        String            segmentName;
-        String            fieldNumber;
-        List<Element>     identifiers;
-
-        segmentName = location.getChildText(Constants.HL7_SEGMENT, location.getNamespace()).trim();
-        fieldNumber = location.getChild(Constants.HL7_SEGMENT,
-                                        location.getNamespace()).getAttributeValue(Constants.FIELD_NUMBER,
-                                                                                   location.getNamespace());
-        identifiers = location.getChildren(Constants.IDENTIFIER, location.getNamespace());
-
-        value = getFieldValue(segmentName, identifiers, fieldNumber);
-
-        return value;
-    }
 
     protected String getFieldValue(String segmentName, List<Element> identifiers, String fieldNumber) {
         Element     segment = null;
@@ -95,23 +106,23 @@ public class XmlParser extends Parser implements IDataParser {
             matchFound = false;
             segmentIterator = root.getChildren(segmentName, root.getNamespace()).iterator();
              while(segmentIterator.hasNext()) {
-                 Element       segmentToCheck = (Element)segmentIterator.next();
+                 Element    segmentToCheck = (Element)segmentIterator.next();
 
                  identifierIterator = identifiers.iterator();
                  while(identifierIterator.hasNext()) {
-                     Element             identifier = (Element)identifierIterator.next();
-                     String              matchValue;
-                     boolean             mustMatch;
-                     String              idFieldNumberStr;
-                     RepeatingElement    repeatingElement;
-                     String              valueToCompare;
+                     Element              identifier = (Element)identifierIterator.next();
+                     String               matchValue;
+                     boolean              mustMatch;
+                     String               idFieldNumberStr;
+                     RepeatingElement     repeatingElement;
+                     String               valueToCompare;
 
                      matchValue = identifier.getText().trim();
-                     idFieldNumberStr = identifier.getAttributeValue(Constants.FIELD_NUMBER,
+                     idFieldNumberStr = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                                      identifier.getNamespace());
-                     mustMatch = identifier.getAttributeValue(Constants.MUST_MATCH,
+                     mustMatch = identifier.getAttributeValue(XMLDefs.MUST_MATCH,
                                                               identifier.getNamespace(), "true").equalsIgnoreCase("true");
-                     repeatingElement = getRepeatingElement(identifier.getAttributeValue(Constants.REPEATING_ELEMENT,
+                     repeatingElement = getRepeatingElement(identifier.getAttributeValue(XMLDefs.REPEATING_ELEMENT,
                                                                                          identifier.getNamespace(), "Segment"));
 
                     if(repeatingElement.ordinal() == RepeatingElement.Segment.ordinal()) {
@@ -140,7 +151,7 @@ public class XmlParser extends Parser implements IDataParser {
                             subField = fieldToCheck.getChild(fieldName, fieldToCheck.getNamespace());
                             if(subField != null && subField.getText() != null
                                 && subField.getText().trim().equals(matchValue)) {
-                                int     subFieldNumber;
+                                int       subFieldNumber;
 
                                 subFieldNumber = getSubFieldNumber(fieldNumber);
                                 if(subFieldNumber > 0) {
@@ -192,8 +203,8 @@ public class XmlParser extends Parser implements IDataParser {
                 if(value == null) {
                     value = "";
                 }
-                return value.trim();
             }
+            return value.trim();
         }
 
         fieldName = fieldName + "." + getSubFieldNumber(fieldNumber);
@@ -208,8 +219,8 @@ public class XmlParser extends Parser implements IDataParser {
     }
 
     private List<Element> getAllFields(Element segment, String fieldNumberStr) {
-        String                fieldName;
-        List<Element>         fields;
+        String            fieldName;
+        List<Element>     fields;
 
         fieldName = segment.getName() + "." + getFieldNumber(fieldNumberStr);
 

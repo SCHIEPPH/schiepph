@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HL7Validation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../Product/Production/XML/HL7Validation.xsd">
+    <ValidHL7Versions errorCodeId="3" errorMessageId="3" severity="Hold" >
+        <version>2.3.1</version>
+        <version>2.5.1</version>
+    </ValidHL7Versions>
+    <SupportedAdtMessages errorCodeId="3" errorMessageId="4" severity="Hold" >
+        <adtMessage>A01</adtMessage>
+        <adtMessage>A03</adtMessage>
+        <adtMessage>A04</adtMessage>
+        <adtMessage>A08</adtMessage>
+    </SupportedAdtMessages>
+    <Fields>
+        <Field id="4">
+            <name>Facility Location - City</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #4 - City of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <Requires errorCodeId="1" errorMessageId="1" severity="Hold" >
+                    <conditionalFieldId>7</conditionalFieldId>
+                </Requires>
+            </Validations>
+        </Field>
+        <Field id="7">
+            <name>Facility Location - State</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #6 - State of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+    </Fields>
+    <ErrorMessages>
+        <!-- Error messages are dynamically created by appending one of
+            the following messages to the name of the field that is in error.
+            Message id 0 is reserved for checks that cannot fail a validity
+            check, such as an optional filed being missing (i.e. this is not
+            an error, so there is no error message to print) -->
+        <errorMessage id="0" printFieldName="false" printFieldValue="false" ></errorMessage>
+        <errorMessage id="1" printFieldName="true" printFieldValue="false" >is a required field and is missing or empty.</errorMessage>
+        <errorMessage id="2" printFieldName="true" printFieldValue="false" >is a required/empty field and is missing.</errorMessage>
+        <errorMessage id="3" printFieldName="false" printFieldValue="true" >is not a supported HL7 version.</errorMessage>
+        <errorMessage id="4" printFieldName="false" printFieldValue="true" >is not a supported ADT Message.</errorMessage>
+        <errorMessage id="5" printFieldName="true" printFieldValue="true" >is not a valid value.</errorMessage>
+        <errorMessage id="6" printFieldName="true" printFieldValue="true" >is not alphabetic.</errorMessage>
+        <errorMessage id="7" printFieldName="true" printFieldValue="true" >is not numeric.</errorMessage>
+        <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
+    </ErrorMessages>
+    <ErrorCodes>
+        <errorCode id="0"></errorCode>
+        <errorCode id="1">SCHIEPPHRequiredFieldMissing</errorCode>
+        <errorCode id="2">SCHIEPPHRequiredEmptyFieldMissing</errorCode>
+        <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
+        <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
+    </ErrorCodes>
+    <DateFormats>
+        <format>yyyy/MM/dd</format>
+        <format>dd/MM/yyyy</format>
+        <format>MM/dd/yyyy</format>
+        <format>yyyy-MM-dd</format>
+        <format>dd-MM-yyyy</format>
+        <format>MM-dd-yyyy</format>
+        <format>yyyy.MM.dd</format>
+        <format>dd.MM-yyyy</format>
+        <format>MM.dd.yyyy</format>
+        <format>dd MMM yyyy</format>
+    </DateFormats>
+</HL7Validation>

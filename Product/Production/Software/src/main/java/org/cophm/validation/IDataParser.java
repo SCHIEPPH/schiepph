@@ -5,6 +5,7 @@ package org.cophm.validation;
 import org.jdom.Element;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -19,5 +20,5 @@ public interface IDataParser {
 
     public String  getFieldValue(String  segmentName, String fieldNumber);
 
-    public String  getFieldValue(Element  location) throws HL7ValidatorException;
+    public String  getFieldValue(List locationList) throws HL7ValidatorException;
 }
