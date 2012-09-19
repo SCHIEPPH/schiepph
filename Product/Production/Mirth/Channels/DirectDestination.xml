@@ -38,7 +38,7 @@
     <connector>
       <name>Destination 1</name>
       <properties>
-        <property name="DataType">SMTP Sender</property>
+        <property name="DataType">Email Sender</property>
         <property name="attachments">&lt;list&gt;
   &lt;com.mirth.connect.connectors.smtp.Attachment&gt;
     &lt;name&gt;Attachment 1&lt;/name&gt;
@@ -75,7 +75,7 @@
       <filter>
         <rules/>
       </filter>
-      <transportName>SMTP Sender</transportName>
+      <transportName>Email Sender</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
       <version>2.2.1.5861</version>
@@ -107,7 +107,7 @@ importPackage(Packages.java.io);
 
 	if (value == null)
 	{
-		//no enviroment variable, default to Mirth Properties directory. 
+		//no enviroment variable, default to Mirth Properties directory.
 		property_file = &apos;conf/DirectDestination.properties&apos;;
 	}
 	else

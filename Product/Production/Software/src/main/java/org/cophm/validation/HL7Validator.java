@@ -47,9 +47,9 @@ public class HL7Validator {
 
     private String      inputData;
 
-    private IDataParser                   dataParser;
-    private HashMap<String, Element>      validationFieldByNameCache = new HashMap<String, Element>();
-    private HashMap<Integer, Element>     validationFieldByIdCache = new HashMap<Integer, Element>();
+    private IDataParser                         dataParser;
+    private HashMap<String, List<Element>>      validationFieldByNameCache = new HashMap<String, List<Element>>();
+    private HashMap<Integer, Element>           validationFieldByIdCache = new HashMap<Integer, Element>();
 
     private String[]    allDateFormats = new String[0];
 
@@ -123,10 +123,20 @@ public class HL7Validator {
         fieldIterator = rootElement.getChild(XMLDefs.FIELDS, rootElement.getNamespace())
                 .getChildren(XMLDefs.FIELD, rootElement.getNamespace()).iterator();
         while(fieldIterator.hasNext()) {
-            Element       fieldElement = (Element)fieldIterator.next();
+            Element           fieldElement = (Element)fieldIterator.next();
+            String            fieldName;
+            List<Element>     fieldValues;
 
-            validationFieldByNameCache.put(fieldElement.getChildText(XMLDefs.NAME, fieldElement.getNamespace()),
-                                     fieldElement);
+            fieldName = fieldElement.getChildText(XMLDefs.NAME, fieldElement.getNamespace());
+
+            fieldValues = validationFieldByNameCache.get(fieldName);
+            if(fieldValues == null) {
+                fieldValues = new ArrayList<Element>();
+                validationFieldByNameCache.put(fieldName, fieldValues);
+            }
+
+            fieldValues.add(fieldElement);
+
             fieldId = new Integer(fieldElement.getAttributeValue(XMLDefs.ID, fieldElement.getNamespace()));
             if(validationFieldByIdCache.containsKey(fieldId)) {
                 throw new HL7ValidatorException("Duplicate field id attribute [" + fieldId.toString() +
@@ -212,12 +222,51 @@ public class HL7Validator {
         return hl7MessageId;
     }
 
+    public List<String>  getMultipleFieldValuesByName(String  fieldName)
+            throws HL7ValidatorException {
+        Iterator          fieldElementIterator;
+        List<Element>     fieldValues;
+        List<String>      fieldValuesToReturn = new ArrayList<String>();
+        List<Element>     locationList;
+
+        fieldValues = validationFieldByNameCache.get(fieldName);
+        if(fieldValues == null || fieldValues.size() == 0) {
+            return fieldValuesToReturn;
+        }
+
+        //
+        // This method assumes that there is only one Element.  If there could be more
+        // than one element, getMultipleFiledValuesByName should be used instead.
+        //
+        fieldElementIterator = fieldValues.iterator();
+        while(fieldElementIterator.hasNext()) {
+            Element       fieldElement = (Element)fieldElementIterator.next();
+
+            locationList = getLocationElement(fieldElement);
+
+            fieldValuesToReturn = dataParser.getAllFieldValues(locationList);
+        }
+
+        return fieldValuesToReturn;
+    }
+
     public String  getFieldValueByName(String  fieldName)
             throws HL7ValidatorException {
-        Element       fieldElement;
-        List          locationList;
+        Element           fieldElement;
+        List<Element>     fieldValues;
+        List<Element>     locationList;
 
-        fieldElement = validationFieldByNameCache.get(fieldName);
+        fieldValues = validationFieldByNameCache.get(fieldName);
+        if(fieldValues == null || fieldValues.size() == 0) {
+            return "";
+        }
+
+        //
+        // This method assumes that there is only one Element.  If there could be more
+        // than one element, getMultipleFiledValuesByName should be used instead.
+        //
+        fieldElement = fieldValues.get(0);
+
         if(fieldElement == null) {
             return "";
         }
@@ -409,31 +458,31 @@ public class HL7Validator {
         validateFieldUsage(fieldValue, usageElement, fieldName, usage);
 
         validateFieldValue(fieldValue, validations.getChild(XMLDefs.VALUE_LIST, field.getNamespace()),
-                           fieldName, usage);
+                           fieldName,     usage);
 
         validateFieldDataType(fieldValue, validations.getChild(XMLDefs.DATA_TYPE, field.getNamespace()),
-                              fieldName, usage);
+                              fieldName,    usage);
 
         validateFieldRequiresFieldValue(fieldValue, validations.getChild(XMLDefs.REQUIRES, field.getNamespace()),
-                                        fieldName, usage);
+                                        fieldName,      usage);
 
         validateFieldRequiresConditionalField(fieldValue,
                                               validations.getChild(XMLDefs.REQUIRES, field.getNamespace()),
-                                              fieldName, usage);
+                                              fieldName,    usage);
 
     }
 
     private void validateFieldRequiresConditionalField(String fieldValue, Element requiresElement, String fieldName, Usage usage)
             throws HL7ValidatorException {
-        List            conditionalFieldList;
-        Iterator        conditionalFieldIterator;
-        Element         validationRulesFieldElement;
-        Element         validationRulesFieldElementClone;
-        Element         validationsElement = null;
-        Element         usageElement = null;
-        String          mustExistStr;
-        boolean         mustExist;
-        boolean         foundConditionalField = false;
+        List        conditionalFieldList;
+        Iterator    conditionalFieldIterator;
+        Element     validationRulesFieldElement;
+        Element     validationRulesFieldElementClone;
+        Element     validationsElement = null;
+        Element     usageElement = null;
+        String      mustExistStr;
+        boolean     mustExist;
+        boolean     foundConditionalField = false;
 
 
         if(fieldValue.trim().length() == 0) {
@@ -455,7 +504,7 @@ public class HL7Validator {
 
         conditionalFieldIterator = conditionalFieldList.iterator();
         while(conditionalFieldIterator.hasNext()) {
-            Element conditionalFieldIdElement = (Element)conditionalFieldIterator.next();
+            Element       conditionalFieldIdElement = (Element)conditionalFieldIterator.next();
 
             mustExistStr = conditionalFieldIdElement.getAttributeValue(XMLDefs.MUST_EXIST, conditionalFieldIdElement
                                 .getNamespace(), "true");
@@ -515,7 +564,7 @@ public class HL7Validator {
     }
 
     private void addRequiredUsageElement(Element validationsElement) {
-        Element     usageElement;
+        Element       usageElement;
 
         usageElement = new Element(XMLDefs.USAGE);
         usageElement.setAttribute(XMLDefs.SEVERITY, ErrorSeverity.HOLD.name());
@@ -527,7 +576,7 @@ public class HL7Validator {
     }
 
     private void validateFieldRequiresFieldValue(String fieldValue, Element requiresElement,
-                                                 String fieldName, Usage usage)
+                                                 String fieldName, Usage    usage)
             throws HL7ValidatorException {
         Iterator    fieldValueIterator;
 
@@ -555,6 +604,7 @@ public class HL7Validator {
             Element                 fieldValueElement = (Element)fieldValueIterator.next();
             Element                 fieldRuleElement;
             Iterator                locationElementIterator;
+            Element                 fieldElementClone;
             Element                 locationElementClone;
             ArrayList<Element>      locationElementList = new ArrayList<Element>();
             Element                 hl7SegmentElement;
@@ -593,6 +643,9 @@ public class HL7Validator {
                 }
 
                 locationElementClone = (Element)locationElement.clone();
+                fieldElementClone = (Element)locationElement.getParent().clone();
+                fieldElementClone.addContent(locationElementClone);
+
                 identifierElement = locationElementClone.getChild(XMLDefs.IDENTIFIER, locationElement.getNamespace());
                 hl7SegmentElement = locationElementClone.getChild(XMLDefs.HL7_SEGMENT, locationElement.getNamespace());
                 hl7SegmentElement.removeAttribute(XMLDefs.FIELD_NUMBER);

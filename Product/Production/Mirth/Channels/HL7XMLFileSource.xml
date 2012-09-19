@@ -3,12 +3,12 @@
   <name>HL7XMLFileSource</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.1.1.5490</version>
+  <version>2.2.1.5861</version>
   <lastModified>
-    <time>1328133205236</time>
+    <time>1347485938148</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>10</revision>
+  <revision>2</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -21,9 +21,10 @@
       <property name="fileAge">1000</property>
       <property name="fileFilter">*.xml</property>
       <property name="host">${hl7_xml_file_source_input_dir}</property>
+      <property name="ignoreDot">0</property>
       <property name="moveToDirectory">${hl7_xml_file_source_processed_dir}</property>
       <property name="moveToErrorDirectory">${hl7_xml_file_source_error_dir}</property>
-      <property name="moveToPattern"></property>
+      <property name="moveToPattern">${ORIGINALNAME}_${DATE}</property>
       <property name="passive">1</property>
       <property name="password">anonymous</property>
       <property name="pollingFrequency">1000</property>
@@ -159,7 +160,7 @@ MjlfWlpfZGlhZ25vc2lzX3R5cGU8L0RHMS42Pgo8L0RHMT4KPC9ITDdNZXNzYWdlPgo=</inboundTem
     <transportName>File Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.1.1.5490</version>
+    <version>2.2.1.5861</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
@@ -187,7 +188,7 @@ MjlfWlpfZGlhZ25vc2lzX3R5cGU8L0RHMS42Pgo8L0RHMT4KPC9ITDdNZXNzYWdlPgo=</inboundTem
       <transportName>Channel Writer</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.1.1.5490</version>
+      <version>2.2.1.5861</version>
     </connector>
   </destinationConnectors>
   <properties>

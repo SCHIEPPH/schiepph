@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by
@@ -168,7 +169,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String                                                                                                                                                                                                                                                                                                                                                                                  hl7TestData_1 =
                     "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
                             "EVN||8_ZZ_AA_report_date_time\n"                                                                                                                                                                                                                                                                                                                                             +
-                            "PID|1||9_ZZ_AA_unique_patient_id^^^^PG~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^PQ~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n"       +
+                            "PID|1||9_ZZ_AA_unique_patient_id^^^^SS~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^BA~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n"       +
                             "PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name^1_ZZ_AA_facility_identifier^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X\n"                                                                                                                                                                                               +
@@ -233,7 +234,7 @@ public class HL7ValidatorTest extends TestCase {
             "            <PID.3.2/>\n"+
             "            <PID.3.3/>\n"+
             "            <PID.3.4/>\n"+
-            "            <PID.3.5>PG </PID.3.5>\n"+
+            "            <PID.3.5>SS </PID.3.5>\n"+
             "        </PID.3>\n"+
             "        <PID.3>\n"+
             "            <PID.3.1>9_Z1_AA_unique_patient_id </PID.3.1>\n"+
@@ -247,7 +248,7 @@ public class HL7ValidatorTest extends TestCase {
             "            <PID.3.2/>\n"+
             "            <PID.3.3/>\n"+
             "            <PID.3.4/>\n"+
-            "            <PID.3.5>PQ </PID.3.5>\n"+
+            "            <PID.3.5>BA </PID.3.5>\n"+
             "        </PID.3>\n"+
             "        <PID.3>\n"+
             "            <PID.3.1>10_ZZ_AA_medical_record_number </PID.3.1>\n"+
@@ -2651,6 +2652,9 @@ public class HL7ValidatorTest extends TestCase {
     public static final String      facility_identifier_2_3_1 = "1_ZZ_AA_facility_identifier";
     public static final String      facility_identifier_2_5_1 = "1234567890";
 
+    public static final String      medical_record_number_hl7_1 = "MR01234567";
+    public static final String      medical_record_number_xml_1 = "10_ZZ_AA_medical_record_number";
+
     @Before
     public void setup() {
 
@@ -2752,7 +2756,8 @@ public class HL7ValidatorTest extends TestCase {
         PipeParser              pipeParser = new PipeParser();
         XmlParser               xmlParser = new XmlParser();
         String                  value;
-        ArrayList<Element>      identifierList = new ArrayList<Element>();
+        Element                 field;
+        Element                 location;
         Element                 identifier;
 
         pipeParser.loadData(hl7TestData_1);
@@ -2761,32 +2766,36 @@ public class HL7ValidatorTest extends TestCase {
         //
         // Test to see that we can extract data from the correct OBX segment.
         //
+        field = new Element(XMLDefs.FIELD);
+        location = new Element(XMLDefs.LOCATION).addContent(new Element(XMLDefs.HL7_SEGMENT));
+        field.addContent(location);
+
         identifier = new Element(XMLDefs.IDENTIFIER);
         identifier.setAttribute(XMLDefs.MUST_MATCH, "true");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.1");
         identifier.setText("59408-5");
 
-        identifierList.add(identifier);
+        location.addContent(identifier);
 
-        value = pipeParser.getFieldValue("OBX", identifierList, "5");
+        value = pipeParser.getFieldValue("OBX", location, "5");
         assertEquals("[PD] Extracting OBX(59408-5)-5 failed.", pipe_result_5, value);
 
-        value = xmlParser.getFieldValue("OBX", identifierList, "5");
+        value = xmlParser.getFieldValue("OBX", location, "5");
         assertEquals("[XML] Extracting OBX(59408-5)-5 failed.", xml_result_5, value);
 
 
-        identifierList.clear();
+        location.removeChildren(XMLDefs.IDENTIFIER);
         identifier = new Element(XMLDefs.IDENTIFIER);
         identifier.setAttribute(XMLDefs.MUST_MATCH, "true");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.1");
         identifier.setText("8661-1");
 
-        identifierList.add(identifier);
+        location.addContent(identifier);
 
-        value = pipeParser.getFieldValue("OBX", identifierList, "5.9");
+        value = pipeParser.getFieldValue("OBX", location, "5.9");
         assertEquals("[PD] Extracting OBX(8661-1)-5.9 failed.", pipe_result_6, value);
 
-        value = xmlParser.getFieldValue("OBX", identifierList, "5.9");
+        value = xmlParser.getFieldValue("OBX", location, "5.9");
         assertEquals("[XML] Extracting OBX(8661-1)-5.9 failed.", xml_result_6, value);
     }
 
@@ -2795,7 +2804,8 @@ public class HL7ValidatorTest extends TestCase {
         PipeParser              pipeParser = new PipeParser();
         XmlParser               xmlParser = new XmlParser();
         String                  value;
-        ArrayList<Element>      identifierList = new ArrayList<Element>();
+        Element                 field;
+        Element                 location;
         Element                 identifier;
 
         pipeParser.loadData(hl7TestData_1);
@@ -2804,28 +2814,30 @@ public class HL7ValidatorTest extends TestCase {
         //
         // Test the ability to select based on "or" logic.
         //
-        identifierList.clear();
+        field = new Element(XMLDefs.FIELD);
+        field.setAttribute(XMLDefs.CAN_CONTAIN_MULTIPLE_VALUES, "true");
+        location = new Element(XMLDefs.LOCATION).addContent(new Element(XMLDefs.HL7_SEGMENT));
+        field.addContent(location);
+
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.REPEATING_ELEMENT, "Field");
         identifier.setAttribute(XMLDefs.MUST_MATCH, "false");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.5");
         identifier.setText("PT");
 
-        identifierList.add(identifier);
+        location.addContent(identifier);
 
-        identifierList.clear();
+        location.removeChildren(XMLDefs.IDENTIFIER);
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.REPEATING_ELEMENT, "Field");
         identifier.setAttribute(XMLDefs.MUST_MATCH, "false");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.5");
         identifier.setText("PI");
 
-        identifierList.add(identifier);
+        location.addContent(identifier);
 
-        value = pipeParser.getFieldValue("PID", identifierList, "3.1");
+        value = pipeParser.getFieldValue("PID", location, "3.1");
         assertEquals("[PD] Extracting PID(PI)-3.1 failed.", pipe_result_7, value);
 
-        value = xmlParser.getFieldValue("PID", identifierList, "3.1");
+        value = xmlParser.getFieldValue("PID", location, "3.1");
         assertEquals("[XML] Extracting PID(PI)-3.1 failed.", xml_result_7, value);
     }
 
@@ -2843,11 +2855,19 @@ public class HL7ValidatorTest extends TestCase {
         value = validator.getFieldValueByName("Facility Identifier");
         assertEquals("Retrieving Facility Identifier (2.5.1) failed.", facility_identifier_2_5_1, value);
 
+        value = validator.getFieldValueByName("Medical Record Number");
+        assertEquals("Retrieving Medical Record Number failed.", medical_record_number_hl7_1, value);
+
 
         validator.loadData(hl7TestData_1);
 
         value = validator.getFieldValueByName("Facility Identifier");
         assertEquals("Retrieving Facility Identifier (2.3.1) failed.", facility_identifier_2_3_1, value);
+
+        validator.loadData(xmlData_1);
+
+        value = validator.getFieldValueByName("Medical Record Number");
+        assertEquals("Retrieving Medical Record Number failed.", medical_record_number_xml_1, value);
     }
 
     @Test
@@ -3130,6 +3150,25 @@ public class HL7ValidatorTest extends TestCase {
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of an invalid value with valid case failed. (case sensitive = false)", true);
         }
+    }
+
+    @Test
+    public void  testGetAllFieldValues()
+            throws JDOMException, PropertyAccessException, IOException, HL7ValidatorException {
+        HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
+        List<String>    returnedValues;
+
+        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+
+        validator.loadData(hl7TestData_1);
+
+        returnedValues = validator.getMultipleFieldValuesByName("Unique Patient Identifier");
+        assertEquals("Get multiple field values (Pipe Delimited) failed.", 4, returnedValues.size());
+
+        validator.loadData(xmlData_1);
+
+        returnedValues = validator.getMultipleFieldValuesByName("Unique Patient Identifier");
+        assertEquals("Get multiple field values (XML failed.", 4, returnedValues.size());
     }
 
     @Test

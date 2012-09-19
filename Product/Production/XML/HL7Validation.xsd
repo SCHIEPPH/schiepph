@@ -45,8 +45,6 @@
                                                   <xs:element maxOccurs="unbounded" minOccurs="0"
                                                   name="identifier">
                                                   <xs:complexType>
-                                                  <xs:attribute default="Segment"
-                                                  name="repeatingElement" type="xs:string"/>
                                                   <xs:attribute name="fieldNumber" type="xs:double"/>
                                                   <xs:attribute name="mustMatch" type="xs:boolean"
                                                   default="true"/>
@@ -151,6 +149,8 @@
                                         </xs:element>
                                     </xs:sequence>
                                     <xs:attribute name="id" type="xs:integer"/>
+                                    <xs:attribute default="false" name="canContainMultipleValues"
+                                        type="xs:boolean"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="SCHIEPPHDocSubmissionValidation" resourceRoot="" soapui-version="4.5.0" activeEnvironment="Default" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:definitionCache type="TEXT" rootPart="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl">
@@ -223,7 +223,7 @@
   <element name="SlotList" type="tns:SlotListType"/>
   <complexType name="IdentifiableType">
     <annotation>
-      <documentation xml:lang="en">Common base type for all types that have unique identity.     
+      <documentation xml:lang="en">Common base type for all types that have unique identity.
         If id is provided and is not in proper URN syntax then it is used for
         linkage within document and is ignored by the registry. In this case the
         registry generates a UUID URN for id attribute.
@@ -542,7 +542,7 @@
       <extension base="tns:RegistryObjectType">
         <sequence maxOccurs="1" minOccurs="1">
           <element maxOccurs="unbounded" minOccurs="0" ref="tns:Address"/>
-          <!--PersonName is optional because it is not needed in SAML Profile 
+          <!--PersonName is optional because it is not needed in SAML Profile
           when an external IdentityProvider is used.-->
           <element maxOccurs="1" minOccurs="0" ref="tns:PersonName"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tns:TelephoneNumber"/>
@@ -610,7 +610,7 @@
   <element name="AdhocQuery" type="tns:AdhocQueryType" substitutionGroup="tns:RegistryObject"/>
   <complexType name="QueryExpressionType" mixed="true">
     <sequence>
-      <!--MAY be any query language syntax supported. 
+      <!--MAY be any query language syntax supported.
       MUST support FilterQuery. SHOULD support SQLQuery-->
       <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="1"/>
     </sequence>
@@ -679,7 +679,7 @@
    http://www.w3.org/TR/REC-xml for information about this namespace.
 
     This schema document describes the XML namespace, in a form
-    suitable for import by other schema documents.  
+    suitable for import by other schema documents.
 
     Note that local names in this namespace are intended to be defined
     only by the World Wide Web Consortium or its subgroups.  The
@@ -702,16 +702,16 @@
          is a language code for the natural language of the content of
          any element; its value is inherited.  This name is reserved
          by virtue of its definition in the XML specification.
-  
+
     space (as an attribute name): denotes an attribute whose
          value is a keyword indicating what whitespace processing
          discipline is intended for the content of the element; its
          value is inherited.  This name is reserved by virtue of its
          definition in the XML specification.
 
-    Father (in any context at all): denotes Jon Bosak, the chair of 
-         the original XML Working Group.  This name is reserved by 
-         the following decision of the W3C XML Plenary and 
+    Father (in any context at all): denotes Jon Bosak, the chair of
+         the original XML Working Group.  This name is reserved by
+         the following decision of the W3C XML Plenary and
          XML Coordination groups:
 
              In appreciation for his vision, leadership and dedication
@@ -738,7 +738,7 @@
         &lt;type . . .>
          . . .
          &lt;attributeGroup ref="xml:specialAttrs"/>
- 
+
          will define a type which will schema-validate an instance
          element with any of those attributes</xs:documentation>
   </xs:annotation>
@@ -1919,38 +1919,38 @@
       </con:part>
       <con:part>
         <con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
-        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
-Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
+        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation,
+Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved.
 
-Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
+Permission to copy, display, perform, modify and distribute the WS-Addressing Specification,
 and to authorize others to do the foregoing, in any medium without fee or royalty is hereby
 granted for the purpose of developing and evaluating the WS-Addressing Specification.
 
-BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree 
-to grant a license to third parties, under royalty-free  and otherwise reasonable, 
+BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree
+to grant a license to third parties, under royalty-free  and otherwise reasonable,
 non-discriminatory terms and conditions, to their respective essential patent claims that
 they deem necessary to implement the WS-Addressing Specification.
 
 DISCLAIMERS:
 
 THE WS-Addressing Specification IS PROVIDED "AS IS", AND THE AUTHORS MAKE NO REPRESENTATIONS
-OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE 
-CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE 
-IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, 
+OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE
+CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE
+IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS,
 TRADEMARKS OR OTHER RIGHTS.
 
-THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL 
-DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR 
+THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL
+DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR
 IMPLEMENTATION OF THE CONTENTS THEREOF.
 
-You may remove these disclaimers from your modified versions of the WS-Addressing 
-Specification provided that you effectively disclaim all warranties and liabilities on behalf 
+You may remove these disclaimers from your modified versions of the WS-Addressing
+Specification provided that you effectively disclaim all warranties and liabilities on behalf
 of all copyright holders in the copies of any such modified versions you distribute.
 
-The name and trademarks of the Authors may NOT be used in any manner, including advertising 
-or publicity pertaining to the WS-Addressing Specification or its contents without specific, 
-written prior permission. Title to copyright in the WS-Addressing Specification will at all 
+The name and trademarks of the Authors may NOT be used in any manner, including advertising
+or publicity pertaining to the WS-Addressing Specification or its contents without specific,
+written prior permission. Title to copyright in the WS-Addressing Specification will at all
 times remain with the Authors.
 
 No other rights are granted by implication, estoppel or otherwise.-->
@@ -2472,9 +2472,9 @@ OASIS invites any interested party to bring to its attention any copyrights, pat
 
 Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema targetNamespace="http://docs.oasis-open.org/wsn/b-2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -3006,15 +3006,15 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:part>
       <con:part>
         <con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director.
 
-OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
+OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
-Copyright (C) OASIS Open (2005). All Rights Reserved. 
+Copyright (C) OASIS Open (2005). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://docs.oasis-open.org/wsrf/bf-2" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2">
@@ -3071,9 +3071,9 @@ OASIS invites any interested party to bring to its attention any copyrights, pat
 
 Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema targetNamespace="http://docs.oasis-open.org/wsn/t-1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1">
@@ -3164,10 +3164,10 @@ This document and the information contained herein is provided on an "AS IS" bas
   <xsd:simpleType name="FullTopicExpression">
     <xsd:restriction base="xsd:token">
       <xsd:annotation>
-        <xsd:documentation>TopicPathExpression  ::=   TopicPath ( '|' TopicPath )*  
-        TopicPath       ::=   RootTopic ChildTopicExpression* 
-        RootTopic       ::=   NamespacePrefix? ('//')? (NCName | '*')  
-        NamespacePrefix ::=   NCName ':'      
+        <xsd:documentation>TopicPathExpression  ::=   TopicPath ( '|' TopicPath )*
+        TopicPath       ::=   RootTopic ChildTopicExpression*
+        RootTopic       ::=   NamespacePrefix? ('//')? (NCName | '*')
+        NamespacePrefix ::=   NCName ':'
         ChildTopicExpression ::=   '/' '/'? (QName | NCName | '*'| '.')</xsd:documentation>
       </xsd:annotation>
       <xsd:pattern value="([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*(\|([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*)*"></xsd:pattern>
@@ -3177,8 +3177,8 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:token">
       <xsd:annotation>
         <xsd:documentation>The pattern allows strings matching the following EBNF:
-    ConcreteTopicPath    ::=   RootTopic ChildTopic*    
-    RootTopic            ::=   QName  
+    ConcreteTopicPath    ::=   RootTopic ChildTopic*
+    RootTopic            ::=   QName
     ChildTopic           ::=   '/' (QName | NCName)</xsd:documentation>
       </xsd:annotation>
       <xsd:pattern value="(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*)(/([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*)*"></xsd:pattern>
@@ -3604,15 +3604,15 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:part>
     </con:definitionCache>
     <con:endpoints>
-      <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-      <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+      <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+      <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="tns:ProvideAndRegisterDocumentSet-b" name="ProvideAndRegisterDocumentSet-b" bindingOperationName="ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+        <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
         <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body>
@@ -3627,7 +3627,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -3656,7 +3656,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -3676,7 +3676,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
             <urn1:secondWitnessAddress>
@@ -3688,7 +3688,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -3707,7 +3707,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -3727,7 +3727,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
             <urn1:SSN>?</urn1:SSN>
@@ -3742,7 +3742,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -3761,7 +3761,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -3781,7 +3781,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
             <urn1:userInfo>
@@ -3796,7 +3796,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                      <urn1:displayName>?</urn1:displayName>
                      <urn1:originalText>?</urn1:originalText>
                      <!--Zero or more repetitions:-->
-                     
+
                   </urn1:nameType>
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                   <urn1:fullName>?</urn1:fullName>
@@ -3944,30 +3944,30 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   <con:testSuite name="SCHIEPPHDocSubmissionValidation TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FacilityIdentifier-R-2.3.1" searchProperties="true" id="6d469896-2c35-4890-ae94-1750cd08214e">
       <con:settings/>
       <con:testStep type="request" name="EntityXDR-FacilityId-2.3.1">
@@ -3978,7 +3978,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-FacilityId-2.3.1" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="FacilityIdentifier-R-2.3.1">
@@ -4206,7 +4206,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -4410,7 +4410,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -4455,7 +4455,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    
+
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FacilityIdentifier-R-2.5.1" searchProperties="true" id="870aae19-713a-4c95-a7ae-2e8afe9ed02c">
       <con:settings/>
       <con:testStep type="request" name="EntityXDR-FacilityId-2.5.1">
@@ -4466,7 +4466,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-FacilityId-2.5.1" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="FacilityIdentifier-R-2.5.1">
@@ -4694,7 +4694,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -4898,7 +4898,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -4952,7 +4952,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-FacilityVisitType" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="FacilityVisitType-R">
@@ -5180,7 +5180,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -5384,7 +5384,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -5438,7 +5438,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-ReportDateTime" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="ReportDateTime-R">
@@ -5666,7 +5666,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -5870,7 +5870,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -5924,7 +5924,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-PatientIdentifier" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="PatientIdentifier-R">
@@ -6152,7 +6152,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -6356,7 +6356,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -6410,7 +6410,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Age" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Age-R">
@@ -6638,7 +6638,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -6842,7 +6842,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -6896,7 +6896,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-AgeUnits" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="AgeUnits-R">
@@ -7124,7 +7124,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -7328,7 +7328,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -7382,7 +7382,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Gender" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Gender-RE">
@@ -7610,7 +7610,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -7814,7 +7814,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -7870,7 +7870,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Zipcode" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Zipcode-RE">
@@ -8098,7 +8098,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -8302,7 +8302,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -8358,7 +8358,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Race" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Race-RE">
@@ -8586,7 +8586,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -8790,7 +8790,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -8846,7 +8846,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Ethnicity" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Ethnicity-RE">
@@ -9074,7 +9074,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -9278,7 +9278,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -9334,7 +9334,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-UniqueVisitingId" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="UniqueVisitingId-R">
@@ -9562,7 +9562,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -9766,7 +9766,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -9820,7 +9820,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-VisitDateTime" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="VisitDateTime-R">
@@ -10048,7 +10048,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -10252,7 +10252,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -10306,7 +10306,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-ChiefComplaint" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="ChiefComplaint-RE">
@@ -10534,7 +10534,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -10738,7 +10738,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -10794,7 +10794,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-DiagnosisInjuryCode" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="DiagnosisInjuryCode-RE">
@@ -11022,7 +11022,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -11226,7 +11226,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -11277,7 +11277,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-DiagnosisType" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="DiagnosisType-R">
@@ -11505,7 +11505,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -11709,7 +11709,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -11763,7 +11763,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-DischargeDisposition" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="DischargeDisposition-RE">
@@ -11991,7 +11991,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -12195,7 +12195,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -12251,7 +12251,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Invalid hl7" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="SCHIEPPHDocSubmissionValidation" testCase="Invalid hl7">
@@ -12479,7 +12479,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -12683,7 +12683,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -12737,7 +12737,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Invalid ADT" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Invalid ADT">
@@ -12965,7 +12965,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -13169,7 +13169,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -13222,7 +13222,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple - RE" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple - RE">
@@ -13450,7 +13450,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -13654,7 +13654,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -13710,7 +13710,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple - RE and R" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple - RE and R">
@@ -13938,7 +13938,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -14142,7 +14142,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -14196,7 +14196,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple - R" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple - R">
@@ -14424,7 +14424,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -14628,7 +14628,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -14683,7 +14683,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-All pass - 2.3.1" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="All pass - 2.3.1">
@@ -14911,7 +14911,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -15115,7 +15115,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -15166,7 +15166,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-All pass - 2.5.1" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="All pass - 2.5.1">
@@ -15394,7 +15394,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -15598,7 +15598,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -15649,7 +15649,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple Race" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple Race">
@@ -15877,7 +15877,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -16081,7 +16081,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -16132,7 +16132,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple Injury Codes" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple Injury Codes">
@@ -16360,7 +16360,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -16564,7 +16564,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -16615,7 +16615,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple Patient Ids" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple Patient Ids">
@@ -16843,7 +16843,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -17047,7 +17047,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -17098,7 +17098,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple Ethnicity" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple Ethnicity">
@@ -17326,7 +17326,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -17530,7 +17530,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -17581,7 +17581,7 @@ This document and the information contained herein is provided on an "AS IS" bas
           <con:request name="EntityXDR-Multiple Chief Complaints" outgoingWss="" incomingWss="" wssPasswordType="">
             <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body  projectName="SCHIEPPHDocSubmissionValidation" testCase="Multiple Chief Complaints">
@@ -17809,7 +17809,7 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -18013,7 +18013,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -18381,7 +18381,7 @@ def testRunListener = [
   afterStep: { testRunner, runContext, result -> },
   beforeStep: { testRunner, runContext -> },
   beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  beforeRun: { testRunner, runContext ->
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -18395,7 +18395,7 @@ def testRunListener = [
       runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
       runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
     }
-  }   
+  }
 ] as com.eviware.soapui.model.testsuite.TestRunListener
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
@@ -18415,7 +18415,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {

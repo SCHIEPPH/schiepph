@@ -33,7 +33,6 @@ public class PipeParser extends Parser implements IDataParser {
         String            fieldNumber;
         Element           location;
         Iterator          locationIterator;
-        List<Element>     identifiers;
 
         locationIterator = locationList.iterator();
 
@@ -43,9 +42,8 @@ public class PipeParser extends Parser implements IDataParser {
             fieldNumber = location.getChild(XMLDefs.HL7_SEGMENT,
                                             location.getNamespace()).getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                                                        location.getNamespace());
-            identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
 
-            value = getFieldValue(segmentName, identifiers, fieldNumber);
+            value = getFieldValue(segmentName, location, fieldNumber);
             if(value != null && value.trim().length() > 0) {
                 return value;
             }
@@ -105,18 +103,51 @@ public class PipeParser extends Parser implements IDataParser {
         return hl7DataMap.get(segmentName).size();
     }
 
-    protected String  getFieldValue(String segmentName, List<Element> identifiers, String fieldNumber) {
-        String              idFieldNumber;
-        boolean             mustMatch;
-        boolean             matchFound;
-        String              matchValue;
-        String              valueToCheck = "";
-        String              valueToReturn = "";
-        Iterator            identifierIterator;
-        int                 segmentCount;
-        int                 currentSegement = 0;
-        RepeatingElement    repeatingElement;
+    public List<String>  getAllFieldValues(List  locations) {
+        Iterator              locationIterator;
+        Element               hl7SegmentElement;
+        ArrayList<String>     allValues = new ArrayList<String>();
 
+        locationIterator = locations.iterator();
+        while(locationIterator.hasNext()) {
+            Element       locationElement = (Element)locationIterator.next();
+
+            hl7SegmentElement = locationElement.getChild(XMLDefs.HL7_SEGMENT, locationElement.getNamespace());
+
+            getFieldValue(hl7SegmentElement.getText(),
+                          locationElement,
+                          hl7SegmentElement.getAttributeValue(XMLDefs.FIELD_NUMBER, hl7SegmentElement.getNamespace()),
+                          allValues);
+        }
+
+        return  allValues;
+    }
+
+    protected String  getFieldValue(String segmentName, Element  location, String fieldNumber) {
+
+        return getFieldValue(segmentName, location, fieldNumber, null);
+    }
+
+    protected String  getFieldValue(String segmentName, Element  location,
+                                    String fieldNumber, ArrayList<String>  allValues) {
+        String            idFieldNumber;
+        boolean           mustMatch;
+        boolean           matchFound;
+        String            matchValue;
+        String            valueToCheck = "";
+        String            valueToReturn = "";
+        List<Element>     identifiers;
+        Iterator          fieldValueListIterator;
+        Iterator          identifierIterator;
+        int               segmentCount;
+        int               currentSegement = 0;
+        boolean           multipleValuesAllowed;
+
+        identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
+
+        multipleValuesAllowed = Boolean.parseBoolean(((Element)(location.getParent()))
+                                                             .getAttributeValue(XMLDefs.CAN_CONTAIN_MULTIPLE_VALUES,
+                                                                                location.getNamespace(), "false"));
 
         if(identifiers == null || identifiers.size() == 0) {
             return getFieldValue(segmentName, 0, fieldNumber);
@@ -136,16 +167,30 @@ public class PipeParser extends Parser implements IDataParser {
                                                                           identifier.getNamespace(), "true"));
             matchValue = identifier.getTextTrim();
 
-            repeatingElement = getRepeatingElement(identifier.getAttributeValue(XMLDefs.REPEATING_ELEMENT,
-                                                                          identifier.getNamespace(), "Segment"));
-
             matchFound = false;
             for(currentSegement = 0; currentSegement < segmentCount; currentSegement++) {
-                if(repeatingElement.ordinal() == RepeatingElement.Segment.ordinal()) {
-                    valueToCheck = getFieldValue(segmentName, currentSegement, idFieldNumber);
-                    if(matchValue.equals(valueToCheck)) {
-                        valueToReturn = getFieldValue(segmentName, currentSegement, fieldNumber);
-                        matchFound = true;
+                if(multipleValuesAllowed) {
+                    fieldValueListIterator = getAllFieldValues(segmentName, currentSegement, fieldNumber).iterator();
+                    while(fieldValueListIterator.hasNext()) {
+                        String fieldValue = (String)fieldValueListIterator.next();
+
+                        valueToCheck = getSubFieldValue(fieldValue, idFieldNumber);
+                        if(matchValue.equals(valueToCheck)) {
+                            valueToReturn = getSubFieldValue(fieldValue, fieldNumber);
+                            //
+                            // If allValues is null, we are looking for one value, and we take the first one we find.
+                            // If allValues is not null, then we are looking for all values we can find.
+                            //
+                            if(allValues == null) {
+                                matchFound = true;
+                                break;
+                            }
+                            else {
+                                allValues.add(valueToReturn);
+                            }
+                        }
+                    }
+                    if(matchFound) {
                         break;
                     }
                 }
@@ -160,9 +205,18 @@ public class PipeParser extends Parser implements IDataParser {
 
                         valueToCheck = getSubFieldValue(fieldValue, idFieldNumber);
                         if(valueToCheck.equals(matchValue)) {
-                            valueToReturn = getSubFieldValue(fieldValue, fieldNumber);
-                            matchFound = true;
-                            break;
+                            valueToReturn = getFieldValue(segmentName, currentSegement, fieldNumber);
+                        //
+                        // If allValues is null, we are looking for one value, and we take the first one we find.
+                        // If allValues is not null, then we are looking for all values we can find.
+                        //
+                            if(allValues == null) {
+                                matchFound = true;
+                                break;
+                            }
+                            else {
+                                allValues.add(valueToReturn);
+                            }
                         }
                     }
                 }
@@ -233,7 +287,7 @@ public class PipeParser extends Parser implements IDataParser {
         fieldNumberInt = getFieldNumber(fieldNumber);
         strtok = new StringTokenizer(segment, fieldSeparator, true);
         //
-        // Eat the segment name and the following seperator.
+        // Eat the segment name and the following separator.
         //
         strtok.nextToken();
         strtok.nextToken();

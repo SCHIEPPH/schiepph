@@ -54,7 +54,7 @@ public class XMLDefs {
     public static final String      PRINT_FIELD_VALUE = "printFieldValue";
     public static final String      MUST_MATCH = "mustMatch";
     public static final String      MUST_EXIST = "mustExist";
-    public static final String      REPEATING_ELEMENT = "repeatingElement";
+    public static final String      CAN_CONTAIN_MULTIPLE_VALUES = "canContainMultipleValues";
     public static final String      ERROR_CODE_ID = "errorCodeId";
     public static final String      CASE_SENSITIVE = "caseSensitive";
     public static final String      MINIMUM_LENGTH = "minimumLength";

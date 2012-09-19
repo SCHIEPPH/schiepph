@@ -3,12 +3,12 @@
   <name>HL7PipeDelimitedFileSource</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.1.1.5490</version>
+  <version>2.2.1.5861</version>
   <lastModified>
-    <time>1335533272000</time>
+    <time>1347485902362</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>11</revision>
+  <revision>5</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -21,9 +21,10 @@
       <property name="fileAge">1000</property>
       <property name="fileFilter">*.hl7</property>
       <property name="host">${hl7_pipe_delimited_file_source_input_dir}</property>
+      <property name="ignoreDot">0</property>
       <property name="moveToDirectory">${hl7_pipe_delimited_file_source_processed_dir}</property>
       <property name="moveToErrorDirectory">${hl7_pipe_delimited_file_source_error_dir}</property>
-      <property name="moveToPattern"></property>
+      <property name="moveToPattern">${ORIGINALNAME}_${DATE}</property>
       <property name="passive">1</property>
       <property name="password">anonymous</property>
       <property name="pollingFrequency">1000</property>
@@ -61,14 +62,14 @@
     <transportName>File Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.1.1.5490</version>
+    <version>2.2.1.5861</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
       <name>Destination 1</name>
       <properties>
         <property name="DataType">Channel Writer</property>
-        <property name="host">5fab7b95-867b-4759-856d-bd35a234bba8</property>
+        <property name="host">3138bb65-18f4-41f4-a499-2bbc83bc5407</property>
         <property name="synchronised">0</property>
         <property name="template">${message.transformedData}</property>
       </properties>
@@ -89,7 +90,7 @@
       <transportName>Channel Writer</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.1.1.5490</version>
+      <version>2.2.1.5861</version>
     </connector>
   </destinationConnectors>
   <properties>

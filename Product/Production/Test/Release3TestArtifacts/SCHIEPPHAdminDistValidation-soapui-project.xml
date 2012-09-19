@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="SCHIEPPHAdminDistValidation" resourceRoot="" soapui-version="4.0.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:definitionCache type="TEXT" rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl">
@@ -681,38 +681,38 @@
       </con:part>
       <con:part>
         <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
-        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
-Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
+        <con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation,
+Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved.
 
-Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
+Permission to copy, display, perform, modify and distribute the WS-Addressing Specification,
 and to authorize others to do the foregoing, in any medium without fee or royalty is hereby
 granted for the purpose of developing and evaluating the WS-Addressing Specification.
 
-BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree 
-to grant a license to third parties, under royalty-free  and otherwise reasonable, 
+BEA, IBM, Microsoft, SAP AG, and Sun Microsystems (collectively, the "Authors") each agree
+to grant a license to third parties, under royalty-free  and otherwise reasonable,
 non-discriminatory terms and conditions, to their respective essential patent claims that
 they deem necessary to implement the WS-Addressing Specification.
 
 DISCLAIMERS:
 
 THE WS-Addressing Specification IS PROVIDED "AS IS", AND THE AUTHORS MAKE NO REPRESENTATIONS
-OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE 
-CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE 
-IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, 
+OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE
+CONTENTS OF THE WS-Addressing Specification IS SUITABLE FOR ANY PURPOSE; NOR THAT THE
+IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS,
 TRADEMARKS OR OTHER RIGHTS.
 
-THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL 
-DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR 
+THE AUTHORS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL
+DAMAGES ARISING OUT OF ANY USE OF THE WS-Addressing Specification OR THE PERFORMANCE OR
 IMPLEMENTATION OF THE CONTENTS THEREOF.
 
-You may remove these disclaimers from your modified versions of the WS-Addressing 
-Specification provided that you effectively disclaim all warranties and liabilities on behalf 
+You may remove these disclaimers from your modified versions of the WS-Addressing
+Specification provided that you effectively disclaim all warranties and liabilities on behalf
 of all copyright holders in the copies of any such modified versions you distribute.
 
-The name and trademarks of the Authors may NOT be used in any manner, including advertising 
-or publicity pertaining to the WS-Addressing Specification or its contents without specific, 
-written prior permission. Title to copyright in the WS-Addressing Specification will at all 
+The name and trademarks of the Authors may NOT be used in any manner, including advertising
+or publicity pertaining to the WS-Addressing Specification or its contents without specific,
+written prior permission. Title to copyright in the WS-Addressing Specification will at all
 times remain with the Authors.
 
 No other rights are granted by implication, estoppel or otherwise.-->
@@ -1323,7 +1323,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <element name="SlotList" type="tns:SlotListType"/>
   <complexType name="IdentifiableType">
     <annotation>
-      <documentation xml:lang="en">Common base type for all types that have unique identity.     
+      <documentation xml:lang="en">Common base type for all types that have unique identity.
         If id is provided and is not in proper URN syntax then it is used for
         linkage within document and is ignored by the registry. In this case the
         registry generates a UUID URN for id attribute.
@@ -1642,7 +1642,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <extension base="tns:RegistryObjectType">
         <sequence maxOccurs="1" minOccurs="1">
           <element maxOccurs="unbounded" minOccurs="0" ref="tns:Address"/>
-          <!--PersonName is optional because it is not needed in SAML Profile 
+          <!--PersonName is optional because it is not needed in SAML Profile
           when an external IdentityProvider is used.-->
           <element maxOccurs="1" minOccurs="0" ref="tns:PersonName"/>
           <element maxOccurs="unbounded" minOccurs="0" ref="tns:TelephoneNumber"/>
@@ -1710,7 +1710,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
   <element name="AdhocQuery" type="tns:AdhocQueryType" substitutionGroup="tns:RegistryObject"/>
   <complexType name="QueryExpressionType" mixed="true">
     <sequence>
-      <!--MAY be any query language syntax supported. 
+      <!--MAY be any query language syntax supported.
       MUST support FilterQuery. SHOULD support SQLQuery-->
       <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="1"/>
     </sequence>
@@ -1779,7 +1779,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
    http://www.w3.org/TR/REC-xml for information about this namespace.
 
     This schema document describes the XML namespace, in a form
-    suitable for import by other schema documents.  
+    suitable for import by other schema documents.
 
     Note that local names in this namespace are intended to be defined
     only by the World Wide Web Consortium or its subgroups.  The
@@ -1802,16 +1802,16 @@ No other rights are granted by implication, estoppel or otherwise.-->
          is a language code for the natural language of the content of
          any element; its value is inherited.  This name is reserved
          by virtue of its definition in the XML specification.
-  
+
     space (as an attribute name): denotes an attribute whose
          value is a keyword indicating what whitespace processing
          discipline is intended for the content of the element; its
          value is inherited.  This name is reserved by virtue of its
          definition in the XML specification.
 
-    Father (in any context at all): denotes Jon Bosak, the chair of 
-         the original XML Working Group.  This name is reserved by 
-         the following decision of the W3C XML Plenary and 
+    Father (in any context at all): denotes Jon Bosak, the chair of
+         the original XML Working Group.  This name is reserved by
+         the following decision of the W3C XML Plenary and
          XML Coordination groups:
 
              In appreciation for his vision, leadership and dedication
@@ -1838,7 +1838,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
         &lt;type . . .>
          . . .
          &lt;attributeGroup ref="xml:specialAttrs"/>
- 
+
          will define a type which will schema-validate an instance
          element with any of those attributes</xs:documentation>
   </xs:annotation>
@@ -2601,9 +2601,9 @@ OASIS invites any interested party to bring to its attention any copyrights, pat
 
 Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema targetNamespace="http://docs.oasis-open.org/wsn/b-2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -3135,15 +3135,15 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:part>
       <con:part>
         <con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
-        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+        <con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director.
 
-OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
+OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
-Copyright (C) OASIS Open (2005). All Rights Reserved. 
+Copyright (C) OASIS Open (2005). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://docs.oasis-open.org/wsrf/bf-2" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2">
@@ -3200,9 +3200,9 @@ OASIS invites any interested party to bring to its attention any copyrights, pat
 
 Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
 
-This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
 
-The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
 
 This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.-->
 <xsd:schema targetNamespace="http://docs.oasis-open.org/wsn/t-1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1">
@@ -3293,10 +3293,10 @@ This document and the information contained herein is provided on an "AS IS" bas
   <xsd:simpleType name="FullTopicExpression">
     <xsd:restriction base="xsd:token">
       <xsd:annotation>
-        <xsd:documentation>TopicPathExpression  ::=   TopicPath ( '|' TopicPath )*  
-        TopicPath       ::=   RootTopic ChildTopicExpression* 
-        RootTopic       ::=   NamespacePrefix? ('//')? (NCName | '*')  
-        NamespacePrefix ::=   NCName ':'      
+        <xsd:documentation>TopicPathExpression  ::=   TopicPath ( '|' TopicPath )*
+        TopicPath       ::=   RootTopic ChildTopicExpression*
+        RootTopic       ::=   NamespacePrefix? ('//')? (NCName | '*')
+        NamespacePrefix ::=   NCName ':'
         ChildTopicExpression ::=   '/' '/'? (QName | NCName | '*'| '.')</xsd:documentation>
       </xsd:annotation>
       <xsd:pattern value="([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*(\|([\i-[:]][\c-[:]]*:)?(//)?([\i-[:]][\c-[:]]*|\*)((/|//)(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*|\*|[.]))*)*"></xsd:pattern>
@@ -3306,8 +3306,8 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:token">
       <xsd:annotation>
         <xsd:documentation>The pattern allows strings matching the following EBNF:
-    ConcreteTopicPath    ::=   RootTopic ChildTopic*    
-    RootTopic            ::=   QName  
+    ConcreteTopicPath    ::=   RootTopic ChildTopic*
+    RootTopic            ::=   QName
     ChildTopic           ::=   '/' (QName | NCName)</xsd:documentation>
       </xsd:annotation>
       <xsd:pattern value="(([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*)(/([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*)*"></xsd:pattern>
@@ -3733,14 +3733,14 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:part>
     </con:definitionCache>
     <con:endpoints>
-      <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+      <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call name="Request 1">
         <con:settings/>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+        <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
         <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body>
@@ -3935,26 +3935,26 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  
+
   <con:testSuite name="SCHIEPPHAdminDistValidationTests TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FacilityIdentifier-R-2.3.1" searchProperties="true" id="846a1055-4695-47e4-92b8-de26f5640118">
       <con:settings/>
       <con:testStep type="request" name="AdminDist-FacilityId-2.3.1">
@@ -3967,7 +3967,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="FacilityIdentifier-R-2.3.1">
@@ -4300,7 +4300,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTEwMTEzMTY0NTEyLTA1MDANClBJRHwxfHw5NTEwMTEwMDAwMV5eXl5QSXx8fl5eXl5eXlV8fHxNfHwyMTA2LTNeV2hpdGVeQ0RDUkVDfF5eXjI0XjIxNTAyXlVTQXx8fHx8fHx8fHx8MjEzNS0yXkhpc3BhbmljIG9yIExhdGlub15DRENSRUMNClBWMXx8SXx8RXx8fHx8fHx8fHw2fHx8fHxWTjEwMTEwMDAwMV5eXl5WTnx8fHx8fHx8fHx8fHx8fHx8MDR8fHx8fHx8fDIwMTExMDA5MDI1OTE1LTA1MDB8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8MjB8YV5ZRUFSXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHx8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -4347,7 +4347,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="FacilityIdentifier-R-2.5.1">
@@ -4680,7 +4680,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuNS4xDQpFVk58fDIwMTEwMTEzMTY0NTEyLTA1MDB8fHx8fA0KUElEfDF8fDk1MTAxMTAwMDAxXl5eXlBJfHx+Xl5eXl5eVXx8fE18fDIxMDYtM15XaGl0ZV5DRENSRUN8Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -4726,7 +4726,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="FacilityVisitType-R">
@@ -5059,7 +5059,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDAyfHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxFODgwOV5GQUxMIE9OIFNUQUlSL1NURVAgTkVDXkk5Q0RYfHx8QQ==</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -5105,7 +5105,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="ReportDateTime-R">
@@ -5438,7 +5438,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fA0KUElEfDF8fDk1MTAxMTAwMDAxXl5eXlBJfHx+Xl5eXl5eVXx8fE18fDIxMDYtM15XaGl0ZV5DRENSRUN8Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -5484,7 +5484,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="PatientIdentifier-R">
@@ -5817,7 +5817,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8fHx+Xl5eXl5eVXx8fE18fDIxMDYtM15XaGl0ZV5DRENSRUN8Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwMnx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -5863,7 +5863,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Age-R">
@@ -6196,7 +6196,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -6242,7 +6242,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="AgeUnits-R">
@@ -6575,7 +6575,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA0fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHxPVEhFUl9SRUdfTUVEQ1RSXjEyMzQ1Njc4OTBeTlBJfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -6621,7 +6621,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Gender-RE">
@@ -6954,7 +6954,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -7000,7 +7000,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Zipcode-RE">
@@ -7333,7 +7333,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF5eVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -7379,7 +7379,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Race-RE">
@@ -7712,7 +7712,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8Xl58Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -7758,7 +7758,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Ethnicity-RE">
@@ -8091,7 +8091,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fA0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwOXx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -8137,7 +8137,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="UniqueVisitingId-R">
@@ -8470,7 +8470,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMjAzM15VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8fHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -8516,7 +8516,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="VisitDateTime-R">
@@ -8849,7 +8849,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMDE1MV5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA5fHx8fHx8fHx8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8MjB8YV5ZRUFSXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHxPVEhFUl9SRUdfTUVEQ1RSXjEyMzQ1Njc4OTBeTlBJfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -8895,7 +8895,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="ChiefComplaint-RE">
@@ -9228,7 +9228,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA5fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fHx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -9274,7 +9274,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="DiagnosisInjuryCode-RE">
@@ -9607,7 +9607,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA0fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxeRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -9653,7 +9653,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="DiagnosisType-R">
@@ -9986,7 +9986,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDAyfHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxFODgwOV5GQUxMIE9OIFNUQUlSL1NURVAgTkVDXkk5Q0RYfHx8</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -10032,7 +10032,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="DischargeDisposition-RE">
@@ -10365,7 +10365,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyMHxhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -10411,7 +10411,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Invalid hl7">
@@ -10744,7 +10744,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuNy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDAyfHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8fHx8fHx8fHx8DQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -10790,7 +10790,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Invalid ADT">
@@ -11123,7 +11123,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDdeQURUX0EwN3wyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDAyfHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDIwfGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxFODgwOV5GQUxMIE9OIFNUQUlSL1NURVAgTkVDXkk5Q0RYfHx8QQ==</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -11169,7 +11169,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple - RE">
@@ -11502,7 +11502,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8Xl58Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwNClBWMXx8SXx8RXx8fHx8fHx8fHw2fHx8fHxWTjEwMTEwMDAwMV5eXl5WTnx8fHx8fHx8fHx8fHx8fHx8MDR8fHx8fHx8fDIwMTExMDA5MDI1OTE1LTA1MDB8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8MjB8YV5ZRUFSXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHxPVEhFUl9SRUdfTUVEQ1RSXjEyMzQ1Njc4OTBeTlBJfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -11548,7 +11548,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple - RE and R">
@@ -11881,7 +11881,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEV8fH5eXl5eXl5VfHx8TXx8Xl58Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwNClBWMXx8SXx8RXx8fHx8fHx8fHw2fHx8fHxWTjEwMTEwMDAwMV5eXl5WTnx8fHx8fHx8fHx8fHx8fHx8MDR8fHx8fHx8fDIwMTExMDA5MDI1OTE1LTA1MDB8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8fGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8fHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -11927,7 +11927,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple - R">
@@ -12260,7 +12260,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fA0KUElEfDF8fDk1MTAxMTAwMDAxXl5eXlBJfHx+Xl5eXl5eVXx8fE18fDIxMDYtM15XaGl0ZV5DRENSRUN8Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHx8YV5eVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fA==</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -12306,7 +12306,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="All pass - 2.3.1">
@@ -12639,7 +12639,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA0fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDI3fGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxFODgwOV5GQUxMIE9OIFNUQUlSL1NURVAgTkVDXkk5Q0RYfHx8QQ==</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -12685,7 +12685,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="All pass - 2.5.1">
@@ -13018,7 +13018,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuNS4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwfHx8fHxPVEhfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXwNClBJRHwxfHw5NTEwMTEwMDAwMV5eXl5QSXx8fl5eXl5eXlV8fHxNfHwyMTA2LTNeV2hpdGVeQ0RDUkVDfF5eXjI0XjIxNTAyXlVTQXx8fHx8fHx8fHx8MjEzNS0yXkhpc3BhbmljIG9yIExhdGlub15DRENSRUMNClBWMXx8SXx8RXx8fHx8fHx8fHw2fHx8fHxWTjEwMTEwMDAwMV5eXl5WTnx8fHx8fHx8fHx8fHx8fHx8MDR8fHx8fHx8fDIwMTExMDA5MDI1OTE1LTA1MDB8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8MjB8YV5ZRUFSXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHxPVEhFUl9SRUdfTUVEQ1RSXjEyMzQ1Njc4OTBeTlBJfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -13064,7 +13064,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple Race">
@@ -13397,7 +13397,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ34yMDI4LTleQXNpYW5eQ0RDUkVDfF5eXjI0XjIxNTAyXlVTQXx8fHx8fHx8fHx8MjEzNS0yXkhpc3BhbmljIG9yIExhdGlub15DRENSRUMNClBWMXx8SXx8RXx8fHx8fHx8fHw2fHx8fHxWTjEwMTEwMDAwMV5eXl5WTnx8fHx8fHx8fHx8fHx8fHx8MDR8fHx8fHx8fDIwMTExMDA5MDI1OTE1LTA1MDB8MjAxMTAxMTMxNjQ1MTItMDUwMA0KT0JYfDF8Tk18MjE2MTItN15BR0UgVElNRSBQQVRJRU5UIFJFUE9SVEVEXl5MTnx8Mjd8YV5ZRUFSXlVDVU18fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwyfEhEfFNTMDAxXlRSRUFUSU5HIEZBQ0lMSVRZIElERU5USUZJRVJeUEhJTlFVRVNUSU9OfHxPVEhFUl9SRUdfTUVEQ1RSXjEyMzQ1Njc4OTBeTlBJfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDN8Tk18MTEyODktNl5CT0RZIFRFTVBFUkFUVVJFOlRFTVA6RU5DVFJGSVJTVDpQQVRJRU5UOlFOXkxOfHwxMDAuMXxbZGVnRl1eRkFSRU5IRUlUXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNDUxMzkNCk9CWHw0fE5NfDU5NDA4LTVeT1hZR0VOIFNBVFVSQVRJT046TUZSOlBUOkJMREE6UU46UFVMU0V8fDk1fCVeUEVSQ0VOVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDV8Q1dFfDg2NjEtMV5DSElFRiBDT01QTEFJTlQ6RklORDpQVDpQQVRJRU5UOk5PTTpSRVBPUlRFRF5MTnx8Xl5eXl5eXl5TVE9NQUNIIEFDSEV8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8NnxUU3wxMTM2OC04XklMTE5FU1MgT1IgSU5KVVJZIE9OU0VUIERBVEUgQU5EIFRJTUU6VE1TVFA6UFQ6UEFUSUVOVDpRTl5MTnx8MjAxMTAyMTV8fHx8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8N3xDV0V8U1MwMDNeRkFDSUxJVFkgLyBWSVNJVCBUWVBFXlBISU5RVUVTVElPTnx8MTEwOC0wXkVNRVJHRU5DWSBERVBBUlRNRU5UXkhTTE9DfHx8fHx8Rnx8fDIwMTEwMjA5MTExNA0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -13443,7 +13443,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple Injury Codes">
@@ -13776,7 +13776,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA0fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDI3fGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCkRHMXwxfHxFODgwOV5GQUxMIE9OIFNUQUlSL1NURVAgTkVDXkk5Q0RYfHx8QQ0KREcxfDJ8fDQ3MzleQ0hST05JQyBTSU5VU0lUSVMgTk9TXkk5Q0RYfHx8QQ0KREcxfDN8fDA0MTAwXlNUUkVQVE9DT0NDVVMgVU5TUEVDRl5JOUNEWHx8fEY=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -13822,7 +13822,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple Patient Ids">
@@ -14155,7 +14155,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl+RTk1MTAxMTAwMDAxXl5eXlBUfHx+Xl5eXl5eVXx8fE18fDIxMDYtM15XaGl0ZV5DRENSRUN8Xl5eMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwyMTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyN3xhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -14201,7 +14201,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple Ethnicity">
@@ -14534,7 +14534,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDfjIxODYtNV5Ob3QgSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBBVElFTlQgUkVQT1JURUReXkxOfHwyN3xhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058fE9USEVSX1JFR19NRURDVFJeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEzOQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxTRXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5eXl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LTheSUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFOXkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJTElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1FTlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpERzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEE=</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -14580,7 +14580,7 @@ This document and the information contained herein is provided on an "AS IS" bas
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.25.172:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
+            <con:endpoint>http://192.168.25.170:8080/CONNECTGateway/AdministrativeDistribution_Service</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="SCHIEPPHAdminDistValidation" testCase="Multiple Chief Complaints">
@@ -14913,7 +14913,7 @@ This document and the information contained herein is provided on an "AS IS" bas
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri><urn2:contentData>TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFEVF5BMDFeQURUX0EwMXwyMDExMTAwOTAzMTQtMDAxN3xQfDIuMy4xDQpFVk58fDIwMTExMDA5MDMxNC0wNTAwDQpQSUR8MXx8OTUxMDExMDAwMDFeXl5eUEl8fH5eXl5eXl5VfHx8TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXl4yNF4yMTUwMl5VU0F8fHx8fHx8fHx8fDIxMzUtMl5IaXNwYW5pYyBvciBMYXRpbm9eQ0RDUkVDDQpQVjF8fEl8fEV8fHx8fHx8fHx8Nnx8fHx8Vk4xMDExMDAwMDFeXl5eVk58fHx8fHx8fHx8fHx8fHx8fDA0fHx8fHx8fHwyMDExMTAwOTAyNTkxNS0wNTAwfDIwMTEwMTEzMTY0NTEyLTA1MDANCk9CWHwxfE5NfDIxNjEyLTdeQUdFIFRJTUUgUEFUSUVOVCBSRVBPUlRFRF5eTE58fDI3fGFeWUVBUl5VQ1VNfHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpPQlh8MnxIRHxTUzAwMV5UUkVBVElORyBGQUNJTElUWSBJREVOVElGSUVSXlBISU5RVUVTVElPTnx8T1RIRVJfUkVHX01FRENUUl4xMjM0NTY3ODkwXk5QSXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHwzfE5NfDExMjg5LTZeQk9EWSBURU1QRVJBVFVSRTpURU1QOkVOQ1RSRklSU1Q6UEFUSUVOVDpRTl5MTnx8MTAwLjF8W2RlZ0ZdXkZBUkVOSEVJVF5VQ1VNfHxBfHx8Rnx8fDIwMTEwMjE3MTQ1MTM5DQpPQlh8NHxOTXw1OTQwOC01Xk9YWUdFTiBTQVRVUkFUSU9OOk1GUjpQVDpCTERBOlFOOlBVTFNFfHw5NXwlXlBFUkNFTlReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw1fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fF5eXl5eXl5eU1RPTUFDSCBBQ0hFfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KT0JYfDZ8VFN8MTEzNjgtOF5JTExORVNTIE9SIElOSlVSWSBPTlNFVCBEQVRFIEFORCBUSU1FOlRNU1RQOlBUOlBBVElFTlQ6UU5eTE58fDIwMTEwMjE1fHx8fHx8Rnx8fDIwMTEwMjE3MTY1OA0KT0JYfDd8Q1dFfFNTMDAzXkZBQ0lMSVRZIC8gVklTSVQgVFlQRV5QSElOUVVFU1RJT058fDExMDgtMF5FTUVSR0VOQ1kgREVQQVJUTUVOVF5IU0xPQ3x8fHx8fEZ8fHwyMDExMDIwOTExMTQNCk9CWHw4fENXRXw4NjYxLTFeQ0hJRUYgQ09NUExBSU5UOkZJTkQ6UFQ6UEFUSUVOVDpOT006UkVQT1JURUReTE58fDc4MDReRGl6emluZXNzIGFuZCBnaWRkaW5lc3MgWzc4MC40XV5JOUNEWF5eXl5eXkRJWlpZfHx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0KREcxfDF8fEU4ODA5XkZBTEwgT04gU1RBSVIvU1RFUCBORUNeSTlDRFh8fHxB</urn2:contentData>
                   <!--Optional:-->
-                  
+
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -15274,7 +15274,7 @@ def testRunListener = [
   afterStep: { testRunner, runContext, result -> },
   beforeStep: { testRunner, runContext -> },
   beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  beforeRun: { testRunner, runContext ->
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -15288,7 +15288,7 @@ def testRunListener = [
       runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
       runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
     }
-  }   
+  }
 ] as com.eviware.soapui.model.testsuite.TestRunListener
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
@@ -15308,7 +15308,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {

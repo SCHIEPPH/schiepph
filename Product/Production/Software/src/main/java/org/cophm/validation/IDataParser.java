@@ -20,5 +20,7 @@ public interface IDataParser {
 
     public String  getFieldValue(String  segmentName, String fieldNumber);
 
-    public String  getFieldValue(List locationList) throws HL7ValidatorException;
+    public String  getFieldValue(List<Element> locationList) throws HL7ValidatorException;
+
+    public List<String>  getAllFieldValues(List<Element> locationList) throws HL7ValidatorException;
 }

@@ -2,7 +2,7 @@
     <property name="project.dir" location="../../../" />
 
 
-    <property name="release.number" value="3.0" />
+    <property name="release.number" value="4.0" />
 
 
     <property name="src.dir" value="${basedir}/src/main/java" />

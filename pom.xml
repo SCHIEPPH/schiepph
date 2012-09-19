@@ -63,11 +63,6 @@
             <version>5.0.5</version>
         </dependency>
         <dependency>
-            <groupId>jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>
@@ -97,6 +92,11 @@
         <dependency>
             <groupId>mirth.connect</groupId>
             <artifactId>ws-server</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mirth.connect</groupId>
+            <artifactId>mirth-client-core</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
