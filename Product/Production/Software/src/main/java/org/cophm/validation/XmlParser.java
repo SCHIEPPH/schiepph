@@ -53,6 +53,18 @@ public class XmlParser extends Parser implements IDataParser {
         }
     }
 
+    public boolean  isSegmentPresent(String  segmentName) {
+        Element     segmentElement;
+
+        segmentElement = root.getChild(segmentName, root.getNamespace());
+
+        if(segmentElement == null) {
+            return false;
+        }
+
+        return true;
+    }
+
     public String getFieldValue(List<Element> locationList) throws HL7ValidatorException {
         List<String>    valuesToReturn;
 
@@ -137,6 +149,9 @@ public class XmlParser extends Parser implements IDataParser {
         Iterator          segmentIterator;
         boolean           matchFound = false;
         boolean           multipleValuesAllowed;
+        boolean           repeatingSegment;
+        List<Element>     fields;
+        Iterator          fieldsIterator;
 
         segmentList = root.getChildren(segmentName, root.getNamespace());
 
@@ -149,6 +164,11 @@ public class XmlParser extends Parser implements IDataParser {
                                                                  .getAttributeValue(XMLDefs.CAN_CONTAIN_MULTIPLE_VALUES,
                                                                                     location.getNamespace(), "false"));
 
+            repeatingSegment = ((Element)(location.getParent())).getAttributeValue(XMLDefs.REPEATING_ELEMENT,
+                                                                                    location.getNamespace(),
+                                                                                    RepeatingElement.Field.name())
+                                                                 .equals(RepeatingElement.Segment.name());
+
             identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
         }
         else {
@@ -156,11 +176,24 @@ public class XmlParser extends Parser implements IDataParser {
             // Set default values.
             //
             multipleValuesAllowed = false;
+            repeatingSegment = false;
             identifiers = null;
         }
 
         if(identifiers == null || identifiers.size() == 0) {
-            segment = segmentList.get(0);
+            if(multipleValuesAllowed && allValues != null && repeatingSegment) {
+                segmentIterator = segmentList.iterator();
+                while(segmentIterator.hasNext()) {
+                    segment = (Element)segmentIterator.next();
+
+                    allValues.add(getFieldValue(segment, fieldNumber));
+                }
+
+                return "";
+            }
+            else {
+                segment = segmentList.get(0);
+            }
         }
         else {
             //
@@ -176,7 +209,7 @@ public class XmlParser extends Parser implements IDataParser {
                  while(identifierIterator.hasNext()) {
                      Element    identifier = (Element)identifierIterator.next();
                      String     matchValue;
-                     boolean    mustMatch;
+//                     boolean    mustMatch;
                      String     idFieldNumberStr;
                      String     valueToCompare;
                      String     fieldValue;
@@ -185,8 +218,8 @@ public class XmlParser extends Parser implements IDataParser {
                      matchValue = identifier.getText().trim();
                      idFieldNumberStr = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                                      identifier.getNamespace());
-                     mustMatch = identifier.getAttributeValue(XMLDefs.MUST_MATCH,
-                                                              identifier.getNamespace(), "true").equalsIgnoreCase("true");
+//                     mustMatch = identifier.getAttributeValue(XMLDefs.MUST_MATCH,
+//                                                              identifier.getNamespace(), "true").equalsIgnoreCase("true");
 
                     if(multipleValuesAllowed) {
                         fieldListIterator = getAllFields(segmentToCheck, fieldNumber).iterator();
@@ -209,17 +242,14 @@ public class XmlParser extends Parser implements IDataParser {
                                 }
                             }
                             else {
-                                if(mustMatch) {
+//                                if(mustMatch) {
                                     matchFound = false;
 //                                    break;
-                                }
+//                                }
                             }
                         }
                     }
                     else {
-                        List<Element>     fields;
-                        Iterator          fieldsIterator;
-
                         fields = getAllFields(segmentToCheck, idFieldNumberStr);
                         fieldsIterator = fields.iterator();
                         while(fieldsIterator.hasNext()) {
@@ -269,7 +299,21 @@ public class XmlParser extends Parser implements IDataParser {
             return "";
         }
 
-        return getFieldValue(segment, fieldNumber);
+        if(multipleValuesAllowed) {
+            fields = getAllFields(segment, fieldNumber);
+            fieldName = segment.getName() + "." + fieldNumber;
+            fieldsIterator = fields.iterator();
+            while(fieldsIterator.hasNext()) {
+                Element fieldElement = (Element)fieldsIterator.next();
+
+                allValues.add(fieldElement.getChildText(fieldName, fieldElement.getNamespace()).trim());
+            }
+
+            return "";
+        }
+        else {
+            return getFieldValue(segment, fieldNumber).trim();
+        }
 
 //        fieldNumberInt = getFieldNumber(fieldNumber);
 //

@@ -10,6 +10,13 @@
         <adtMessage>A04</adtMessage>
         <adtMessage>A08</adtMessage>
     </SupportedAdtMessages>
+    <RequiredSegments severity="Hold" errorMessageId="9" errorCodeId="5">
+        <segmentName>MSH</segmentName>
+        <segmentName>EVN</segmentName>
+        <segmentName>PID</segmentName>
+        <segmentName>PV1</segmentName>
+        <segmentName>OBX</segmentName>
+    </RequiredSegments>
     <Fields>
         <Field id="4">
             <name>Facility Location - City</name>
@@ -24,9 +31,9 @@
             <description>Field #4 - City of treating facility location</description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
-                <Requires errorCodeId="1" errorMessageId="1" severity="Hold" >
+                <RequiresField errorCodeId="1" errorMessageId="1" severity="Hold" >
                     <conditionalFieldId>7</conditionalFieldId>
-                </Requires>
+                </RequiresField>
             </Validations>
         </Field>
         <Field id="7">
@@ -60,6 +67,7 @@
         <errorMessage id="6" printFieldName="true" printFieldValue="true" >is not alphabetic.</errorMessage>
         <errorMessage id="7" printFieldName="true" printFieldValue="true" >is not numeric.</errorMessage>
         <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
+        <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
     </ErrorMessages>
     <ErrorCodes>
         <errorCode id="0"></errorCode>
@@ -67,6 +75,7 @@
         <errorCode id="2">SCHIEPPHRequiredEmptyFieldMissing</errorCode>
         <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
         <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
+        <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
         <format>yyyy/MM/dd</format>

@@ -34,7 +34,8 @@ public class XMLDefs {
     public static final String      VALIDATIONS = "Validations";
     public static final String      USAGE = "usage";
     public static final String      CARDINALITY = "cardinality";
-    public static final String      REQUIRES = "Requires";
+    public static final String      REQUIRES_FIELD_VALUE = "RequiresFieldValue";
+    public static final String      REQUIRES_FIELD = "RequiresField";
     public static final String      FIELD_VALUE = "fieldValue";
     public static final String      CONDITIONAL_FIELD_ID = "conditionalFieldId";
     public static final String      DATA_TYPE = "dataType";
@@ -47,14 +48,16 @@ public class XMLDefs {
     public static final String      ERROR_MESSAGE = "errorMessage";
     public static final String      ERROR_CODES = "ErrorCodes";
     public static final String      ERROR_CODE = "errorCode";
+    public static final String      REQUIRED_SEGMENTS = "RequiredSegments";
+    public static final String      SEGMENT_NAME = "segmentName";
     public static final String      ID = "id";
     public static final String      SUPPORTED_ADT_MESSAGES = "SupportedAdtMessages";
     public static final String      ADT_MESSAGE = "adtMessage";
     public static final String      PRINT_FIELD_NAME = "printFieldName";
     public static final String      PRINT_FIELD_VALUE = "printFieldValue";
-    public static final String      MUST_MATCH = "mustMatch";
     public static final String      MUST_EXIST = "mustExist";
     public static final String      CAN_CONTAIN_MULTIPLE_VALUES = "canContainMultipleValues";
+    public static final String      REPEATING_ELEMENT = "repeatingElement";
     public static final String      ERROR_CODE_ID = "errorCodeId";
     public static final String      CASE_SENSITIVE = "caseSensitive";
     public static final String      MINIMUM_LENGTH = "minimumLength";

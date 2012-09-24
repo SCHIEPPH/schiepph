@@ -181,7 +181,8 @@ public class HL7ValidatorTest extends TestCase {
                             "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X\n"                                                                                                                                                                                                                                                                        +
                             "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X\n"                                                                                                                                                                                                                                      +
                             "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X\n"                                                                                                                                                                                                                                        +
-                            "DG1|1||27_ZZ_AA_diagnoisis_injury_code^|||29_ZZ_AA_diagnosis_type";
+                            "DG1|1||27_ZZ_AA_diagnoisis_injury_code_1^|||29_ZZ_AA_diagnosis_type\n" +
+                            "DG1|2||27_ZZ_AA_diagnoisis_injury_code_2^|||29_ZZ_AA_diagnosis_type";
 
     public static String    xmlData_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
             "<HL7Message>\n"+
@@ -646,7 +647,21 @@ public class HL7ValidatorTest extends TestCase {
             "        </DG1.1>\n"+
             "        <DG1.2/>\n"+
             "        <DG1.3>\n"+
-            "            <DG1.3.1>27_ZZ_AA_diagnoisis_injury_code </DG1.3.1>\n"+
+            "            <DG1.3.1>27_ZZ_AA_diagnoisis_injury_code_1 </DG1.3.1>\n"+
+            "        </DG1.3>\n"+
+            "        <DG1.4/>\n"+
+            "        <DG1.5/>\n"+
+            "        <DG1.6>\n"+
+            "            <DG1.6.1>29_ZZ_AA_diagnosis_type </DG1.6.1>\n"+
+            "        </DG1.6>\n"+
+            "    </DG1>\n"+
+            "    <DG1>\n"+
+            "        <DG1.1>\n"+
+            "            <DG1.1.1>1 </DG1.1.1>\n"+
+            "        </DG1.1>\n"+
+            "        <DG1.2/>\n"+
+            "        <DG1.3>\n"+
+            "            <DG1.3.1>27_ZZ_AA_diagnoisis_injury_code_2 </DG1.3.1>\n"+
             "        </DG1.3>\n"+
             "        <DG1.4/>\n"+
             "        <DG1.5/>\n"+
@@ -2640,8 +2655,8 @@ public class HL7ValidatorTest extends TestCase {
     public static final String      xml_result_6 = "25_ZZ_AA_chief_complaint";
     public static final String      pipe_result_7 = "9_Z1_AA_unique_patient_id";
     public static final String      xml_result_7 = "9_Z1_AA_unique_patient_id";
-    public static final String      pipe_result_8 = "27_ZZ_AA_diagnoisis_injury_code";
-    public static final String      xml_result_8 = "27_ZZ_AA_diagnoisis_injury_code";
+    public static final String      pipe_result_8 = "27_ZZ_AA_diagnoisis_injury_code_1";
+    public static final String      xml_result_8 = "27_ZZ_AA_diagnoisis_injury_code_1";
     public static final String      pipe_result_9 = "";
     public static final String      xml_result_9 = "";
     public static final String      pipe_result_10 = "15_ZZ_AA_paitent_zip_code";
@@ -2771,7 +2786,6 @@ public class HL7ValidatorTest extends TestCase {
         field.addContent(location);
 
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.MUST_MATCH, "true");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.1");
         identifier.setText("59408-5");
 
@@ -2786,7 +2800,6 @@ public class HL7ValidatorTest extends TestCase {
 
         location.removeChildren(XMLDefs.IDENTIFIER);
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.MUST_MATCH, "true");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.1");
         identifier.setText("8661-1");
 
@@ -2819,16 +2832,14 @@ public class HL7ValidatorTest extends TestCase {
         location = new Element(XMLDefs.LOCATION).addContent(new Element(XMLDefs.HL7_SEGMENT));
         field.addContent(location);
 
+
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.MUST_MATCH, "false");
-        identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.5");
         identifier.setText("PT");
 
         location.addContent(identifier);
 
         location.removeChildren(XMLDefs.IDENTIFIER);
         identifier = new Element(XMLDefs.IDENTIFIER);
-        identifier.setAttribute(XMLDefs.MUST_MATCH, "false");
         identifier.setAttribute(XMLDefs.FIELD_NUMBER, "3.5");
         identifier.setText("PI");
 
@@ -2949,6 +2960,7 @@ public class HL7ValidatorTest extends TestCase {
             throws JDOMException, PropertyAccessException, IOException, HL7ValidatorException {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         Element         dataTypeElement;
+        List<String>    valueList = new ArrayList<String>();
 
         validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
 
@@ -2964,7 +2976,8 @@ public class HL7ValidatorTest extends TestCase {
         // Test valid alpha value.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("abcde", dataTypeElement, "Test Field", Usage.Required);
+        valueList.add("abcde");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Alpha field failed (valid data).", true);
         }
@@ -2975,7 +2988,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setAttribute(XMLDefs.SPECIAL_CHARACTERS, "-_");
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("AB-cde_f", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("AB-cde_f");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Alpha field failed (valid data with special characters).", true);
         }
@@ -2986,7 +3001,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setText(DataType.Numeric.name());
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("12345", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("12345");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Numeric field failed (valid data).", true);
         }
@@ -2996,7 +3013,9 @@ public class HL7ValidatorTest extends TestCase {
         // Test valid numeric value with special characters.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("123-45678", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("123-45678");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Numeric field failed (valid data with special characters).", true);
         }
@@ -3008,7 +3027,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setText(DataType.AlphaNumeric.name());
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("ABC12345", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("ABC12345");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Alpha Numeric field failed (valid data).", true);
         }
@@ -3018,7 +3039,9 @@ public class HL7ValidatorTest extends TestCase {
         // Test valid alpha numeric value with special characters.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("xyz-45678", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("xyz-45678");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of Alpha Numeric field failed (valid data with special characters).", true);
         }
@@ -3027,7 +3050,9 @@ public class HL7ValidatorTest extends TestCase {
         // Test valid alpha numeric value with invalid special characters.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("xyz+45678", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("xyz+45678");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of Alpha Numeric field failed (valid data with invalid special characters).", true);
         }
@@ -3038,7 +3063,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setAttribute(XMLDefs.MINIMUM_LENGTH, "3");
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("12", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("12");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of minimum length failed.", true);
         }
@@ -3049,7 +3076,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setAttribute(XMLDefs.MAXIMUM_LENGTH, "5");
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("1234567", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("1234567");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of maximum length failed.", true);
         }
@@ -3058,7 +3087,9 @@ public class HL7ValidatorTest extends TestCase {
         // Test a valid length.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("12345", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("12345");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of a valid length failed.", true);
         }
@@ -3073,13 +3104,17 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.setText(DataType.Date.name());
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("2012-01-30", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("2012-01-30");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of a valid date with a format specified failed.", true);
         }
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("01-30-2012", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("01-30-2012");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of a date format with a different format specified failed.", true);
         }
@@ -3087,7 +3122,9 @@ public class HL7ValidatorTest extends TestCase {
         dataTypeElement.removeAttribute(XMLDefs.FORMAT);
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldDataType("01-30-2012", dataTypeElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("01-30-2012");
+        validator.validateFieldDataType(valueList, dataTypeElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of a date format using the default valid dates failed.", true);
         }
@@ -3098,6 +3135,7 @@ public class HL7ValidatorTest extends TestCase {
             throws JDOMException, PropertyAccessException, IOException, HL7ValidatorException {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         Element         validValuesElement;
+        List<String>    valueList = new ArrayList<String>();
 
         validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
 
@@ -3116,7 +3154,8 @@ public class HL7ValidatorTest extends TestCase {
         // Valid value with valid case, case sensitive = true.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldValue("ABC", validValuesElement, "Test Field", Usage.Required);
+        valueList.add("ABC");
+        validator.validateFieldValue(valueList, validValuesElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of a valid value with valid case failed. (case sensitive = true)", true);
         }
@@ -3125,7 +3164,9 @@ public class HL7ValidatorTest extends TestCase {
         // Valid value with invalid case, case sensitive = true.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldValue("Abc", validValuesElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("Abc");
+        validator.validateFieldValue(valueList, validValuesElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of a valid value with invalid case failed. (case sensitive = true)", true);
         }
@@ -3137,7 +3178,9 @@ public class HL7ValidatorTest extends TestCase {
         validValuesElement.setAttribute(XMLDefs.CASE_SENSITIVE, "false");
 
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldValue("Abc", validValuesElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("Abc");
+        validator.validateFieldValue(valueList, validValuesElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
             assertFalse("Validation of a valid value with valid case failed. (case sensitive = false)", true);
         }
@@ -3146,7 +3189,9 @@ public class HL7ValidatorTest extends TestCase {
         // Invalid value with valid case, case sensitive = false.
         //
         validator.setMaxErrorSeverity(ErrorSeverity.NONE);
-        validator.validateFieldValue("ABCDEF", validValuesElement, "Test Field", Usage.Required);
+        valueList.clear();
+        valueList.add("ABCDEF");
+        validator.validateFieldValue(valueList, validValuesElement, "Test Field", Usage.Required);
         if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
             assertFalse("Validation of an invalid value with valid case failed. (case sensitive = false)", true);
         }
@@ -3163,12 +3208,18 @@ public class HL7ValidatorTest extends TestCase {
         validator.loadData(hl7TestData_1);
 
         returnedValues = validator.getMultipleFieldValuesByName("Unique Patient Identifier");
-        assertEquals("Get multiple field values (Pipe Delimited) failed.", 4, returnedValues.size());
+        assertEquals("Get multiple field values (Pipe Delimited - field) failed.", 4, returnedValues.size());
+
+        returnedValues = validator.getMultipleFieldValuesByName("Diagnosis/Injury Code");
+        assertEquals("Get multiple field values (Pipe Delimited - segment) failed.", 2, returnedValues.size());
 
         validator.loadData(xmlData_1);
 
         returnedValues = validator.getMultipleFieldValuesByName("Unique Patient Identifier");
-        assertEquals("Get multiple field values (XML failed.", 4, returnedValues.size());
+        assertEquals("Get multiple field values (XML - field) failed.", 4, returnedValues.size());
+
+        returnedValues = validator.getMultipleFieldValuesByName("Diagnosis/Injury Code");
+        assertEquals("Get multiple field values (XML - segment) failed.", 2, returnedValues.size());
     }
 
     @Test

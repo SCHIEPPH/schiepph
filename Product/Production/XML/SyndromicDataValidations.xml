@@ -10,6 +10,13 @@
         <adtMessage>A04</adtMessage>
         <adtMessage>A08</adtMessage>
     </SupportedAdtMessages>
+    <RequiredSegments severity="Hold" errorMessageId="9" errorCodeId="5">
+        <segmentName>MSH</segmentName>
+        <segmentName>EVN</segmentName>
+        <segmentName>PID</segmentName>
+        <segmentName>PV1</segmentName>
+        <segmentName>OBX</segmentName>
+    </RequiredSegments>
     <Fields>
         <Field id="1">
             <name>Facility Identifier</name>
@@ -150,171 +157,96 @@
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
             </Validations>
         </Field>
-        <Field id="10" canContainMultipleValues="true" >
+        <Field id="10" canContainMultipleValues="true" repeatingElement="Field" >
             <name>Unique Patient Identifier</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
-                <identifier mustMatch="false" fieldNumber="3.5">AN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">AND</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">APRN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">AM</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANON</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">CY</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DDS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DEA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DFN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">EI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">HC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">IND</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">JHN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PE</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">UPIN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MB</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NH</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NII</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NPI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NP</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">OD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DO</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PPN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PCN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PEN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PRC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RPH</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DPM</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PRN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">QA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RRI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">TAX</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PNT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MRT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">TN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">U</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">VS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">VN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">WC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">WCN</identifier>
             </Location>
             <Location version="2.5.1" >
                 <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
-                <identifier mustMatch="false" fieldNumber="3.5">AN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">AND</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">APRN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">AM</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANON</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">BR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">CY</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DDS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DEA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DFN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">EI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">GI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">HC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">IND</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">JHN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PE</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">LR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">UPIN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MB</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NH</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NII</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NPI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">NP</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">OD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DO</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PPN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PCN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PEN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PRC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RPH</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">DPM</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCD</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MCR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PRN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">QA</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RRI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">RI</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SL</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SR</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">SN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">TAX</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">ANT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">PNT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">MRT</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">TN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">U</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">VS</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">VN</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">WC</identifier>
-                <identifier mustMatch="false" fieldNumber="3.5">WCN</identifier>
             </Location>
             <description>Field #9 - Unique identifier for the patient</description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="3.5" caseSensetive="false" >
+                    <fieldValue>AN</fieldValue>
+                    <fieldValue>ANC</fieldValue>
+                    <fieldValue>AND</fieldValue>
+                    <fieldValue>APRN</fieldValue>
+                    <fieldValue>AM</fieldValue>
+                    <fieldValue>ANON</fieldValue>
+                    <fieldValue>BA</fieldValue>
+                    <fieldValue>BC</fieldValue>
+                    <fieldValue>BR</fieldValue>
+                    <fieldValue>CY</fieldValue>
+                    <fieldValue>DDS</fieldValue>
+                    <fieldValue>DI</fieldValue>
+                    <fieldValue>DS</fieldValue>
+                    <fieldValue>DN</fieldValue>
+                    <fieldValue>DR</fieldValue>
+                    <fieldValue>DL</fieldValue>
+                    <fieldValue>DEA</fieldValue>
+                    <fieldValue>DFN</fieldValue>
+                    <fieldValue>EI</fieldValue>
+                    <fieldValue>GL</fieldValue>
+                    <fieldValue>GN</fieldValue>
+                    <fieldValue>GI</fieldValue>
+                    <fieldValue>HC</fieldValue>
+                    <fieldValue>IND</fieldValue>
+                    <fieldValue>JHN</fieldValue>
+                    <fieldValue>LI</fieldValue>
+                    <fieldValue>LN</fieldValue>
+                    <fieldValue>PE</fieldValue>
+                    <fieldValue>LR</fieldValue>
+                    <fieldValue>MS</fieldValue>
+                    <fieldValue>MD</fieldValue>
+                    <fieldValue>MR</fieldValue>
+                    <fieldValue>UPIN</fieldValue>
+                    <fieldValue>MB</fieldValue>
+                    <fieldValue>MCN</fieldValue>
+                    <fieldValue>MI</fieldValue>
+                    <fieldValue>NH</fieldValue>
+                    <fieldValue>NII</fieldValue>
+                    <fieldValue>NPI</fieldValue>
+                    <fieldValue>NI</fieldValue>
+                    <fieldValue>NP</fieldValue>
+                    <fieldValue>OD</fieldValue>
+                    <fieldValue>DO</fieldValue>
+                    <fieldValue>PPN</fieldValue>
+                    <fieldValue>PT</fieldValue>
+                    <fieldValue>PI</fieldValue>
+                    <fieldValue>MA</fieldValue>
+                    <fieldValue>MC</fieldValue>
+                    <fieldValue>PCN</fieldValue>
+                    <fieldValue>PEN</fieldValue>
+                    <fieldValue>PRC</fieldValue>
+                    <fieldValue>PN</fieldValue>
+                    <fieldValue>RPH</fieldValue>
+                    <fieldValue>PA</fieldValue>
+                    <fieldValue>DPM</fieldValue>
+                    <fieldValue>MCD</fieldValue>
+                    <fieldValue>MCR</fieldValue>
+                    <fieldValue>PRN</fieldValue>
+                    <fieldValue>QA</fieldValue>
+                    <fieldValue>RR</fieldValue>
+                    <fieldValue>RRI</fieldValue>
+                    <fieldValue>RN</fieldValue>
+                    <fieldValue>RI</fieldValue>
+                    <fieldValue>SS</fieldValue>
+                    <fieldValue>SL</fieldValue>
+                    <fieldValue>SR</fieldValue>
+                    <fieldValue>SN</fieldValue>
+                    <fieldValue>TAX</fieldValue>
+                    <fieldValue>ANT</fieldValue>
+                    <fieldValue>PNT</fieldValue>
+                    <fieldValue>MRT</fieldValue>
+                    <fieldValue>TN</fieldValue>
+                    <fieldValue>U</fieldValue>
+                    <fieldValue>VS</fieldValue>
+                    <fieldValue>VN</fieldValue>
+                    <fieldValue>WC</fieldValue>
+                    <fieldValue>WCN</fieldValue>
+                </RequiresFieldValue>
             </Validations>
         </Field>
         <Field id="11" canContainMultipleValues="true">
@@ -360,9 +292,9 @@
             <description>Field #12 - Unit corresponding to numeric value of patient age (e.g. Days, Month or Years) </description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
-                <Requires errorCodeId="1" errorMessageId="1" severity="Hold" >
-                    <fieldValue mustMatch="true" fieldNumber="6.3" >UCUM</fieldValue>
-                </Requires>
+                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+                    <fieldValue>UCUM</fieldValue>
+                </RequiresFieldValue>
             </Validations>
         </Field>
         <Field id="14">
@@ -553,7 +485,7 @@
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
             </Validations>
         </Field>
-        <Field id="28">
+        <Field id="28" canContainMultipleValues="true" repeatingElement="Segment" >
             <name>Diagnosis/Injury Code</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="3.1" >DG1</hl7Segment>
@@ -696,6 +628,7 @@
         <errorMessage id="6" printFieldName="true" printFieldValue="true" >is not alphabetic.</errorMessage>
         <errorMessage id="7" printFieldName="true" printFieldValue="true" >is not numeric.</errorMessage>
         <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
+        <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
     </ErrorMessages>
     <ErrorCodes>
         <errorCode id="0"></errorCode>
@@ -703,6 +636,7 @@
         <errorCode id="2">SCHIEPPHRequiredEmptyFieldMissing</errorCode>
         <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
         <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
+        <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
         <format>yyyy/MM/dd</format>

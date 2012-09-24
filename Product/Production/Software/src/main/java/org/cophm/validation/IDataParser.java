@@ -18,6 +18,8 @@ public interface IDataParser {
 
     public void  loadData(String  data) throws IOException;
 
+    public boolean  isSegmentPresent(String  segmentName);
+
     public String  getFieldValue(String  segmentName, String fieldNumber);
 
     public String  getFieldValue(List<Element> locationList) throws HL7ValidatorException;

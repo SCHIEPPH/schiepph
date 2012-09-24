@@ -11,9 +11,9 @@
                                 <xs:complexType/>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="severity" type="xs:string"/>
-                        <xs:attribute name="errorMessageId" type="xs:unsignedInt"/>
-                        <xs:attribute name="errorCodeId" type="xs:unsignedInt"/>
+                        <xs:attribute name="severity" type="xs:string" use="required"/>
+                        <xs:attribute name="errorMessageId" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="errorCodeId" type="xs:unsignedInt" use="required"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="SupportedAdtMessages">
@@ -21,9 +21,19 @@
                         <xs:sequence>
                             <xs:element maxOccurs="unbounded" name="adtMessage"/>
                         </xs:sequence>
-                        <xs:attribute name="severity" type="xs:string"/>
-                        <xs:attribute name="errorMessageId" type="xs:unsignedInt"/>
-                        <xs:attribute name="errorCodeId" type="xs:unsignedInt"/>
+                        <xs:attribute name="severity" type="xs:string" use="required"/>
+                        <xs:attribute name="errorMessageId" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="errorCodeId" type="xs:unsignedInt" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="RequiredSegments">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="segmentName"/>
+                        </xs:sequence>
+                        <xs:attribute name="severity" type="xs:string" use="required"/>
+                        <xs:attribute name="errorMessageId" type="xs:unsignedInt" use="required"/>
+                        <xs:attribute name="errorCodeId" type="xs:unsignedInt" use="required"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="Fields">
@@ -39,19 +49,21 @@
                                                   <xs:element name="hl7Segment">
                                                   <xs:complexType>
                                                   <xs:attribute name="fieldNumber" type="xs:double"
-                                                  />
+                                                  use="required"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                   <xs:element maxOccurs="unbounded" minOccurs="0"
                                                   name="identifier">
                                                   <xs:complexType>
-                                                  <xs:attribute name="fieldNumber" type="xs:double"/>
+                                                  <xs:attribute name="fieldNumber" type="xs:double"
+                                                  use="required"/>
                                                   <xs:attribute name="mustMatch" type="xs:boolean"
                                                   default="true"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                 </xs:sequence>
-                                                <xs:attribute name="version" type="xs:string"/>
+                                                <xs:attribute name="version" type="xs:string"
+                                                  use="required"/>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="description"/>
@@ -60,30 +72,33 @@
                                                 <xs:sequence>
                                                   <xs:element name="usage">
                                                   <xs:complexType>
-                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
                                                   <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                   <xs:element name="cardinality" maxOccurs="1"
                                                   minOccurs="0">
                                                   <xs:complexType>
-                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
                                                   <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                   <xs:element name="dataType" minOccurs="0">
                                                   <xs:complexType>
-                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
                                                   <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="format" type="xs:string"/>
                                                   <xs:attribute name="specialCharacters"
                                                   type="xs:string"/>
@@ -95,11 +110,12 @@
                                                   </xs:element>
                                                   <xs:element name="dataRange" minOccurs="0">
                                                   <xs:complexType>
-                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
                                                   <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                   <xs:element name="ValueList" minOccurs="0">
@@ -107,28 +123,39 @@
                                                   <xs:sequence>
                                                   <xs:element name="value" maxOccurs="unbounded"/>
                                                   </xs:sequence>
-                                                  <xs:attribute name="severity" type="xs:string"/>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
                                                   <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
+                                                  type="xs:unsignedInt" use="required"/>
                                                   <xs:attribute name="caseSensitive"
                                                   type="xs:boolean" default="false"/>
                                                   </xs:complexType>
                                                   </xs:element>
-                                                  <xs:element name="Requires">
+                                                  <xs:element name="RequiresFieldValue">
                                                   <xs:complexType>
                                                   <xs:sequence>
                                                   <xs:element maxOccurs="unbounded" minOccurs="0"
                                                   name="fieldValue">
-                                                  <xs:complexType>
-                                                  <xs:attribute name="fieldNumber" type="xs:double"/>
-                                                  <xs:attribute default="true" name="mustMatch"
-                                                  type="xs:boolean"/>
+                                                  <xs:complexType> </xs:complexType>
+                                                  </xs:element>
+                                                  </xs:sequence>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt" use="required"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt" use="required"/>
+                                                  <xs:attribute name="fieldNumber" type="xs:double"
+                                                  use="required"/>
                                                   <xs:attribute default="false" name="caseSensetive"
                                                   type="xs:boolean"/>
                                                   </xs:complexType>
                                                   </xs:element>
+                                                  <xs:element name="RequiresField">
+                                                  <xs:complexType>
+                                                  <xs:sequence>
                                                   <xs:element maxOccurs="unbounded" minOccurs="0"
                                                   name="conditionalFieldIId">
                                                   <xs:complexType>
@@ -137,20 +164,17 @@
                                                   </xs:complexType>
                                                   </xs:element>
                                                   </xs:sequence>
-                                                  <xs:attribute name="severity" type="xs:string"/>
-                                                  <xs:attribute name="errorMessageId"
-                                                  type="xs:unsignedInt"/>
-                                                  <xs:attribute name="errorCodeId"
-                                                  type="xs:unsignedInt"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
-                                    <xs:attribute name="id" type="xs:integer"/>
+                                    <xs:attribute name="id" type="xs:integer" use="required"/>
                                     <xs:attribute default="false" name="canContainMultipleValues"
                                         type="xs:boolean"/>
+                                    <xs:attribute name="repeatingElement" type="xs:string"
+                                        default="Field"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
@@ -161,9 +185,11 @@
                         <xs:sequence>
                             <xs:element name="errorMessage" maxOccurs="unbounded">
                                 <xs:complexType>
-                                    <xs:attribute name="id" type="xs:unsignedInt"/>
-                                    <xs:attribute name="printFieldName" type="xs:boolean"/>
-                                    <xs:attribute name="printFieldValue" type="xs:boolean"/>
+                                    <xs:attribute name="id" type="xs:unsignedInt" use="required"/>
+                                    <xs:attribute name="printFieldName" type="xs:boolean"
+                                        use="required"/>
+                                    <xs:attribute name="printFieldValue" type="xs:boolean"
+                                        use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
@@ -174,7 +200,7 @@
                         <xs:sequence>
                             <xs:element name="errorCode">
                                 <xs:complexType>
-                                    <xs:attribute name="id" type="xs:unsignedInt"/>
+                                    <xs:attribute name="id" type="xs:unsignedInt" use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
