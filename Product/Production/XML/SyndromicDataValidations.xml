@@ -513,7 +513,7 @@
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
             </Validations>
         </Field>
-        <Field id="30">
+        <Field id="30" canContainMultipleValues="true" repeatingElement="Segment" >
             <name>Diagnosis Type</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="6" >DG1</hl7Segment>

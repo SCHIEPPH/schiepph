@@ -2638,6 +2638,973 @@ public class HL7ValidatorTest extends TestCase {
             "OBX|10|TX|44833-2^DIAGNOSIS.PRELIMINARY:IMP:PT:PATIENT:NOM:^LN||Pain consist with appendicitis||||||F|||201102091114\n"                                +
             "DG1|1||E8809^FALL ON STAIR/STEP                                                                                                                        NEC^I9CDX|||A";
 
+
+    public static String   hl7TestData_missing_data_in_optional_segment_segment_present =
+                    "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
+                            "EVN||8_ZZ_AA_report_date_time\n"                                                                                                                                                                                                                                                                                                                                             +
+                            "PID|1||9_ZZ_AA_unique_patient_id^^^^SS~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^BA~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n"       +
+                            "PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time\n"                                                                                                                                                                                               +
+                            "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name^1_ZZ_AA_facility_identifier^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
+                            "OBX|2|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X\n"                                                                                                                                                                                               +
+                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||7_ZZ_AA_facility_visit_type|||||||X\n"                                                                                                                                                                                                                                                                                     +
+                            "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||11_ZZ_AA_age|a^12_ZZ_AA_age_units^UCUM|||||X\n"                                                                                                                                                                                                                                                                               +
+                            "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||23_ZZ_AA_date_of_onset||||||X\n"                                                                                                                                                                                                                                                              +
+                            "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^25_ZZ_AA_chief_complaint||||||X\n"                                                                                                                                                                                                                                                                 +
+                            "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||26_ZZ_AA_triage_notes||||||X\n"                                                                                                                                                                                                                                                                            +
+                            "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X\n"                                                                                                                                                                                                                                                                        +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X\n"                                                                                                                                                                                                                                        +
+                            "DG1|2|||||";
+
+    public static String    xmlData_missing_data_in_optional_segment_segment_present = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+            "<HL7Message>\n"+
+            "    <MSH>\n"+
+            "        <MSH.1>| </MSH.1>\n"+
+            "        <MSH.2>^~\\\\ </MSH.2>\n"+
+            "        <MSH.3/>\n"+
+            "        <MSH.4/>\n"+
+            "        <MSH.5/>\n"+
+            "        <MSH.6/>\n"+
+            "        <MSH.7>\n"+
+            "            <MSH.7.1>20111213131225 </MSH.7.1>\n"+
+            "        </MSH.7>\n"+
+            "        <MSH.8/>\n"+
+            "        <MSH.9>\n"+
+            "            <MSH.9.1>ADT </MSH.9.1>\n"+
+            "            <MSH.9.2>A01 </MSH.9.2>\n"+
+            "        </MSH.9>\n"+
+            "        <MSH.10>\n"+
+            "            <MSH.10.1>MSG00001 </MSH.10.1>\n"+
+            "        </MSH.10>\n"+
+            "        <MSH.11>\n"+
+            "            <MSH.11.1>P </MSH.11.1>\n"+
+            "        </MSH.11>\n"+
+            "        <MSH.12>\n"+
+            "            <MSH.12.1>2.3.1 </MSH.12.1>\n"+
+            "        </MSH.12>\n"+
+            "        <MSH.13/>\n"+
+            "        <MSH.14/>\n"+
+            "        <MSH.15/>\n"+
+            "        <MSH.16/>\n"+
+            "        <MSH.17/>\n"+
+            "        <MSH.18>\n"+
+            "            <MSH.18.1>UTF-8 </MSH.18.1>\n"+
+            "        </MSH.18>\n"+
+            "    </MSH>\n"+
+            "    <EVN>\n"+
+            "        <EVN.1/>\n"+
+            "        <EVN.2>\n"+
+            "            <EVN.2.1>8_ZZ_AA_report_date_time </EVN.2.1>\n"+
+            "        </EVN.2>\n"+
+            "    </EVN>\n"+
+            "    <PID>\n"+
+            "        <PID.1>\n"+
+            "            <PID.1.1>1 </PID.1.1>\n"+
+            "        </PID.1>\n"+
+            "        <PID.2/>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_ZZ_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>SS </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_Z1_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>PI </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_Z2_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>BA </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>10_ZZ_AA_medical_record_number </PID.3.1>\n"+
+            "            <PID.3.2></PID.3.2>\n"+
+            "            <PID.3.3></PID.3.3>\n"+
+            "            <PID.3.4></PID.3.4>\n"+
+            "            <PID.3.5>MR</PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.4/>\n"+
+            "        <PID.5>\n"+
+            "            <PID.5.1>paitent_name </PID.5.1>\n"+
+            "        </PID.5>\n"+
+            "        <PID.6/>\n"+
+            "        <PID.7/>\n"+
+            "        <PID.8>\n"+
+            "            <PID.8.1>13_ZZ_AA_gender </PID.8.1>\n"+
+            "        </PID.8>\n"+
+            "        <PID.9/>\n"+
+            "        <PID.10>\n"+
+            "            <PID.10.1>18_ZZ_AA_paitent_race </PID.10.1>\n"+
+            "        </PID.10>\n"+
+            "        <PID.11>\n"+
+            "            <PID.11.1/>\n"+
+            "            <PID.11.2/>\n"+
+            "            <PID.11.3>14_ZZ_AA_paitent_city </PID.11.3>\n"+
+            "            <PID.11.4>16_ZZ_AA_patient_state </PID.11.4>\n"+
+            "            <PID.11.5>15_ZZ_AA_paitent_zip_code </PID.11.5>\n"+
+            "            <PID.11.6>17_ZZ_AA_paitent_country </PID.11.6>\n"+
+            "            <PID.11.7/>\n"+
+            "            <PID.11.8/>\n"+
+            "            <PID.11.9>20_ZZ_AA_paitent_county </PID.11.9>\n"+
+            "        </PID.11>\n"+
+            "        <PID.12/>\n"+
+            "        <PID.13/>\n"+
+            "        <PID.14/>\n"+
+            "        <PID.15/>\n"+
+            "        <PID.16/>\n"+
+            "        <PID.17/>\n"+
+            "        <PID.18/>\n"+
+            "        <PID.19/>\n"+
+            "        <PID.20/>\n"+
+            "        <PID.21/>\n"+
+            "        <PID.22>\n"+
+            "            <PID.22.1>19_ZZ_AA_paitent_ethnicity </PID.22.1>\n"+
+            "        </PID.22>\n"+
+            "    </PID>\n"+
+            "    <PV1>\n"+
+            "        <PV1.1/>\n"+
+            "        <PV1.2>\n"+
+            "            <PV1.2.1>24_ZZ_AA_paitent_class </PV1.2.1>\n"+
+            "        </PV1.2>\n"+
+            "        <PV1.3/>\n"+
+            "        <PV1.4/>\n"+
+            "        <PV1.5/>\n"+
+            "        <PV1.6/>\n"+
+            "        <PV1.7/>\n"+
+            "        <PV1.8/>\n"+
+            "        <PV1.9/>\n"+
+            "        <PV1.10/>\n"+
+            "        <PV1.11/>\n"+
+            "        <PV1.12/>\n"+
+            "        <PV1.13/>\n"+
+            "        <PV1.14/>\n"+
+            "        <PV1.15/>\n"+
+            "        <PV1.16/>\n"+
+            "        <PV1.17/>\n"+
+            "        <PV1.18/>\n"+
+            "        <PV1.19>\n"+
+            "            <PV1.19.1>21_ZZ_AA_visit_id </PV1.19.1>\n"+
+            "        </PV1.19>\n"+
+            "        <PV1.20/>\n"+
+            "        <PV1.21/>\n"+
+            "        <PV1.22/>\n"+
+            "        <PV1.23/>\n"+
+            "        <PV1.24/>\n"+
+            "        <PV1.25/>\n"+
+            "        <PV1.26/>\n"+
+            "        <PV1.27/>\n"+
+            "        <PV1.28/>\n"+
+            "        <PV1.29/>\n"+
+            "        <PV1.30/>\n"+
+            "        <PV1.31/>\n"+
+            "        <PV1.32/>\n"+
+            "        <PV1.33/>\n"+
+            "        <PV1.34/>\n"+
+            "        <PV1.35/>\n"+
+            "        <PV1.36>\n"+
+            "            <PV1.36.1>30_ZZ_AA_discharge_disposition </PV1.36.1>\n"+
+            "        </PV1.36>\n"+
+            "        <PV1.37/>\n"+
+            "        <PV1.38/>\n"+
+            "        <PV1.39/>\n"+
+            "        <PV1.40/>\n"+
+            "        <PV1.41/>\n"+
+            "        <PV1.42/>\n"+
+            "        <PV1.43/>\n"+
+            "        <PV1.44>\n"+
+            "            <PV1.44.1>22_ZZ_AA_visit_date_time </PV1.44.1>\n"+
+            "        </PV1.44>\n"+
+            "        <PV1.45>\n"+
+            "            <PV1.45.1>31_ZZ_AA_disposition_date_time </PV1.45.1>\n"+
+            "        </PV1.45>\n"+
+            "    </PV1>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>1 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>HD </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS001 </OBX.3.1>\n"+
+            "            <OBX.3.2>Treating Facility Identifier      </OBX.3.2>\n"+
+            "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>2_ZZ_AA_facility_name </OBX.5.1>\n"+
+            "            <OBX.5.2>1_ZZ_AA_facility_identifier </OBX.5.2>\n"+
+            "            <OBX.5.3>NP </OBX.5.3>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>C </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "        <OBX.12/>\n"+
+            "        <OBX.13/>\n"+
+            "        <OBX.14/>\n"+
+            "        <OBX.15/>\n"+
+            "        <OBX.16/>\n"+
+            "        <OBX.17/>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>2 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>XAD </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS002 </OBX.3.1>\n"+
+            "            <OBX.3.2>Treating Facility Location    </OBX.3.2>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1/>\n"+
+            "            <OBX.5.2>3_ZZ_AA_facility_number_and_street </OBX.5.2>\n"+
+            "            <OBX.5.3/>\n"+
+            "            <OBX.5.4/>\n"+
+            "            <OBX.5.5/>\n"+
+            "            <OBX.5.6>4_ZZ_AA_facility_city </OBX.5.6>\n"+
+            "            <OBX.5.7>6_ZZ_AA_facility_state </OBX.5.7>\n"+
+            "            <OBX.5.8>30341 </OBX.5.8>\n"+
+            "            <OBX.5.9>USA </OBX.5.9>\n"+
+            "            <OBX.5.10>C </OBX.5.10>\n"+
+            "            <OBX.5.11/>\n"+
+            "            <OBX.5.12>5_ZZ_AA_facility_county </OBX.5.12>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>3 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>CWE </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS003 </OBX.3.1>\n"+
+            "            <OBX.3.2>Facility/Visit Type     </OBX.3.2>\n"+
+            "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1></OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9>7_ZZ_AA_facility_visit_type </OBX.9>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11/>\n"+
+            "        <OBX.12>\n"+
+            "            <OBX.12.1>X </OBX.12.1>\n"+
+            "        </OBX.12>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>4 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>21612-7 </OBX.3.1>\n"+
+            "            <OBX.3.2>AGE TIME PAITENT REPORTED       </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>11_ZZ_AA_age </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1>a </OBX.6.1>\n"+
+            "            <OBX.6.2>12_ZZ_AA_age_units </OBX.6.2>\n"+
+            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>5 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TS </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>11368-8 </OBX.3.1>\n"+
+            "            <OBX.3.2>ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN       </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>23_ZZ_AA_date_of_onset </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>6 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>CWE </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>8661-1 </OBX.3.1>\n"+
+            "            <OBX.3.2>CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED      </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1/>\n"+
+            "            <OBX.5.2/>\n"+
+            "            <OBX.5.3/>\n"+
+            "            <OBX.5.4/>\n"+
+            "            <OBX.5.5/>\n"+
+            "            <OBX.5.6/>\n"+
+            "            <OBX.5.7/>\n"+
+            "            <OBX.5.8/>\n"+
+            "            <OBX.5.9>25_ZZ_AA_chief_complaint </OBX.5.9>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>7 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TX </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>54094-8 </OBX.3.1>\n"+
+            "            <OBX.3.2>TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC      </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>26_ZZ_AA_triage_notes </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>8 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TX </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>44833-2 </OBX.3.1>\n"+
+            "            <OBX.3.2>DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM: </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>28_ZZ_AA_clinical_impression </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>9 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>11289-6 </OBX.3.1>\n"+
+            "            <OBX.3.2>BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN     </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>32_ZZ_AA_initial_temperature </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1/>\n"+
+            "            <OBX.6.2>xx_ZZ_AA_temperature_units </OBX.6.2>\n"+
+            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>10 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>59408-5 </OBX.3.1>\n"+
+            "            <OBX.3.2>OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY     </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>33_ZZ_AA_pulse_oximetry </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1/>\n"+
+            "            <OBX.6.2>xx_ZZ_AA_pulse_oximetry_units </OBX.6.2>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <DG1>\n"+
+            "        <DG1.1>\n"+
+            "            <DG1.1.1>1 </DG1.1.1>\n"+
+            "        </DG1.1>\n"+
+            "        <DG1.2/>\n"+
+            "        <DG1.3>\n"+
+            "            <DG1.3.1></DG1.3.1>\n"+
+            "        </DG1.3>\n"+
+            "        <DG1.4/>\n"+
+            "        <DG1.5/>\n"+
+            "        <DG1.6>\n"+
+            "            <DG1.6.1></DG1.6.1>\n"+
+            "        </DG1.6>\n"+
+            "    </DG1>\n"+
+            "</HL7Message>";
+
+    public static String   hl7TestData_missing_data_in_optional_segment_segment_missing =
+                    "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
+                            "EVN||8_ZZ_AA_report_date_time\n"                                                                                                                                                                                                                                                                                                                                             +
+                            "PID|1||9_ZZ_AA_unique_patient_id^^^^SS~9_Z1_AA_unique_patient_id^^^^PI~9_Z2_AA_unique_patient_id^^^^BA~10_ZZ_AA_medical_record_number^^^^MR||paitent_name|||13_ZZ_AA_gender||18_ZZ_AA_paitent_race|^^14_ZZ_AA_paitent_city^16_ZZ_AA_patient_state^15_ZZ_AA_paitent_zip_code^17_ZZ_AA_paitent_country^^^20_ZZ_AA_paitent_county|||||||||||19_ZZ_AA_paitent_ethnicity\n"       +
+                            "PV1||24_ZZ_AA_paitent_class|||||||||||||||||21_ZZ_AA_visit_id|||||||||||||||||30_ZZ_AA_discharge_disposition||||||||22_ZZ_AA_visit_date_time|31_ZZ_AA_disposition_date_time\n"                                                                                                                                                                                               +
+                            "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||2_ZZ_AA_facility_name^1_ZZ_AA_facility_identifier^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
+                            "OBX|2|XAD|SS002^Treating Facility Location||^3_ZZ_AA_facility_number_and_street^^^^4_ZZ_AA_facility_city^6_ZZ_AA_facility_state^30341^USA^C^^5_ZZ_AA_facility_county||||||X\n"                                                                                                                                                                                               +
+                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||7_ZZ_AA_facility_visit_type|||||||X\n"                                                                                                                                                                                                                                                                                     +
+                            "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||11_ZZ_AA_age|a^12_ZZ_AA_age_units^UCUM|||||X\n"                                                                                                                                                                                                                                                                               +
+                            "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||23_ZZ_AA_date_of_onset||||||X\n"                                                                                                                                                                                                                                                              +
+                            "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^25_ZZ_AA_chief_complaint||||||X\n"                                                                                                                                                                                                                                                                 +
+                            "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||26_ZZ_AA_triage_notes||||||X\n"                                                                                                                                                                                                                                                                            +
+                            "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||28_ZZ_AA_clinical_impression||||||X\n"                                                                                                                                                                                                                                                                        +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||32_ZZ_AA_initial_temperature|^xx_ZZ_AA_temperature_units^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||33_ZZ_AA_pulse_oximetry|^xx_ZZ_AA_pulse_oximetry_units|||||X";
+
+    public static String    xmlData_missing_data_in_optional_segment_segment_missing = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+            "<HL7Message>\n"+
+            "    <MSH>\n"+
+            "        <MSH.1>| </MSH.1>\n"+
+            "        <MSH.2>^~\\\\ </MSH.2>\n"+
+            "        <MSH.3/>\n"+
+            "        <MSH.4/>\n"+
+            "        <MSH.5/>\n"+
+            "        <MSH.6/>\n"+
+            "        <MSH.7>\n"+
+            "            <MSH.7.1>20111213131225 </MSH.7.1>\n"+
+            "        </MSH.7>\n"+
+            "        <MSH.8/>\n"+
+            "        <MSH.9>\n"+
+            "            <MSH.9.1>ADT </MSH.9.1>\n"+
+            "            <MSH.9.2>A01 </MSH.9.2>\n"+
+            "        </MSH.9>\n"+
+            "        <MSH.10>\n"+
+            "            <MSH.10.1>MSG00001 </MSH.10.1>\n"+
+            "        </MSH.10>\n"+
+            "        <MSH.11>\n"+
+            "            <MSH.11.1>P </MSH.11.1>\n"+
+            "        </MSH.11>\n"+
+            "        <MSH.12>\n"+
+            "            <MSH.12.1>2.3.1 </MSH.12.1>\n"+
+            "        </MSH.12>\n"+
+            "        <MSH.13/>\n"+
+            "        <MSH.14/>\n"+
+            "        <MSH.15/>\n"+
+            "        <MSH.16/>\n"+
+            "        <MSH.17/>\n"+
+            "        <MSH.18>\n"+
+            "            <MSH.18.1>UTF-8 </MSH.18.1>\n"+
+            "        </MSH.18>\n"+
+            "    </MSH>\n"+
+            "    <EVN>\n"+
+            "        <EVN.1/>\n"+
+            "        <EVN.2>\n"+
+            "            <EVN.2.1>8_ZZ_AA_report_date_time </EVN.2.1>\n"+
+            "        </EVN.2>\n"+
+            "    </EVN>\n"+
+            "    <PID>\n"+
+            "        <PID.1>\n"+
+            "            <PID.1.1>1 </PID.1.1>\n"+
+            "        </PID.1>\n"+
+            "        <PID.2/>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_ZZ_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>SS </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_Z1_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>PI </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>9_Z2_AA_unique_patient_id </PID.3.1>\n"+
+            "            <PID.3.2/>\n"+
+            "            <PID.3.3/>\n"+
+            "            <PID.3.4/>\n"+
+            "            <PID.3.5>BA </PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.3>\n"+
+            "            <PID.3.1>10_ZZ_AA_medical_record_number </PID.3.1>\n"+
+            "            <PID.3.2></PID.3.2>\n"+
+            "            <PID.3.3></PID.3.3>\n"+
+            "            <PID.3.4></PID.3.4>\n"+
+            "            <PID.3.5>MR</PID.3.5>\n"+
+            "        </PID.3>\n"+
+            "        <PID.4/>\n"+
+            "        <PID.5>\n"+
+            "            <PID.5.1>paitent_name </PID.5.1>\n"+
+            "        </PID.5>\n"+
+            "        <PID.6/>\n"+
+            "        <PID.7/>\n"+
+            "        <PID.8>\n"+
+            "            <PID.8.1>13_ZZ_AA_gender </PID.8.1>\n"+
+            "        </PID.8>\n"+
+            "        <PID.9/>\n"+
+            "        <PID.10>\n"+
+            "            <PID.10.1>18_ZZ_AA_paitent_race </PID.10.1>\n"+
+            "        </PID.10>\n"+
+            "        <PID.11>\n"+
+            "            <PID.11.1/>\n"+
+            "            <PID.11.2/>\n"+
+            "            <PID.11.3>14_ZZ_AA_paitent_city </PID.11.3>\n"+
+            "            <PID.11.4>16_ZZ_AA_patient_state </PID.11.4>\n"+
+            "            <PID.11.5>15_ZZ_AA_paitent_zip_code </PID.11.5>\n"+
+            "            <PID.11.6>17_ZZ_AA_paitent_country </PID.11.6>\n"+
+            "            <PID.11.7/>\n"+
+            "            <PID.11.8/>\n"+
+            "            <PID.11.9>20_ZZ_AA_paitent_county </PID.11.9>\n"+
+            "        </PID.11>\n"+
+            "        <PID.12/>\n"+
+            "        <PID.13/>\n"+
+            "        <PID.14/>\n"+
+            "        <PID.15/>\n"+
+            "        <PID.16/>\n"+
+            "        <PID.17/>\n"+
+            "        <PID.18/>\n"+
+            "        <PID.19/>\n"+
+            "        <PID.20/>\n"+
+            "        <PID.21/>\n"+
+            "        <PID.22>\n"+
+            "            <PID.22.1>19_ZZ_AA_paitent_ethnicity </PID.22.1>\n"+
+            "        </PID.22>\n"+
+            "    </PID>\n"+
+            "    <PV1>\n"+
+            "        <PV1.1/>\n"+
+            "        <PV1.2>\n"+
+            "            <PV1.2.1>24_ZZ_AA_paitent_class </PV1.2.1>\n"+
+            "        </PV1.2>\n"+
+            "        <PV1.3/>\n"+
+            "        <PV1.4/>\n"+
+            "        <PV1.5/>\n"+
+            "        <PV1.6/>\n"+
+            "        <PV1.7/>\n"+
+            "        <PV1.8/>\n"+
+            "        <PV1.9/>\n"+
+            "        <PV1.10/>\n"+
+            "        <PV1.11/>\n"+
+            "        <PV1.12/>\n"+
+            "        <PV1.13/>\n"+
+            "        <PV1.14/>\n"+
+            "        <PV1.15/>\n"+
+            "        <PV1.16/>\n"+
+            "        <PV1.17/>\n"+
+            "        <PV1.18/>\n"+
+            "        <PV1.19>\n"+
+            "            <PV1.19.1>21_ZZ_AA_visit_id </PV1.19.1>\n"+
+            "        </PV1.19>\n"+
+            "        <PV1.20/>\n"+
+            "        <PV1.21/>\n"+
+            "        <PV1.22/>\n"+
+            "        <PV1.23/>\n"+
+            "        <PV1.24/>\n"+
+            "        <PV1.25/>\n"+
+            "        <PV1.26/>\n"+
+            "        <PV1.27/>\n"+
+            "        <PV1.28/>\n"+
+            "        <PV1.29/>\n"+
+            "        <PV1.30/>\n"+
+            "        <PV1.31/>\n"+
+            "        <PV1.32/>\n"+
+            "        <PV1.33/>\n"+
+            "        <PV1.34/>\n"+
+            "        <PV1.35/>\n"+
+            "        <PV1.36>\n"+
+            "            <PV1.36.1>30_ZZ_AA_discharge_disposition </PV1.36.1>\n"+
+            "        </PV1.36>\n"+
+            "        <PV1.37/>\n"+
+            "        <PV1.38/>\n"+
+            "        <PV1.39/>\n"+
+            "        <PV1.40/>\n"+
+            "        <PV1.41/>\n"+
+            "        <PV1.42/>\n"+
+            "        <PV1.43/>\n"+
+            "        <PV1.44>\n"+
+            "            <PV1.44.1>22_ZZ_AA_visit_date_time </PV1.44.1>\n"+
+            "        </PV1.44>\n"+
+            "        <PV1.45>\n"+
+            "            <PV1.45.1>31_ZZ_AA_disposition_date_time </PV1.45.1>\n"+
+            "        </PV1.45>\n"+
+            "    </PV1>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>1 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>HD </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS001 </OBX.3.1>\n"+
+            "            <OBX.3.2>Treating Facility Identifier      </OBX.3.2>\n"+
+            "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>2_ZZ_AA_facility_name </OBX.5.1>\n"+
+            "            <OBX.5.2>1_ZZ_AA_facility_identifier </OBX.5.2>\n"+
+            "            <OBX.5.3>NP </OBX.5.3>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>C </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "        <OBX.12/>\n"+
+            "        <OBX.13/>\n"+
+            "        <OBX.14/>\n"+
+            "        <OBX.15/>\n"+
+            "        <OBX.16/>\n"+
+            "        <OBX.17/>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>2 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>XAD </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS002 </OBX.3.1>\n"+
+            "            <OBX.3.2>Treating Facility Location    </OBX.3.2>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1/>\n"+
+            "            <OBX.5.2>3_ZZ_AA_facility_number_and_street </OBX.5.2>\n"+
+            "            <OBX.5.3/>\n"+
+            "            <OBX.5.4/>\n"+
+            "            <OBX.5.5/>\n"+
+            "            <OBX.5.6>4_ZZ_AA_facility_city </OBX.5.6>\n"+
+            "            <OBX.5.7>6_ZZ_AA_facility_state </OBX.5.7>\n"+
+            "            <OBX.5.8>30341 </OBX.5.8>\n"+
+            "            <OBX.5.9>USA </OBX.5.9>\n"+
+            "            <OBX.5.10>C </OBX.5.10>\n"+
+            "            <OBX.5.11/>\n"+
+            "            <OBX.5.12>5_ZZ_AA_facility_county </OBX.5.12>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>3 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>CWE </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>SS003 </OBX.3.1>\n"+
+            "            <OBX.3.2>Facility/Visit Type     </OBX.3.2>\n"+
+            "            <OBX.3.3>PHINQUESTION </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1></OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9>7_ZZ_AA_facility_visit_type </OBX.9>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11/>\n"+
+            "        <OBX.12>\n"+
+            "            <OBX.12.1>X </OBX.12.1>\n"+
+            "        </OBX.12>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>4 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>21612-7 </OBX.3.1>\n"+
+            "            <OBX.3.2>AGE TIME PAITENT REPORTED       </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>11_ZZ_AA_age </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1>a </OBX.6.1>\n"+
+            "            <OBX.6.2>12_ZZ_AA_age_units </OBX.6.2>\n"+
+            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>5 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TS </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>11368-8 </OBX.3.1>\n"+
+            "            <OBX.3.2>ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN       </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>23_ZZ_AA_date_of_onset </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>6 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>CWE </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>8661-1 </OBX.3.1>\n"+
+            "            <OBX.3.2>CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED      </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1/>\n"+
+            "            <OBX.5.2/>\n"+
+            "            <OBX.5.3/>\n"+
+            "            <OBX.5.4/>\n"+
+            "            <OBX.5.5/>\n"+
+            "            <OBX.5.6/>\n"+
+            "            <OBX.5.7/>\n"+
+            "            <OBX.5.8/>\n"+
+            "            <OBX.5.9>25_ZZ_AA_chief_complaint </OBX.5.9>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>7 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TX </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>54094-8 </OBX.3.1>\n"+
+            "            <OBX.3.2>TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC      </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>26_ZZ_AA_triage_notes </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>8 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>TX </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>44833-2 </OBX.3.1>\n"+
+            "            <OBX.3.2>DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM: </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>28_ZZ_AA_clinical_impression </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6/>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>9 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>11289-6 </OBX.3.1>\n"+
+            "            <OBX.3.2>BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN     </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>32_ZZ_AA_initial_temperature </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1/>\n"+
+            "            <OBX.6.2>xx_ZZ_AA_temperature_units </OBX.6.2>\n"+
+            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "    <OBX>\n"+
+            "        <OBX.1>\n"+
+            "            <OBX.1.1>10 </OBX.1.1>\n"+
+            "        </OBX.1>\n"+
+            "        <OBX.2>\n"+
+            "            <OBX.2.1>NM </OBX.2.1>\n"+
+            "        </OBX.2>\n"+
+            "        <OBX.3>\n"+
+            "            <OBX.3.1>59408-5 </OBX.3.1>\n"+
+            "            <OBX.3.2>OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY     </OBX.3.2>\n"+
+            "            <OBX.3.3>LN </OBX.3.3>\n"+
+            "        </OBX.3>\n"+
+            "        <OBX.4/>\n"+
+            "        <OBX.5>\n"+
+            "            <OBX.5.1>33_ZZ_AA_pulse_oximetry </OBX.5.1>\n"+
+            "        </OBX.5>\n"+
+            "        <OBX.6>\n"+
+            "            <OBX.6.1/>\n"+
+            "            <OBX.6.2>xx_ZZ_AA_pulse_oximetry_units </OBX.6.2>\n"+
+            "        </OBX.6>\n"+
+            "        <OBX.7/>\n"+
+            "        <OBX.8/>\n"+
+            "        <OBX.9/>\n"+
+            "        <OBX.10/>\n"+
+            "        <OBX.11>\n"+
+            "            <OBX.11.1>X </OBX.11.1>\n"+
+            "        </OBX.11>\n"+
+            "    </OBX>\n"+
+            "</HL7Message>";
+
+
     public static final String      expectedSubFieldSeparator = "^";
     public static final String      expectedFieldRepititionSeparator = "~";
 
@@ -3220,6 +4187,47 @@ public class HL7ValidatorTest extends TestCase {
 
         returnedValues = validator.getMultipleFieldValuesByName("Diagnosis/Injury Code");
         assertEquals("Get multiple field values (XML - segment) failed.", 2, returnedValues.size());
+    }
+
+    @Test
+    public void  testMissingDataInOptionalSegment()
+            throws JDOMException, PropertyAccessException, IOException, HL7ValidatorException {
+        HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
+        boolean         result;
+
+        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+
+        validator.loadData(hl7TestData_missing_data_in_optional_segment_segment_present);
+
+        validator.setMaxErrorSeverity(ErrorSeverity.NONE);
+        result = validator.validateData();
+        if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
+            assertFalse("Validation of Missing data in an optional segment failed. (Pipe Delimited - segment present)", true);
+        }
+
+        validator.loadData(xmlData_missing_data_in_optional_segment_segment_present);
+
+        validator.setMaxErrorSeverity(ErrorSeverity.NONE);
+        result = validator.validateData();
+        if(validator.getMaxErrorSeverity() == ErrorSeverity.NONE) {
+            assertFalse("Validation of Missing data in an optional segment failed. (XML - segment present)", true);
+        }
+
+        validator.loadData(hl7TestData_missing_data_in_optional_segment_segment_missing);
+
+        validator.setMaxErrorSeverity(ErrorSeverity.NONE);
+        result = validator.validateData();
+        if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
+            assertFalse("Validation of Missing data in an optional segment failed. (Pipe Delimited - segment missing)", true);
+        }
+
+        validator.loadData(xmlData_missing_data_in_optional_segment_segment_missing);
+
+        validator.setMaxErrorSeverity(ErrorSeverity.NONE);
+        result = validator.validateData();
+        if(validator.getMaxErrorSeverity() != ErrorSeverity.NONE) {
+            assertFalse("Validation of Missing data in an optional segment failed. (XML - segment missing)", true);
+        }
     }
 
     @Test

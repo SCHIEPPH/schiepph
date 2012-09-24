@@ -484,12 +484,19 @@ public class HL7Validator {
             usage = Usage.Optional;
         }
 
-        if(fieldValueList.size() == 0) {
+        //
+        // If the segment this field is in is optional or required empty and is
+        // missing, then it's not an error and we shouldn't try and validate it.
+        //
+        if(fieldValueList.size() > 0) {
+            for(int x = 0; x < fieldValueList.size(); x++) {
+                if(fieldValueList.get(x).length() == 0 && segmentIsOptionalAndMissing(field)) {
+                    return;
+                }
+            }
+        }
+        else {
             if(segmentIsOptionalAndMissing(field)) {
-                //
-                // If the segment this field is in is optional or required empty and is
-                // missing, then it's not an error and we shouldn't try and validate it.
-                //
                 return;
             }
         }
@@ -629,40 +636,9 @@ public class HL7Validator {
     private void validateFieldRequiresFieldValue(List<String> valueList, Element requiresFieldValueElement,
                                                  String fieldName, Usage    usage)
             throws HL7ValidatorException {
-        Iterator        valueIterator;
-        Iterator        fieldValueIterator;
         String          valueToCheck = "";
         List<String>    valueToCheckList;
         List<Element>    requiredFieldList;
-
-        //
-        // If the requires element is not present, then there is nothing to check.
-        //
-        if(requiresFieldValueElement == null) {
-            return;
-        }
-
-
-        valueIterator = valueList.iterator();
-
-        //
-        // Process all field value elements that we find.
-        //
-        requiredFieldList = requiresFieldValueElement.getChildren(XMLDefs.FIELD_VALUE,
-                                                        requiresFieldValueElement.getNamespace());
-
-        if(requiredFieldList.size() == 0) {
-            //
-            // No required field values to check.
-            //
-            return;
-        }
-//        fieldValueIterator = requiresElement.getChildren(XMLDefs.FIELD_VALUE,
-//                                                         requiresElement.getNamespace()).iterator();
-
-//        while(fieldValueIterator.hasNext()) {
-//            Element                 fieldValueElement = (Element)fieldValueIterator.next();
-        Element                 fieldValueElement;
         Element                 fieldRuleElement;
         Iterator                locationElementIterator;
         Element                 fieldElementClone;
@@ -676,8 +652,27 @@ public class HL7Validator {
         boolean                 foundMatch;
 
 
-//            requiredFieldValue = fieldValueElement.getText();
-//        fieldValueElement = requiresElement;
+        //
+        // If the requires element is not present, then there is nothing to check.
+        //
+        if(requiresFieldValueElement == null) {
+            return;
+        }
+
+
+        //
+        // Process all field value elements that we find.
+        //
+        requiredFieldList = requiresFieldValueElement.getChildren(XMLDefs.FIELD_VALUE,
+                                                        requiresFieldValueElement.getNamespace());
+
+        if(requiredFieldList.size() == 0) {
+            //
+            // No required field values to check.
+            //
+            return;
+        }
+
         fieldNumberStr = requiresFieldValueElement.getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                            requiresFieldValueElement.getNamespace(), "");
 
@@ -1226,13 +1221,21 @@ public class HL7Validator {
             break;
         }
 
-        if(requiredSegments.contains(segmentName) == false) {
+        if(isSegmentOptional(segmentName)) {
             if(dataParser.isSegmentPresent(segmentName)) {
                 return false;
             }
             else {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    private boolean isSegmentOptional(String segmentName) {
+        if(requiredSegments.contains(segmentName) == false) {
+            return true;
         }
 
         return false;

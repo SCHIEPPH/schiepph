@@ -280,26 +280,28 @@ public class PipeParser extends Parser implements IDataParser {
 
 
         listOfSegments = hl7DataMap.get(segmentName);
-        for(int  segmentIndex = 0; segmentIndex < listOfSegments.size(); segmentIndex++) {
-            if(identifiers.size() > 0) {
-                identifierIterators = identifiers.iterator();
-                while(identifierIterators.hasNext()) {
-                    Element       identifier = (Element)identifierIterators.next();
+        if(listOfSegments != null) {
+            for(int  segmentIndex = 0; segmentIndex < listOfSegments.size(); segmentIndex++) {
+                if(identifiers.size() > 0) {
+                    identifierIterators = identifiers.iterator();
+                    while(identifierIterators.hasNext()) {
+                        Element       identifier = (Element)identifierIterators.next();
 
-                    fieldNumber = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER, identifier.getNamespace());
+                        fieldNumber = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER, identifier.getNamespace());
 
-                    valueToMatch = identifier.getText();
-                    segmentIndexList.clear();
-                    segmentIndexList.add(new Integer(segmentIndex));
-                    valueToCheck = getFieldValue(segmentName, segmentIndexList, fieldNumber);
+                        valueToMatch = identifier.getText();
+                        segmentIndexList.clear();
+                        segmentIndexList.add(new Integer(segmentIndex));
+                        valueToCheck = getFieldValue(segmentName, segmentIndexList, fieldNumber);
 
-                    if(valueToCheck.equalsIgnoreCase(valueToMatch)) {
-                        listOfIndexes.add(new Integer(segmentIndex));
+                        if(valueToCheck.equalsIgnoreCase(valueToMatch)) {
+                            listOfIndexes.add(new Integer(segmentIndex));
+                        }
                     }
                 }
-            }
-            else {
-                listOfIndexes.add(new Integer(segmentIndex));
+                else {
+                    listOfIndexes.add(new Integer(segmentIndex));
+                }
             }
         }
 
