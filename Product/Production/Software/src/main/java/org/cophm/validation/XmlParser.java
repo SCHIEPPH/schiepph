@@ -305,8 +305,15 @@ public class XmlParser extends Parser implements IDataParser {
             fieldsIterator = fields.iterator();
             while(fieldsIterator.hasNext()) {
                 Element fieldElement = (Element)fieldsIterator.next();
+                String  value;
 
-                allValues.add(fieldElement.getChildText(fieldName, fieldElement.getNamespace()).trim());
+                value = fieldElement.getChildText(fieldName, fieldElement.getNamespace());
+
+                if(value == null) {
+                    value = fieldElement.getChildText(fieldName + ".1", fieldElement.getNamespace());
+                }
+
+                allValues.add(value == null ? "" : value.trim());
             }
 
             return "";

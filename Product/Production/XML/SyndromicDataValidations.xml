@@ -362,7 +362,7 @@
                 <usage errorCodeId="0" errorMessageId="0" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
-        <Field id="19" canContainMultipleValues="true">
+        <Field id="19" canContainMultipleValues="true" repeatingElement="Field" >
             <name>Race</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="10" >PID</hl7Segment>
@@ -375,7 +375,7 @@
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
             </Validations>
         </Field>
-        <Field id="20" canContainMultipleValues="true" repeatingElement="">
+        <Field id="20" canContainMultipleValues="true" repeatingElement="Field">
             <name>Ethnicity</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="22" >PID</hl7Segment>
