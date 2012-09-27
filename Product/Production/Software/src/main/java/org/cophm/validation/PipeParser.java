@@ -158,7 +158,7 @@ public class PipeParser extends Parser implements IDataParser {
         int               currentSegement = 0;
         List<Integer>     segmentIndexList;
         boolean           multipleValuesAllowed;
-        boolean           repeatingField;
+        boolean           repeatingSegment;
 
         identifiers = location.getChildren(XMLDefs.IDENTIFIER, location.getNamespace());
 
@@ -166,10 +166,10 @@ public class PipeParser extends Parser implements IDataParser {
                                                              .getAttributeValue(XMLDefs.CAN_CONTAIN_MULTIPLE_VALUES,
                                                                                 location.getNamespace(), "false"));
 
-        repeatingField = ((Element)(location.getParent()))
+        repeatingSegment = ((Element)(location.getParent()))
                 .getAttributeValue(XMLDefs.REPEATING_ELEMENT,
                                    location.getNamespace(),
-                                   RepeatingElement.Segment.name()).equalsIgnoreCase(RepeatingElement.Field.name());
+                                   RepeatingElement.Field.name()).equalsIgnoreCase(RepeatingElement.Segment.name());
 
         segmentIndexList = getSegmentIndexes(segmentName, identifiers);
 
@@ -207,7 +207,16 @@ public class PipeParser extends Parser implements IDataParser {
                     while(fieldValueListIterator.hasNext()) {
                         String      fieldValue = (String)fieldValueListIterator.next();
 
-                        valueToCheck = getSubFieldValue(fieldValue, idFieldNumber);
+                        if(repeatingSegment) {
+                            List<Integer>       singleIndexList;
+
+                            singleIndexList = new ArrayList<Integer>();
+                            singleIndexList.add(new Integer(currentSegement));
+                            valueToCheck = getFieldValue(segmentName, singleIndexList, idFieldNumber);
+                        }
+                        else {
+                            valueToCheck = getSubFieldValue(fieldValue, idFieldNumber);
+                        }
                         if(matchValue.equals(valueToCheck)) {
                             valueToReturn = getSubFieldValue(fieldValue, fieldNumber);
                             //

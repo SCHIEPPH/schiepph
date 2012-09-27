@@ -237,34 +237,42 @@ public class HL7Validator {
         return hl7MessageId;
     }
 
-    public List<String>  getMultipleFieldValuesByName(String  fieldName)
-            throws HL7ValidatorException {
-        Iterator          fieldElementIterator;
-        List<Element>     fieldValues;
-        List<String>      fieldValuesToReturn = new ArrayList<String>();
-        List<Element>     locationList;
-
-        fieldValues = validationFieldByNameCache.get(fieldName);
-        if(fieldValues == null || fieldValues.size() == 0) {
-            return fieldValuesToReturn;
-        }
-
-        //
-        // This method assumes that there is only one Element.  If there could be more
-        // than one element, getMultipleFiledValuesByName should be used instead.
-        //
-        fieldElementIterator = fieldValues.iterator();
-        while(fieldElementIterator.hasNext()) {
-            Element       fieldElement = (Element)fieldElementIterator.next();
-
-            locationList = getLocationElement(fieldElement);
-
-            fieldValuesToReturn = dataParser.getAllFieldValues(locationList);
-        }
-
-        return fieldValuesToReturn;
-    }
-
+//    public String[]  getMultipleFieldValuesByName(String  fieldName)
+//            throws HL7ValidatorException {
+//        Iterator          fieldElementIterator;
+//        List<Element>     fieldValues = new ArrayList<Element>();
+//        List<String>      fieldValuesToReturn = new ArrayList<String>();
+//        List<Element>     locationList;
+//        String[]            arrayToReturn;
+//
+//        fieldValues = validationFieldByNameCache.get(fieldName);
+//        if(fieldValues == null || fieldValues.size() == 0) {
+//            if(fieldValues == null) {
+//                fieldValues = new ArrayList<Element>();
+//            }
+//            arrayToReturn = new String[fieldValuesToReturn.size()];
+//            fieldValuesToReturn.toArray(arrayToReturn);
+//            return arrayToReturn;
+//        }
+//
+//        //
+//        // This method assumes that there is only one Element.  If there could be more
+//        // than one element, getMultipleFiledValuesByName should be used instead.
+//        //
+//        fieldElementIterator = fieldValues.iterator();
+//        while(fieldElementIterator.hasNext()) {
+//            Element       fieldElement = (Element)fieldElementIterator.next();
+//
+//            locationList = getLocationElement(fieldElement);
+//
+//            fieldValuesToReturn = dataParser.getAllFieldValues(locationList);
+//        }
+//
+//        arrayToReturn = new String[fieldValuesToReturn.size()];
+//        fieldValuesToReturn.toArray(arrayToReturn);
+//        return arrayToReturn;
+//    }
+//
     public String  getFieldValueByName(String  fieldName)
             throws HL7ValidatorException {
         Element           fieldElement;

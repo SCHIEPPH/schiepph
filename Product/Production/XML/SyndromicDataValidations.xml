@@ -455,7 +455,7 @@
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
             </Validations>
         </Field>
-        <Field id="26">
+        <Field id="26" canContainMultipleValues="true" repeatingElement="Segment">
             <name>Chief Complaint / Reason for visit</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
@@ -621,7 +621,7 @@
             an error, so there is no error message to print) -->
         <errorMessage id="0" printFieldName="false" printFieldValue="false" ></errorMessage>
         <errorMessage id="1" printFieldName="true" printFieldValue="false" >is a required field and is missing or empty.</errorMessage>
-        <errorMessage id="2" printFieldName="true" printFieldValue="false" >is a required/empty field and is missing.</errorMessage>
+        <errorMessage id="2" printFieldName="true" printFieldValue="false" >is a required/empty field and is missing or empty.</errorMessage>
         <errorMessage id="3" printFieldName="false" printFieldValue="true" >is not a supported HL7 version.</errorMessage>
         <errorMessage id="4" printFieldName="false" printFieldValue="true" >is not a supported ADT Message.</errorMessage>
         <errorMessage id="5" printFieldName="true" printFieldValue="true" >is not a valid value.</errorMessage>

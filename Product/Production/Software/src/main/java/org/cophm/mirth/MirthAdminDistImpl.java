@@ -149,7 +149,7 @@ public class MirthAdminDistImpl {
                         // elements.
                         //
                         xmlContentElement = new Element(XMLDefs.XML_CONTENT).setNamespace(edxlDistributionElement.getNamespace());
-                        embeddedXMLContentElement = new Element(XMLDefs.EMBEDDED_XML_CONTENT);
+                        embeddedXMLContentElement = new Element(XMLDefs.EMBEDDED_XML_CONTENT).setNamespace(edxlDistributionElement.getNamespace());;
                         xmlContentElement.addContent(embeddedXMLContentElement);
                         embeddedXMLContentElement.addContent(convertStringToXmlElements(dataToValidate,
                                                                                         edxlDistributionElement.getNamespace()));
@@ -167,6 +167,9 @@ public class MirthAdminDistImpl {
                         xmlOutputter.output(doc, writer);
 
                         message = writer.toString();
+
+                        message = message.replaceAll(" xmlns=\"\"", "");
+
                         logger.error("MAD - 2.3");
                     }
                 }
