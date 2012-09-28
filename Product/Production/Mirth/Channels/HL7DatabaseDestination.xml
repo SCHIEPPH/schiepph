@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.1.1.5490</version>
   <lastModified>
-    <time>1348777554533</time>
+    <time>1348841591336</time>
     <timezone>US/Eastern</timezone>
   </lastModified>
-  <revision>31</revision>
+  <revision>32</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -1057,7 +1057,7 @@ if (rs.next())
 //	channelMap.put(&apos;syndromic_surveillance_data_race__array&apos;, arrPatientRace);
 
 for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_race__array&apos;).length; i++) { 
-	if($(&apos;syndromic_surveillance_data_race__array&apos;)[i].trim().length() &gt; 0) {
+	if($(&apos;syndromic_surveillance_data_race__array&apos;)[i].trim().length &gt; 0) {
 	    logger.info($(&apos;syndromic_surveillance_data_race__array&apos;)[i]); 
 		var lineArr = $(&apos;syndromic_surveillance_data_race__array&apos;)[i].split(&quot;|&quot;);
 		sql = &quot;insert into patient_race (concept_code, concept_name, coding_system, ss_id) values (&apos;&quot; +
@@ -1068,7 +1068,7 @@ for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_race__array&apos;).le
 
 for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;).length; i++) { 
 
-	if($(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i].trim().length() &gt; 0) {
+	if($(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i].trim().length &gt; 0) {
 		var lineArr = $(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i].split(&quot;|&quot;);
 		logger.info($(&apos;syndromic_surveillance_data_unique_patient_id_array&apos;)[i]); 
 		sql = &quot;insert into unique_patient_identifier (identifier, identifier_type_code,ss_id) values (&apos;&quot; +
@@ -1079,7 +1079,7 @@ for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_unique_patient_id_arr
 
 for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_ethnic_array&apos;).length; i++) { 
 
-	if($(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i].trim().length() &gt; 0) { 
+	if($(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i].trim().length &gt; 0) { 
 		var lineArr = $(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i].split(&quot;|&quot;);
 		logger.info($(&apos;syndromic_surveillance_data_ethnic_array&apos;)[i]); 
 		sql = &quot;insert into patient_ethnicity (concept_code, concept_name, coding_system, ss_id) values (&apos;&quot; +
@@ -1090,7 +1090,7 @@ for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_ethnic_array&apos;).l
 
 for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;).length; i++) { 
 
-	if($(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i].trim().length() &gt; 0) {
+	if($(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i].trim().length &gt; 0) {
 		var lineArr = $(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i].split(&quot;|&quot;);
 		logger.info($(&apos;syndromic_surveillance_data_chief_complaint_reason_for_visit&apos;)[i]); 
 
@@ -1103,7 +1103,7 @@ for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_chief_complaint_reaso
 
 for (var i = 0; i &lt; $(&apos;syndromic_surveillance_data_diagnosis&apos;).length; i++) { 
 
-	if($(&apos;syndromic_surveillance_data_diagnosis&apos;)[i].trim().length() &gt; 0) {
+	if($(&apos;syndromic_surveillance_data_diagnosis&apos;)[i].trim().length &gt; 0) {
 		var lineArr = $(&apos;syndromic_surveillance_data_diagnosis&apos;)[i].split(&quot;|&quot;);
 		logger.info($(&apos;syndromic_surveillance_data_diagnosis&apos;)[i]); 
 
