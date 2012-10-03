@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.1.1.5490</version>
   <lastModified>
-    <time>1348841591336</time>
+    <time>1349206273867</time>
     <timezone>US/Eastern</timezone>
   </lastModified>
-  <revision>32</revision>
+  <revision>46</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -56,11 +56,13 @@ for each(cc in msg..OBX)
     var obxID = cc[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;];
     if(obxID.trim() == &apos;8661-1&apos;)
     {
-        logger.info(cc[&apos;OBX&apos;]);
-        var ccStr = cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] + &quot;|&quot; + cc[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + cc[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
-        logger.info(ccStr);
-        arrCC[ccCount] = ccStr;
-        ccCount++;
+		if(cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString().length &gt; 0) {
+ 	       logger.info(cc[&apos;OBX&apos;]);
+    	    var ccStr = cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] + &quot;|&quot; + cc[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + cc[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
+        	logger.info(ccStr);
+	        arrCC[ccCount] = ccStr;
+    	    ccCount++;
+		}
     }
 }
 
@@ -105,11 +107,13 @@ for each(cc in msg..OBX)
     var obxID = cc[&apos;OBX.3&apos;][&apos;OBX.3.1&apos;];
     if(obxID.trim() == &apos;8661-1&apos;)
     {
-        logger.info(cc[&apos;OBX&apos;]);
-        var ccStr = cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] + &quot;|&quot; + cc[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + cc[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
-        logger.info(ccStr);
-        arrCC[ccCount] = ccStr;
-        ccCount++;
+		if(cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;].toString().length &gt; 0) {
+ 	       logger.info(cc[&apos;OBX&apos;]);
+    	    var ccStr = cc[&apos;OBX.5&apos;][&apos;OBX.5.9&apos;] + &quot;|&quot; + cc[&apos;OBX.11&apos;][&apos;OBX.11.1&apos;] + &quot;|&quot; + cc[&apos;OBX.14&apos;][&apos;OBX.14.1&apos;];
+        	logger.info(ccStr);
+	        arrCC[ccCount] = ccStr;
+    	    ccCount++;
+		}
     }
 }
 
@@ -640,32 +644,38 @@ for each (seg in msg..PID) {
 
 	for each(id in seg[&apos;PID.3&apos;])
 	{
-		var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
-		arrPatientIds[idCount] = idStr;
-		idCount++;
-		logger.info(id[&apos;PID.3.1&apos;].toString());
-		var idType = id[&apos;PID.3.5&apos;].toString();
-		if (uniqueID == &apos;&apos;)
-		{
-			uniqueID = id[&apos;PID.3.1&apos;].toString();
-		}
-		if(idType == &apos;MR&apos;)
-		{
-			mrn = id[&apos;PID.3.1&apos;].toString();
+		if(id[&apos;PID.3.1&apos;].toString().length &gt; 0) {
+			var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
+			arrPatientIds[idCount] = idStr;
+			idCount++;
+			logger.info(id[&apos;PID.3.1&apos;].toString());
+			var idType = id[&apos;PID.3.5&apos;].toString();
+			if (uniqueID == &apos;&apos;)
+			{
+				uniqueID = id[&apos;PID.3.1&apos;].toString();
+			}
+			if(idType == &apos;MR&apos;)
+			{
+				mrn = id[&apos;PID.3.1&apos;].toString();
+			}
 		}
 	}
 
 	for each(race in seg[&apos;PID.10&apos;])
 	{
-		var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
-		arrPatientRace[raceCount] = raceStr;
-		raceCount++;
+		if(race[&apos;PID.10.2&apos;].toString().length &gt; 0) {
+			var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
+			arrPatientRace[raceCount] = raceStr;
+			raceCount++;
+		}
 	}
 	for each(ethnicity in seg[&apos;PID.22&apos;])
 	{
-		var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
-		arrPatientEthnicity[ethCount] = ethStr;
-		ethCount++;
+		if(ethnicity[&apos;PID.22.2&apos;].toString().length &gt; 0) {
+			var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
+			arrPatientEthnicity[ethCount] = ethStr;
+			ethCount++;
+		}
 	}
 	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
 	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
@@ -694,32 +704,38 @@ for each (seg in msg..PID) {
 
 	for each(id in seg[&apos;PID.3&apos;])
 	{
-		var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
-		arrPatientIds[idCount] = idStr;
-		idCount++;
-		logger.info(id[&apos;PID.3.1&apos;].toString());
-		var idType = id[&apos;PID.3.5&apos;].toString();
-		if (uniqueID == &apos;&apos;)
-		{
-			uniqueID = id[&apos;PID.3.1&apos;].toString();
-		}
-		if(idType == &apos;MR&apos;)
-		{
-			mrn = id[&apos;PID.3.1&apos;].toString();
+		if(id[&apos;PID.3.1&apos;].toString().length &gt; 0) {
+			var idStr = id[&apos;PID.3.1&apos;].toString() + &quot;|&quot; + id[&apos;PID.3.5&apos;].toString();
+			arrPatientIds[idCount] = idStr;
+			idCount++;
+			logger.info(id[&apos;PID.3.1&apos;].toString());
+			var idType = id[&apos;PID.3.5&apos;].toString();
+			if (uniqueID == &apos;&apos;)
+			{
+				uniqueID = id[&apos;PID.3.1&apos;].toString();
+			}
+			if(idType == &apos;MR&apos;)
+			{
+				mrn = id[&apos;PID.3.1&apos;].toString();
+			}
 		}
 	}
 
 	for each(race in seg[&apos;PID.10&apos;])
 	{
-		var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
-		arrPatientRace[raceCount] = raceStr;
-		raceCount++;
+		if(race[&apos;PID.10.2&apos;].toString().length &gt; 0) {
+			var raceStr = race[&apos;PID.10.1&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.2&apos;].toString() + &quot;|&quot; + race[&apos;PID.10.3&apos;].toString();
+			arrPatientRace[raceCount] = raceStr;
+			raceCount++;
+		}
 	}
 	for each(ethnicity in seg[&apos;PID.22&apos;])
 	{
-		var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
-		arrPatientEthnicity[ethCount] = ethStr;
-		ethCount++;
+		if(ethnicity[&apos;PID.22.2&apos;].toString().length &gt; 0) {
+			var ethStr = ethnicity[&apos;PID.22.1&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.2&apos;].toString() + &quot;|&quot; + ethnicity[&apos;PID.22.3&apos;].toString();
+			arrPatientEthnicity[ethCount] = ethStr;
+			ethCount++;
+		}
 	}
 	channelMap.put(&apos;syndromic_surveillance_data_medical_record_number&apos;, mrn );
 	channelMap.put(&apos;syndromic_surveillance_data_unique_patient_id&apos;, uniqueID );
@@ -739,11 +755,13 @@ var dxCount = 0;
 
 for each (seg in msg..DG1) {
 
-	var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
-		seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
-	logger.info(&apos;DG1 &apos; + dxStr);	
-	dxArr[dxCount] = dxStr;
-	dxCount++;
+	if(seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString().length &gt; 0) {
+		var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
+			seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
+		logger.info(&apos;DG1 &apos; + dxStr);	
+		dxArr[dxCount] = dxStr;
+		dxCount++;
+	}
 }
 channelMap.put(&apos;syndromic_surveillance_data_diagnosis&apos;, dxArr );</script>
           <type>JavaScript</type>
@@ -755,11 +773,13 @@ var dxCount = 0;
 
 for each (seg in msg..DG1) {
 
-	var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
-		seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
-	logger.info(&apos;DG1 &apos; + dxStr);	
-	dxArr[dxCount] = dxStr;
-	dxCount++;
+	if(seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString().length &gt; 0) {
+		var dxStr = seg[&apos;DG1.3&apos;][&apos;DG1.3.1&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.3&apos;][&apos;DG1.3.2&apos;].toString() + &quot;|&quot; +
+			seg[&apos;DG1.3&apos;][&apos;DG1.3.3&apos;].toString() + &quot;|&quot; + seg[&apos;DG1.6&apos;][&apos;DG1.6.1&apos;].toString();
+		logger.info(&apos;DG1 &apos; + dxStr);	
+		dxArr[dxCount] = dxStr;
+		dxCount++;
+	}
 }
 channelMap.put(&apos;syndromic_surveillance_data_diagnosis&apos;, dxArr );</string>
             </entry>
