@@ -26,10 +26,10 @@ public class PropertyAccessor
     {
         Logger log = Logger.getLogger(PropertyAccessor.class.getName());
 
-        configDirectory = System.getenv("SCHIEPPH_PROPERTIES_DIR");
+        configDirectory = System.getenv(Constants.SCHIEPPH_PROPERTIES_DIR_ENVIRONMENT_VARIABLE_NAME);
 
         if(configDirectory == null) {
-            configDirectory = System.getProperty("schiepph.properties.dir", "conf");
+            configDirectory = System.getProperty(Constants.SCHIEPPH_PROPERTIES_DIR_SYSTEM_VARIABLE_NAME, "conf");
         }
 
         //
@@ -53,6 +53,8 @@ public class PropertyAccessor
             //
             props = new Properties();
         }
+
+        props.put(Constants.SCHIEPPH_PROPERTIES_DIR_PROPERTIES_FILE_VARIABLE_NAME, configDirectory);
     }
 
 
