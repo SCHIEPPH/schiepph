@@ -168,8 +168,6 @@ public class MirthAdminDistImpl {
 
                         message = writer.toString();
 
-                        message = message.replaceAll(" xmlns=\"\"", "");
-
                         logger.error("MAD - 2.3");
                     }
                 }

@@ -8,6 +8,10 @@ package org.cophm.util;
  */
 public class Constants {
 
+    public static final String      SCHIEPPH_PROPERTIES_DIR_ENVIRONMENT_VARIABLE_NAME = "SCHIEPPH_PROPERTIES_DIR";
+    public static final String      SCHIEPPH_PROPERTIES_DIR_SYSTEM_VARIABLE_NAME = "schiepph.properties.dir";
+    public static final String      SCHIEPPH_PROPERTIES_DIR_PROPERTIES_FILE_VARIABLE_NAME = "SCHIEPPH_PROPERTIES_DIR";
+
     public static final String      VERSION_231 = "2.3.1";
     public static final String      VERSION_251 = "2.5.1";
 

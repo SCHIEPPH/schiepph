@@ -238,13 +238,15 @@ public class XmlParser extends Parser implements IDataParser {
                             if(valueToCompare.equals(matchValue)) {
                                 fieldName = fieldElement.getName() + "." + getSubFieldNumber(fieldNumber);
                                 fieldValue = fieldElement.getChildText(fieldName, fieldElement.getNamespace());
-                                if(allValues != null) {
-                                    allValues.add(fieldValue.trim());
-                                }
-                                else {
-                                    segment = segmentToCheck;
-                                    matchFound = true;
-                                    return fieldValue.trim();
+                                if(fieldValue != null) {
+                                    if(allValues != null) {
+                                        allValues.add(fieldValue.trim());
+                                    }
+                                    else {
+                                        segment = segmentToCheck;
+                                        matchFound = true;
+                                        return fieldValue.trim();
+                                    }
                                 }
                             }
                             else {
