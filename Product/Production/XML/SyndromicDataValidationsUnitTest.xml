@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HL7Validation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../Product/Production/XML/HL7Validation.xsd">
+    <ValidHL7Versions errorCodeId="3" errorMessageId="3" severity="Hold" >
+        <version>2.3.1</version>
+        <version>2.5.1</version>
+    </ValidHL7Versions>
+    <SupportedAdtMessages errorCodeId="3" errorMessageId="4" severity="Hold" >
+        <adtMessage>A01</adtMessage>
+        <adtMessage>A03</adtMessage>
+        <adtMessage>A04</adtMessage>
+        <adtMessage>A08</adtMessage>
+    </SupportedAdtMessages>
+    <RequiredSegments severity="Hold" errorMessageId="9" errorCodeId="5">
+        <segmentName>MSH</segmentName>
+        <segmentName>EVN</segmentName>
+        <segmentName>PID</segmentName>
+        <segmentName>PV1</segmentName>
+        <segmentName>OBX</segmentName>
+    </RequiredSegments>
+    <Fields>
+        <Field id="1">
+            <name>Facility Identifier</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS001</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="7.2" >EVN</hl7Segment>
+            </Location>
+            <description>Field #1 - Unique facility identifier of facility where the patient originally presented (original provider of the data)</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="2">
+            <name>Facility Name</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS001</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="7.1" >EVN</hl7Segment>
+            </Location>
+            <description>Field #2 - Name of facility where the patient originally presented (original provider of the data)</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="3">
+            <name>Facility Location - Street Address</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #3 - Street address of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="4">
+            <name>Facility Location - City</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #4 - City of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="5">
+            <name>Facility Location - Country</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #4 - Country of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="6">
+            <name>Facility Location - County</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.12" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.12" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #5 - County of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="7">
+            <name>Facility Location - State</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+            </Location>
+            <description>Field #6 - State of treating facility location</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="8">
+            <name>Facility/Visit Type</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS003</identifier>
+            </Location>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS003</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS003</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">SS003</identifier>
+            </Location>
+            <description>Field #7 - Type of facility that the patient visited for treatment</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="9">
+            <name>Report Date/Time</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="2" >EVN</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="2" >EVN</hl7Segment>
+            </Location>
+            <description>Field #8 - Date and time of report transmission from original source (from treating facility)</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="10" canContainMultipleValues="true" repeatingElement="Field" >
+            <name>Unique Patient Identifier</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+            </Location>
+            <description>Field #9 - Unique identifier for the patient</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="3.5" caseSensetive="false" >
+                    <fieldValue>AN</fieldValue>
+                    <fieldValue>ANC</fieldValue>
+                    <fieldValue>AND</fieldValue>
+                    <fieldValue>APRN</fieldValue>
+                    <fieldValue>AM</fieldValue>
+                    <fieldValue>ANON</fieldValue>
+                    <fieldValue>BA</fieldValue>
+                    <fieldValue>BC</fieldValue>
+                    <fieldValue>BR</fieldValue>
+                    <fieldValue>CY</fieldValue>
+                    <fieldValue>DDS</fieldValue>
+                    <fieldValue>DI</fieldValue>
+                    <fieldValue>DS</fieldValue>
+                    <fieldValue>DN</fieldValue>
+                    <fieldValue>DR</fieldValue>
+                    <fieldValue>DL</fieldValue>
+                    <fieldValue>DEA</fieldValue>
+                    <fieldValue>DFN</fieldValue>
+                    <fieldValue>EI</fieldValue>
+                    <fieldValue>GL</fieldValue>
+                    <fieldValue>GN</fieldValue>
+                    <fieldValue>GI</fieldValue>
+                    <fieldValue>HC</fieldValue>
+                    <fieldValue>IND</fieldValue>
+                    <fieldValue>JHN</fieldValue>
+                    <fieldValue>LI</fieldValue>
+                    <fieldValue>LN</fieldValue>
+                    <fieldValue>PE</fieldValue>
+                    <fieldValue>LR</fieldValue>
+                    <fieldValue>MS</fieldValue>
+                    <fieldValue>MD</fieldValue>
+                    <fieldValue>MR</fieldValue>
+                    <fieldValue>UPIN</fieldValue>
+                    <fieldValue>MB</fieldValue>
+                    <fieldValue>MCN</fieldValue>
+                    <fieldValue>MI</fieldValue>
+                    <fieldValue>NH</fieldValue>
+                    <fieldValue>NII</fieldValue>
+                    <fieldValue>NPI</fieldValue>
+                    <fieldValue>NI</fieldValue>
+                    <fieldValue>NP</fieldValue>
+                    <fieldValue>OD</fieldValue>
+                    <fieldValue>DO</fieldValue>
+                    <fieldValue>PPN</fieldValue>
+                    <fieldValue>PT</fieldValue>
+                    <fieldValue>PI</fieldValue>
+                    <fieldValue>MA</fieldValue>
+                    <fieldValue>MC</fieldValue>
+                    <fieldValue>PCN</fieldValue>
+                    <fieldValue>PEN</fieldValue>
+                    <fieldValue>PRC</fieldValue>
+                    <fieldValue>PN</fieldValue>
+                    <fieldValue>RPH</fieldValue>
+                    <fieldValue>PA</fieldValue>
+                    <fieldValue>DPM</fieldValue>
+                    <fieldValue>MCD</fieldValue>
+                    <fieldValue>MCR</fieldValue>
+                    <fieldValue>PRN</fieldValue>
+                    <fieldValue>QA</fieldValue>
+                    <fieldValue>RR</fieldValue>
+                    <fieldValue>RRI</fieldValue>
+                    <fieldValue>RN</fieldValue>
+                    <fieldValue>RI</fieldValue>
+                    <fieldValue>SS</fieldValue>
+                    <fieldValue>SL</fieldValue>
+                    <fieldValue>SR</fieldValue>
+                    <fieldValue>SN</fieldValue>
+                    <fieldValue>TAX</fieldValue>
+                    <fieldValue>ANT</fieldValue>
+                    <fieldValue>PNT</fieldValue>
+                    <fieldValue>MRT</fieldValue>
+                    <fieldValue>TN</fieldValue>
+                    <fieldValue>U</fieldValue>
+                    <fieldValue>VS</fieldValue>
+                    <fieldValue>VN</fieldValue>
+                    <fieldValue>WC</fieldValue>
+                    <fieldValue>WCN</fieldValue>
+                </RequiresFieldValue>
+            </Validations>
+        </Field>
+        <Field id="11" canContainMultipleValues="true">
+            <name>Medical Record Number</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.5">MR</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="3.1" >PID</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.5">MR</identifier>
+            </Location>
+            <description>Field #10 - Patient medical record number</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="12">
+            <name>Age</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">21612-7</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
+            </Location>
+            <description>Field #11 - Numeric value of patient age </description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="13">
+            <name>Age Units</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
+            </Location>
+            <description>Field #12 - Unit corresponding to numeric value of patient age (e.g. Days, Month or Years) </description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+                    <fieldValue>UCUM</fieldValue>
+                </RequiresFieldValue>
+            </Validations>
+        </Field>
+        <Field id="14">
+            <name>Gender</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="8" >PID</hl7Segment>
+             </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="8" >PID</hl7Segment>
+            </Location>
+            <description>Field #13 - Gender of patient</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="15">
+            <name>Patient City/Town</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="11.3" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="11.3" >PID</hl7Segment>
+            </Location>
+            <description>Field #14 - City/Town of patient residence</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="16">
+            <name>Patient Zip Code</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="11.5" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="11.5" >PID</hl7Segment>
+            </Location>
+            <description>Field #15 - ZIP Code of patient residence</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="17">
+            <name>Patient State</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="11.4" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="11.4" >PID</hl7Segment>
+            </Location>
+            <description>Field #16 - State of patient residence </description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="18">
+            <name>Patient Country</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="11.6" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="11.6" >PID</hl7Segment>
+            </Location>
+            <description>Field #17 - Country of patient residence</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="19" canContainMultipleValues="true" repeatingElement="Field" >
+            <name>Race</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="10" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="10" >PID</hl7Segment>
+            </Location>
+            <description>Field #18 - Race of patient</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="20" canContainMultipleValues="true" repeatingElement="Field">
+            <name>Ethnicity</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="22" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="22" >PID</hl7Segment>
+            </Location>
+            <description>Field #19 - Ethnicity of patient</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="21">
+            <name>Patient County</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="11.9" >PID</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="11.9" >PID</hl7Segment>
+            </Location>
+            <description>Field #20 - County/Parish Code</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="22">
+            <name>Unique Visiting Id</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="19" >PV1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="19" >PV1</hl7Segment>
+            </Location>
+            <description>Field #21 - Unique identifier for a Patient visit </description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="23">
+            <name>Visit Date/Time</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="44" >PV1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="44" >PV1</hl7Segment>
+            </Location>
+            <description>Field #22 - Date/Time of patient presentation</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="24">
+            <name>Date of Onset</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11368-8</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11368-8</identifier>
+            </Location>
+            <description>Field #23 - Date that patient began having symptoms of condition being reported</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="25">
+            <name>Patient Class</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="2.1" >PV1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="2.1" >PV1</hl7Segment>
+            </Location>
+            <description>Field #24 - Patient classification within facility</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="26" canContainMultipleValues="true" repeatingElement="Segment">
+            <name>Chief Complaint / Reason for visit</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">8661-1</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.9" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">8661-1</identifier>
+            </Location>
+            <description>Field #25 - Short description of the chief complaint or reason of patient’s visit, recorded when seeking care</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="27">
+            <name>Triage Notes</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">54094-8</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">54094-8</identifier>
+            </Location>
+            <description>Field #26 - Triage notes for the patient visit</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="28" canContainMultipleValues="true" repeatingElement="Segment" >
+            <name>Diagnosis/Injury Code</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="3.1" >DG1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="3.1" >DG1</hl7Segment>
+            </Location>
+            <description>Field #27 - Diagnosis or injury code of patient condition</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="29">
+            <name>Clinical Impression</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">44833-2</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">44833-2</identifier>
+            </Location>
+            <description>Field #28 - Clinical impression (free text) of the diagnosis </description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="30" canContainMultipleValues="true" repeatingElement="Segment" >
+            <name>Diagnosis Type</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="6" >DG1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="6" >DG1</hl7Segment>
+            </Location>
+            <description>Field #29 - Qualifier for Diagnosis / Injury Code specifying type of diagnosis</description>
+            <Validations>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+            </Validations>
+        </Field>
+        <Field id="31">
+            <name>Discharge Disposition</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="36" >PV1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="36" >PV1</hl7Segment>
+            </Location>
+            <description>Field #30 - Patient's anticipated location or status following ED/UC visit</description>
+            <Validations>
+                <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+            </Validations>
+        </Field>
+        <Field id="32">
+            <name>Disposition Date/Time</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="45" >PV1</hl7Segment>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="45" >PV1</hl7Segment>
+            </Location>
+            <description>Field #31 - Date and time of disposition</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="33">
+            <name>Initial Temperature</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
+            </Location>
+            <description>Field #32 - First recorded temperature</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="34">
+            <name>Initial Temperature - Units</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
+            </Location>
+            <description>Field #32 - First recorded temperature units</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="35">
+            <name>Initial Pulse Oximetry</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
+            </Location>
+            <description>Field #33 - First recorded pulse oximetry value</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+        <Field id="36">
+            <name>Initial Pulse Oximetry - Units</name>
+            <Location version="2.3.1" >
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
+            </Location>
+            <Location version="2.5.1" >
+                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
+            </Location>
+            <description>Field #33 - First recorded pulse oximetry units</description>
+            <Validations>
+                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+            </Validations>
+        </Field>
+    </Fields>
+    <ErrorMessages>
+        <!-- Error messages are dynamically created by appending one of
+            the following messages to the name of the field that is in error.
+            Message id 0 is reserved for checks that cannot fail a validity
+            check, such as an optional filed being missing (i.e. this is not
+            an error, so there is no error message to print) -->
+        <errorMessage id="0" printFieldName="false" printFieldValue="false" ></errorMessage>
+        <errorMessage id="1" printFieldName="true" printFieldValue="false" >is a required field and is missing or empty.</errorMessage>
+        <errorMessage id="2" printFieldName="true" printFieldValue="false" >is a required/empty field and is missing or empty.</errorMessage>
+        <errorMessage id="3" printFieldName="false" printFieldValue="true" >is not a supported HL7 version.</errorMessage>
+        <errorMessage id="4" printFieldName="false" printFieldValue="true" >is not a supported ADT Message.</errorMessage>
+        <errorMessage id="5" printFieldName="true" printFieldValue="true" >is not a valid value.</errorMessage>
+        <errorMessage id="6" printFieldName="true" printFieldValue="true" >is not alphabetic.</errorMessage>
+        <errorMessage id="7" printFieldName="true" printFieldValue="true" >is not numeric.</errorMessage>
+        <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
+        <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
+    </ErrorMessages>
+    <ErrorCodes>
+        <errorCode id="0"></errorCode>
+        <errorCode id="1">SCHIEPPHRequiredFieldMissing</errorCode>
+        <errorCode id="2">SCHIEPPHRequiredEmptyFieldMissing</errorCode>
+        <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
+        <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
+        <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
+    </ErrorCodes>
+    <DateFormats>
+        <format>yyyy/MM/dd</format>
+        <format>dd/MM/yyyy</format>
+        <format>MM/dd/yyyy</format>
+        <format>yyyy-MM-dd</format>
+        <format>dd-MM-yyyy</format>
+        <format>MM-dd-yyyy</format>
+        <format>yyyy.MM.dd</format>
+        <format>dd.MM-yyyy</format>
+        <format>MM.dd.yyyy</format>
+        <format>dd MMM yyyy</format>
+    </DateFormats>
+</HL7Validation>

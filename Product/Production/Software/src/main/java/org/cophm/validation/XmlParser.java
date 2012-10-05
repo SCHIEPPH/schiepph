@@ -209,7 +209,6 @@ public class XmlParser extends Parser implements IDataParser {
                  while(identifierIterator.hasNext()) {
                      Element    identifier = (Element)identifierIterator.next();
                      String     matchValue;
-//                     boolean    mustMatch;
                      String     idFieldNumberStr;
                      String     valueToCompare;
                      String     fieldValue;
@@ -218,8 +217,6 @@ public class XmlParser extends Parser implements IDataParser {
                      matchValue = identifier.getText().trim();
                      idFieldNumberStr = identifier.getAttributeValue(XMLDefs.FIELD_NUMBER,
                                                                      identifier.getNamespace());
-//                     mustMatch = identifier.getAttributeValue(XMLDefs.MUST_MATCH,
-//                                                              identifier.getNamespace(), "true").equalsIgnoreCase("true");
 
                     if(multipleValuesAllowed) {
                         fieldListIterator = getAllFields(segmentToCheck, fieldNumber).iterator();
@@ -232,7 +229,12 @@ public class XmlParser extends Parser implements IDataParser {
                             else {
                                 fieldName = fieldElement.getName() + "." + getSubFieldNumber(idFieldNumberStr);
                                 subField = fieldElement.getChild(fieldName, fieldElement.getNamespace());
-                                valueToCompare = subField.getText().trim();
+                                if(subField != null && subField.getText() != null) {
+                                    valueToCompare = subField.getText().trim();
+                                }
+                                else {
+                                    valueToCompare = " ";
+                                }
                             }
 //                            fieldName = segmentToCheck.getName() + "." + idFieldNumberStr;
                             if(valueToCompare.equals(matchValue)) {
@@ -250,10 +252,7 @@ public class XmlParser extends Parser implements IDataParser {
                                 }
                             }
                             else {
-//                                if(mustMatch) {
-                                    matchFound = false;
-//                                    break;
-//                                }
+                                matchFound = false;
                             }
                         }
                     }
@@ -267,19 +266,8 @@ public class XmlParser extends Parser implements IDataParser {
                             subField = fieldToCheck.getChild(fieldName, fieldToCheck.getNamespace());
                             if(subField != null && subField.getText() != null
                                 && subField.getText().trim().equals(matchValue)) {
-                                int       subFieldNumber;
 
                                 fieldValue = getFieldValue(segmentToCheck, fieldNumber);
-
-//                                subFieldNumber = getSubFieldNumber(fieldNumber);
-//                                if(subFieldNumber > 0) {
-//                                    fieldName = fieldToCheck.getName() + "." + subFieldNumber;
-//                                    subField = fieldToCheck.getChild(fieldName, fieldToCheck.getNamespace());
-//                                }
-//                                else {
-//                                    fieldName = fieldNumber + ".1";
-//                                    subField = fieldToCheck.getChild(fieldName, fieldToCheck.getNamespace());
-//                                }
 
                                 if(multipleValuesAllowed) {
                                     allValues.add(fieldValue.trim());
@@ -329,44 +317,6 @@ public class XmlParser extends Parser implements IDataParser {
         else {
             return getFieldValue(segment, fieldNumber).trim();
         }
-
-//        fieldNumberInt = getFieldNumber(fieldNumber);
-//
-//        fieldName = segmentName + "." + fieldNumberInt;
-//
-//        field = segment.getChild(fieldName, segment.getNamespace());
-//
-//        if(field == null) {
-//            return "";
-//        }
-//
-//        //
-//        // In order to maintain compatibility with the way HL7's Pipe Delimited rules,
-//        // we will look for a "*.1" child Element because in the Pipe Delimited format,
-//        // MSG|...|MSGID001|... is equal to MSG|...|MASGID001^|... but in XML format
-//        // it must be portrayed as <MSG.12.1>, even though it might be referenced as
-//        // MSG.12 (i.e. segment name = MSG and field number = 12).
-//        //
-//        if(getSubFieldNumber(fieldNumber) == -1) {
-//            value = field.getText().trim();
-//            if(value.length() == 0) {
-//                value = field.getChildText(fieldName + ".1", field.getNamespace());
-//                if(value == null) {
-//                    value = "";
-//                }
-//            }
-//            return value.trim();
-//        }
-//
-//        fieldName = fieldName + "." + getSubFieldNumber(fieldNumber);
-//
-//        subField = field.getChild(fieldName, field.getNamespace());
-//
-//        if(subField != null) {
-//            return subField.getText().trim();
-//        }
-//
-//        return "";
     }
 
     private List<Element> getAllFields(Element segment, String fieldNumberStr) {

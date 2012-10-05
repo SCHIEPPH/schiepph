@@ -3859,7 +3859,7 @@ public class HL7ValidatorTest extends TestCase {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         String          value;
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_2);
 
@@ -3889,7 +3889,7 @@ public class HL7ValidatorTest extends TestCase {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         String          value;
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_2);
 
@@ -3963,7 +3963,7 @@ public class HL7ValidatorTest extends TestCase {
         Element         dataTypeElement;
         List<String>    valueList = new ArrayList<String>();
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_2);
 
@@ -4138,7 +4138,7 @@ public class HL7ValidatorTest extends TestCase {
         Element         validValuesElement;
         List<String>    valueList = new ArrayList<String>();
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_2);
 
@@ -4204,7 +4204,7 @@ public class HL7ValidatorTest extends TestCase {
 //        HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
 //        List<String>    returnedValues;
 //
-//        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+//        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 //
 //        validator.loadData(hl7TestData_1);
 //
@@ -4232,7 +4232,7 @@ public class HL7ValidatorTest extends TestCase {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         boolean         result;
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_missing_data_in_optional_segment_segment_present);
 
@@ -4273,7 +4273,7 @@ public class HL7ValidatorTest extends TestCase {
         HL7Validator    validator = new HL7Validator("/tmp", "/tmp");
         boolean         result;
 
-        validator.loadValidationRules("../XML/SyndromicDataValidations.xml");
+        validator.loadValidationRules("../XML/SyndromicDataValidationsUnitTest.xml");
 
         validator.loadData(hl7TestData_1);
         result = validator.validateData();
