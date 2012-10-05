@@ -80,9 +80,7 @@ public class MirthAdminDistImpl {
             marshaller.marshal( element, writer);
             message = writer.toString();
 
-            logger.error("MAD - 1");
             logger.error(message);
-            logger.error("MAD - 2");
 
             reader = new StringReader(message);
             doc = builder.build(reader);
@@ -134,14 +132,12 @@ public class MirthAdminDistImpl {
 
                     dataToValidate = new String(Base64Coder.decode(currentElement.getText().trim()));
 
-                    logger.error("MAD - 2.1");
                     //
                     // At this point, the data should not be XML data since it is contained in an
                     // Element named "nonXMLContent", but we will check just to make sure someone
                     // did not base 64 encode an XML string.
                     //
                     if(Parser.inputIsXML(dataToValidate) == false) {
-                        logger.error("MAD - 2.2");
                         dataToValidate = er7Serializer.toXML(dataToValidate);
                         //
                         // Now we need to detach the non-XML content and then attach the converted
@@ -168,7 +164,6 @@ public class MirthAdminDistImpl {
 
                         message = writer.toString();
 
-                        logger.error("MAD - 2.3");
                     }
                 }
                 else {
@@ -193,9 +188,7 @@ public class MirthAdminDistImpl {
                 return "";
             }
 
-            logger.error("MAD - 3");
             logger.error(message);
-            logger.error("MAD - 4");
 
 
             validator.loadData(dataToValidate);
@@ -207,12 +200,10 @@ public class MirthAdminDistImpl {
         }
 
         if(validator.getMaxErrorSeverity().ordinal() > ErrorSeverity.REPORT.ordinal()) {
-            logger.error("MAD - 5");
             logger.error("Validation errors were found with the input data.  Check the validation reports for details.");
             return "";
         }
         else {
-            logger.error("MAD - 6");
             return message;
         }
     }
