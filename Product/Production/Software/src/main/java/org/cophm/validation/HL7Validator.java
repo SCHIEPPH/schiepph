@@ -889,8 +889,10 @@ public class HL7Validator {
         fieldValueChar = fieldValue.toCharArray();
         for(int  x = 0; x < fieldValueChar.length; x++) {
             if(Character.isLetterOrDigit(fieldValueChar[x]) == false) {
-                if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
-                    return false;
+                if(Character.isWhitespace(fieldValueChar[x]) == false) {
+                    if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
+                        return false;
+                    }
                 }
             }
         }
@@ -928,8 +930,10 @@ public class HL7Validator {
         fieldValueChar = fieldValue.toCharArray();
         for(int  x = 0; x < fieldValueChar.length; x++) {
             if(Character.isLetter(fieldValueChar[x]) == false) {
-                if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
-                    return false;
+                if(Character.isWhitespace(fieldValueChar[x]) == false) {
+                    if(isSpecialCharacter(fieldValueChar[x], specialCharacters) == false) {
+                        return false;
+                    }
                 }
             }
         }
