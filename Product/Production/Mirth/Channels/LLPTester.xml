@@ -1,0 +1,242 @@
+<channel>
+  <id>3138bb65-18f4-41f4-a499-2bbc83bc5407</id>
+  <name>LLPTester</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.1.5861</version>
+  <lastModified>
+    <time>1349494906209</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>9</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">File Reader</property>
+      <property name="FTPAnonymous">1</property>
+      <property name="autoDelete">0</property>
+      <property name="binary">0</property>
+      <property name="charsetEncoding">DEFAULT_ENCODING</property>
+      <property name="checkFileAge">1</property>
+      <property name="fileAge">1000</property>
+      <property name="fileFilter">*.hl7</property>
+      <property name="host">${llp_tester_input_dir}</property>
+      <property name="ignoreDot">1</property>
+      <property name="moveToDirectory">${llp_tester_processed_dir}</property>
+      <property name="moveToErrorDirectory">${llp_tester_error_dir}</property>
+      <property name="moveToPattern">${ORIGINALNAME}${message_id}${SYSTIME}</property>
+      <property name="passive">1</property>
+      <property name="password">anonymous</property>
+      <property name="pollingFrequency">1000</property>
+      <property name="pollingType">interval</property>
+      <property name="processBatchFiles">0</property>
+      <property name="regex">0</property>
+      <property name="scheme">file</property>
+      <property name="secure">1</property>
+      <property name="sortAttribute">date</property>
+      <property name="timeout">10000</property>
+      <property name="username">anonymous</property>
+      <property name="validateConnections">1</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>message_id</name>
+          <script>var mapping;try { mapping = msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString(); }catch (e) { logger.error(e);  mapping = &apos;&apos;;}channelMap.put(&apos;message_id&apos;, validate( mapping , &apos;&apos;, new Array()));</script>
+          <type>Mapper</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>message_id</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;MSH&apos;][&apos;MSH.10&apos;][&apos;MSH.10.1&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+            <entry>
+              <string>isGlobal</string>
+              <string>channel</string>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">TVNIfF5+XCZ8fE1JRC1DTyBITFRIIENUUl45ODc2NTQzMjEwXk58fHwyMDExMTAwOTAzMTR8fEFE
+VF5BMDFeQURUX0EwMXxBbGxEYXRhMi4zLjF8UHwyLjMuMQ0KRVZOfHwyMDExMTAwOTAzMTQtMDUw
+MA0KUElEfDF8fDk1MTAxMTAwMDAxXl5eXlBJfk1SMDEyMzQ1NjdeXl5eTVJ8fH5eXl5eXl5VfHx8
+TXx8MjEwNi0zXldoaXRlXkNEQ1JFQ3xeXkZhaXJmYXheMjReMjE1MDJeVVNBfHx8fHx8fHx8fHwy
+MTM1LTJeSGlzcGFuaWMgb3IgTGF0aW5vXkNEQ1JFQw0KUFYxfHxJfHxFfHx8fHx8fHx8fDZ8fHx8
+fFZOMTAxMTAwMDAxXl5eXlZOfHx8fHx8fHx8fHx8fHx8fHwwNHx8fHx8fHx8MjAxMTEwMDkwMjU5
+MTUtMDUwMHwyMDExMDExMzE2NDUxMi0wNTAwDQpPQlh8MXxOTXwyMTYxMi03XkFHRSBUSU1FIFBB
+VElFTlQgUkVQT1JURUReXkxOfHwyN3xhXllFQVJeVUNVTXx8fHx8Rnx8fDIwMTEwMjE3MTUzMQ0K
+T0JYfDJ8SER8U1MwMDFeVFJFQVRJTkcgRkFDSUxJVFkgSURFTlRJRklFUl5QSElOUVVFU1RJT058
+fFRlc3RBbGxEYXRhMi4zLjFeMTIzNDU2Nzg5MF5OUEl8fHx8fHxGfHx8MjAxMTAyMTcxNTMxDQpP
+Qlh8M3xOTXwxMTI4OS02XkJPRFkgVEVNUEVSQVRVUkU6VEVNUDpFTkNUUkZJUlNUOlBBVElFTlQ6
+UU5eTE58fDEwMC4xfFtkZWdGXV5GQVJFTkhFSVReVUNVTXx8QXx8fEZ8fHwyMDExMDIxNzE0NTEz
+OQ0KT0JYfDR8Tk18NTk0MDgtNV5PWFlHRU4gU0FUVVJBVElPTjpNRlI6UFQ6QkxEQTpRTjpQVUxT
+RXx8OTV8JV5QRVJDRU5UXlVDVU18fEF8fHxGfHx8MjAxMTAyMTcxNjU4DQpPQlh8NXxDV0V8ODY2
+MS0xXkNISUVGIENPTVBMQUlOVDpGSU5EOlBUOlBBVElFTlQ6Tk9NOlJFUE9SVEVEXkxOfHxeXl5e
+Xl5eXlNUT01BQ0ggQUNIRXx8fHx8fEZ8fHwyMDExMDIxNzE1MzENCk9CWHw2fFRTfDExMzY4LThe
+SUxMTkVTUyBPUiBJTkpVUlkgT05TRVQgREFURSBBTkQgVElNRTpUTVNUUDpQVDpQQVRJRU5UOlFO
+XkxOfHwyMDExMDIxNXx8fHx8fEZ8fHwyMDExMDIxNzE2NTgNCk9CWHw3fENXRXxTUzAwM15GQUNJ
+TElUWSAvIFZJU0lUIFRZUEVeUEhJTlFVRVNUSU9OfHwxMTA4LTBeRU1FUkdFTkNZIERFUEFSVE1F
+TlReSFNMT0N8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpPQlh8OHxYQUR8U1MwMDJeVFJFQVRJTkcg
+RkFDSUxJVFkgTE9DQVRJT05eUEhJTlFVRVNUSU9OfHxeMTIzNF5eXl5DaGFudGlsbHleVkFeMzAz
+NDFeVVNBXkNeXkNvdW50eXx8fHx8fEZ8fHwyMDExMDIwOTExMTQNCk9CWHw5fFRYfDU0MDk0LThe
+VFJJQUdFIE5PVEU6RklORDpQVDpFTUVSR0VOQ1kgREVQQVJUTUVOVDpET0NeTE58fFBhaW4gYSBy
+ZWN1cnJlbnQgY3JhbXBpbmcgc2Vuc2F0aW9uLnx8fHx8fEZ8fHwyMDExMDIwOTExMTQNCk9CWHwx
+MHxUWHw0NDgzMy0yXkRJQUdOT1NJUy5QUkVMSU1JTkFSWTpJTVA6UFQ6UEFUSUVOVDpOT006XkxO
+fHxQYWluIGNvbnNpc3Qgd2l0aCBhcHBlbmRpY2l0aXN8fHx8fHxGfHx8MjAxMTAyMDkxMTE0DQpE
+RzF8MXx8RTg4MDleRkFMTCBPTiBTVEFJUi9TVEVQIE5FQ15JOUNEWHx8fEENCg0K</inboundTemplate>
+      <outboundTemplate encoding="base64"></outboundTemplate>
+      <inboundProtocol>HL7V2</inboundProtocol>
+      <outboundProtocol>HL7V2</outboundProtocol>
+      <inboundProperties>
+        <property name="convertLFtoCR">true</property>
+        <property name="handleRepetitions">false</property>
+        <property name="handleSubcomponents">false</property>
+        <property name="stripNamespaces">true</property>
+        <property name="useStrictParser">false</property>
+        <property name="useStrictValidation">false</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="convertLFtoCR">true</property>
+        <property name="handleRepetitions">false</property>
+        <property name="handleSubcomponents">false</property>
+        <property name="stripNamespaces">true</property>
+        <property name="useStrictParser">false</property>
+        <property name="useStrictValidation">false</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>File Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.1.5861</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">LLP Sender</property>
+        <property name="ackTimeout">5000</property>
+        <property name="bufferSize">65536</property>
+        <property name="charEncoding">hex</property>
+        <property name="charsetEncoding">DEFAULT_ENCODING</property>
+        <property name="host">127.0.0.1</property>
+        <property name="keepSendSocketOpen">0</property>
+        <property name="maxRetryCount">2</property>
+        <property name="messageEnd">0x1C</property>
+        <property name="messageStart">0x0B</property>
+        <property name="port">6661</property>
+        <property name="processHl7AckResponse">1</property>
+        <property name="queueAckTimeout">1</property>
+        <property name="queuePollInterval">200</property>
+        <property name="reconnectMillisecs">10000</property>
+        <property name="recordSeparator">0x0D</property>
+        <property name="replyChannelId">sink</property>
+        <property name="rotateQueue">0</property>
+        <property name="segmentEnd">0x0D</property>
+        <property name="sendTimeout">5000</property>
+        <property name="tcpProtocolClassName">org.mule.providers.tcp.protocols.TcpProtocol</property>
+        <property name="template">${message.encodedData}</property>
+        <property name="usePersistentQueues">0</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>HL7V2</inboundProtocol>
+        <outboundProtocol>HL7V2</outboundProtocol>
+        <inboundProperties>
+          <property name="convertLFtoCR">true</property>
+          <property name="handleRepetitions">false</property>
+          <property name="handleSubcomponents">false</property>
+          <property name="stripNamespaces">true</property>
+          <property name="useStrictParser">false</property>
+          <property name="useStrictValidation">false</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="convertLFtoCR">true</property>
+          <property name="handleRepetitions">false</property>
+          <property name="handleSubcomponents">false</property>
+          <property name="stripNamespaces">true</property>
+          <property name="useStrictParser">false</property>
+          <property name="useStrictValidation">false</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>LLP Sender</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.1.5861</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">-1</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>// Modify the message variable below to pre process data
+return message;</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+importPackage(Packages.java.util);
+importPackage(Packages.java.io);
+
+
+	var value = java.lang.System.getenv(&apos;SCHIEPPH_PROPERTIES_DIR&apos;);
+	var property_file = &apos;&apos;;
+
+	if (value == null)
+	{
+		//no enviroment variable, default to Mirth Properties directory.
+		property_file = &apos;conf/LLPTester.properties&apos;;
+	}
+	else
+	{
+		property_file = value + &apos;/LLPTester.properties&apos;;
+	}
+
+
+try {
+	var properties = new Properties();
+	properties.load(new java.io.FileInputStream(property_file));
+
+
+	for (iterator = properties.entrySet().iterator(); iterator.hasNext();) {
+		var entry = iterator.next();
+		globalMap.put(entry.getKey(), entry.getValue());
+		logger.info(entry.getKey() + &quot; = &quot; +  entry.getValue());
+	}
+
+	logger.info(&apos;Successfully loaded &apos; + property_file);
+} catch (e) {
+	logger.error(e);
+}
+
+
+
+return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+// You only have access to the globalMap and globalChannelMap here to persist data
+return;</shutdownScript>
+</channel>
