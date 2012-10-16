@@ -1,3 +1,6 @@
+<!-- ***************************************** -->
+<!-- ****************RULE BOOK**************** -->
+<!-- ***************************************** -->
 <?xml version="1.0" encoding="UTF-8"?>
 <HL7Validation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../Product/Production/XML/HL7Validation.xsd">
     <ValidHL7Versions errorCodeId="3" errorMessageId="3" severity="Hold" >
@@ -293,9 +296,22 @@
             <description>Field #12 - Unit corresponding to numeric value of patient age (e.g. Days, Month or Years) </description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
-                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+                <!-- Add valid values with value set code PHVS_AgeUnit_SyndromicSurveillance -->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>d</value>
+					<value>mo</value>
+					<value>UNK</value>
+					<value>wk</value>
+					<value>a</value>
+				</ValueList>
+				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
+				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
                     <fieldValue>UCUM</fieldValue>
                 </RequiresFieldValue>
+				<!-- This element defines the secondary field (5.1 - Age) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>12</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
         <Field id="14">
@@ -309,6 +325,13 @@
             <description>Field #13 - Gender of patient</description>
             <Validations>
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+				<!-- Add valid values -->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>F</value>
+					<value>M</value>
+					<value>O</value>
+					<value>U</value>					
+				</ValueList>
             </Validations>
         </Field>
         <Field id="15">
@@ -350,6 +373,78 @@
             <description>Field #16 - State of patient residence </description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+				<!-- Add valid values with value set code PHVS_State_FIPS_5-2-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>01</value>
+					<value>02</value>
+					<value>60</value>
+					<value>04</value>
+					<value>05</value>
+					<value>81</value>
+					<value>06</value>
+					<value>08</value>
+					<value>09</value>
+					<value>10</value>
+					<value>11</value>
+					<value>64</value>
+					<value>12</value>
+					<value>13</value>
+					<value>66</value>
+					<value>15</value>
+					<value>84</value>
+					<value>16</value>
+					<value>17</value>
+					<value>18</value>
+					<value>19</value>
+					<value>86</value>
+					<value>67</value>
+					<value>20</value>
+					<value>21</value>
+					<value>89</value>
+					<value>22</value>
+					<value>23</value>
+					<value>68</value>
+					<value>24</value>
+					<value>25</value>
+					<value>26</value>
+					<value>71</value>
+					<value>27</value>
+					<value>28</value>
+					<value>29</value>
+					<value>30</value>
+					<value>76</value>
+					<value>31</value>
+					<value>32</value>
+					<value>33</value>
+					<value>34</value>
+					<value>35</value>
+					<value>36</value>
+					<value>37</value>
+					<value>38</value>
+					<value>69</value>
+					<value>39</value>
+					<value>40</value>
+					<value>41</value>
+					<value>70</value>
+					<value>95</value>
+					<value>42</value>
+					<value>72</value>
+					<value>44</value>
+					<value>45</value>
+					<value>46</value>
+					<value>47</value>
+					<value>48</value>
+					<value>74</value>
+					<value>49</value>
+					<value>50</value>
+					<value>78</value>
+					<value>51</value>
+					<value>79</value>
+					<value>53</value>
+					<value>54</value>
+					<value>55</value>
+					<value>56</value>	
+				</ValueList>
             </Validations>
         </Field>
         <Field id="18">
@@ -363,6 +458,255 @@
             <description>Field #17 - Country of patient residence</description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="Report" >RequiredEmpty</usage>
+				<!-- Add valid values with value set code PHVS_Country_ISO_3166-1-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>AFG</value>
+					<value>ALA</value>
+					<value>ALB</value>
+					<value>DZA</value>
+					<value>ASM</value>
+					<value>AND</value>
+					<value>AGO</value>
+					<value>AIA</value>
+					<value>ATA</value>
+					<value>ATG</value>
+					<value>ARG</value>
+					<value>ARM</value>
+					<value>ABW</value>
+					<value>AUS</value>
+					<value>AUT</value>
+					<value>AZE</value>
+					<value>BHS</value>
+					<value>BHR</value>
+					<value>BGD</value>
+					<value>BRB</value>
+					<value>BLR</value>
+					<value>BEL</value>
+					<value>BLZ</value>
+					<value>BEN</value>
+					<value>BMU</value>
+					<value>BTN</value>
+					<value>BOL</value>
+					<value>BIH</value>
+					<value>BWA</value>
+					<value>BVT</value>
+					<value>BRA</value>
+					<value>IOT</value>
+					<value>BRN</value>
+					<value>BGR</value>
+					<value>BFA</value>
+					<value>BDI</value>
+					<value>KHM</value>
+					<value>CMR</value>
+					<value>CAN</value>
+					<value>CPV</value>
+					<value>CYM</value>
+					<value>CAF</value>
+					<value>TCD</value>
+					<value>CHL</value>
+					<value>CHN</value>
+					<value>CXR</value>
+					<value>CCK</value>
+					<value>COL</value>
+					<value>COM</value>
+					<value>COG</value>
+					<value>COD</value>
+					<value>COK</value>
+					<value>CRI</value>
+					<value>CIV</value>
+					<value>HRV</value>
+					<value>CUB</value>
+					<value>CYP</value>
+					<value>CZE</value>
+					<value>DNK</value>
+					<value>DJI</value>
+					<value>DMA</value>
+					<value>DOM</value>
+					<value>ECU</value>
+					<value>EGY</value>
+					<value>SLV</value>
+					<value>GNQ</value>
+					<value>ERI</value>
+					<value>EST</value>
+					<value>ETH</value>
+					<value>FLK</value>
+					<value>FRO</value>
+					<value>FJI</value>
+					<value>FIN</value>
+					<value>FRA</value>
+					<value>GUF</value>
+					<value>PYF</value>
+					<value>ATF</value>
+					<value>GAB</value>
+					<value>GMB</value>
+					<value>GEO</value>
+					<value>DEU</value>
+					<value>GHA</value>
+					<value>GIB</value>
+					<value>GRC</value>
+					<value>GRL</value>
+					<value>GRD</value>
+					<value>GLP</value>
+					<value>GUM</value>
+					<value>GTM</value>
+					<value>GGY</value>
+					<value>GIN</value>
+					<value>GNB</value>
+					<value>GUY</value>
+					<value>HTI</value>
+					<value>HMD</value>
+					<value>VAT</value>
+					<value>HND</value>
+					<value>HKG</value>
+					<value>HUN</value>
+					<value>ISL</value>
+					<value>IND</value>
+					<value>IDN</value>
+					<value>IRN</value>
+					<value>IRQ</value>
+					<value>IRL</value>
+					<value>IMN</value>
+					<value>ISR</value>
+					<value>ITA</value>
+					<value>JAM</value>
+					<value>JPN</value>
+					<value>JEY</value>
+					<value>JOR</value>
+					<value>KAZ</value>
+					<value>KEN</value>
+					<value>KIR</value>
+					<value>PRK</value>
+					<value>KOR</value>
+					<value>KWT</value>
+					<value>KGZ</value>
+					<value>LAO</value>
+					<value>LVA</value>
+					<value>LBN</value>
+					<value>LSO</value>
+					<value>LBR</value>
+					<value>LBY</value>
+					<value>LIE</value>
+					<value>LTU</value>
+					<value>LUX</value>
+					<value>MAC</value>
+					<value>MKD</value>
+					<value>MDG</value>
+					<value>MWI</value>
+					<value>MYS</value>
+					<value>MDV</value>
+					<value>MLI</value>
+					<value>MLT</value>
+					<value>MHL</value>
+					<value>MTQ</value>
+					<value>MRT</value>
+					<value>MUS</value>
+					<value>MYT</value>
+					<value>MEX</value>
+					<value>FSM</value>
+					<value>MDA</value>
+					<value>MCO</value>
+					<value>MNG</value>
+					<value>MNE</value>
+					<value>MSR</value>
+					<value>MAR</value>
+					<value>MOZ</value>
+					<value>MMR</value>
+					<value>NAM</value>
+					<value>NRU</value>
+					<value>NPL</value>
+					<value>NLD</value>
+					<value>ANT</value>
+					<value>NCL</value>
+					<value>NZL</value>
+					<value>NIC</value>
+					<value>NER</value>
+					<value>NGA</value>
+					<value>NIU</value>
+					<value>NFK</value>
+					<value>MNP</value>
+					<value>NOR</value>
+					<value>OMN</value>
+					<value>PAK</value>
+					<value>PLW</value>
+					<value>PSE</value>
+					<value>PAN</value>
+					<value>PNG</value>
+					<value>PRY</value>
+					<value>PER</value>
+					<value>PHL</value>
+					<value>PCN</value>
+					<value>POL</value>
+					<value>PRT</value>
+					<value>PRI</value>
+					<value>QAT</value>
+					<value>REU</value>
+					<value>ROU</value>
+					<value>RUS</value>
+					<value>RWA</value>
+					<value>BLM</value>
+					<value>SHN</value>
+					<value>KNA</value>
+					<value>LCA</value>
+					<value>MAF</value>
+					<value>SPM</value>
+					<value>VCT</value>
+					<value>WSM</value>
+					<value>SMR</value>
+					<value>STP</value>
+					<value>SAU</value>
+					<value>SEN</value>
+					<value>SRB</value>
+					<value>SYC</value>
+					<value>SLE</value>
+					<value>SGP</value>
+					<value>SVK</value>
+					<value>SVN</value>
+					<value>SLB</value>
+					<value>SOM</value>
+					<value>ZAF</value>
+					<value>SGS</value>
+					<value>ESP</value>
+					<value>LKA</value>
+					<value>SDN</value>
+					<value>SUR</value>
+					<value>SJM</value>
+					<value>SWZ</value>
+					<value>SWE</value>
+					<value>CHE</value>
+					<value>SYR</value>
+					<value>TWN</value>
+					<value>TJK</value>
+					<value>TZA</value>
+					<value>THA</value>
+					<value>TLS</value>
+					<value>TGO</value>
+					<value>TKL</value>
+					<value>TON</value>
+					<value>TTO</value>
+					<value>TUN</value>
+					<value>TUR</value>
+					<value>TKM</value>
+					<value>TCA</value>
+					<value>TUV</value>
+					<value>UGA</value>
+					<value>UKR</value>
+					<value>ARE</value>
+					<value>GBR</value>
+					<value>USA</value>
+					<value>UMI</value>
+					<value>URY</value>
+					<value>UZB</value>
+					<value>VUT</value>
+					<value>VEN</value>
+					<value>VNM</value>
+					<value>VGB</value>
+					<value>VIR</value>
+					<value>WLF</value>
+					<value>ESH</value>
+					<value>YEM</value>
+					<value>ZMB</value>
+					<value>ZWE</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="19" canContainMultipleValues="true" repeatingElement="Field" >
@@ -376,6 +720,15 @@
             <description>Field #18 - Race of patient</description>
             <Validations>
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+				<!-- Add valid values with value set code PHVS_RaceCategory_CDC-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>1002-5</value>
+					<value>2028-9</value>
+					<value>2054-5</value>
+					<value>2076-8</value>
+					<value>2131-1</value>
+					<value>2106-3</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="20" canContainMultipleValues="true" repeatingElement="Field">
@@ -389,6 +742,11 @@
             <description>Field #19 - Ethnicity of patient</description>
             <Validations>
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
+				<!-- Add valid values with value set code PHVS_EthnicityGroup_CDC-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>2135-2</value>
+					<value>2186-5</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="21">
@@ -416,6 +774,87 @@
             <description>Field #21 - Unique identifier for a Patient visit </description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+				<!-- Add valid values with value set code PHVS_IdentifierType_SyndromicSurveillance-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>AN</value>
+					<value>ANC</value>
+					<value>AND</value>
+					<value>APRN</value>
+					<value>AM</value>
+					<value>ANON</value>
+					<value>BA</value>
+					<value>BC</value>
+					<value>BR</value>
+					<value>CY</value>
+					<value>DDS</value>
+					<value>DI</value>
+					<value>DS</value>
+					<value>DN</value>
+					<value>DR</value>
+					<value>DL</value>
+					<value>DEA</value>
+					<value>DFN</value>
+					<value>EI</value>
+					<value>GL</value>
+					<value>GN</value>
+					<value>GI</value>
+					<value>HC</value>
+					<value>IND</value>
+					<value>JHN</value>
+					<value>LI</value>
+					<value>LN</value>
+					<value>PE</value>
+					<value>LR</value>
+					<value>MS</value>
+					<value>MD</value>
+					<value>MR</value>
+					<value>UPIN</value>
+					<value>MB</value>
+					<value>MCN</value>
+					<value>MI</value>
+					<value>NH</value>
+					<value>NII</value>
+					<value>NNxxx</value>
+					<value>NPI</value>
+					<value>NI</value>
+					<value>NP</value>
+					<value>OD</value>
+					<value>DO</value>
+					<value>PPN</value>
+					<value>PT</value>
+					<value>PI</value>
+					<value>MA</value>
+					<value>MC</value>
+					<value>PCN</value>
+					<value>PEN</value>
+					<value>PRC</value>
+					<value>PN</value>
+					<value>RPH</value>
+					<value>PA</value>
+					<value>DPM</value>
+					<value>MCD</value>
+					<value>MCR</value>
+					<value>PRN</value>
+					<value>QA</value>
+					<value>RR</value>
+					<value>RRI</value>
+					<value>RN</value>
+					<value>RI</value>
+					<value>SS</value>
+					<value>SL</value>
+					<value>SR</value>
+					<value>SN</value>
+					<value>TAX</value>
+					<value>ANT</value>
+					<value>PNT</value>
+					<value>MRT</value>
+					<value>TN</value>
+					<value>U</value>
+					<value>VS</value>
+					<value>VN</value>
+					<value>WC</value>
+					<value>WCN</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="23">
@@ -459,6 +898,15 @@
             <description>Field #24 - Patient classification within facility</description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+				<!-- Add valid values with value set code PHVS_PatientClass_SyndromicSurveillance-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>E</value>
+					<value>I</value>
+					<value>B</value>
+					<value>O</value>
+					<value>P</value>
+					<value>R</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="26" canContainMultipleValues="true" repeatingElement="Segment">
@@ -503,6 +951,7 @@
             </Location>
             <description>Field #27 - Diagnosis or injury code of patient condition</description>
             <Validations>
+				<!-- Not validated with valid values as it uses three different coding systems and for now we want to keep it open and not constrain or validate at such deeper level-->
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
@@ -534,6 +983,12 @@
             <description>Field #29 - Qualifier for Diagnosis / Injury Code specifying type of diagnosis</description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
+				<!-- Add valid values with value set code PHVS_DiagnosisType_HL7_2x-->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>A</value>
+					<value>F</value>
+					<value>W</value>
+				</ValueList>
             </Validations>
         </Field>
         <Field id="31">
@@ -568,10 +1023,12 @@
             <name>Initial Temperature</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <Location version="2.5.1" >
                 <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <description>Field #32 - First recorded temperature</description>
@@ -583,26 +1040,43 @@
         <Field id="34">
             <name>Initial Temperature - Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">11289-6</identifier>
             </Location>
             <description>Field #32 - First recorded temperature units</description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+				<!-- Add valid values with valuse set PHVS_TemperatureUnit_UCUM and code system = UCUM -->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>Cel</value>
+					<value>[degF]</value>
+				</ValueList>
+				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
+				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+                    <fieldValue>UCUM</fieldValue>
+                </RequiresFieldValue>
+				<!-- This element defines the secondary field (Field id 33 - Initial Temperauture) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>33</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
         <Field id="35">
             <name>Initial Pulse Oximetry</name>
             <Location version="2.3.1" >
                 <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <Location version="2.5.1" >
                 <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <description>Field #33 - First recorded pulse oximetry value</description>
@@ -614,16 +1088,30 @@
         <Field id="36">
             <name>Initial Pulse Oximetry - Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+				<!-- This is Concept code with set code PHVS_ObservationIdentifier_SyndromicSurveillance and code system = LOINC -->
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <description>Field #33 - First recorded pulse oximetry units</description>
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+				<!-- Add valid values with valuse set PHVS_PulseOximetryUnit_UCUM and code system = UCUM -->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>%</value>
+				</ValueList>
+				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
+				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+                    <fieldValue>UCUM</fieldValue>
+                </RequiresFieldValue>
+				<!-- This element defines the secondary field (Field id 35 - Initial Pulse Oximetry) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>35</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
     </Fields>
@@ -644,6 +1132,7 @@
         <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
         <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
 		<errorMessage id="10" printFieldName="true" printFieldValue="true" >is not a valid format.</errorMessage>
+		<errorMessage id="11" printFieldName="true" printFieldValue="false" >is dependent upon another field whose definition is not found in the Rule Book.</errorMessage>
     </ErrorMessages>
     <ErrorCodes>
         <errorCode id="0"></errorCode>
