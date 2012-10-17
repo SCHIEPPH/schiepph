@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- ***************************************** -->
 <!-- ****************RULE BOOK**************** -->
 <!-- ***************************************** -->
-<?xml version="1.0" encoding="UTF-8"?>
 <HL7Validation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../Product/Production/XML/HL7Validation.xsd">
     <ValidHL7Versions errorCodeId="3" errorMessageId="3" severity="Hold" >
         <version>2.3.1</version>
@@ -330,7 +330,7 @@
 					<value>F</value>
 					<value>M</value>
 					<value>O</value>
-					<value>U</value>					
+					<value>U</value>
 				</ValueList>
             </Validations>
         </Field>
@@ -443,7 +443,7 @@
 					<value>53</value>
 					<value>54</value>
 					<value>55</value>
-					<value>56</value>	
+					<value>56</value>
 				</ValueList>
             </Validations>
         </Field>
@@ -1143,6 +1143,7 @@
         <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
-        <format>YYYYMMDDHHMM</format>        
+        <format>yyyyMMddHHmm</format>
+        <format>yyyyMMddHHmmss-zzzz</format>
     </DateFormats>
 </HL7Validation>
