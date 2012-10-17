@@ -157,7 +157,7 @@
                                                   <xs:complexType>
                                                   <xs:sequence>
                                                   <xs:element maxOccurs="unbounded" minOccurs="0"
-                                                  name="conditionalFieldIId">
+                                                  name="conditionalFieldId">
                                                   <xs:complexType>
                                                   <xs:attribute default="true" name="mustExist"
                                                   type="xs:boolean"/>
