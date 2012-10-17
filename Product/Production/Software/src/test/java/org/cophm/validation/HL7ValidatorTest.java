@@ -170,7 +170,7 @@ public class HL7ValidatorTest extends TestCase {
                     "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
                             "EVN||201205311112\n"                                                                                                                                                                                                                                                                                                                                             +
                             "PID|1||8905671234^^^^SS~5671234098^^^^PI~1234765890^^^^BA~999777555^^^^MR||paitent_name|||M||1002-5|^^Fairfax City^51^22333^USA^^^Fairfax|||||||||||2186-5\n"       +
-                            "PV1||E|||||||||||||||||7651234098|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
+                            "PV1||E|||||||||||||||||APRN|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||Fairfax Hospital^1098765432^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^123 Gallows Rd.^^^^Fairfax City^51^30341^USA^C^^Fairfax||||||X\n"                                                                                                                                                                                               +
                             "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X|||||||X\n"                                                                                                                                                                                                                                                                                     +
@@ -318,7 +318,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -839,7 +839,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -1313,7 +1313,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -1787,7 +1787,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -2261,7 +2261,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -2604,7 +2604,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String  hl7TestData_2 = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
-            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
+            "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
             "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
@@ -2619,7 +2619,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String  hl7TestData_Conditional_data_present = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
-            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
+            "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
             "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
@@ -2634,7 +2634,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String  hl7TestData_Conditional_data_missing = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
-            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
+            "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
             "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
@@ -2649,7 +2649,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String  hl7TestData_with_valid_age_value = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
-            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
+            "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
             "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||18|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
@@ -2664,7 +2664,7 @@ public class HL7ValidatorTest extends TestCase {
     public static String  hl7TestData_with_invalid_age_value = "MSH|^~\\&||MID-CO HLTH CTR^9876543210^N|||201110090314||ADT^A01^ADT_A01|AllData251|P|2.5.1\n" +
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
-            "PV1||I||E||||||||||6|||||VN101100001^^^^VN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
+            "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
             "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
@@ -2681,7 +2681,7 @@ public class HL7ValidatorTest extends TestCase {
                     "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
                             "EVN||201205311112\n"                                                                                                                                                                                                                                                                                                                                             +
                             "PID|1||8905671234^^^^SS~5671234098^^^^PI~1234765890^^^^BA~999777555^^^^MR||paitent_name|||M||1002-5|^^Fairfax City^51^22333^USA^^^Fairfax|||||||||||2186-5\n"       +
-                            "PV1||E|||||||||||||||||7651234098|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
+                            "PV1||E|||||||||||||||||APRN|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||Fairfax Hospital^1098765432^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^123 Gallows Rd.^^^^Fairfax City^51^30341^USA^C^^Fairfax||||||X\n"                                                                                                                                                                                               +
                             "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X|||||||X\n"                                                                                                                                                                                                                                                                                     +
@@ -2828,7 +2828,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -3172,7 +3172,7 @@ public class HL7ValidatorTest extends TestCase {
                     "MSH|^~\\&|||||20111213131225||ADT^A01|MSG00001|P|2.3.1||||||UTF-8\n"                                                                                                                                                                                                                                                                                                                 +
                             "EVN||201205311112\n"                                                                                                                                                                                                                                                                                                                                             +
                             "PID|1||8905671234^^^^SS~5671234098^^^^PI~1234765890^^^^BA~999777555^^^^MR||paitent_name|||M||1002-5|^^Fairfax City^51^22333^USA^^^Fairfax|||||||||||2186-5\n"       +
-                            "PV1||E|||||||||||||||||7651234098|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
+                            "PV1||E|||||||||||||||||APRN|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||Fairfax Hospital^1098765432^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^123 Gallows Rd.^^^^Fairfax City^51^30341^USA^C^^Fairfax||||||X\n"                                                                                                                                                                                               +
                             "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X|||||||X\n"                                                                                                                                                                                                                                                                                     +
@@ -3318,7 +3318,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <PV1.17/>\n"+
             "        <PV1.18/>\n"+
             "        <PV1.19>\n"+
-            "            <PV1.19.1>7651234098 </PV1.19.1>\n"+
+            "            <PV1.19.1>APRN </PV1.19.1>\n"+
             "        </PV1.19>\n"+
             "        <PV1.20/>\n"+
             "        <PV1.21/>\n"+
@@ -3654,8 +3654,8 @@ public class HL7ValidatorTest extends TestCase {
     public static final String      xml_result_2 = "E";
     public static final String      pipe_result_3 = "";
     public static final String      xml_result_3 = "";
-    public static final String      pipe_result_4 = "7651234098";
-    public static final String      xml_result_4 = "7651234098";
+    public static final String      pipe_result_4 = "APRN";
+    public static final String      xml_result_4 = "APRN";
     public static final String      pipe_result_5 = "95";
     public static final String      xml_result_5 = "95";
     public static final String      pipe_result_6 = "Nausia and Dizzyness";
