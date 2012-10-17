@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Properties;
+
 /**
  *
  * @author dunnek
@@ -37,6 +39,7 @@ public class MirthAdminDistImpl {
     public String buildXMLMessageWithHeader(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) throws PropertyAccessException, JDOMException, IOException {
         HL7Validator    validator;
         String          message = "";
+        String          dataToValidateAndReturn = "";
 
         PropertyAccessor.loadAdapterProperties("AdminDistributionSource.properties");
 
@@ -59,14 +62,9 @@ public class MirthAdminDistImpl {
             Element           root;
             Element           currentElement;
             Element           contentObjectElement;
-            Element           xmlContentElement;
-            Element           embeddedXMLContentElement;
-            Element           nonXmlContentElement;
-            Element           edxlDistributionElement;
             StringReader      reader;
             StringWriter      writer = new StringWriter();
             List              alternateNamespace;
-            String            dataToValidate;
 
 
             QName             qName = new QName("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter","RespondingGateway_SendAlertMessage");
@@ -74,7 +72,6 @@ public class MirthAdminDistImpl {
 
 
             javax.xml.bind.JAXBContext      jaxbContext = javax.xml.bind.JAXBContext.newInstance(body.getClass());
-
 
             Marshaller      marshaller = jaxbContext.createMarshaller();
             marshaller.marshal( element, writer);
@@ -116,54 +113,33 @@ public class MirthAdminDistImpl {
             try {
                 currentElement = root;
                 currentElement = getChild(currentElement, XMLDefs.EDXL_DISTRIBUTION, alternateNamespace);
-                edxlDistributionElement = currentElement;
                 currentElement = getChild(currentElement, XMLDefs.CONTENT_OBJECT, alternateNamespace);
                 contentObjectElement = currentElement;
                 currentElement = getChild(currentElement, XMLDefs.XML_CONTENT, alternateNamespace, true);
 
                 if(currentElement == null) {
-                    er7Serializer = new ER7Serializer();
+                    Properties properties = new Properties();
+
+                    properties.put("useStrictParser", "false");
+                    properties.put("handleRepetitions", "true");
+                    properties.put("convertLFtoCR", "false");
+
+                    er7Serializer = new ER7Serializer(properties);
 
                     currentElement = contentObjectElement;
 
                     currentElement = getChild(currentElement, XMLDefs.NON_XML_CONTENT, alternateNamespace);
-                    nonXmlContentElement = currentElement;
                     currentElement = getChild(currentElement, XMLDefs.CONTENT_DATA, alternateNamespace);
 
-                    dataToValidate = new String(Base64Coder.decode(currentElement.getText().trim()));
+                    dataToValidateAndReturn = new String(Base64Coder.decode(currentElement.getText().trim()));
 
                     //
                     // At this point, the data should not be XML data since it is contained in an
                     // Element named "nonXMLContent", but we will check just to make sure someone
                     // did not base 64 encode an XML string.
                     //
-                    if(Parser.inputIsXML(dataToValidate) == false) {
-                        dataToValidate = er7Serializer.toXML(dataToValidate);
-                        //
-                        // Now we need to detach the non-XML content and then attach the converted
-                        // data to the original XML, after building the necessary additional XML
-                        // elements.
-                        //
-                        xmlContentElement = new Element(XMLDefs.XML_CONTENT).setNamespace(edxlDistributionElement.getNamespace());
-                        embeddedXMLContentElement = new Element(XMLDefs.EMBEDDED_XML_CONTENT).setNamespace(edxlDistributionElement.getNamespace());;
-                        xmlContentElement.addContent(embeddedXMLContentElement);
-                        embeddedXMLContentElement.addContent(convertStringToXmlElements(dataToValidate,
-                                                                                        edxlDistributionElement.getNamespace()));
-
-                        nonXmlContentElement.detach();
-                        contentObjectElement.addContent(xmlContentElement);
-
-                        //
-                        // Now we need to convert the modified XML element graph back to a string
-                        // so it cam be passed along.
-                        //
-                        xmlOutputter = new XMLOutputter();
-                        writer = new StringWriter();
-
-                        xmlOutputter.output(doc, writer);
-
-                        message = writer.toString();
-
+                    if(Parser.inputIsXML(dataToValidateAndReturn) == false) {
+                        dataToValidateAndReturn = er7Serializer.toXML(dataToValidateAndReturn);
                     }
                 }
                 else {
@@ -180,7 +156,7 @@ public class MirthAdminDistImpl {
 
                     xmlOutputter.output(doc, writer);
 
-                    dataToValidate = writer.toString();
+                    dataToValidateAndReturn = writer.toString();
                 }
             }
             catch(JDOMException e) {
@@ -191,7 +167,7 @@ public class MirthAdminDistImpl {
             logger.error(message);
 
 
-            validator.loadData(dataToValidate);
+            validator.loadData(dataToValidateAndReturn);
             validator.validateData();
         }
         catch(Exception ex)
@@ -204,7 +180,8 @@ public class MirthAdminDistImpl {
             return "";
         }
         else {
-            return message;
+            return dataToValidateAndReturn;
+//            return message;
         }
     }
 
