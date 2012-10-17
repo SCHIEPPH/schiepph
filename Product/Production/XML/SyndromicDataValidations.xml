@@ -44,7 +44,7 @@
             </Location>
             <description>Field #2 - Name of facility where the patient originally presented (original provider of the data)</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -60,7 +60,7 @@
             </Location>
             <description>Field #3 - Street address of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="120" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -76,7 +76,7 @@
             </Location>
             <description>Field #4 - City of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -92,7 +92,7 @@
             </Location>
             <description>Field #5 - County of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -108,7 +108,7 @@
             </Location>
             <description>Field #6 - State of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -168,7 +168,7 @@
             <description>Field #9 - Unique identifier for the patient</description>
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
-                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="3.5" caseSensetive="false" >
+                <RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="3.5" caseSensitive="false" >
                     <fieldValue>AN</fieldValue>
                     <fieldValue>ANC</fieldValue>
                     <fieldValue>AND</fieldValue>
@@ -261,7 +261,7 @@
             </Location>
             <description>Field #10 - Patient medical record number</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
         <Field id="12">
@@ -321,7 +321,7 @@
             </Location>
             <description>Field #14 - City/Town of patient residence</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -349,7 +349,7 @@
             </Location>
             <description>Field #16 - State of patient residence </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
         <Field id="18">
@@ -401,7 +401,7 @@
             </Location>
             <description>Field #20 - County/Parish Code</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -444,7 +444,7 @@
             </Location>
             <description>Field #23 - Date that patient began having symptoms of condition being reported</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Date</dataType>
             </Validations>
         </Field>
@@ -458,7 +458,7 @@
             </Location>
             <description>Field #24 - Patient classification within facility</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
         <Field id="26" canContainMultipleValues="true" repeatingElement="Segment">
@@ -489,7 +489,7 @@
             </Location>
             <description>Field #26 - Triage notes for the patient visit</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="65536" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -519,7 +519,7 @@
             </Location>
             <description>Field #28 - Clinical impression (free text) of the diagnosis </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="65536" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -560,7 +560,7 @@
             </Location>
             <description>Field #31 - Date and time of disposition</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Date</dataType>
             </Validations>
         </Field>
@@ -576,7 +576,7 @@
             </Location>
             <description>Field #32 - First recorded temperature</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -592,7 +592,7 @@
             </Location>
             <description>Field #32 - First recorded temperature units</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
         <Field id="35">
@@ -607,14 +607,14 @@
             </Location>
             <description>Field #33 - First recorded pulse oximetry value</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
         <Field id="36">
             <name>Initial Pulse Oximetry - Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="6.2" >OBX</hl7Segment>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
                 <identifier mustMatch="true" fieldNumber="3.1">59408-5</identifier>
             </Location>
             <Location version="2.5.1" >
@@ -623,7 +623,7 @@
             </Location>
             <description>Field #33 - First recorded pulse oximetry units</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
     </Fields>
@@ -654,6 +654,7 @@
         <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
-        <format>YYYYMMDDHHMM</format>        
+        <format>yyyyMMddHHmm</format>
+        <format>yyyyMMddHHmm-zzzz</format>
     </DateFormats>
 </HL7Validation>

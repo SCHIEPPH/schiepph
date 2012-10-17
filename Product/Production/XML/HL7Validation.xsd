@@ -164,6 +164,12 @@
                                                   </xs:complexType>
                                                   </xs:element>
                                                   </xs:sequence>
+                                                  <xs:attribute name="severity" type="xs:string"
+                                                  use="required"/>
+                                                  <xs:attribute name="errorCodeId"
+                                                  type="xs:unsignedInt" use="required"/>
+                                                  <xs:attribute name="errorMessageId"
+                                                  type="xs:unsignedInt" use="required"/>
                                                   </xs:complexType>
                                                   </xs:element>
                                                 </xs:sequence>

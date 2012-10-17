@@ -7,5 +7,5 @@ package org.cophm.validation;
  * Time: 2:16 PM
  */
 public enum ErrorSeverity {
-    NONE, REPORT, HOLD, FATAL;
+    IGNORE, REPORT, HOLD, FATAL;
 }

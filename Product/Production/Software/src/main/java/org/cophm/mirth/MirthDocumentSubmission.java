@@ -138,7 +138,7 @@ public class MirthDocumentSubmission  extends AcceptMessage{
                     while(errorIterator.hasNext()) {
                         org.cophm.validation.ValidationResult     validationResult = (ValidationResult)errorIterator.next();
 
-                        if(validationResult.getSeverity().ordinal() == ErrorSeverity.NONE.ordinal()) {
+                        if(validationResult.getSeverity().ordinal() == ErrorSeverity.IGNORE.ordinal()) {
                             continue;
                         }
                         else {

@@ -5,7 +5,6 @@ import org.cophm.util.Constants;
 import org.cophm.util.PropertyAccessException;
 import org.cophm.util.PropertyAccessor;
 import org.cophm.util.XMLDefs;
-import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -34,7 +33,7 @@ public class HL7Validator {
     private HashMap<String, String>                     errorCodeMap = new HashMap<String, String>();
     private ArrayList<ValidationResult>                 validationResultsList = new ArrayList<ValidationResult>();
 
-    private ErrorSeverity     maxErrorSeverity = ErrorSeverity.NONE;
+    private ErrorSeverity     maxErrorSeverity = ErrorSeverity.IGNORE;
 
     private String      hl7VersionNumber = "unset";
     private String      hl7MessageId = "unset";
@@ -105,7 +104,7 @@ public class HL7Validator {
         validationResultsList.clear();
         errorMessageMap.clear();
         errorCodeMap.clear();
-        maxErrorSeverity = ErrorSeverity.NONE;
+        maxErrorSeverity = ErrorSeverity.IGNORE;
 
         while(errorMessageIterator.hasNext()) {
             Element       message = (Element)errorMessageIterator.next();
@@ -220,7 +219,7 @@ public class HL7Validator {
         inputData = _inputData;
 
         validationResultsList.clear();
-        maxErrorSeverity = ErrorSeverity.NONE;
+        maxErrorSeverity = ErrorSeverity.IGNORE;
 
         dataParser = Parser.getParser(inputData);
 
@@ -334,6 +333,8 @@ public class HL7Validator {
             if(dataParser.isSegmentPresent(requiredSegmentName) == false) {
                 captureError(rootElement.getChild(XMLDefs.REQUIRED_SEGMENTS, rootElement.getNamespace()),
                              "RequiredSegments", requiredSegmentName, Usage.Required);
+                saveData(reportDate, inputData);
+                saveReport(reportDate);
                 return false;
             }
         }
@@ -1174,7 +1175,7 @@ public class HL7Validator {
             return ErrorSeverity.REPORT;
         }
         else {
-            return ErrorSeverity.NONE;
+            return ErrorSeverity.IGNORE;
         }
     }
 
