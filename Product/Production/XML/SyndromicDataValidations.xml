@@ -1144,6 +1144,19 @@
     </ErrorCodes>
     <DateFormats>
         <format>yyyyMMddHHmm</format>
+        <format>yyyyMMddHHmm-zzzz</format>
+        <format>yyyyMMddHHmm+zzzz</format>
+        <format>yyyyMMddHHmmss</format>
         <format>yyyyMMddHHmmss-zzzz</format>
+        <format>yyyyMMddHHmmss+zzzz</format>
+        <format>yyyyMMddHHmmss.S</format>
+        <format>yyyyMMddHHmmss.S-zzzz</format>
+        <format>yyyyMMddHHmmss.S+zzzz</format>
+        <format>yyyyMMddHHmmss.SS</format>
+        <format>yyyyMMddHHmmss.SS-zzzz</format>
+        <format>yyyyMMddHHmmss.SS+zzzz</format>
+        <format>yyyyMMddHHmmss.SSS</format>
+        <format>yyyyMMddHHmmss.SSS-zzzz</format>
+        <format>yyyyMMddHHmmss.SSS+zzzz</format>
     </DateFormats>
 </HL7Validation>
