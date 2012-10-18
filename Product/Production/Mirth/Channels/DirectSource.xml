@@ -3,12 +3,12 @@
   <name>DirectSource</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.2.1.5861</version>
+  <version>2.1.1.5490</version>
   <lastModified>
-    <time>1343407894757</time>
-    <timezone>America/New_York</timezone>
+    <time>1350592807497</time>
+    <timezone>US/Eastern</timezone>
   </lastModified>
-  <revision>66</revision>
+  <revision>11</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -77,14 +77,14 @@ return &quot;&quot;;</property>
     <transportName>JavaScript Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.2.1.5861</version>
+    <version>2.1.1.5490</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
       <name>Destination 1</name>
       <properties>
         <property name="DataType">Channel Writer</property>
-        <property name="host">dc89620c-0db2-40a3-a26f-314e0c5af4b9</property>
+        <property name="host">sink</property>
         <property name="synchronised">0</property>
         <property name="template">${message.encodedData}</property>
       </properties>
@@ -120,7 +120,7 @@ return &quot;&quot;;</property>
       <transportName>Channel Writer</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.2.1.5861</version>
+      <version>2.1.1.5490</version>
     </connector>
   </destinationConnectors>
   <properties>

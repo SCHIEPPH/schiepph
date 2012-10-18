@@ -453,7 +453,17 @@ public class PipeParser extends Parser implements IDataParser {
 
         subFieldNumber = getSubFieldNumber(fieldNumber);
         if(subFieldNumber == -1) {
-            return field;
+            //
+            // Since the HL7 spec says that field 10.1 can be written as 10,we
+            // need to check the field for sub field separators and then set the
+            // sub field number to 1, so we don't return more data than we should.
+            //
+            if(field.indexOf(subFieldSeparator) > -1) {
+                subFieldNumber = 1;
+            }
+            else {
+                return field;
+            }
         }
 
         strtok = new StringTokenizer(field, subFieldSeparator, true);

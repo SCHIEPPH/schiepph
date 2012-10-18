@@ -3,12 +3,12 @@
   <name>DirectDestination</name>
   <description></description>
   <enabled>true</enabled>
-  <version>2.2.1.5861</version>
+  <version>2.1.1.5490</version>
   <lastModified>
-    <time>1343148182128</time>
+    <time>1350588788816</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>8</revision>
+  <revision>5</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -32,33 +32,33 @@
     <transportName>Channel Reader</transportName>
     <mode>SOURCE</mode>
     <enabled>true</enabled>
-    <version>2.2.1.5861</version>
+    <version>2.1.1.5490</version>
   </sourceConnector>
   <destinationConnectors>
     <connector>
       <name>Destination 1</name>
       <properties>
         <property name="DataType">Email Sender</property>
-        <property name="attachments">&lt;list&gt;
-  &lt;com.mirth.connect.connectors.smtp.Attachment&gt;
-    &lt;name&gt;Attachment 1&lt;/name&gt;
-    &lt;content&gt;${message.encodedData}&lt;/content&gt;
-    &lt;mimeType&gt;text/xml&lt;/mimeType&gt;
-  &lt;/com.mirth.connect.connectors.smtp.Attachment&gt;
+        <property name="attachmentContents">&lt;list&gt;
+  &lt;string&gt;${message.encodedData}&lt;/string&gt;
 &lt;/list&gt;</property>
-        <property name="authentication">0</property>
-        <property name="body">Syndromic Surviellance Data Submission.</property>
-        <property name="charsetEncoding">DEFAULT_ENCODING</property>
-        <property name="encryption">none</property>
-        <property name="from">${direct_sender_from_address}</property>
-        <property name="headers">&lt;linked-hash-map/&gt;</property>
-        <property name="html">0</property>
+        <property name="attachmentNames">&lt;list&gt;
+  &lt;string&gt;Attachment 1&lt;/string&gt;
+&lt;/list&gt;</property>
+        <property name="attachmentTypes">&lt;list&gt;
+  &lt;string&gt;text/xml&lt;/string&gt;
+&lt;/list&gt;</property>
+        <property name="body">Syndromic Surviellance Data</property>
+        <property name="contentType">text/plain</property>
+        <property name="emailSecure">none</property>
+        <property name="fromAddress">${direct_sender_from_address}</property>
+        <property name="hostname">${direct_sender_smtp_host}</property>
         <property name="password">ralph123</property>
-        <property name="smtpHost">${direct_sender_smtp_host}</property>
         <property name="smtpPort">${direct_sender_smtp_port}</property>
         <property name="subject">${direct_sender_subject}</property>
-        <property name="timeout">5000</property>
-        <property name="to">${direct_sender_to_address}</property>
+        <property name="toAddresses">${direct_sender_to_address}</property>
+        <property name="useAuthentication">0</property>
+        <property name="useServerSettings">0</property>
         <property name="username">ralph@directconnect.agilexhealth.com</property>
       </properties>
       <transformer>
@@ -78,7 +78,7 @@
       <transportName>Email Sender</transportName>
       <mode>DESTINATION</mode>
       <enabled>true</enabled>
-      <version>2.2.1.5861</version>
+      <version>2.1.1.5490</version>
     </connector>
   </destinationConnectors>
   <properties>
@@ -107,7 +107,7 @@ importPackage(Packages.java.io);
 
 	if (value == null)
 	{
-		//no enviroment variable, default to Mirth Properties directory.
+		//no enviroment variable, default to Mirth Properties directory. 
 		property_file = &apos;conf/DirectDestination.properties&apos;;
 	}
 	else

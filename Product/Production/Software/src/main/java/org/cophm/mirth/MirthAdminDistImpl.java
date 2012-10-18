@@ -5,6 +5,7 @@
 
 package org.cophm.mirth;
 
+import com.mirth.connect.model.converters.SerializerException;
 import org.cophm.util.*;
 import org.cophm.validation.ErrorSeverity;
 import org.cophm.validation.HL7Validator;
@@ -37,9 +38,9 @@ public class MirthAdminDistImpl {
 
 
     public String buildXMLMessageWithHeader(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) throws PropertyAccessException, JDOMException, IOException {
-        HL7Validator    validator;
-        String          message = "";
-        String          dataToValidateAndReturn = "";
+        HL7Validator                  validator;
+        String                        message = "";
+        String                        dataToValidateAndReturn = "";
 
         PropertyAccessor.loadAdapterProperties("AdminDistributionSource.properties");
 
@@ -53,8 +54,9 @@ public class MirthAdminDistImpl {
             return "";
         }
 
-        try
-        {
+
+        try {
+
             ER7Serializer     er7Serializer;
             SAXBuilder        builder = new SAXBuilder();
             XMLOutputter      xmlOutputter;
@@ -118,7 +120,7 @@ public class MirthAdminDistImpl {
                 currentElement = getChild(currentElement, XMLDefs.XML_CONTENT, alternateNamespace, true);
 
                 if(currentElement == null) {
-                    Properties properties = new Properties();
+                    Properties      properties = new Properties();
 
                     properties.put("useStrictParser", "false");
                     properties.put("handleRepetitions", "true");
@@ -164,9 +166,6 @@ public class MirthAdminDistImpl {
                 return "";
             }
 
-            logger.error(message);
-
-
             validator.loadData(dataToValidateAndReturn);
             validator.validateData();
         }
@@ -181,7 +180,6 @@ public class MirthAdminDistImpl {
         }
         else {
             return dataToValidateAndReturn;
-//            return message;
         }
     }
 
