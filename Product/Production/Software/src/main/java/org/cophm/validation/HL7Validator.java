@@ -510,20 +510,20 @@ public class HL7Validator {
             }
         }
 
-        validateFieldUsage(fieldValueList, usageElement, fieldName, usage);
+        if(validateFieldUsage(fieldValueList, usageElement, fieldName, usage) == true) {
+            validateFieldValue(fieldValueList, validations.getChild(XMLDefs.VALUE_LIST, field.getNamespace()),
+                               fieldName,     usage);
 
-        validateFieldValue(fieldValueList, validations.getChild(XMLDefs.VALUE_LIST, field.getNamespace()),
-                           fieldName,     usage);
+            validateFieldDataType(fieldValueList, validations.getChild(XMLDefs.DATA_TYPE, field.getNamespace()),
+                                  fieldName,    usage);
 
-        validateFieldDataType(fieldValueList, validations.getChild(XMLDefs.DATA_TYPE, field.getNamespace()),
-                              fieldName,    usage);
+            validateFieldRequiresFieldValue(fieldValueList, validations.getChild(XMLDefs.REQUIRES_FIELD_VALUE, field.getNamespace()),
+                                            fieldName,      usage);
 
-        validateFieldRequiresFieldValue(fieldValueList, validations.getChild(XMLDefs.REQUIRES_FIELD_VALUE, field.getNamespace()),
-                                        fieldName,      usage);
-
-        validateFieldRequiresConditionalField(fieldValueList,
-                                              validations.getChild(XMLDefs.REQUIRES_FIELD, field.getNamespace()),
-                                              fieldName,    usage);
+            validateFieldRequiresConditionalField(fieldValueList,
+                                                  validations.getChild(XMLDefs.REQUIRES_FIELD, field.getNamespace()),
+                                                  fieldName,    usage);
+        }
 
     }
 
@@ -973,9 +973,10 @@ public class HL7Validator {
         return true;
     }
 
-    private void validateFieldUsage(List<String>  valueList, Element usageElement, String  name, Usage  usage) {
+    private boolean validateFieldUsage(List<String>  valueList, Element usageElement, String  name, Usage  usage) {
         Iterator    valueIterator;
         boolean     dataWasFound;
+        boolean     runRemainigValidations = true;
 
         dataWasFound = false;
 
@@ -992,14 +993,15 @@ public class HL7Validator {
             if(usage.ordinal() == Usage.Optional.ordinal() ||
                     usage.ordinal() == Usage.Conditional.ordinal() ||
                     usage.ordinal() == Usage.ConditionalEmpty.ordinal()) {
-                ;  // Not an error
+                runRemainigValidations = true;  // Not an error
             }
             else {
                 captureError(usageElement, name, null, usage);
+                runRemainigValidations = false;
             }
         }
 
-        return;
+        return runRemainigValidations;
     }
 
     protected void validateFieldValue(List<String>  valueList, Element  validValues, String  name, Usage  usage) {
