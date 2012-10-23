@@ -281,6 +281,10 @@
             <Validations>
                 <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Required</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Numeric</dataType>
+				<!-- This element defines the secondary field (Field ID 13 - Age Unit) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>13</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
         <Field id="13">
@@ -1035,6 +1039,10 @@
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
+				<!-- This element defines the secondary field (Field id 34 - Initial Temperauture Units) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>34</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
         <Field id="34">
@@ -1083,6 +1091,10 @@
             <Validations>
                 <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
+				<!-- This element defines the secondary field (Field id 36 - Initial Pulse Oximetry units) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>36</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
         <Field id="36">
