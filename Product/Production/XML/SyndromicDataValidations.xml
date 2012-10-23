@@ -770,10 +770,10 @@
         <Field id="22">
             <name>Unique Visiting Id</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="19" >PV1</hl7Segment>
+                <hl7Segment fieldNumber="19.1" >PV1</hl7Segment>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="19" >PV1</hl7Segment>
+                <hl7Segment fieldNumber="19.1" >PV1</hl7Segment>
             </Location>
             <description>Field #21 - Unique identifier for a Patient visit </description>
             <Validations>
