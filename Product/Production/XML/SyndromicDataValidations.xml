@@ -47,7 +47,7 @@
             </Location>
             <description>Field #2 - Name of facility where the patient originally presented (original provider of the data)</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -63,7 +63,7 @@
             </Location>
             <description>Field #3 - Street address of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="120" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -79,7 +79,7 @@
             </Location>
             <description>Field #4 - City of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -95,7 +95,7 @@
             </Location>
             <description>Field #5 - County of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -111,7 +111,7 @@
             </Location>
             <description>Field #6 - State of treating facility location</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -264,7 +264,7 @@
             </Location>
             <description>Field #10 - Patient medical record number</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
             </Validations>
         </Field>
         <Field id="12">
@@ -348,7 +348,7 @@
             </Location>
             <description>Field #14 - City/Town of patient residence</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="50" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -376,7 +376,7 @@
             </Location>
             <description>Field #16 - State of patient residence </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<!-- Add valid values with value set code PHVS_State_FIPS_5-2-->
 				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
 					<value>01</value>
@@ -763,7 +763,7 @@
             </Location>
             <description>Field #20 - County/Parish Code</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -887,8 +887,9 @@
             </Location>
             <description>Field #23 - Date that patient began having symptoms of condition being reported</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
-				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Date</dataType>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
+				<!-- The minimum acceptable precision for "Date of onset" is to the nearest day so this date format accepts year, month and day. -->
+                <dataType errorCodeId="4" errorMessageId="10" severity="Hold" format="yyyyMMdd">Date</dataType>
             </Validations>
         </Field>
         <Field id="25">
@@ -901,7 +902,7 @@
             </Location>
             <description>Field #24 - Patient classification within facility</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<!-- Add valid values with value set code PHVS_PatientClass_SyndromicSurveillance-->
 				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
 					<value>E</value>
@@ -941,7 +942,7 @@
             </Location>
             <description>Field #26 - Triage notes for the patient visit</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="65536" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -972,7 +973,7 @@
             </Location>
             <description>Field #28 - Clinical impression (free text) of the diagnosis </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="65536" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
@@ -1019,7 +1020,7 @@
             </Location>
             <description>Field #31 - Date and time of disposition</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Date</dataType>
             </Validations>
         </Field>
@@ -1037,7 +1038,7 @@
             </Location>
             <description>Field #32 - First recorded temperature</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="6" errorMessageId="12" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
 				<!-- This element defines the secondary field (Field id 34 - Initial Temperauture Units) that must be present, and valid, if the current field is present in the HL7 message.  -->
 				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
@@ -1059,7 +1060,7 @@
             </Location>
             <description>Field #32 - First recorded temperature units</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="6" errorMessageId="12" severity="Ignore" >Optional</usage>
 				<!-- Add valid values with valuse set PHVS_TemperatureUnit_UCUM and code system = UCUM -->
 				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
 					<value>Cel</value>
@@ -1089,7 +1090,7 @@
             </Location>
             <description>Field #33 - First recorded pulse oximetry value</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="6" errorMessageId="12" severity="Ignore" >Optional</usage>
 				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="16" specialCharacters="-/_,.:">AlphaNumeric</dataType>
 				<!-- This element defines the secondary field (Field id 36 - Initial Pulse Oximetry units) that must be present, and valid, if the current field is present in the HL7 message.  -->
 				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
@@ -1111,7 +1112,7 @@
             </Location>
             <description>Field #33 - First recorded pulse oximetry units</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="6" errorMessageId="12" severity="Ignore" >Optional</usage>
 				<!-- Add valid values with valuse set PHVS_PulseOximetryUnit_UCUM and code system = UCUM -->
 				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
 					<value>%</value>
@@ -1145,6 +1146,7 @@
         <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
 		<errorMessage id="10" printFieldName="true" printFieldValue="true" >is not a valid format.</errorMessage>
 		<errorMessage id="11" printFieldName="true" printFieldValue="false" >is dependent upon another field whose definition is not found in the Rule Book.</errorMessage>
+        <errorMessage id="12" printFieldName="true" printFieldValue="false" >is a conditionally required field and is missing.</errorMessage>
     </ErrorMessages>
     <ErrorCodes>
         <errorCode id="0"></errorCode>
@@ -1153,6 +1155,7 @@
         <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
         <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
         <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
+        <errorCode id="6">SCHIEPPHConditionallyRequiredFieldMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
         <format>yyyyMMddHHmm</format>

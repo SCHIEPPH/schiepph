@@ -51,6 +51,12 @@ public class HL7Validator {
     private HashMap<Integer, Element>           validationFieldByIdCache = new HashMap<Integer, Element>();
     private ArrayList<String>                   requiredSegments = new ArrayList<String>();
 
+    //
+    // This boolean prevents us from getting stuck in an infinite loop
+    // when we have two fields that are conditionally dependent on each other.
+    //
+    private boolean     validatingConditionallyRequiredField = false;
+
     private String[]    allDateFormats = new String[0];
 
 
@@ -520,9 +526,11 @@ public class HL7Validator {
             validateFieldRequiresFieldValue(fieldValueList, validations.getChild(XMLDefs.REQUIRES_FIELD_VALUE, field.getNamespace()),
                                             fieldName,      usage);
 
-            validateFieldRequiresConditionalField(fieldValueList,
-                                                  validations.getChild(XMLDefs.REQUIRES_FIELD, field.getNamespace()),
-                                                  fieldName,    usage);
+            if(validatingConditionallyRequiredField == false) {
+                validateFieldRequiresConditionalField(fieldValueList,
+                                                      validations.getChild(XMLDefs.REQUIRES_FIELD, field.getNamespace()),
+                                                      fieldName,    usage);
+            }
         }
 
     }
@@ -532,10 +540,12 @@ public class HL7Validator {
         Iterator    fieldValueIterator;
         List        conditionalFieldList;
         Iterator    conditionalFieldIterator;
+        String      conditionalFieldName;
         Element     validationRulesFieldElement;
         Element     validationRulesFieldElementClone;
         Element     validationsElement = null;
         Element     usageElement = null;
+        Usage       conditionalFieldUsage;
         String      mustExistStr;
         boolean     mustExist;
         boolean     foundConditionalField = false;
@@ -557,46 +567,40 @@ public class HL7Validator {
             return;
         }
 
-        fieldValueIterator = fieldValueList.iterator();
-        while(fieldValueIterator.hasNext()) {
-            String      fieldValue = (String)fieldValueIterator.next();
+        conditionalFieldIterator = conditionalFieldList.iterator();
+        while(conditionalFieldIterator.hasNext()) {
+            Element       conditionalFieldIdElement = (Element)conditionalFieldIterator.next();
 
-            if(fieldValue.trim().length() == 0) {
-                //
-                // If the field is not present, then it cannot require anything else.
-                //
-                continue;
+            mustExistStr = conditionalFieldIdElement.getAttributeValue(XMLDefs.MUST_EXIST, conditionalFieldIdElement
+                    .getNamespace(), "true");
+            mustExist = Boolean.parseBoolean(mustExistStr);
+
+            validationRulesFieldElement = validationFieldByIdCache.get(new Integer(conditionalFieldIdElement.getText()));
+            if(validationRulesFieldElement == null) {
+                captureError(Constants.CONFIGURATION_ERROR_CODE,
+                             "Could not find conditional field definition with fieldId = "
+                                     + conditionalFieldIdElement.getText() + " in the Validation Rule Book.",
+                             fieldName, ErrorSeverity.HOLD);
             }
+            else {
+                foundConditionalField = true;
 
-            conditionalFieldIterator = conditionalFieldList.iterator();
-            while(conditionalFieldIterator.hasNext()) {
-                Element       conditionalFieldIdElement = (Element)conditionalFieldIterator.next();
-
-                mustExistStr = conditionalFieldIdElement.getAttributeValue(XMLDefs.MUST_EXIST, conditionalFieldIdElement
-                        .getNamespace(), "true");
-                mustExist = Boolean.parseBoolean(mustExistStr);
-
-                validationRulesFieldElement = validationFieldByIdCache.get(new Integer(conditionalFieldIdElement.getText()));
-                if(validationRulesFieldElement == null) {
-                    if(mustExist) {
-                        captureError(requiresFieldElement, fieldName, "FieldId = " + conditionalFieldIdElement.getText(), usage);
-                    }
-                }
-                else {
-                    foundConditionalField = true;
-
-                    //
-                    // Conditional fields are not validated by default, so we need to clone the validation rule field element
-                    // and change the Usage from conditional to required.  Allow for the condition where the validations
-                    // element or the usage element are missing.
-                    //
-                    validationsElement = validationRulesFieldElement.getChild(XMLDefs.VALIDATIONS, validationRulesFieldElement
+                //
+                // Conditional fields are not validated by default, so we need to clone the validation rule field element
+                // and change the Usage from conditional to required.  Allow for the condition where the validations
+                // element or the usage element are missing.
+                //
+                validationsElement = validationRulesFieldElement.getChild(XMLDefs.VALIDATIONS, validationRulesFieldElement
+                        .getNamespace());
+                if(validationsElement != null) {
+                    usageElement = validationsElement.getChild(XMLDefs.USAGE, validationsElement
                             .getNamespace());
-                    if(validationsElement != null) {
-                        usageElement = validationsElement.getChild(XMLDefs.USAGE, validationsElement
-                                .getNamespace());
-                    }
+                }
 
+                conditionalFieldUsage = getUsage(usageElement);
+                if(conditionalFieldUsage == Usage.Optional ||
+                        conditionalFieldUsage == Usage.Conditional ||
+                        conditionalFieldUsage == Usage.ConditionalEmpty) {
                     validationRulesFieldElementClone = (Element)validationRulesFieldElement.clone();
                     validationsElement = validationRulesFieldElementClone.getChild(XMLDefs.VALIDATIONS,
                                                                                    validationRulesFieldElementClone
@@ -620,12 +624,18 @@ public class HL7Validator {
                         addRequiredUsageElement(validationsElement);
                     }
 
+                    //
+                    // Set validatingConditionallyRequiredField to prevent an endless
+                    // loop.
+                    //
+                    validatingConditionallyRequiredField = true;
                     validateField(validationRulesFieldElementClone);
+                    validatingConditionallyRequiredField = false;
                 }
             }
 
-            if(conditionalFieldList.size() > 0 && foundConditionalField == false) {
-                captureError(requiresFieldElement, fieldName, "", usage, " Conditionally required field(s) not found.");
+            if(foundConditionalField == false) {
+                captureError(requiresFieldElement, fieldName, "", usage);
             }
         }
     }
@@ -645,9 +655,9 @@ public class HL7Validator {
     private void validateFieldRequiresFieldValue(List<String> valueList, Element requiresFieldValueElement,
                                                  String fieldName, Usage    usage)
             throws HL7ValidatorException {
-        String          valueToCheck = "";
-        List<String>    valueToCheckList;
-        List<Element>    requiredFieldList;
+        String                  valueToCheck = "";
+        List<String>            valueToCheckList;
+        List<Element>           requiredFieldList;
         Element                 fieldRuleElement;
         Iterator                locationElementIterator;
         Element                 fieldElementClone;
@@ -800,12 +810,15 @@ public class HL7Validator {
             String      fieldValue = (String)fieldValueIterator.next();
 
             if(checkDataLength(fieldValue, minimumLength, maximumLength) == false) {
-                ErrorMessageContainer     container;
+//                ErrorMessageContainer     container;
+//
+//                container = errorMessageMap.get(dataTypeElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
+//
+//                captureError(getErrorCode(dataTypeElement), container.getMessage() + " (invalid length)",
+//                             fieldName, getSeverity(dataTypeElement));
 
-                container = errorMessageMap.get(dataTypeElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
+                captureError(dataTypeElement, fieldName, fieldValue, usage, " (invalid length)");
 
-                captureError(getErrorCode(dataTypeElement), container.getMessage() + " (invalid length)",
-                             fieldName, getSeverity(dataTypeElement));
                 return;
             }
 
@@ -993,12 +1006,14 @@ public class HL7Validator {
             if(usage.ordinal() == Usage.Optional.ordinal() ||
                     usage.ordinal() == Usage.Conditional.ordinal() ||
                     usage.ordinal() == Usage.ConditionalEmpty.ordinal()) {
-                runRemainigValidations = true;  // Not an error
             }
             else {
-                captureError(usageElement, name, null, usage);
-                runRemainigValidations = false;
+                captureError(usageElement, name, "", usage);
             }
+            runRemainigValidations = false;
+        }
+        else {
+            runRemainigValidations = true;
         }
 
         return runRemainigValidations;
@@ -1029,6 +1044,10 @@ public class HL7Validator {
         while(valueIterator.hasNext()) {
             String      value = (String)valueIterator.next();
 
+            if(value.trim().length() == 0) {
+                continue;
+            }
+
             validValueIterator = validValues.getChildren(XMLDefs.VALUE, validValues.getNamespace()).iterator();
             while(validValueIterator.hasNext()) {
                 Element       validValueElement = (Element)validValueIterator.next();
@@ -1050,7 +1069,7 @@ public class HL7Validator {
             //
             // If we got here, we didn't match one of the valid values.
             //
-            captureError(validValues, name, null, usage);
+            captureError(validValues, name, value, usage);
         }
 
         return;
@@ -1089,10 +1108,6 @@ public class HL7Validator {
                               String  additionalMessageDetail) {
         ErrorSeverity             severity;
         ErrorMessageContainer     container;
-
-        if(usageIsOptionalOrConditional(usage)) {
-            return;
-        }
 
         severity = getSeverity(validationElement);
 

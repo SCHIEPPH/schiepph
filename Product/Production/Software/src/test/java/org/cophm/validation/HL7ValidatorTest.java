@@ -179,7 +179,7 @@ public class HL7ValidatorTest extends TestCase {
                             "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^Nausia and Dizzyness||||||X\n"                                                                                                                                                                                                                                                                 +
                             "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||The paitent seemed dizzy and sick to his stomach.||||||X\n"                                                                                                                                                                                                                                                                            +
                             "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||The patient is suffering from an inner ear contdtition.||||||X\n"                                                                                                                                                                                                                                                                        +
-                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|^[degF]^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|[degF]^^UCUM|||||X\n"                                                                                                                                                                                                                                      +
                             "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||95|%^^UCUM|||||X\n"                                                                                                                                                                                                                                        +
                             "DG1|1||78961^|||W\n" +
                             "DG1|2||78960^|||W";
@@ -634,8 +634,8 @@ public class HL7ValidatorTest extends TestCase {
             "            <OBX.5.1>98.6 </OBX.5.1>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6>\n"+
-            "            <OBX.6.1/>\n"+
-            "            <OBX.6.2>[degF] </OBX.6.2>\n"+
+            "            <OBX.6.1>[degF] </OBX.6.1>\n"+
+            "            <OBX.6.2></OBX.6.2>\n"+
             "            <OBX.6.3>UCUM </OBX.6.3>\n"+
             "        </OBX.6>\n"+
             "        <OBX.7/>\n"+
@@ -2690,8 +2690,8 @@ public class HL7ValidatorTest extends TestCase {
                             "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^Nausia and Dizzyness||||||X\n"                                                                                                                                                                                                                                                                 +
                             "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||The paitent seemed dizzy and sick to his stomach.||||||X\n"                                                                                                                                                                                                                                                                            +
                             "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||The patient is suffering from an inner ear contdtition.||||||X\n"                                                                                                                                                                                                                                                                        +
-                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|^[degF]^UCUM|||||X\n"                                                                                                                                                                                                                                      +
-                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||95|^|%^^UCUM||||X\n"                                                                                                                                                                                                                                        +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|[degF]^^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||95|%^^UCUM||||X\n"                                                                                                                                                                                                                                        +
                             "DG1|2|||||";
 
     public static String    xmlData_missing_data_in_optional_segment_segment_present = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
@@ -3111,8 +3111,8 @@ public class HL7ValidatorTest extends TestCase {
             "            <OBX.5.1>98.6 </OBX.5.1>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6>\n"+
-            "            <OBX.6.1/>\n"+
-            "            <OBX.6.2>[degF] </OBX.6.2>\n"+
+            "            <OBX.6.1>[degF] </OBX.6.1>\n"+
+            "            <OBX.6.2></OBX.6.2>\n"+
             "            <OBX.6.3>UCUM </OBX.6.3>\n"+
             "        </OBX.6>\n"+
             "        <OBX.7/>\n"+
@@ -3181,7 +3181,7 @@ public class HL7ValidatorTest extends TestCase {
                             "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^Nausia and Dizzyness||||||X\n"                                                                                                                                                                                                                                                                 +
                             "OBX|7|TX|54094-8^TRIAGE NOTE:FIND:PT:EMERGENCY DEPARTMENT:DOC^LN||The paitent seemed dizzy and sick to his stomach.||||||X\n"                                                                                                                                                                                                                                                                            +
                             "OBX|8|TX|44833-2^DIAGNOSIS:PRELIMINARY:IMP:PT:PAITENT:NOM:^LN||The patient is suffering from an inner ear contdtition.||||||X\n"                                                                                                                                                                                                                                                                        +
-                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|^[degF]^UCUM|||||X\n"                                                                                                                                                                                                                                      +
+                            "OBX|9|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PAITENT:QN^LN||98.6|[degF]^^UCUM|||||X\n"                                                                                                                                                                                                                                      +
                             "OBX|10|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE OXIMETRY^LN||95|%^^UCUM|||||X";
 
     public static String    xmlData_missing_data_in_optional_segment_segment_missing = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
@@ -3601,8 +3601,8 @@ public class HL7ValidatorTest extends TestCase {
             "            <OBX.5.1>98.6 </OBX.5.1>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6>\n"+
-            "            <OBX.6.1/>\n"+
-            "            <OBX.6.2>[degF] </OBX.6.2>\n"+
+            "            <OBX.6.1>[degF] </OBX.6.1>\n"+
+            "            <OBX.6.2></OBX.6.2>\n"+
             "            <OBX.6.3>UCUM </OBX.6.3>\n"+
             "        </OBX.6>\n"+
             "        <OBX.7/>\n"+

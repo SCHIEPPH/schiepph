@@ -14,7 +14,7 @@ public class ErrorMessageContainer {
     private int         id = -1;
     private boolean     printFieldName = true;
     private boolean     printFieldValue = false;
-    private String      message;
+    private String      message = "";
 
 
     public ErrorMessageContainer(Element errorMessageElement) {

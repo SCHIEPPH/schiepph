@@ -22,6 +22,8 @@ public class Constants {
     public static final String      XML_DATA_POSTFIX = ".xml";
     public static final String      HL7_DATA_POSTFIX = ".hl7";
 
+    public static final String      CONFIGURATION_ERROR_CODE = "SCHIEPPHConfigurationError";
+
     public static final String      OUTPUT_FILE_DATE_FORMAT = "yyyy-MM-dd_hh-mm-ss-SSS";
     public static final String      LOG_FILE_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss:SSS - ";
     public static final String      VALIDATED_DATA_FILE_PREFIX = "VALIDATED_DATA_FILE_PREFIX";
