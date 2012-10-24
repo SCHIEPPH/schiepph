@@ -55,7 +55,7 @@ public class HL7Validator {
     // This boolean prevents us from getting stuck in an infinite loop
     // when we have two fields that are conditionally dependent on each other.
     //
-    private boolean     validatingConditionallyRequiredField = false;
+    private boolean       validatingConditionallyRequiredField = false;
 
     private String[]    allDateFormats = new String[0];
 
@@ -580,7 +580,7 @@ public class HL7Validator {
                 captureError(Constants.CONFIGURATION_ERROR_CODE,
                              "Could not find conditional field definition with fieldId = "
                                      + conditionalFieldIdElement.getText() + " in the Validation Rule Book.",
-                             fieldName, ErrorSeverity.HOLD);
+                             fieldName,       ErrorSeverity.HOLD);
             }
             else {
                 foundConditionalField = true;
@@ -655,6 +655,7 @@ public class HL7Validator {
     private void validateFieldRequiresFieldValue(List<String> valueList, Element requiresFieldValueElement,
                                                  String fieldName, Usage    usage)
             throws HL7ValidatorException {
+        String                  value = "";
         String                  valueToCheck = "";
         List<String>            valueToCheckList;
         List<Element>           requiredFieldList;
@@ -725,19 +726,19 @@ public class HL7Validator {
 
         valueToCheckList = dataParser.getAllFieldValues(locationElementList);
 
+        foundMatch = false;
         for(int  y = 0; y < valueToCheckList.size(); y++) {
-            valueToCheck = valueToCheckList.get(y);
+            value = valueToCheckList.get(y);
 
             //
             // If the field is not present, then it cannot require anything else.
             //
-            if(valueToCheck.trim().length() == 0) {
+            if(value.trim().length() == 0) {
                 continue;
             }
 
-//                valueToCheck = dataParser.getFieldValue(locationElementList);
+            valueToCheck = value;
 
-            foundMatch = false;
             for(int  x = 0;  x < requiredFieldList.size(); x++) {
                 requiredFieldValue = requiredFieldList.get(x).getText();
 
@@ -767,12 +768,14 @@ public class HL7Validator {
                 }
             }
 
-            if(foundMatch == false) {
-                captureError(requiresFieldValueElement, fieldName, valueToCheck, usage);
+            if(foundMatch == true) {
+                break;
             }
         }
 
-//            }
+        if(foundMatch == false) {
+            captureError(requiresFieldValueElement, fieldName, valueToCheck, usage);
+        }
 
         return;
     }
@@ -856,33 +859,43 @@ public class HL7Validator {
 
     private boolean dataIsDate(String fieldValue, String format) {
         SimpleDateFormat    df = new SimpleDateFormat();
+        String[]            dateFormatsToCheck;
         Date                result;
+        int                 x;
 
         df.setLenient(false);
 
         if(format != null && format.length() > 0) {
-            df.applyPattern(format);
+            dateFormatsToCheck = new String[allDateFormats.length + 1];
+
+            for(x = 0; x < allDateFormats.length; x++) {
+                dateFormatsToCheck[x] = allDateFormats[x];
+            }
+            dateFormatsToCheck[x] = format;
+//            df.applyPattern(format);
+//            try {
+//                df.parse(fieldValue);
+//                return true;
+//            }
+//            catch(ParseException e) {
+//                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
+//            }
+        }
+        else {
+            dateFormatsToCheck = allDateFormats;
+        }
+
+        for(x = 0; x < dateFormatsToCheck.length; x++) {
+            df.applyPattern(dateFormatsToCheck[x]);
             try {
                 df.parse(fieldValue);
                 return true;
             }
             catch(ParseException e) {
-                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
-            }
-        }
-        else {
-            for(int  x = 0; x < allDateFormats.length; x++) {
-                df.applyPattern(allDateFormats[x]);
-                try {
-                    df.parse(fieldValue);
-                    return true;
-                }
-                catch(ParseException e) {
-                    //
-                    // Data did not conform to the supplied pattern, so try the next one.
-                    //
-                    continue;
-                }
+                //
+                // Data did not conform to the supplied pattern, so try the next one.
+                //
+                continue;
             }
         }
 

@@ -173,7 +173,7 @@ public class HL7ValidatorTest extends TestCase {
                             "PV1||E|||||||||||||||||APRN|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||Fairfax Hospital^1098765432^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^123 Gallows Rd.^^^^Fairfax City^51^30341^USA^C^^Fairfax||||||X\n"                                                                                                                                                                                               +
-                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X|||||||X\n"                                                                                                                                                                                                                                                                                     +
+                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X^^HSLOC|||||||X\n"                                                                                                                                                                                                                                                                                     +
                             "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||42|a^a^UCUM|||||X\n"                                                                                                                                                                                                                                                                               +
                             "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||20120401||||||X\n"                                                                                                                                                                                                                                                              +
                             "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^Nausia and Dizzyness||||||X\n"                                                                                                                                                                                                                                                                 +
@@ -435,12 +435,14 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
             "        <OBX.5>\n"+
-            "            <OBX.5.1></OBX.5.1>\n"+
+            "            <OBX.5.1>170300000X</OBX.5.1>\n"+
+            "            <OBX.5.2></OBX.5.2>\n"+
+            "            <OBX.5.3>HSLOC</OBX.5.3>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6/>\n"+
             "        <OBX.7/>\n"+
             "        <OBX.8/>\n"+
-            "        <OBX.9>170300000X </OBX.9>\n"+
+            "        <OBX.9> </OBX.9>\n"+
             "        <OBX.10/>\n"+
             "        <OBX.11/>\n"+
             "        <OBX.12>\n"+
@@ -2945,12 +2947,14 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
             "        <OBX.5>\n"+
-            "            <OBX.5.1></OBX.5.1>\n"+
+            "            <OBX.5.1>170300000X</OBX.5.1>\n"+
+            "            <OBX.5.2>EMERGENCY ROOM</OBX.5.2>\n"+
+            "            <OBX.5.3>HSLOC</OBX.5.3>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6/>\n"+
             "        <OBX.7/>\n"+
             "        <OBX.8/>\n"+
-            "        <OBX.9>170300000X </OBX.9>\n"+
+            "        <OBX.9> </OBX.9>\n"+
             "        <OBX.10/>\n"+
             "        <OBX.11/>\n"+
             "        <OBX.12>\n"+
@@ -3175,7 +3179,7 @@ public class HL7ValidatorTest extends TestCase {
                             "PV1||E|||||||||||||||||APRN|||||||||||||||||09||||||||201104011406-0500|20110113164512-0500\n"                                                                                                                                                                                               +
                             "OBX|1|HD|SS001^Treating Facility Identifier^PHINQUESTION||Fairfax Hospital^1098765432^NP||||||C||||||\n"                                                                                                                                                                                                                                               +
                             "OBX|2|XAD|SS002^Treating Facility Location||^123 Gallows Rd.^^^^Fairfax City^51^30341^USA^C^^Fairfax||||||X\n"                                                                                                                                                                                               +
-                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X|||||||X\n"                                                                                                                                                                                                                                                                                     +
+                            "OBX|3|CWE|SS003^Facility/Visit Type^PHINQUESTION||170300000X^^HSLOC|||||||X\n"                                                                                                                                                                                                                                                                                     +
                             "OBX|4|NM|21612-7^AGE TIME PAITENT REPORTED^LN||42|a^a^UCUM|||||X\n"                                                                                                                                                                                                                                                                               +
                             "OBX|5|TS|11368-8^ILLNESS OR INJURY ONSET DATE AND TIME:TMSTP:PT:PAITENT:QN^LN||20120401||||||X\n"                                                                                                                                                                                                                                                              +
                             "OBX|6|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PAITENT:NOM:REPORTED^LN||^^^^^^^^Nausia and Dizzyness||||||X\n"                                                                                                                                                                                                                                                                 +
@@ -3435,12 +3439,14 @@ public class HL7ValidatorTest extends TestCase {
             "        </OBX.3>\n"+
             "        <OBX.4/>\n"+
             "        <OBX.5>\n"+
-            "            <OBX.5.1></OBX.5.1>\n"+
+            "           <OBX.5.1>170300000X</OBX.5.1>\n"+
+            "           <OBX.5.2>EMERGENCY ROOM</OBX.5.2>\n"+
+            "           <OBX.5.3>HSLOC</OBX.5.3>\n"+
             "        </OBX.5>\n"+
             "        <OBX.6/>\n"+
             "        <OBX.7/>\n"+
             "        <OBX.8/>\n"+
-            "        <OBX.9>170300000X </OBX.9>\n"+
+            "        <OBX.9> </OBX.9>\n"+
             "        <OBX.10/>\n"+
             "        <OBX.11/>\n"+
             "        <OBX.12>\n"+
@@ -3632,7 +3638,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <OBX.6>\n"+
             "            <OBX.6.1>%</OBX.6.1>\n"+
             "            <OBX.6.2> </OBX.6.2>\n"+
-            "            <OBX.6.2>UCUM </OBX.6.2>\n"+
+            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
             "        </OBX.6>\n"+
             "        <OBX.7/>\n"+
             "        <OBX.8/>\n"+
