@@ -309,7 +309,7 @@
 					<value>a</value>
 				</ValueList>
 				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
-				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+				<RequiresFieldValue errorCodeId="6" errorMessageId="12" severity="Hold" fieldNumber="6.3" >
                     <fieldValue>UCUM</fieldValue>
                 </RequiresFieldValue>
 				<!-- This element defines the secondary field (5.1 - Age) that must be present, and valid, if the current field is present in the HL7 message.  -->
@@ -1067,7 +1067,7 @@
 					<value>[degF]</value>
 				</ValueList>
 				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
-				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+				<RequiresFieldValue errorCodeId="6" errorMessageId="12" severity="Hold" fieldNumber="6.3" >
                     <fieldValue>UCUM</fieldValue>
                 </RequiresFieldValue>
 				<!-- This element defines the secondary field (Field id 33 - Initial Temperauture) that must be present, and valid, if the current field is present in the HL7 message.  -->
@@ -1118,7 +1118,7 @@
 					<value>%</value>
 				</ValueList>
 				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
-				<RequiresFieldValue errorCodeId="3" errorMessageId="5" severity="Hold" fieldNumber="6.3" >
+				<RequiresFieldValue errorCodeId="6" errorMessageId="12" severity="Hold" fieldNumber="6.3" >
                     <fieldValue>UCUM</fieldValue>
                 </RequiresFieldValue>
 				<!-- This element defines the secondary field (Field id 35 - Initial Pulse Oximetry) that must be present, and valid, if the current field is present in the HL7 message.  -->
