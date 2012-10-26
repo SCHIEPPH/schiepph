@@ -57,7 +57,7 @@ public class HL7Validator {
     //
     private boolean       validatingConditionallyRequiredField = false;
 
-    private String[]    allDateFormats = new String[0];
+    private String[] defaultDateFormats = new String[0];
 
 
     public HL7Validator(String  _holdDirectory, String  _reportDirectory) {
@@ -163,13 +163,13 @@ public class HL7Validator {
         if(dateFormatsElement != null) {
             dateFormatsList = dateFormatsElement.getChildren(XMLDefs.FORMAT,
                                                              dateFormatsElement.getNamespace());
-            allDateFormats = new String[dateFormatsList.size()];
+            defaultDateFormats = new String[dateFormatsList.size()];
             validDateIterator = dateFormatsList.iterator();
             adfIndex = 0;
             while(validDateIterator.hasNext()) {
                 Element       dateFormat = (Element)validDateIterator.next();
 
-                allDateFormats[adfIndex++] = dateFormat.getText().trim();
+                defaultDateFormats[adfIndex++] = dateFormat.getText().trim();
             }
         }
 
@@ -396,6 +396,10 @@ public class HL7Validator {
 
         if(maxErrorSeverity.ordinal()
                 <= ErrorSeverity.REPORT.ordinal()) {
+            if(maxErrorSeverity.ordinal()
+                    == ErrorSeverity.REPORT.ordinal()) {
+                saveData(reportDate, inputData);
+            }
             return true;
         }
         else {
@@ -726,7 +730,6 @@ public class HL7Validator {
 
         valueToCheckList = dataParser.getAllFieldValues(locationElementList);
 
-        foundMatch = false;
         for(int  y = 0; y < valueToCheckList.size(); y++) {
             value = valueToCheckList.get(y);
 
@@ -739,6 +742,7 @@ public class HL7Validator {
 
             valueToCheck = value;
 
+            foundMatch = false;
             for(int  x = 0;  x < requiredFieldList.size(); x++) {
                 requiredFieldValue = requiredFieldList.get(x).getText();
 
@@ -769,12 +773,12 @@ public class HL7Validator {
             }
 
             if(foundMatch == true) {
-                break;
+                continue;
             }
-        }
-
-        if(foundMatch == false) {
-            captureError(requiresFieldValueElement, fieldName, valueToCheck, usage);
+            else {
+                captureError(requiresFieldValueElement, fieldName, valueToCheck, usage,
+                             "  The required value in field number " + fieldNumberStr + " is not a valid value.");
+            }
         }
 
         return;
@@ -813,12 +817,6 @@ public class HL7Validator {
             String      fieldValue = (String)fieldValueIterator.next();
 
             if(checkDataLength(fieldValue, minimumLength, maximumLength) == false) {
-//                ErrorMessageContainer     container;
-//
-//                container = errorMessageMap.get(dataTypeElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
-//
-//                captureError(getErrorCode(dataTypeElement), container.getMessage() + " (invalid length)",
-//                             fieldName, getSeverity(dataTypeElement));
 
                 captureError(dataTypeElement, fieldName, fieldValue, usage, " (invalid length)");
 
@@ -866,23 +864,15 @@ public class HL7Validator {
         df.setLenient(false);
 
         if(format != null && format.length() > 0) {
-            dateFormatsToCheck = new String[allDateFormats.length + 1];
+            dateFormatsToCheck = new String[defaultDateFormats.length + 1];
 
-            for(x = 0; x < allDateFormats.length; x++) {
-                dateFormatsToCheck[x] = allDateFormats[x];
+            for(x = 0; x < defaultDateFormats.length; x++) {
+                dateFormatsToCheck[x] = defaultDateFormats[x];
             }
             dateFormatsToCheck[x] = format;
-//            df.applyPattern(format);
-//            try {
-//                df.parse(fieldValue);
-//                return true;
-//            }
-//            catch(ParseException e) {
-//                log.error("Caught a " + e.getClass().getName() + ": " + e.toString());
-//            }
         }
         else {
-            dateFormatsToCheck = allDateFormats;
+            dateFormatsToCheck = defaultDateFormats;
         }
 
         for(x = 0; x < dateFormatsToCheck.length; x++) {
