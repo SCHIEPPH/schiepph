@@ -55,6 +55,7 @@ public class XMLDefs {
     public static final String      ADT_MESSAGE = "adtMessage";
     public static final String      PRINT_FIELD_NAME = "printFieldName";
     public static final String      PRINT_FIELD_VALUE = "printFieldValue";
+    public static final String      SUPRESS_ADDITIONAL_MESSAGE = "supressAdditionalMessage";
     public static final String      MUST_EXIST = "mustExist";
     public static final String      CAN_CONTAIN_MULTIPLE_VALUES = "canContainMultipleValues";
     public static final String      REPEATING_ELEMENT = "repeatingElement";

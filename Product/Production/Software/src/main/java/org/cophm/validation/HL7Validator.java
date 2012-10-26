@@ -394,16 +394,14 @@ public class HL7Validator {
 
         saveReport(reportDate);
 
-        if(maxErrorSeverity.ordinal()
-                <= ErrorSeverity.REPORT.ordinal()) {
-            if(maxErrorSeverity.ordinal()
-                    == ErrorSeverity.REPORT.ordinal()) {
-                saveData(reportDate, inputData);
-            }
+        if(maxErrorSeverity.ordinal() > ErrorSeverity.REPORT.ordinal()) {
+            saveData(reportDate, inputData);
+        }
+
+        if(maxErrorSeverity.ordinal() <= ErrorSeverity.REPORT.ordinal()) {
             return true;
         }
         else {
-            saveData(reportDate, inputData);
             return false;
         }
     }
@@ -1116,6 +1114,10 @@ public class HL7Validator {
 
         container = errorMessageMap.get(validationElement.getAttributeValue(XMLDefs.ERROR_MESSAGE_ID));
 
+        if(container.isSupressAdditionalMessage() == true) {
+            additionalMessageDetail = "";
+        }
+
         ValidationResult    vr = new ValidationResult(getErrorCode(validationElement),
                 (container.isPrintFieldName() ? fieldName + " " : "") +
                 (container.isPrintFieldValue() ? "[value = " + fieldValue + "] " : " ") +
@@ -1164,19 +1166,6 @@ public class HL7Validator {
 
         return errorCodeMap.get(validationElement.getAttributeValue(XMLDefs.ERROR_CODE_ID,
                                                                     validationElement.getNamespace(), ""));
-    }
-
-
-    private boolean printFieldName(Element validationElement) {
-
-        return Boolean.valueOf(validationElement.getAttributeValue(XMLDefs.PRINT_FIELD_NAME,
-                                                          validationElement.getNamespace(), "false"));
-    }
-
-    private boolean printFieldValue(Element validationElement) {
-
-        return Boolean.valueOf(validationElement.getAttributeValue(XMLDefs.PRINT_FIELD_VALUE,
-                                                          validationElement.getNamespace(), "false"));
     }
 
     private ErrorSeverity getSeverity(Element validationElement) {
@@ -1244,7 +1233,6 @@ public class HL7Validator {
             throws HL7ValidatorException {
         Iterator    locationIterator;
         String      segmentName = "unset";
-        boolean     segmentIsOptionalAndMissing;
 
         locationIterator = getLocationElement(fieldElement).iterator();
         while(locationIterator.hasNext()) {

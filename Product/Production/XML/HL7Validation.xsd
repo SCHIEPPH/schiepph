@@ -196,6 +196,8 @@
                                         use="required"/>
                                     <xs:attribute name="printFieldValue" type="xs:boolean"
                                         use="required"/>
+                                    <xs:attribute default="false" name="supressAdditionalMessage"
+                                        type="xs:boolean"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

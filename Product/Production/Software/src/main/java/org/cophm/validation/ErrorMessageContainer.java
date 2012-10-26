@@ -14,6 +14,7 @@ public class ErrorMessageContainer {
     private int         id = -1;
     private boolean     printFieldName = true;
     private boolean     printFieldValue = false;
+    private boolean     supressAdditionalMessage = false;
     private String      message = "";
 
 
@@ -26,9 +27,14 @@ public class ErrorMessageContainer {
         id = Integer.parseInt(errorMessageElement.getAttributeValue(XMLDefs.ID, errorMessageElement.getNamespace()));
         message = errorMessageElement.getText().trim();
         printFieldName = Boolean.valueOf(errorMessageElement.getAttributeValue(XMLDefs.PRINT_FIELD_NAME,
-                                                                               errorMessageElement.getNamespace()));
+                                                                               errorMessageElement.getNamespace(),
+                                                                               "false"));
         printFieldValue = Boolean.valueOf(errorMessageElement.getAttributeValue(XMLDefs.PRINT_FIELD_VALUE,
-                                                                               errorMessageElement.getNamespace()));
+                                                                               errorMessageElement.getNamespace(),
+                                                                               "false"));
+        supressAdditionalMessage = Boolean.valueOf(errorMessageElement.getAttributeValue(XMLDefs.SUPRESS_ADDITIONAL_MESSAGE,
+                                                                               errorMessageElement.getNamespace(),
+                                                                               "false"));
     }
 
     public int getId() {
@@ -53,6 +59,14 @@ public class ErrorMessageContainer {
 
     public void setPrintFieldValue(boolean printFieldValue) {
         this.printFieldValue = printFieldValue;
+    }
+
+    public boolean isSupressAdditionalMessage() {
+        return supressAdditionalMessage;
+    }
+
+    public void setSupressAdditionalMessage(boolean supressAdditionalMessage) {
+        this.supressAdditionalMessage = supressAdditionalMessage;
     }
 
     public String getMessage() {
