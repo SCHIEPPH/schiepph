@@ -461,7 +461,7 @@
             </Location>
             <description>Field #17 - Country of patient residence</description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="Report" >RequiredEmpty</usage>
+                <usage errorCodeId="0" errorMessageId="0" severity="Ignore" >Optional</usage>
 				<!-- Add valid values with value set code PHVS_Country_ISO_3166-1-->
 				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
 					<value>AFG</value>
@@ -958,7 +958,7 @@
             <Validations>
 				<!-- Not validated with valid values as it uses three different coding systems and for now we want to keep it open and not constrain or validate at such deeper level-->
                 <usage errorCodeId="2" errorMessageId="2" severity="Report" >RequiredEmpty</usage>
-				<dataType errorCodeId="4" errorMessageId="10" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
+				<dataType errorCodeId="4" errorMessageId="8" severity="Hold" maximumLength="20" specialCharacters="-/_,.:">AlphaNumeric</dataType>
             </Validations>
         </Field>
         <Field id="29">
