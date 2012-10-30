@@ -13,9 +13,9 @@ DROP TABLE IF EXISTS `schiepph`.`syndromic_surveillance` ;
 
 CREATE  TABLE IF NOT EXISTS `schiepph`.`syndromic_surveillance` (
   `ss_id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `facility_identifier` VARCHAR(50) NULL DEFAULT '' ,
+  `facility_identifier` VARCHAR(200) NULL DEFAULT '' ,
   `facility_name` VARCHAR(50) NULL DEFAULT '' ,
-  `facility_street_address` VARCHAR(50) NULL DEFAULT '' ,
+  `facility_street_address` VARCHAR(120) NULL DEFAULT '' ,
   `facility_city` VARCHAR(50) NULL DEFAULT '' ,
   `facility_county` VARCHAR(50) NULL DEFAULT '' ,
   `facility_state` VARCHAR(50) NULL DEFAULT '' ,
@@ -32,8 +32,8 @@ CREATE  TABLE IF NOT EXISTS `schiepph`.`syndromic_surveillance` (
   `visit_date_time` VARCHAR(50) NULL DEFAULT '' ,
   `onset_date` VARCHAR(50) NULL DEFAULT '' ,
   `patient_class` VARCHAR(50) NULL DEFAULT '' ,
-  `triage_notes` VARCHAR(500) NULL DEFAULT '' ,
-  `clinical_impression` VARCHAR(500) NULL DEFAULT '' ,
+  `triage_notes` VARCHAR(4000) NULL DEFAULT '' ,
+  `clinical_impression` VARCHAR(4000) NULL DEFAULT '' ,
   `disposition_datetime` VARCHAR(50) NULL DEFAULT '' ,
   `initial_temp` VARCHAR(50) NULL DEFAULT '' ,
   `initial_temp_units` VARCHAR(50) NULL DEFAULT '' ,
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `schiepph`.`chief_complaint` ;
 CREATE  TABLE IF NOT EXISTS `schiepph`.`chief_complaint` (
   `cc_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `ss_id` INT(11) NOT NULL ,
-  `free_text` VARCHAR(50) NULL DEFAULT '' ,
+  `free_text` VARCHAR(200) NULL DEFAULT '' ,
   `result_status` VARCHAR(5) NULL DEFAULT '' ,
   `timestamp` VARCHAR(45) NULL DEFAULT '' ,
   PRIMARY KEY (`cc_id`) ,
