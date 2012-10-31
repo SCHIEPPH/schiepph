@@ -1463,7 +1463,7 @@ public class HL7ValidatorTest extends TestCase {
             "        <OBX.6>\n"+
             "            <OBX.6.1>a </OBX.6.1>\n"+
             "            <OBX.6.2>a </OBX.6.2>\n"+
-            "            <OBX.6.3>UCUM </OBX.6.3>\n"+
+            "            <OBX.6.3></OBX.6.3>\n"+
             "        </OBX.6>\n"+
             "        <OBX.7/>\n"+
             "        <OBX.8/>\n"+
@@ -2637,7 +2637,7 @@ public class HL7ValidatorTest extends TestCase {
             "EVN||201110090314|||||TestAllData2.5.1^1234567890^NPI|\n"                                                                                         +
             "PID|1||95101100001^^^^PI~MR01234567^^^^MR||~^^^^^^U|||M||2106-3^White^CDCREC|^^Fairfax^24^21502^USA|||||||||||2135-2^Hispanic or Latino^CDCREC\n"      +
             "PV1||I||E||||||||||6|||||APRN|||||||||||||||||04||||||||20111009025915|20110113164512\n"                                        +
-            "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^UCUM|||||F|||201102171531\n"                                                                 +
+            "OBX|1|NM|21612-7^AGE TIME PATIENT REPORTED^^LN||30|a^YEAR^|||||F|||201102171531\n"                                                                 +
             "OBX|3|NM|11289-6^BODY TEMPERATURE:TEMP:ENCTRFIRST:PATIENT:QN^LN||100.1|[degF]^FARENHEIT^UCUM||A|||F|||20110217145139\n"                                +
             "OBX|4|NM|59408-5^OXYGEN SATURATION:MFR:PT:BLDA:QN:PULSE||95|%^PERCENT^UCUM||A|||F|||201102171658\n"                                                    +
             "OBX|5|CWE|8661-1^CHIEF COMPLAINT:FIND:PT:PATIENT:NOM:REPORTED^LN||^^^^^^^^STOMACH ACHE||||||F|||201102171531\n"                                        +

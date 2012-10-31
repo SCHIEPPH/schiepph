@@ -23,6 +23,30 @@ public class ValidationResult {
         this.severity = severity;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof ValidationResult)) return false;
+
+        ValidationResult that = (ValidationResult)o;
+
+        if(errorCode != null ? !errorCode.equals(that.errorCode) : that.errorCode != null) return false;
+        if(errorMessage != null ? !errorMessage.equals(that.errorMessage) : that.errorMessage != null) return false;
+        if(fieldName != null ? !fieldName.equals(that.fieldName) : that.fieldName != null) return false;
+        if(severity != that.severity) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = errorCode != null ? errorCode.hashCode() : 0;
+        result = 31 * result + (errorMessage != null ? errorMessage.hashCode() : 0);
+        result = 31 * result + (fieldName != null ? fieldName.hashCode() : 0);
+        result = 31 * result + (severity != null ? severity.hashCode() : 0);
+        return result;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }

@@ -18,39 +18,90 @@
         <segmentName>OBX</segmentName>
     </RequiredSegments>
     <Fields>
-        <Field id="4">
-            <name>Facility Location - City</name>
+        <Field id="12">
+            <name>Age</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
-                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier fieldNumber="3.1">21612-7</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="5.6" >OBX</hl7Segment>
-                <identifier fieldNumber="3.1">SS002</identifier>
+                <hl7Segment fieldNumber="5.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
             </Location>
-            <description>Field #4 - City of treating facility location</description>
+            <description>Field #11 - Numeric value of patient age </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
-                <RequiresField errorCodeId="1" errorMessageId="1" severity="Hold" >
-                    <conditionalFieldId>7</conditionalFieldId>
-                </RequiresField>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Optional</usage>
+				<dataType errorCodeId="4" errorMessageId="10" severity="Hold">Numeric</dataType>
+				<!-- This element defines the secondary field (Field ID 13 - Age Unit) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>13</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
-        <Field id="7">
-            <name>Facility Location - State</name>
+        <Field id="13">
+            <name>Age Units</name>
             <Location version="2.3.1" >
-                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
-                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
             </Location>
             <Location version="2.5.1" >
-                <hl7Segment fieldNumber="5.7" >OBX</hl7Segment>
-                <identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>
+                <hl7Segment fieldNumber="6.1" >OBX</hl7Segment>
+                <identifier mustMatch="true" fieldNumber="3.1">21612-7</identifier>
             </Location>
-            <description>Field #6 - State of treating facility location</description>
+            <description>Field #12 - Unit corresponding to numeric value of patient age (e.g. Days, Month or Years) </description>
             <Validations>
-                <usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>
+                <usage errorCodeId="1" errorMessageId="1" severity="Hold" >Conditional</usage>
+                <!-- Add valid values with value set code PHVS_AgeUnit_SyndromicSurveillance -->
+				<ValueList errorCodeId="3" errorMessageId="5" severity="Hold" >
+					<value>d</value>
+					<value>mo</value>
+					<value>UNK</value>
+					<value>wk</value>
+					<value>a</value>
+				</ValueList>
+				<!-- This element defines the value that a secondary field (6.3) must contain if the current field (6.1) is present in the HL7 message. -->
+				<RequiresFieldValue errorCodeId="6" errorMessageId="12" severity="Hold" fieldNumber="6.3" >
+                    <fieldValue>UCUM</fieldValue>
+                </RequiresFieldValue>
+				<!-- This element defines the secondary field (5.1 - Age) that must be present, and valid, if the current field is present in the HL7 message.  -->
+				<RequiresField errorCodeId="11" errorMessageId="11" severity="Hold">
+					<conditionalFieldId>12</conditionalFieldId>
+				</RequiresField>
             </Validations>
         </Field>
+        <!--<Field id="4">-->
+            <!--<name>Facility Location - City</name>-->
+            <!--<Location version="2.3.1" >-->
+                <!--<hl7Segment fieldNumber="5.6" >OBX</hl7Segment>-->
+                <!--<identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>-->
+            <!--</Location>-->
+            <!--<Location version="2.5.1" >-->
+                <!--<hl7Segment fieldNumber="5.6" >OBX</hl7Segment>-->
+                <!--<identifier fieldNumber="3.1">SS002</identifier>-->
+            <!--</Location>-->
+            <!--<description>Field #4 - City of treating facility location</description>-->
+            <!--<Validations>-->
+                <!--<usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>-->
+                <!--<RequiresField errorCodeId="1" errorMessageId="1" severity="Hold" >-->
+                    <!--<conditionalFieldId>7</conditionalFieldId>-->
+                <!--</RequiresField>-->
+            <!--</Validations>-->
+        <!--</Field>-->
+        <!--<Field id="7">-->
+            <!--<name>Facility Location - State</name>-->
+            <!--<Location version="2.3.1" >-->
+                <!--<hl7Segment fieldNumber="5.7" >OBX</hl7Segment>-->
+                <!--<identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>-->
+            <!--</Location>-->
+            <!--<Location version="2.5.1" >-->
+                <!--<hl7Segment fieldNumber="5.7" >OBX</hl7Segment>-->
+                <!--<identifier mustMatch="true" fieldNumber="3.1">SS002</identifier>-->
+            <!--</Location>-->
+            <!--<description>Field #6 - State of treating facility location</description>-->
+            <!--<Validations>-->
+                <!--<usage errorCodeId="0" errorMessageId="0" severity="None" >Optional</usage>-->
+            <!--</Validations>-->
+        <!--</Field>-->
     </Fields>
     <ErrorMessages>
         <!-- Error messages are dynamically created by appending one of
@@ -59,7 +110,7 @@
             check, such as an optional filed being missing (i.e. this is not
             an error, so there is no error message to print) -->
         <errorMessage id="0" printFieldName="false" printFieldValue="false" ></errorMessage>
-        <errorMessage id="1" printFieldName="true" printFieldValue="false" >is a required field and is missing or empty.</errorMessage>
+        <errorMessage id="1" printFieldName="true" printFieldValue="false" >is a required field and is missing.</errorMessage>
         <errorMessage id="2" printFieldName="true" printFieldValue="false" >is a required/empty field and is missing.</errorMessage>
         <errorMessage id="3" printFieldName="false" printFieldValue="true" >is not a supported HL7 version.</errorMessage>
         <errorMessage id="4" printFieldName="false" printFieldValue="true" >is not a supported ADT Message.</errorMessage>
@@ -68,6 +119,9 @@
         <errorMessage id="7" printFieldName="true" printFieldValue="true" >is not numeric.</errorMessage>
         <errorMessage id="8" printFieldName="true" printFieldValue="true" >is not alpha-numeric.</errorMessage>
         <errorMessage id="9" printFieldName="true" printFieldValue="true" >is a required HL7 message segment and is missing.</errorMessage>
+		<errorMessage id="10" printFieldName="true" printFieldValue="true" >is not a valid format.</errorMessage>
+		<errorMessage id="11" printFieldName="true" printFieldValue="false" >is dependent upon another field whose definition is not found in the Rule Book.</errorMessage>
+        <errorMessage id="12" printFieldName="true" printFieldValue="false" >is a conditionally required field and is missing.</errorMessage>
     </ErrorMessages>
     <ErrorCodes>
         <errorCode id="0"></errorCode>
@@ -76,17 +130,23 @@
         <errorCode id="3">SCHIEPPHInvalidValue</errorCode>
         <errorCode id="4">SCHIEPPHInvalidFormat</errorCode>
         <errorCode id="5">SCHIEPPHRequiredSegmentMissing</errorCode>
+        <errorCode id="6">SCHIEPPHConditionallyRequiredFieldMissing</errorCode>
     </ErrorCodes>
     <DateFormats>
-        <format>yyyy/MM/dd</format>
-        <format>dd/MM/yyyy</format>
-        <format>MM/dd/yyyy</format>
-        <format>yyyy-MM-dd</format>
-        <format>dd-MM-yyyy</format>
-        <format>MM-dd-yyyy</format>
-        <format>yyyy.MM.dd</format>
-        <format>dd.MM-yyyy</format>
-        <format>MM.dd.yyyy</format>
-        <format>dd MMM yyyy</format>
+        <format>yyyyMMddHHmm</format>
+        <format>yyyyMMddHHmm-zzzz</format>
+        <format>yyyyMMddHHmm+zzzz</format>
+        <format>yyyyMMddHHmmss</format>
+        <format>yyyyMMddHHmmss-zzzz</format>
+        <format>yyyyMMddHHmmss+zzzz</format>
+        <format>yyyyMMddHHmmss.S</format>
+        <format>yyyyMMddHHmmss.S-zzzz</format>
+        <format>yyyyMMddHHmmss.S+zzzz</format>
+        <format>yyyyMMddHHmmss.SS</format>
+        <format>yyyyMMddHHmmss.SS-zzzz</format>
+        <format>yyyyMMddHHmmss.SS+zzzz</format>
+        <format>yyyyMMddHHmmss.SSS</format>
+        <format>yyyyMMddHHmmss.SSS-zzzz</format>
+        <format>yyyyMMddHHmmss.SSS+zzzz</format>
     </DateFormats>
 </HL7Validation>

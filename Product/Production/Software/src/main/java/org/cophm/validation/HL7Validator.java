@@ -502,6 +502,14 @@ public class HL7Validator {
         }
 
         //
+        // Do not validate Conditional or Conditionally Optional.
+        //
+        if(usage.ordinal() == Usage.Conditional.ordinal() ||
+                usage.ordinal() == Usage.ConditionalEmpty.ordinal()) {
+            return;
+        }
+
+        //
         // If the segment this field is in is optional or required empty and is
         // missing, then it's not an error and we shouldn't try and validate it.
         //
@@ -731,13 +739,6 @@ public class HL7Validator {
         for(int  y = 0; y < valueToCheckList.size(); y++) {
             value = valueToCheckList.get(y);
 
-            //
-            // If the field is not present, then it cannot require anything else.
-            //
-            if(value.trim().length() == 0) {
-                continue;
-            }
-
             valueToCheck = value;
 
             foundMatch = false;
@@ -777,6 +778,11 @@ public class HL7Validator {
                 captureError(requiresFieldValueElement, fieldName, valueToCheck, usage,
                              "  The required value in field number " + fieldNumberStr + " is not a valid value.");
             }
+        }
+
+        if(valueToCheckList.size() == 0) {
+            captureError(requiresFieldValueElement, fieldName, valueToCheck, usage,
+                          "  The required value in field number " + fieldNumberStr + " is not a valid value.");
         }
 
         return;
@@ -1124,10 +1130,12 @@ public class HL7Validator {
                 container.getMessage() + (additionalMessageDetail != null ? " " + additionalMessageDetail : ""),
                 fieldName,      severity);
 
-        validationResultsList.add(vr);
+        if(validationResultsList.contains(vr) == false) {
+            validationResultsList.add(vr);
 
-        if(maxErrorSeverity.ordinal() < severity.ordinal()) {
-            maxErrorSeverity = severity;
+            if(maxErrorSeverity.ordinal() < severity.ordinal()) {
+                maxErrorSeverity = severity;
+            }
         }
 
         return;
@@ -1152,10 +1160,12 @@ public class HL7Validator {
     private void captureError(String  errorCode, String message, String fieldName, ErrorSeverity severity) {
         ValidationResult    vr = new ValidationResult(errorCode, message, fieldName, severity);
 
-        validationResultsList.add(vr);
+        if(validationResultsList.contains(vr) == false) {
+            validationResultsList.add(vr);
 
-        if(maxErrorSeverity.ordinal() < severity.ordinal()) {
-            maxErrorSeverity = severity;
+            if(maxErrorSeverity.ordinal() < severity.ordinal()) {
+                maxErrorSeverity = severity;
+            }
         }
 
         return;
